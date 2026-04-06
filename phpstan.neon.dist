@@ -1,0 +1,13 @@
+parameters:
+    level: max
+    paths:
+        - src
+
+    # Stricter checking
+    checkUninitializedProperties: true
+    reportUnmatchedIgnoredErrors: true
+    treatPhpDocTypesAsCertain: false
+
+    # Improve error messages
+    tipsOfTheDay: false
+    reportWrongPhpDocTypeInVarTag: true
