@@ -45,8 +45,22 @@ final readonly class MergeStylesPass implements OptimizerPassInterface
         // Find all style elements
         $styleElements = $this->findStyleElements($rootElement);
 
+        // Remove obsolete type="text/css" attribute from all style elements
+        foreach ($styleElements as $styleElement) {
+            if ('text/css' === $styleElement->getAttribute('type')) {
+                $styleElement->removeAttribute('type');
+            }
+        }
+
         if (count($styleElements) <= 1) {
-            // Nothing to merge
+            // Still minify single style elements if requested
+            if ($this->minify && 1 === count($styleElements)) {
+                $content = $styleElements[0]->getContent();
+                if (null !== $content && '' !== $content) {
+                    $styleElements[0]->setContent($this->minifyCss($content));
+                }
+            }
+
             return;
         }
 

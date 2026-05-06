@@ -11,7 +11,6 @@ use Atelier\Svg\Element\Structural\GroupElement;
 use Atelier\Svg\Element\SvgElement;
 use Atelier\Svg\Optimizer\Pass\ScaleCoordinatesPass;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\WithoutErrorHandler;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(ScaleCoordinatesPass::class)]
@@ -101,7 +100,7 @@ final class ScaleCoordinatesPassTest extends TestCase
 
         $pass->optimize($document);
 
-        $this->assertSame('M 3,3 L 6,6', $path->getPathData());
+        $this->assertSame('M3,3L6,6', $path->getPathData());
     }
 
     public function testScalesStrokeDasharray(): void
@@ -137,7 +136,7 @@ final class ScaleCoordinatesPassTest extends TestCase
 
         $this->assertSame('2', $svg->getAttribute('x'));
         $this->assertSame('4', $group->getAttribute('y'));
-        $this->assertSame('M 2,4 L 6,8', $path->getPathData());
+        $this->assertSame('M2,4L6,8', $path->getPathData());
     }
 
     public function testSkipsNonNumericAttributes(): void
@@ -282,27 +281,20 @@ final class ScaleCoordinatesPassTest extends TestCase
         $this->assertSame('20 40', $polygon->getAttribute('points'));
     }
 
-    #[WithoutErrorHandler]
-    public function testScalePathDataCatchesParseError(): void
+    public function testScalePathDataWithMalformedCurve(): void
     {
-        set_error_handler(static function (int $errno, string $errstr): never {
-            throw new \RuntimeException($errstr, $errno);
-        });
+        $pass = new ScaleCoordinatesPass(2.0);
+        $svg = new SvgElement();
+        $path = new PathElement();
+        // Malformed: C needs 6 args, only 1 provided -- parser stops gracefully
+        $path->setPathData('M 0 0 C 1');
 
-        try {
-            $pass = new ScaleCoordinatesPass(2.0);
-            $svg = new SvgElement();
-            $path = new PathElement();
-            $path->setPathData('M 0 0 C 1');
+        $svg->appendChild($path);
+        $document = new Document($svg);
 
-            $svg->appendChild($path);
-            $document = new Document($svg);
+        $pass->optimize($document);
 
-            $pass->optimize($document);
-
-            $this->assertSame('M 0 0 C 1', $path->getPathData());
-        } finally {
-            restore_error_handler();
-        }
+        // Only the valid M segment is preserved and scaled
+        $this->assertSame('M0,0', $path->getPathData());
     }
 }

@@ -222,15 +222,11 @@ final readonly class BoundingBoxCalculator
             return new BoundingBox(0, 0, 0, 0);
         }
 
-        try {
-            $parser = new \Atelier\Svg\Path\PathParser();
-            $pathData = $parser->parse($d);
-            $analyzer = new PathAnalyzer($pathData);
+        $parser = new \Atelier\Svg\Path\PathParser();
+        $pathData = $parser->parse($d);
+        $analyzer = new PathAnalyzer($pathData);
 
-            return $analyzer->getBoundingBox();
-        } catch (\Throwable) {
-            return new BoundingBox(0, 0, 0, 0);
-        }
+        return $analyzer->getBoundingBox();
     }
 
     /**

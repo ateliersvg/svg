@@ -287,6 +287,54 @@ final class MergeStylesPassTest extends TestCase
         $this->assertCount(2, $svg->getChildren());
     }
 
+    public function testMinifiesSingleStyleElement(): void
+    {
+        $pass = new MergeStylesPass(minify: true);
+        $svg = new SvgElement();
+        $style = new StyleElement();
+        $style->setContent("  path { fill: #000; }  \n  .cls { stroke: red; }  ");
+        $svg->appendChild($style);
+        $document = new Document($svg);
+
+        $pass->optimize($document);
+
+        $content = $style->getContent();
+        $this->assertNotNull($content);
+        $this->assertStringNotContainsString("\n", $content);
+        // CSS should be minified (whitespace removed around braces/colons)
+        $this->assertStringContainsString('path{fill:#000;', $content);
+    }
+
+    public function testRemovesTypeTextCssAttribute(): void
+    {
+        $pass = new MergeStylesPass();
+        $svg = new SvgElement();
+        $style = new StyleElement();
+        $style->setAttribute('type', 'text/css');
+        $style->setContent('path { fill: #000; }');
+        $svg->appendChild($style);
+        $document = new Document($svg);
+
+        $pass->optimize($document);
+
+        $this->assertNull($style->getAttribute('type'));
+    }
+
+    public function testDoesNotRemoveNonStandardTypeAttribute(): void
+    {
+        $pass = new MergeStylesPass();
+        $svg = new SvgElement();
+        $style = new StyleElement();
+        $style->setAttribute('type', 'text/plain');
+        $style->setContent('path { fill: #000; }');
+        $svg->appendChild($style);
+        $document = new Document($svg);
+
+        $pass->optimize($document);
+
+        $this->assertSame('text/plain', $style->getAttribute('type'));
+    }
+
     /**
      * Helper to find all style elements recursively.
      *

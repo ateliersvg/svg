@@ -40,18 +40,6 @@ final class RemoveXMLProcInstPass implements OptimizerPassInterface
      */
     public function optimize(Document $document): void
     {
-        // The XML processing instruction is typically stored at the document level
-        // In this implementation, we mark that the XML declaration should not be included
-        // when the document is serialized
-
-        // Note: The actual removal happens during serialization by the dumper.
-        // We set a flag on the document to indicate that the XML declaration
-        // should be omitted.
-
-        // For now, this is a placeholder that will work with the dumper's configuration.
-        // The Document class would need a method to control XML declaration output.
-
-        // This pass is primarily informational - the actual removal typically happens
-        // at the dumper level by not including the XML declaration in the output.
+        $document->setOmitXmlDeclaration(true);
     }
 }

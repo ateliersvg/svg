@@ -767,27 +767,19 @@ final class BoundingBoxCalculatorTest extends TestCase
     #[WithoutErrorHandler]
     public function testGetPathBBoxReturnsZeroBBoxOnParseError(): void
     {
-        set_error_handler(static function (int $errno, string $errstr): never {
-            throw new \RuntimeException($errstr, $errno);
-        });
+        $doc = Document::create();
+        $root = $doc->getRootElement();
+        $this->assertNotNull($root);
+        $path = new PathElement();
+        $root->appendChild($path);
+        $path->setAttribute('d', 'M 0 0 C 1');
 
-        try {
-            $doc = Document::create();
-            $root = $doc->getRootElement();
-            $this->assertNotNull($root);
-            $path = new PathElement();
-            $root->appendChild($path);
-            $path->setAttribute('d', 'M 0 0 C 1');
+        $helper = new BoundingBoxCalculator($path);
+        $bbox = $helper->getLocal();
 
-            $helper = new BoundingBoxCalculator($path);
-            $bbox = $helper->getLocal();
-
-            $this->assertEquals(0, $bbox->minX);
-            $this->assertEquals(0, $bbox->minY);
-            $this->assertEquals(0, $bbox->maxX);
-            $this->assertEquals(0, $bbox->maxY);
-        } finally {
-            restore_error_handler();
-        }
+        $this->assertEquals(0, $bbox->minX);
+        $this->assertEquals(0, $bbox->minY);
+        $this->assertEquals(0, $bbox->maxX);
+        $this->assertEquals(0, $bbox->maxY);
     }
 }

@@ -55,7 +55,7 @@ SVG;
         $this->assertInstanceOf(PathElement::class, $path);
         $this->assertInstanceOf(PolygonElement::class, $polygon);
 
-        $this->assertSame('M 1,2 L 3,4', $path->getPathData());
+        $this->assertSame('M1,2L3,4', $path->getPathData());
         $this->assertSame('1', $path->getAttribute('stroke-width'));
         $this->assertSame('1 2', $path->getAttribute('stroke-dasharray'));
 

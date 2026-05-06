@@ -127,13 +127,9 @@ final class ScaleCoordinatesPass extends AbstractOptimizerPass
             return;
         }
 
-        try {
-            $data = $this->pathParser->parse($pathData);
-            $scaledData = $this->pathTransformer->transform($data, Transformation::scale($this->scaleFactor));
-            $element->setPathData($scaledData->toString());
-        } catch (\Throwable) {
-            // Leave path untouched on parse/transform error
-        }
+        $data = $this->pathParser->parse($pathData);
+        $scaledData = $this->pathTransformer->transform($data, Transformation::scale($this->scaleFactor));
+        $element->setPathData($scaledData->toString());
     }
 
     private function scalePoints(ElementInterface $element): void
