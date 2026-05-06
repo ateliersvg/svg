@@ -1270,4 +1270,13 @@ final class DocumentTest extends TestCase
         $this->assertInstanceOf(SymbolElement::class, $symbol);
         $this->assertSame('0 0 100 100', $symbol->getAttribute('viewBox'));
     }
+
+    public function testGetOmitXmlDeclaration(): void
+    {
+        $doc = Document::create();
+        $this->assertFalse($doc->getOmitXmlDeclaration());
+
+        $doc->setOmitXmlDeclaration(true);
+        $this->assertTrue($doc->getOmitXmlDeclaration());
+    }
 }

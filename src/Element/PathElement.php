@@ -93,19 +93,6 @@ final class PathElement extends AbstractContainerElement
      */
     private function serializeData(Data $data): string
     {
-        $parts = [];
-
-        foreach ($data->getSegments() as $segment) {
-            $command = $segment->getCommand();
-            $args = $segment->commandArgumentsToString();
-
-            if ('' !== $args) {
-                $parts[] = $command.$args;
-            } else {
-                $parts[] = $command;
-            }
-        }
-
-        return implode(' ', $parts);
+        return $data->toString();
     }
 }
