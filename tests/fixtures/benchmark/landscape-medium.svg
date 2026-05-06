@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 600">
+  <title>Mountain Landscape</title>
+  <desc>A scenic mountain landscape with forests, lake, clouds, and wildlife</desc>
+  <defs>
+    <linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1a2a6c"/>
+      <stop offset="40%" stop-color="#4a7fb5"/>
+      <stop offset="70%" stop-color="#87ceeb"/>
+      <stop offset="100%" stop-color="#b4d7e8"/>
+    </linearGradient>
+    <radialGradient id="sun-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff7e0"/>
+      <stop offset="40%" stop-color="#fca311"/>
+      <stop offset="100%" stop-color="#fca311" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="mountain-far" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8e99a4"/>
+      <stop offset="100%" stop-color="#6b7b8d"/>
+    </linearGradient>
+    <linearGradient id="mountain-mid" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#5c6b73"/>
+      <stop offset="100%" stop-color="#3f4e56"/>
+    </linearGradient>
+    <linearGradient id="mountain-near" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3a4a3f"/>
+      <stop offset="100%" stop-color="#2d3a2e"/>
+    </linearGradient>
+    <linearGradient id="lake-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3a86a8" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#1a5276"/>
+    </linearGradient>
+    <pattern id="grass" width="8" height="8" patternUnits="userSpaceOnUse">
+      <path d="M0 8 Q2 4 1 0 M4 8 Q5 3 4 0 M7 8 Q8 5 7 1" stroke="#4a7c3f" stroke-width="0.5" fill="none"/>
+    </pattern>
+    <filter id="distance-blur" x="-5%" y="-5%" width="110%" height="110%">
+      <feGaussianBlur stdDeviation="1.5"/>
+    </filter>
+    <mask id="lake-reflection">
+      <linearGradient id="reflect-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="white"/>
+        <stop offset="100%" stop-color="black"/>
+      </linearGradient>
+      <rect x="0" y="430" width="1000" height="170" fill="url(#reflect-grad)"/>
+    </mask>
+    <clipPath id="scene-bounds">
+      <rect x="0" y="0" width="1000" height="600"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#scene-bounds)">
+    <!-- Sky -->
+    <rect width="1000" height="600" fill="url(#sky)"/>
+    <!-- Sun -->
+    <g id="sun" transform="translate(780, 100)">
+      <circle r="70" fill="url(#sun-glow)"/>
+      <circle r="35" fill="#ffeaa7"/>
+    </g>
+    <!-- Clouds -->
+    <g id="clouds" fill="#ffffff" opacity="0.6">
+      <g transform="translate(150, 80)">
+        <ellipse rx="50" ry="18"/><ellipse cx="35" cy="-5" rx="35" ry="14"/><ellipse cx="-25" cy="4" rx="30" ry="12"/>
+      </g>
+      <g transform="translate(500, 60)">
+        <ellipse rx="45" ry="16"/><ellipse cx="30" cy="-4" rx="30" ry="12"/>
+      </g>
+      <g transform="translate(350, 120)">
+        <ellipse rx="30" ry="10"/><ellipse cx="20" cy="-3" rx="22" ry="9"/>
+      </g>
+    </g>
+    <!-- Birds -->
+    <g id="birds" fill="none" stroke="#333" stroke-width="1" opacity="0.4">
+      <path d="M200 140 q5-6 10 0 q5-6 10 0"/>
+      <path d="M220 130 q4-5 8 0 q4-5 8 0"/>
+      <path d="M240 145 q3-4 6 0 q3-4 6 0"/>
+    </g>
+    <!-- Far mountains -->
+    <g id="far-mountains" filter="url(#distance-blur)">
+      <path d="M0 350 L80 220 L160 280 L280 180 L380 260 L500 200 L600 250 L720 170 L850 240 L1000 210 V600 H0 Z" fill="url(#mountain-far)"/>
+    </g>
+    <!-- Mid mountains -->
+    <path d="M0 380 L100 280 L200 330 L350 240 L480 310 L600 260 L750 290 L900 230 L1000 280 V600 H0 Z" fill="url(#mountain-mid)"/>
+    <!-- Snow caps -->
+    <g id="snow" fill="#ffffff" opacity="0.6">
+      <path d="M340 245 L350 240 L360 248 Q350 255 340 245"/>
+      <path d="M890 234 L900 230 L910 236 Q900 242 890 234"/>
+    </g>
+    <!-- Near mountains / hills -->
+    <path d="M0 420 L120 350 L250 390 L400 340 L550 380 L700 350 L850 370 L1000 340 V600 H0 Z" fill="url(#mountain-near)"/>
+    <!-- Forest layer 1 (far) -->
+    <g id="forest-far" fill="#2e5930" opacity="0.7">
+      <path d="M0 410 l8-15 l8 15 l8-15 l8 15 l8-15 l8 15 l8-15 l8 15 l8-15 l8 15 l8-15 l8 15 l8-15 l8 15 l8-15 l8 15 l8-15 l8 15 l8-15 l8 15 l8-15 l8 15 l8-15 l8 15 l8-15 l8 15 l8-15 l8 15 l8-15 l8 15 l8-15 l8 15 l8-15 l8 15 l8-15 l8 15 l8-15 l8 15 l8-15 l8 15 l8-15 l8 15 l8-15 l8 15 V430 H0 Z"/>
+    </g>
+    <!-- Forest layer 2 (mid) -->
+    <g id="forest-mid" fill="#1b5e20">
+      <path d="M0 430 l10-20 l10 20 l10-18 l10 18 l10-22 l10 22 l10-17 l10 17 l10-20 l10 20 l10-19 l10 19 l10-21 l10 21 l10-18 l10 18 l10-20 l10 20 l10-22 l10 22 l10-18 l10 18 l10-20 l10 20 l10-19 l10 19 l10-21 l10 21 l10-17 l10 17 l10-20 l10 20 l10-18 l10 18 l10-22 l10 22 l10-20 l10 20 l10-19 l10 19 l10-21 l10 21 l10-18 l10 18 V450 H0 Z"/>
+    </g>
+    <!-- Forest layer 3 (near) -->
+    <g id="forest-near" fill="#0d3b10">
+      <path d="M0 450 l12-25 l12 25 l12-22 l12 22 l12-27 l12 27 l12-23 l12 23 l12-25 l12 25 l12-24 l12 24 l12-26 l12 26 l12-22 l12 22 l12-25 l12 25 l12-27 l12 27 l12-23 l12 23 l12-25 l12 25 l12-24 l12 24 l12-26 l12 26 l12-22 l12 22 l12-25 l12 25 l12-23 l12 23 l12-27 l12 27 l12-25 l12 25 V470 H0 Z"/>
+    </g>
+    <!-- Lake -->
+    <path d="M100 470 Q300 460 500 470 Q700 480 900 465 V560 Q700 575 500 565 Q300 555 100 570 Z" fill="url(#lake-grad)"/>
+    <!-- Lake reflection -->
+    <g mask="url(#lake-reflection)" opacity="0.3">
+      <g transform="translate(0, 900) scale(1, -1)">
+        <path d="M0 420 L120 350 L250 390 L400 340 L550 380 L700 350 L850 370 L1000 340 V600 H0 Z" fill="url(#mountain-near)"/>
+      </g>
+    </g>
+    <!-- Grass -->
+    <rect x="0" y="560" width="1000" height="40" fill="#3a6b35"/>
+    <rect x="0" y="560" width="1000" height="40" fill="url(#grass)"/>
+    <!-- Flowers -->
+    <g id="flowers">
+      <circle cx="80" cy="572" r="3" fill="#e74c3c"/>
+      <circle cx="200" cy="568" r="2.5" fill="#f1c40f"/>
+      <circle cx="350" cy="575" r="3" fill="#e74c3c"/>
+      <circle cx="520" cy="570" r="2" fill="#9b59b6"/>
+      <circle cx="680" cy="573" r="3" fill="#f1c40f"/>
+      <circle cx="820" cy="569" r="2.5" fill="#e74c3c"/>
+      <circle cx="950" cy="574" r="2" fill="#9b59b6"/>
+    </g>
+    <!-- Title -->
+    <text x="500" y="590" text-anchor="middle" font-family="Georgia, serif" font-size="12" fill="#fff" opacity="0.5">Mountain Valley</text>
+  </g>
+</svg>

@@ -1,0 +1,900 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     viewBox="0 0 600 800" width="600" height="800">
+
+  <!-- ============================================================ -->
+  <!-- Badge 1: Champion                                            -->
+  <!-- ============================================================ -->
+  <defs>
+    <!-- Champion filter definitions -->
+    <filter id="champion-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blur1"/>
+      <feOffset in="blur1" dx="2" dy="3" result="offsetBlur1"/>
+      <feFlood flood-color="#B8860B" flood-opacity="0.5" result="flood1"/>
+      <feMerge>
+        <feMergeNode in="flood1"/>
+        <feMergeNode in="offsetBlur1"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+      <feColorMatrix type="saturate" values="1.2" in="SourceGraphic" result="saturated1"/>
+    </filter>
+    <!-- Champion gradient definitions -->
+    <linearGradient id="champion-bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFD700" stop-opacity="1"/>
+      <stop offset="50%" stop-color="#DAA520" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#B8860B" stop-opacity="1"/>
+    </linearGradient>
+    <radialGradient id="champion-shine" cx="40%" cy="35%" r="60%" fx="40%" fy="35%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.7"/>
+      <stop offset="60%" stop-color="#FFFFFF" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Champion clip path and mask -->
+    <clipPath id="champion-clip">
+      <circle cx="110" cy="90" r="55"/>
+    </clipPath>
+    <mask id="champion-mask">
+      <rect x="40" y="20" width="140" height="140" fill="white"/>
+      <circle cx="110" cy="90" r="58" fill="black"/>
+      <circle cx="110" cy="90" r="55" fill="white"/>
+    </mask>
+    <!-- Champion pattern fill (dots) -->
+    <pattern id="champion-pattern" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
+      <rect width="8" height="8" fill="#FFD700"/>
+      <circle cx="4" cy="4" r="1.5" fill="#B8860B" opacity="0.4"/>
+    </pattern>
+    <!-- Champion text path -->
+    <path id="champion-text-arc" d="M 65,120 A 50,50 0 0,1 155,120" fill="none"/>
+  </defs>
+  <g id="badge-champion" transform="translate(50, 10)">
+    <g class="badge-body-group" opacity="1">
+      <g class="badge-decoration-group">
+        <g class="badge-detail-group">
+          <g class="badge-element-group">
+            <!-- Champion background circle -->
+            <circle cx="110" cy="90" r="58" fill="url(#champion-bg-grad)" stroke="#8B6914" stroke-width="2.5" filter="url(#champion-shadow)"/>
+            <circle cx="110" cy="90" r="55" fill="url(#champion-pattern)" clip-path="url(#champion-clip)" opacity="0.3"/>
+            <!-- Champion star polygon -->
+            <polygon points="110,40 122,72 157,72 129,92 139,125 110,105 81,125 91,92 63,72 98,72"
+                     fill="url(#champion-bg-grad)" stroke="#8B6914" stroke-width="1.5"
+                     stroke-linejoin="round"/>
+            <!-- Champion shine overlay -->
+            <circle cx="110" cy="90" r="54" fill="url(#champion-shine)"/>
+            <!-- Champion ribbon paths -->
+            <path d="M 75,135 L 65,165 L 85,155 L 80,140 Z" fill="#C41E3A" stroke="#8B0000" stroke-width="0.8"/>
+            <path d="M 145,135 L 155,165 L 135,155 L 140,140 Z" fill="#C41E3A" stroke="#8B0000" stroke-width="0.8"/>
+            <!-- Champion decorative arcs -->
+            <path d="M 60,85 A 52,52 0 0,1 110,35" fill="none" stroke="#FFE44D" stroke-width="1" opacity="0.5"/>
+            <path d="M 160,85 A 52,52 0 0,0 110,35" fill="none" stroke="#FFE44D" stroke-width="1" opacity="0.5"/>
+            <!-- Champion ellipse accent -->
+            <ellipse cx="110" cy="90" rx="35" ry="12" fill="none" stroke="#DAA520" stroke-width="0.7" style="opacity: 0.4; stroke-dasharray: 3 2;"/>
+            <!-- Champion text label -->
+            <text x="110" y="95" text-anchor="middle" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#4A3000" style="letter-spacing: 1px;">CHAMPION</text>
+            <!-- Champion curved text -->
+            <text font-family="Arial, sans-serif" font-size="7" fill="#8B6914">
+              <textPath xlink:href="#champion-text-arc" startOffset="50%" text-anchor="middle">~ Achievement Unlocked ~</textPath>
+            </text>
+            <!-- Champion decorative lines -->
+            <line x1="70" y1="108" x2="90" y2="108" stroke="#B8860B" stroke-width="0.8"/>
+            <line x1="130" y1="108" x2="150" y2="108" stroke="#B8860B" stroke-width="0.8"/>
+            <!-- Champion small rect accents -->
+            <rect x="96" y="106" width="28" height="3" rx="1.5" fill="#DAA520" opacity="0.6"/>
+          </g>
+          <g class="empty-decoration-1"/>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- Badge 2: Explorer                                            -->
+  <!-- ============================================================ -->
+  <defs>
+    <!-- Explorer filter definitions -->
+    <filter id="explorer-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3.5" result="blur2"/>
+      <feOffset in="blur2" dx="2" dy="4" result="offsetBlur2"/>
+      <feFlood flood-color="#006400" flood-opacity="0.5" result="flood2"/>
+      <feMerge>
+        <feMergeNode in="flood2"/>
+        <feMergeNode in="offsetBlur2"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+      <feColorMatrix type="hueRotate" values="15" in="SourceGraphic" result="hue2"/>
+    </filter>
+    <!-- Explorer gradient definitions -->
+    <linearGradient id="explorer-bg-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2E8B57" stop-opacity="1"/>
+      <stop offset="50%" stop-color="#228B22" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#006400" stop-opacity="1"/>
+    </linearGradient>
+    <radialGradient id="explorer-shine" cx="35%" cy="30%" r="55%" fx="35%" fy="30%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.65"/>
+      <stop offset="55%" stop-color="#FFFFFF" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Explorer clip path and mask -->
+    <clipPath id="explorer-clip">
+      <circle cx="380" cy="90" r="55"/>
+    </clipPath>
+    <mask id="explorer-mask">
+      <rect x="310" y="20" width="140" height="140" fill="white"/>
+      <circle cx="380" cy="90" r="58" fill="black"/>
+      <circle cx="380" cy="90" r="55" fill="white"/>
+    </mask>
+    <!-- Explorer pattern fill (stripes) -->
+    <pattern id="explorer-pattern" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
+      <rect width="6" height="6" fill="#228B22"/>
+      <line x1="0" y1="0" x2="6" y2="6" stroke="#006400" stroke-width="1" opacity="0.35"/>
+    </pattern>
+    <!-- Explorer text path -->
+    <path id="explorer-text-arc" d="M 335,120 A 50,50 0 0,1 425,120" fill="none"/>
+  </defs>
+  <g id="badge-explorer" transform="translate(320, 10)">
+    <g class="badge-body-group" opacity="1">
+      <g class="badge-decoration-group">
+        <g class="badge-detail-group">
+          <g class="badge-element-group">
+            <g class="inner-element-group">
+              <!-- Explorer background circle -->
+              <circle cx="110" cy="90" r="58" fill="url(#explorer-bg-grad)" stroke="#004D00" stroke-width="2.5" filter="url(#explorer-shadow)"/>
+              <circle cx="110" cy="90" r="55" fill="url(#explorer-pattern)" clip-path="url(#explorer-clip)" opacity="0.25"/>
+              <!-- Explorer compass rose polygon -->
+              <polygon points="110,42 118,78 150,78 124,98 134,130 110,110 86,130 96,98 70,78 102,78"
+                       style="fill: #2E8B57; stroke: #004D00; stroke-width: 1.5; stroke-linejoin: round;"/>
+              <!-- Explorer compass needle -->
+              <polygon points="110,50 115,85 110,80 105,85" fill="#FAFAD2" stroke="#8B8970" stroke-width="0.5"/>
+              <polygon points="110,130 115,95 110,100 105,95" fill="#DC143C" stroke="#8B0000" stroke-width="0.5"/>
+              <!-- Explorer shine overlay -->
+              <circle cx="110" cy="90" r="54" fill="url(#explorer-shine)"/>
+              <!-- Explorer ribbon paths -->
+              <path d="M 75,135 Q 65,155 60,170 L 82,158 L 78,140 Z" fill="#4682B4" stroke="#2F4F6F" stroke-width="0.8"/>
+              <path d="M 145,135 Q 155,155 160,170 L 138,158 L 142,140 Z" fill="#4682B4" stroke="#2F4F6F" stroke-width="0.8"/>
+              <!-- Explorer decorative arcs -->
+              <path d="M 58,90 A 55,55 0 0,1 110,33" fill="none" stroke="#90EE90" stroke-width="1.2" opacity="0.4"/>
+              <path d="M 162,90 A 55,55 0 0,0 110,33" fill="none" stroke="#90EE90" stroke-width="1.2" opacity="0.4"/>
+              <!-- Explorer ellipse accent -->
+              <ellipse cx="110" cy="90" rx="38" ry="10" fill="none" stroke="#90EE90" stroke-width="0.7" style="opacity: 0.35; stroke-dasharray: 4 2;"/>
+              <!-- Explorer polyline decoration -->
+              <polyline points="85,65 95,55 105,65 115,55 125,65 135,55" fill="none" stroke="#FAFAD2" stroke-width="0.6" opacity="0.5"/>
+              <!-- Explorer text label -->
+              <text x="110" y="95" text-anchor="middle" font-family="Verdana, sans-serif" font-size="11" font-weight="bold" fill="#002200" style="letter-spacing: 0.8px;">EXPLORER</text>
+              <!-- Explorer curved text -->
+              <text font-family="Arial, sans-serif" font-size="7" fill="#004D00">
+                <textPath xlink:href="#explorer-text-arc" startOffset="50%" text-anchor="middle">~ New Horizons ~</textPath>
+              </text>
+              <line x1="72" y1="108" x2="92" y2="108" stroke="#006400" stroke-width="0.8"/>
+              <line x1="128" y1="108" x2="148" y2="108" stroke="#006400" stroke-width="0.8"/>
+              <rect x="94" y="106" width="32" height="3" rx="1.5" fill="#228B22" opacity="0.5"/>
+            </g>
+          </g>
+          <g class="empty-accent-2"/>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- Badge 3: Scholar                                             -->
+  <!-- ============================================================ -->
+  <defs>
+    <!-- Scholar filter definitions -->
+    <filter id="scholar-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2.8" result="blur3"/>
+      <feOffset in="blur3" dx="1" dy="3" result="offsetBlur3"/>
+      <feFlood flood-color="#191970" flood-opacity="0.5" result="flood3"/>
+      <feMerge>
+        <feMergeNode in="flood3"/>
+        <feMergeNode in="offsetBlur3"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+      <feColorMatrix type="saturate" values="1.4" in="SourceGraphic" result="saturated3"/>
+    </filter>
+    <!-- Scholar gradient definitions -->
+    <linearGradient id="scholar-bg-grad" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4169E1" stop-opacity="1"/>
+      <stop offset="50%" stop-color="#1E3A8A" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#191970" stop-opacity="1"/>
+    </linearGradient>
+    <radialGradient id="scholar-shine" cx="45%" cy="32%" r="58%" fx="45%" fy="32%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.6"/>
+      <stop offset="50%" stop-color="#E0E8FF" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Scholar clip path and mask -->
+    <clipPath id="scholar-clip">
+      <circle cx="110" cy="240" r="55"/>
+    </clipPath>
+    <mask id="scholar-mask">
+      <rect x="40" y="170" width="140" height="140" fill="white"/>
+      <circle cx="110" cy="240" r="58" fill="black"/>
+      <circle cx="110" cy="240" r="55" fill="white"/>
+    </mask>
+    <!-- Scholar pattern fill (crosshatch) -->
+    <pattern id="scholar-pattern" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+      <rect width="10" height="10" fill="#1E3A8A"/>
+      <line x1="0" y1="0" x2="10" y2="10" stroke="#4169E1" stroke-width="0.7" opacity="0.3"/>
+      <line x1="10" y1="0" x2="0" y2="10" stroke="#4169E1" stroke-width="0.7" opacity="0.3"/>
+    </pattern>
+    <!-- Scholar text path -->
+    <path id="scholar-text-arc" d="M 65,270 A 50,50 0 0,1 155,270" fill="none"/>
+  </defs>
+  <g id="badge-scholar" transform="translate(50, 160)">
+    <g class="badge-body-group" opacity="1">
+      <g class="badge-decoration-group">
+        <g class="badge-detail-group">
+          <g class="badge-element-group">
+            <g class="inner-scholar-group">
+              <!-- Scholar background circle -->
+              <circle cx="110" cy="90" r="58" fill="url(#scholar-bg-grad)" stroke="#0F1B5E" stroke-width="2.5" filter="url(#scholar-shadow)"/>
+              <circle cx="110" cy="90" r="55" fill="url(#scholar-pattern)" opacity="0.2"/>
+              <!-- Scholar book/shield shape -->
+              <path d="M 85,60 L 85,120 Q 110,135 135,120 L 135,60 Q 110,48 85,60 Z"
+                    fill="url(#scholar-bg-grad)" stroke="#0F1B5E" stroke-width="1.5"/>
+              <!-- Scholar open book detail -->
+              <path d="M 110,58 L 110,125" stroke="#B0C4DE" stroke-width="0.8"/>
+              <path d="M 90,70 L 108,68" stroke="#B0C4DE" stroke-width="0.5" opacity="0.6"/>
+              <path d="M 90,78 L 108,76" stroke="#B0C4DE" stroke-width="0.5" opacity="0.6"/>
+              <path d="M 90,86 L 108,84" stroke="#B0C4DE" stroke-width="0.5" opacity="0.6"/>
+              <path d="M 112,68 L 130,70" stroke="#B0C4DE" stroke-width="0.5" opacity="0.6"/>
+              <path d="M 112,76 L 130,78" stroke="#B0C4DE" stroke-width="0.5" opacity="0.6"/>
+              <path d="M 112,84 L 130,86" stroke="#B0C4DE" stroke-width="0.5" opacity="0.6"/>
+              <!-- Scholar shine overlay -->
+              <circle cx="110" cy="90" r="54" fill="url(#scholar-shine)"/>
+              <!-- Scholar ribbon paths -->
+              <path d="M 75,135 L 60,168 L 83,155 L 78,138 Z" fill="#8B008B" stroke="#4B0082" stroke-width="0.8"/>
+              <path d="M 145,135 L 160,168 L 137,155 L 142,138 Z" fill="#8B008B" stroke="#4B0082" stroke-width="0.8"/>
+              <!-- Scholar decorative arcs -->
+              <path d="M 58,88 A 54,54 0 0,1 110,34" fill="none" stroke="#87CEEB" stroke-width="1" opacity="0.45"/>
+              <ellipse cx="110" cy="90" rx="40" ry="14" fill="none" stroke="#6495ED" stroke-width="0.6" style="opacity: 0.3; stroke-dasharray: 2 3;"/>
+              <!-- Scholar text label -->
+              <text x="110" y="96" text-anchor="middle" font-family="'Times New Roman', serif" font-size="11" font-weight="bold" fill="#E0E8FF" style="letter-spacing: 1.2px;">SCHOLAR</text>
+              <!-- Scholar curved text -->
+              <text font-family="Georgia, serif" font-size="7" fill="#6495ED">
+                <textPath xlink:href="#scholar-text-arc" startOffset="50%" text-anchor="middle">~ Knowledge Seeker ~</textPath>
+              </text>
+              <line x1="72" y1="108" x2="92" y2="108" stroke="#4169E1" stroke-width="0.7"/>
+              <line x1="128" y1="108" x2="148" y2="108" stroke="#4169E1" stroke-width="0.7"/>
+              <rect x="95" y="106" width="30" height="3" rx="1.5" fill="#6495ED" opacity="0.5"/>
+            </g>
+            <g class="empty-scholar-accent"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- Badge 4: Pioneer                                             -->
+  <!-- ============================================================ -->
+  <defs>
+    <!-- Pioneer filter definitions -->
+    <filter id="pioneer-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3.2" result="blur4"/>
+      <feOffset in="blur4" dx="3" dy="3" result="offsetBlur4"/>
+      <feFlood flood-color="#8B4513" flood-opacity="0.55" result="flood4"/>
+      <feMerge>
+        <feMergeNode in="flood4"/>
+        <feMergeNode in="offsetBlur4"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+      <feColorMatrix type="saturate" values="1.1" in="SourceGraphic" result="saturated4"/>
+    </filter>
+    <!-- Pioneer gradient definitions -->
+    <linearGradient id="pioneer-bg-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D2691E" stop-opacity="1"/>
+      <stop offset="50%" stop-color="#CD853F" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#8B4513" stop-opacity="1"/>
+    </linearGradient>
+    <radialGradient id="pioneer-shine" cx="38%" cy="28%" r="62%" fx="38%" fy="28%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.55"/>
+      <stop offset="55%" stop-color="#FFF8DC" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Pioneer clip path and mask -->
+    <clipPath id="pioneer-clip">
+      <circle cx="380" cy="240" r="55"/>
+    </clipPath>
+    <mask id="pioneer-mask">
+      <rect x="310" y="170" width="140" height="140" fill="white"/>
+      <circle cx="380" cy="240" r="58" fill="black"/>
+      <circle cx="380" cy="240" r="55" fill="white"/>
+    </mask>
+    <!-- Pioneer pattern fill (dots variant) -->
+    <pattern id="pioneer-pattern" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse">
+      <rect width="12" height="12" fill="#CD853F"/>
+      <circle cx="3" cy="3" r="1" fill="#8B4513" opacity="0.3"/>
+      <circle cx="9" cy="9" r="1" fill="#8B4513" opacity="0.3"/>
+    </pattern>
+    <!-- Pioneer text path -->
+    <path id="pioneer-text-arc" d="M 335,270 A 50,50 0 0,1 425,270" fill="none"/>
+  </defs>
+  <g id="badge-pioneer" transform="translate(320, 160)">
+    <g class="badge-body-group" opacity="1">
+      <g class="badge-decoration-group">
+        <g class="badge-detail-group">
+          <g class="badge-element-group">
+            <g class="inner-pioneer-group">
+              <!-- Pioneer background circle -->
+              <circle cx="110" cy="90" r="58" fill="url(#pioneer-bg-grad)" stroke="#5C3317" stroke-width="2.5" filter="url(#pioneer-shadow)"/>
+              <circle cx="110" cy="90" r="55" fill="url(#pioneer-pattern)" opacity="0.25"/>
+              <!-- Pioneer shield polygon -->
+              <polygon points="110,45 140,65 140,105 125,125 110,130 95,125 80,105 80,65"
+                       style="fill: url(#pioneer-bg-grad); stroke: #5C3317; stroke-width: 1.5;"/>
+              <!-- Pioneer pickaxe detail paths -->
+              <path d="M 100,70 L 120,110" stroke="#FFF8DC" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M 95,68 L 105,72 L 100,65 Z" fill="#C0C0C0" stroke="#808080" stroke-width="0.5"/>
+              <!-- Pioneer shine overlay -->
+              <circle cx="110" cy="90" r="54" fill="url(#pioneer-shine)"/>
+              <!-- Pioneer ribbon paths -->
+              <path d="M 75,135 L 62,167 L 84,156 Z" fill="#8B0000" stroke="#5C0000" stroke-width="0.8"/>
+              <path d="M 145,135 L 158,167 L 136,156 Z" fill="#8B0000" stroke="#5C0000" stroke-width="0.8"/>
+              <!-- Pioneer arcs -->
+              <path d="M 56,92 A 56,56 0 0,1 110,32" fill="none" stroke="#DEB887" stroke-width="1" opacity="0.4"/>
+              <path d="M 164,92 A 56,56 0 0,0 110,32" fill="none" stroke="#DEB887" stroke-width="1" opacity="0.4"/>
+              <!-- Pioneer polyline decoration -->
+              <polyline points="80,50 90,45 100,50 110,42 120,50 130,45 140,50" fill="none" stroke="#FFF8DC" stroke-width="0.6" opacity="0.45"/>
+              <!-- Pioneer ellipse accent -->
+              <ellipse cx="110" cy="90" rx="36" ry="11" fill="none" stroke="#DEB887" stroke-width="0.6" style="opacity: 0.35; stroke-dasharray: 3 3;"/>
+              <!-- Pioneer text label -->
+              <text x="110" y="96" text-anchor="middle" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="#FFF8DC" style="letter-spacing: 1px;">PIONEER</text>
+              <!-- Pioneer curved text -->
+              <text font-family="Verdana, sans-serif" font-size="7" fill="#8B4513">
+                <textPath xlink:href="#pioneer-text-arc" startOffset="50%" text-anchor="middle">~ First Steps ~</textPath>
+              </text>
+              <line x1="70" y1="108" x2="92" y2="108" stroke="#8B4513" stroke-width="0.8"/>
+              <line x1="128" y1="108" x2="150" y2="108" stroke="#8B4513" stroke-width="0.8"/>
+              <rect x="95" y="106" width="30" height="3" rx="1.5" fill="#CD853F" opacity="0.55"/>
+            </g>
+          </g>
+          <g class="empty-pioneer-spacer"/>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- Badge 5: Guardian                                            -->
+  <!-- ============================================================ -->
+  <defs>
+    <!-- Guardian filter definitions -->
+    <filter id="guardian-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blur5"/>
+      <feOffset in="blur5" dx="2" dy="4" result="offsetBlur5"/>
+      <feFlood flood-color="#4B0082" flood-opacity="0.5" result="flood5"/>
+      <feMerge>
+        <feMergeNode in="flood5"/>
+        <feMergeNode in="offsetBlur5"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+      <feColorMatrix type="hueRotate" values="25" in="SourceGraphic" result="hue5"/>
+    </filter>
+    <!-- Guardian gradient definitions -->
+    <linearGradient id="guardian-bg-grad" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#9370DB" stop-opacity="1"/>
+      <stop offset="50%" stop-color="#6A0DAD" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#4B0082" stop-opacity="1"/>
+    </linearGradient>
+    <radialGradient id="guardian-shine" cx="42%" cy="30%" r="60%" fx="42%" fy="30%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.6"/>
+      <stop offset="50%" stop-color="#E6D0FF" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Guardian clip path and mask -->
+    <clipPath id="guardian-clip">
+      <circle cx="110" cy="390" r="55"/>
+    </clipPath>
+    <mask id="guardian-mask">
+      <rect x="40" y="320" width="140" height="140" fill="white"/>
+      <circle cx="110" cy="390" r="58" fill="black"/>
+      <circle cx="110" cy="390" r="55" fill="white"/>
+    </mask>
+    <!-- Guardian pattern fill (stripes variant) -->
+    <pattern id="guardian-pattern" x="0" y="0" width="7" height="7" patternUnits="userSpaceOnUse">
+      <rect width="7" height="7" fill="#6A0DAD"/>
+      <rect x="0" y="0" width="3" height="7" fill="#4B0082" opacity="0.25"/>
+    </pattern>
+    <!-- Guardian text path -->
+    <path id="guardian-text-arc" d="M 65,420 A 50,50 0 0,1 155,420" fill="none"/>
+  </defs>
+  <g id="badge-guardian" transform="translate(50, 310)">
+    <g class="badge-body-group" opacity="1">
+      <g class="badge-decoration-group">
+        <g class="badge-detail-group">
+          <g class="badge-element-group">
+            <g class="inner-guardian-group">
+              <!-- Guardian background circle -->
+              <circle cx="110" cy="90" r="58" fill="url(#guardian-bg-grad)" stroke="#2D004F" stroke-width="2.5" filter="url(#guardian-shadow)"/>
+              <circle cx="110" cy="90" r="55" fill="url(#guardian-pattern)" opacity="0.2"/>
+              <!-- Guardian shield shape -->
+              <path d="M 110,45 L 145,60 L 145,100 C 145,120 130,135 110,140 C 90,135 75,120 75,100 L 75,60 Z"
+                    fill="url(#guardian-bg-grad)" stroke="#2D004F" stroke-width="1.5"/>
+              <!-- Guardian shield cross -->
+              <line x1="110" y1="55" x2="110" y2="130" stroke="#E6D0FF" stroke-width="1.2" opacity="0.5"/>
+              <line x1="80" y1="88" x2="140" y2="88" stroke="#E6D0FF" stroke-width="1.2" opacity="0.5"/>
+              <!-- Guardian shine overlay -->
+              <circle cx="110" cy="90" r="54" fill="url(#guardian-shine)"/>
+              <!-- Guardian ribbon paths -->
+              <path d="M 75,135 L 58,170 L 82,157 L 78,138 Z" fill="#2E8B57" stroke="#1B5E3A" stroke-width="0.8"/>
+              <path d="M 145,135 L 162,170 L 138,157 L 142,138 Z" fill="#2E8B57" stroke="#1B5E3A" stroke-width="0.8"/>
+              <!-- Guardian decorative arcs -->
+              <path d="M 55,90 A 58,58 0 0,1 110,30" fill="none" stroke="#DDA0DD" stroke-width="1.1" opacity="0.4"/>
+              <path d="M 165,90 A 58,58 0 0,0 110,30" fill="none" stroke="#DDA0DD" stroke-width="1.1" opacity="0.4"/>
+              <!-- Guardian polyline -->
+              <polyline points="78,48 88,42 98,48 108,38 118,48 128,42 142,48" fill="none" stroke="#E6D0FF" stroke-width="0.6" opacity="0.4"/>
+              <!-- Guardian ellipse -->
+              <ellipse cx="110" cy="88" rx="42" ry="13" fill="none" stroke="#9370DB" stroke-width="0.6" style="opacity: 0.3; stroke-dasharray: 4 3;"/>
+              <!-- Guardian text label -->
+              <text x="110" y="95" text-anchor="middle" font-family="'Trebuchet MS', sans-serif" font-size="10" font-weight="bold" fill="#F0E6FF" style="letter-spacing: 1.5px;">GUARDIAN</text>
+              <!-- Guardian curved text -->
+              <text font-family="Georgia, serif" font-size="7" fill="#9370DB">
+                <textPath xlink:href="#guardian-text-arc" startOffset="50%" text-anchor="middle">~ Shield Bearer ~</textPath>
+              </text>
+              <line x1="68" y1="108" x2="90" y2="108" stroke="#6A0DAD" stroke-width="0.8"/>
+              <line x1="130" y1="108" x2="152" y2="108" stroke="#6A0DAD" stroke-width="0.8"/>
+              <rect x="93" y="106" width="34" height="3" rx="1.5" fill="#9370DB" opacity="0.5"/>
+            </g>
+            <g class="empty-guardian-filler"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- Badge 6: Innovator                                           -->
+  <!-- ============================================================ -->
+  <defs>
+    <!-- Innovator filter definitions -->
+    <filter id="innovator-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2.5" result="blur6"/>
+      <feOffset in="blur6" dx="2" dy="3" result="offsetBlur6"/>
+      <feFlood flood-color="#FF4500" flood-opacity="0.45" result="flood6"/>
+      <feMerge>
+        <feMergeNode in="flood6"/>
+        <feMergeNode in="offsetBlur6"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+      <feColorMatrix type="saturate" values="1.3" in="SourceGraphic" result="saturated6"/>
+    </filter>
+    <!-- Innovator gradient definitions -->
+    <linearGradient id="innovator-bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF6347" stop-opacity="1"/>
+      <stop offset="50%" stop-color="#FF4500" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#CC3700" stop-opacity="1"/>
+    </linearGradient>
+    <radialGradient id="innovator-shine" cx="40%" cy="33%" r="60%" fx="40%" fy="33%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.7"/>
+      <stop offset="50%" stop-color="#FFE4C4" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Innovator clip path and mask -->
+    <clipPath id="innovator-clip">
+      <circle cx="380" cy="390" r="55"/>
+    </clipPath>
+    <mask id="innovator-mask">
+      <rect x="310" y="320" width="140" height="140" fill="white"/>
+      <circle cx="380" cy="390" r="58" fill="black"/>
+      <circle cx="380" cy="390" r="55" fill="white"/>
+    </mask>
+    <!-- Innovator pattern fill (crosshatch variant) -->
+    <pattern id="innovator-pattern" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
+      <rect width="8" height="8" fill="#FF4500"/>
+      <line x1="0" y1="4" x2="8" y2="4" stroke="#CC3700" stroke-width="0.8" opacity="0.3"/>
+      <line x1="4" y1="0" x2="4" y2="8" stroke="#CC3700" stroke-width="0.8" opacity="0.3"/>
+    </pattern>
+    <!-- Innovator text path -->
+    <path id="innovator-text-arc" d="M 335,420 A 50,50 0 0,1 425,420" fill="none"/>
+  </defs>
+  <g id="badge-innovator" transform="translate(320, 310)">
+    <g class="badge-body-group" opacity="1">
+      <g class="badge-decoration-group">
+        <g class="badge-detail-group">
+          <g class="badge-element-group">
+            <g class="inner-innovator-group">
+              <!-- Innovator background circle -->
+              <circle cx="110" cy="90" r="58" fill="url(#innovator-bg-grad)" stroke="#992200" stroke-width="2.5" filter="url(#innovator-shadow)"/>
+              <circle cx="110" cy="90" r="55" fill="url(#innovator-pattern)" opacity="0.22"/>
+              <!-- Innovator gear/cog shape -->
+              <polygon points="110,42 117,55 132,50 128,66 144,70 136,82 148,95 134,100 138,116 123,112 115,126 110,112 105,126 97,112 82,116 86,100 72,95 84,82 76,70 92,66 88,50 103,55"
+                       fill="url(#innovator-bg-grad)" stroke="#992200" stroke-width="1.2"/>
+              <!-- Innovator lightbulb center -->
+              <circle cx="110" cy="82" r="15" fill="#FFE44D" stroke="#DAA520" stroke-width="1"/>
+              <rect x="105" y="97" width="10" height="8" rx="2" fill="#C0C0C0" stroke="#808080" stroke-width="0.5"/>
+              <line x1="107" y1="100" x2="113" y2="100" stroke="#808080" stroke-width="0.4"/>
+              <line x1="107" y1="102" x2="113" y2="102" stroke="#808080" stroke-width="0.4"/>
+              <!-- Innovator shine overlay -->
+              <circle cx="110" cy="90" r="54" fill="url(#innovator-shine)"/>
+              <!-- Innovator ribbon paths -->
+              <path d="M 75,135 L 60,170 L 84,156 L 79,138 Z" fill="#4682B4" stroke="#2F4F6F" stroke-width="0.8"/>
+              <path d="M 145,135 L 160,170 L 136,156 L 141,138 Z" fill="#4682B4" stroke="#2F4F6F" stroke-width="0.8"/>
+              <!-- Innovator arcs -->
+              <path d="M 56,90 A 56,56 0 0,1 110,32" fill="none" stroke="#FFA07A" stroke-width="1.1" opacity="0.4"/>
+              <path d="M 164,90 A 56,56 0 0,0 110,32" fill="none" stroke="#FFA07A" stroke-width="1.1" opacity="0.4"/>
+              <!-- Innovator ellipse accent -->
+              <ellipse cx="110" cy="90" rx="38" ry="12" fill="none" stroke="#FF6347" stroke-width="0.6" style="opacity: 0.35; stroke-dasharray: 3 2;"/>
+              <!-- Innovator text label -->
+              <text x="110" y="120" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" font-weight="bold" fill="#FFE4C4" style="letter-spacing: 1px;">INNOVATOR</text>
+              <!-- Innovator curved text -->
+              <text font-family="Arial, sans-serif" font-size="7" fill="#992200">
+                <textPath xlink:href="#innovator-text-arc" startOffset="50%" text-anchor="middle">~ Bright Ideas ~</textPath>
+              </text>
+              <line x1="68" y1="126" x2="90" y2="126" stroke="#CC3700" stroke-width="0.7"/>
+              <line x1="130" y1="126" x2="152" y2="126" stroke="#CC3700" stroke-width="0.7"/>
+              <rect x="93" y="124" width="34" height="3" rx="1.5" fill="#FF4500" opacity="0.5"/>
+            </g>
+          </g>
+          <g class="empty-innovator-wrapper"/>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- Badge 7: Warrior                                             -->
+  <!-- ============================================================ -->
+  <defs>
+    <!-- Warrior filter definitions -->
+    <filter id="warrior-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3.3" result="blur7"/>
+      <feOffset in="blur7" dx="3" dy="3" result="offsetBlur7"/>
+      <feFlood flood-color="#8B0000" flood-opacity="0.55" result="flood7"/>
+      <feMerge>
+        <feMergeNode in="flood7"/>
+        <feMergeNode in="offsetBlur7"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+      <feColorMatrix type="saturate" values="1.5" in="SourceGraphic" result="saturated7"/>
+    </filter>
+    <!-- Warrior gradient definitions -->
+    <linearGradient id="warrior-bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#DC143C" stop-opacity="1"/>
+      <stop offset="50%" stop-color="#B22222" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#8B0000" stop-opacity="1"/>
+    </linearGradient>
+    <radialGradient id="warrior-shine" cx="42%" cy="35%" r="58%" fx="42%" fy="35%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.65"/>
+      <stop offset="50%" stop-color="#FFE0E0" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Warrior clip path and mask -->
+    <clipPath id="warrior-clip">
+      <circle cx="110" cy="540" r="55"/>
+    </clipPath>
+    <mask id="warrior-mask">
+      <rect x="40" y="470" width="140" height="140" fill="white"/>
+      <circle cx="110" cy="540" r="58" fill="black"/>
+      <circle cx="110" cy="540" r="55" fill="white"/>
+    </mask>
+    <!-- Warrior pattern fill (diagonal stripes) -->
+    <pattern id="warrior-pattern" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="6" height="6" fill="#B22222"/>
+      <rect x="0" y="0" width="3" height="6" fill="#8B0000" opacity="0.3"/>
+    </pattern>
+    <!-- Warrior text path -->
+    <path id="warrior-text-arc" d="M 65,570 A 50,50 0 0,1 155,570" fill="none"/>
+  </defs>
+  <g id="badge-warrior" transform="translate(50, 460)">
+    <g class="badge-body-group" opacity="1">
+      <g class="badge-decoration-group">
+        <g class="badge-detail-group">
+          <g class="badge-element-group">
+            <g class="inner-warrior-group">
+              <!-- Warrior background circle -->
+              <circle cx="110" cy="90" r="58" fill="url(#warrior-bg-grad)" stroke="#5C0000" stroke-width="2.5" filter="url(#warrior-shadow)"/>
+              <circle cx="110" cy="90" r="55" fill="url(#warrior-pattern)" opacity="0.2"/>
+              <!-- Warrior crossed swords -->
+              <path d="M 85,55 L 135,125" stroke="#C0C0C0" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M 135,55 L 85,125" stroke="#C0C0C0" stroke-width="2.5" stroke-linecap="round"/>
+              <!-- Sword hilts -->
+              <rect x="80" y="50" width="10" height="4" rx="1" fill="#FFD700" stroke="#B8860B" stroke-width="0.5" transform="rotate(-40 85 52)"/>
+              <rect x="130" y="50" width="10" height="4" rx="1" fill="#FFD700" stroke="#B8860B" stroke-width="0.5" transform="rotate(40 135 52)"/>
+              <!-- Warrior shield center -->
+              <circle cx="110" cy="88" r="18" fill="url(#warrior-bg-grad)" stroke="#5C0000" stroke-width="1.5"/>
+              <circle cx="110" cy="88" r="12" fill="none" stroke="#FFD700" stroke-width="0.8"/>
+              <!-- Warrior shine overlay -->
+              <circle cx="110" cy="90" r="54" fill="url(#warrior-shine)"/>
+              <!-- Warrior ribbon paths -->
+              <path d="M 75,135 L 58,168 L 84,155 L 78,138 Z" fill="#2E2E8B" stroke="#1A1A5E" stroke-width="0.8"/>
+              <path d="M 145,135 L 162,168 L 136,155 L 142,138 Z" fill="#2E2E8B" stroke="#1A1A5E" stroke-width="0.8"/>
+              <!-- Warrior arcs -->
+              <path d="M 56,90 A 56,56 0 0,1 110,32" fill="none" stroke="#FF6B6B" stroke-width="1" opacity="0.4"/>
+              <path d="M 164,90 A 56,56 0 0,0 110,32" fill="none" stroke="#FF6B6B" stroke-width="1" opacity="0.4"/>
+              <!-- Warrior polyline crown -->
+              <polyline points="88,45 95,38 102,45 110,32 118,45 125,38 132,45" fill="none" stroke="#FFD700" stroke-width="0.8" opacity="0.6"/>
+              <!-- Warrior ellipse -->
+              <ellipse cx="110" cy="90" rx="40" ry="14" fill="none" stroke="#DC143C" stroke-width="0.6" style="opacity: 0.3; stroke-dasharray: 5 2;"/>
+              <!-- Warrior text label -->
+              <text x="110" y="96" text-anchor="middle" font-family="Impact, sans-serif" font-size="12" font-weight="bold" fill="#FFE0E0" style="letter-spacing: 2px;">WARRIOR</text>
+              <!-- Warrior curved text -->
+              <text font-family="Georgia, serif" font-size="7" fill="#DC143C">
+                <textPath xlink:href="#warrior-text-arc" startOffset="50%" text-anchor="middle">~ Battle Hardened ~</textPath>
+              </text>
+              <line x1="68" y1="108" x2="90" y2="108" stroke="#B22222" stroke-width="0.8"/>
+              <line x1="130" y1="108" x2="152" y2="108" stroke="#B22222" stroke-width="0.8"/>
+              <rect x="93" y="106" width="34" height="3" rx="1.5" fill="#DC143C" opacity="0.5"/>
+            </g>
+            <g class="empty-warrior-slot"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- Badge 8: Sage                                                -->
+  <!-- ============================================================ -->
+  <defs>
+    <!-- Sage filter definitions -->
+    <filter id="sage-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2.8" result="blur8"/>
+      <feOffset in="blur8" dx="2" dy="3" result="offsetBlur8"/>
+      <feFlood flood-color="#006B6B" flood-opacity="0.5" result="flood8"/>
+      <feMerge>
+        <feMergeNode in="flood8"/>
+        <feMergeNode in="offsetBlur8"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+      <feColorMatrix type="hueRotate" values="10" in="SourceGraphic" result="hue8"/>
+    </filter>
+    <!-- Sage gradient definitions -->
+    <linearGradient id="sage-bg-grad" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#20B2AA" stop-opacity="1"/>
+      <stop offset="50%" stop-color="#008B8B" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#006B6B" stop-opacity="1"/>
+    </linearGradient>
+    <radialGradient id="sage-shine" cx="38%" cy="30%" r="62%" fx="38%" fy="30%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.6"/>
+      <stop offset="55%" stop-color="#E0FFFF" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Sage clip path and mask -->
+    <clipPath id="sage-clip">
+      <circle cx="380" cy="540" r="55"/>
+    </clipPath>
+    <mask id="sage-mask">
+      <rect x="310" y="470" width="140" height="140" fill="white"/>
+      <circle cx="380" cy="540" r="58" fill="black"/>
+      <circle cx="380" cy="540" r="55" fill="white"/>
+    </mask>
+    <!-- Sage pattern fill (dotted grid) -->
+    <pattern id="sage-pattern" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+      <rect width="10" height="10" fill="#008B8B"/>
+      <circle cx="2" cy="2" r="0.8" fill="#006B6B" opacity="0.4"/>
+      <circle cx="7" cy="7" r="0.8" fill="#006B6B" opacity="0.4"/>
+      <circle cx="2" cy="7" r="0.8" fill="#20B2AA" opacity="0.2"/>
+      <circle cx="7" cy="2" r="0.8" fill="#20B2AA" opacity="0.2"/>
+    </pattern>
+    <!-- Sage text path -->
+    <path id="sage-text-arc" d="M 335,570 A 50,50 0 0,1 425,570" fill="none"/>
+  </defs>
+  <g id="badge-sage" transform="translate(320, 460)">
+    <g class="badge-body-group" opacity="1">
+      <g class="badge-decoration-group">
+        <g class="badge-detail-group">
+          <g class="badge-element-group">
+            <g class="inner-sage-group">
+              <!-- Sage background circle -->
+              <circle cx="110" cy="90" r="58" fill="url(#sage-bg-grad)" stroke="#004D4D" stroke-width="2.5" filter="url(#sage-shadow)"/>
+              <circle cx="110" cy="90" r="55" fill="url(#sage-pattern)" opacity="0.2"/>
+              <!-- Sage eye/wisdom symbol -->
+              <path d="M 78,88 Q 95,60 110,60 Q 125,60 142,88 Q 125,116 110,116 Q 95,116 78,88 Z"
+                    fill="url(#sage-bg-grad)" stroke="#004D4D" stroke-width="1.5"/>
+              <circle cx="110" cy="88" r="14" fill="#E0FFFF" stroke="#20B2AA" stroke-width="1"/>
+              <circle cx="110" cy="88" r="7" fill="#004D4D"/>
+              <circle cx="113" cy="85" r="2.5" fill="#FFFFFF" opacity="0.8"/>
+              <!-- Sage shine overlay -->
+              <circle cx="110" cy="90" r="54" fill="url(#sage-shine)"/>
+              <!-- Sage ribbon paths -->
+              <path d="M 75,135 L 60,168 L 83,156 L 78,138 Z" fill="#DAA520" stroke="#B8860B" stroke-width="0.8"/>
+              <path d="M 145,135 L 160,168 L 137,156 L 142,138 Z" fill="#DAA520" stroke="#B8860B" stroke-width="0.8"/>
+              <!-- Sage arcs -->
+              <path d="M 56,92 A 56,56 0 0,1 110,32" fill="none" stroke="#7FFFD4" stroke-width="1" opacity="0.4"/>
+              <path d="M 164,92 A 56,56 0 0,0 110,32" fill="none" stroke="#7FFFD4" stroke-width="1" opacity="0.4"/>
+              <!-- Sage polyline waves -->
+              <polyline points="70,50 80,44 90,50 100,44 110,50 120,44 130,50 140,44 150,50" fill="none" stroke="#7FFFD4" stroke-width="0.6" opacity="0.4"/>
+              <!-- Sage ellipse -->
+              <ellipse cx="110" cy="90" rx="42" ry="15" fill="none" stroke="#20B2AA" stroke-width="0.6" style="opacity: 0.3; stroke-dasharray: 2 4;"/>
+              <!-- Sage text label -->
+              <text x="110" y="95" text-anchor="middle" font-family="'Palatino Linotype', serif" font-size="13" font-weight="bold" fill="#E0FFFF" style="letter-spacing: 2px;">SAGE</text>
+              <!-- Sage curved text -->
+              <text font-family="Verdana, sans-serif" font-size="7" fill="#008B8B">
+                <textPath xlink:href="#sage-text-arc" startOffset="50%" text-anchor="middle">~ Eternal Wisdom ~</textPath>
+              </text>
+              <line x1="68" y1="108" x2="92" y2="108" stroke="#008B8B" stroke-width="0.7"/>
+              <line x1="128" y1="108" x2="152" y2="108" stroke="#008B8B" stroke-width="0.7"/>
+              <rect x="95" y="106" width="30" height="3" rx="1.5" fill="#20B2AA" opacity="0.5"/>
+            </g>
+          </g>
+          <g class="empty-sage-node"/>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- Badge 9: Legend                                               -->
+  <!-- ============================================================ -->
+  <defs>
+    <!-- Legend filter definitions -->
+    <filter id="legend-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3.5" result="blur9"/>
+      <feOffset in="blur9" dx="2" dy="4" result="offsetBlur9"/>
+      <feFlood flood-color="#4A0080" flood-opacity="0.5" result="flood9"/>
+      <feMerge>
+        <feMergeNode in="flood9"/>
+        <feMergeNode in="offsetBlur9"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+      <feColorMatrix type="saturate" values="1.6" in="SourceGraphic" result="saturated9"/>
+    </filter>
+    <!-- Legend gradient definitions -->
+    <linearGradient id="legend-bg-grad" x1="0%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#8A2BE2" stop-opacity="1"/>
+      <stop offset="40%" stop-color="#7B1FA2" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#4A0080" stop-opacity="1"/>
+    </linearGradient>
+    <radialGradient id="legend-shine" cx="40%" cy="32%" r="60%" fx="40%" fy="32%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.7"/>
+      <stop offset="50%" stop-color="#F0E0FF" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Legend clip path and mask -->
+    <clipPath id="legend-clip">
+      <circle cx="110" cy="690" r="55"/>
+    </clipPath>
+    <mask id="legend-mask">
+      <rect x="40" y="620" width="140" height="140" fill="white"/>
+      <circle cx="110" cy="690" r="58" fill="black"/>
+      <circle cx="110" cy="690" r="55" fill="white"/>
+    </mask>
+    <!-- Legend pattern fill (diamond grid) -->
+    <pattern id="legend-pattern" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse">
+      <rect width="12" height="12" fill="#7B1FA2"/>
+      <polygon points="6,0 12,6 6,12 0,6" fill="#8A2BE2" opacity="0.2"/>
+    </pattern>
+    <!-- Legend text path -->
+    <path id="legend-text-arc" d="M 65,720 A 50,50 0 0,1 155,720" fill="none"/>
+  </defs>
+  <g id="badge-legend" transform="translate(50, 610)">
+    <g class="badge-body-group" opacity="1">
+      <g class="badge-decoration-group">
+        <g class="badge-detail-group">
+          <g class="badge-element-group">
+            <g class="inner-legend-group">
+              <!-- Legend background circle -->
+              <circle cx="110" cy="90" r="58" fill="url(#legend-bg-grad)" stroke="#300060" stroke-width="2.5" filter="url(#legend-shadow)"/>
+              <circle cx="110" cy="90" r="55" fill="url(#legend-pattern)" opacity="0.22"/>
+              <!-- Legend crown shape -->
+              <path d="M 82,78 L 82,55 L 92,68 L 102,50 L 110,65 L 118,50 L 128,68 L 138,55 L 138,78 Z"
+                    fill="#FFD700" stroke="#B8860B" stroke-width="1.2"/>
+              <!-- Legend jewels on crown -->
+              <circle cx="92" cy="70" r="3" fill="#DC143C" stroke="#8B0000" stroke-width="0.5"/>
+              <circle cx="110" cy="62" r="3.5" fill="#4169E1" stroke="#1E3A8A" stroke-width="0.5"/>
+              <circle cx="128" cy="70" r="3" fill="#2E8B57" stroke="#006400" stroke-width="0.5"/>
+              <!-- Legend star below crown -->
+              <polygon points="110,85 116,100 133,100 120,110 125,127 110,118 95,127 100,110 87,100 104,100"
+                       fill="url(#legend-bg-grad)" stroke="#300060" stroke-width="1"/>
+              <!-- Legend shine overlay -->
+              <circle cx="110" cy="90" r="54" fill="url(#legend-shine)"/>
+              <!-- Legend ribbon paths -->
+              <path d="M 75,135 L 56,172 L 82,157 L 77,138 Z" fill="#C41E3A" stroke="#8B0000" stroke-width="0.8"/>
+              <path d="M 145,135 L 164,172 L 138,157 L 143,138 Z" fill="#C41E3A" stroke="#8B0000" stroke-width="0.8"/>
+              <!-- Legend arcs -->
+              <path d="M 54,92 A 58,58 0 0,1 110,30" fill="none" stroke="#DDA0DD" stroke-width="1.2" opacity="0.45"/>
+              <path d="M 166,92 A 58,58 0 0,0 110,30" fill="none" stroke="#DDA0DD" stroke-width="1.2" opacity="0.45"/>
+              <!-- Legend polyline sparks -->
+              <polyline points="75,42 82,35 89,42" fill="none" stroke="#FFD700" stroke-width="0.7" opacity="0.5"/>
+              <polyline points="131,42 138,35 145,42" fill="none" stroke="#FFD700" stroke-width="0.7" opacity="0.5"/>
+              <!-- Legend ellipse -->
+              <ellipse cx="110" cy="90" rx="44" ry="16" fill="none" stroke="#8A2BE2" stroke-width="0.6" style="opacity: 0.3; stroke-dasharray: 3 4;"/>
+              <!-- Legend text label -->
+              <text x="110" y="116" text-anchor="middle" font-family="Georgia, serif" font-size="12" font-weight="bold" fill="#F0E0FF" style="letter-spacing: 2px;">LEGEND</text>
+              <!-- Legend curved text -->
+              <text font-family="'Times New Roman', serif" font-size="7" fill="#8A2BE2">
+                <textPath xlink:href="#legend-text-arc" startOffset="50%" text-anchor="middle">~ Mythic Status ~</textPath>
+              </text>
+              <line x1="66" y1="124" x2="90" y2="124" stroke="#7B1FA2" stroke-width="0.8"/>
+              <line x1="130" y1="124" x2="154" y2="124" stroke="#7B1FA2" stroke-width="0.8"/>
+              <rect x="93" y="122" width="34" height="3" rx="1.5" fill="#8A2BE2" opacity="0.5"/>
+            </g>
+            <g class="empty-legend-layer"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- Badge 10: Master                                             -->
+  <!-- ============================================================ -->
+  <defs>
+    <!-- Master filter definitions -->
+    <filter id="master-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3.8" result="blur10"/>
+      <feOffset in="blur10" dx="2" dy="4" result="offsetBlur10"/>
+      <feFlood flood-color="#1A1A1A" flood-opacity="0.6" result="flood10"/>
+      <feMerge>
+        <feMergeNode in="flood10"/>
+        <feMergeNode in="offsetBlur10"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+      <feColorMatrix type="saturate" values="1.8" in="SourceGraphic" result="saturated10"/>
+    </filter>
+    <!-- Master gradient definitions -->
+    <linearGradient id="master-bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2C2C2C" stop-opacity="1"/>
+      <stop offset="35%" stop-color="#1A1A1A" stop-opacity="0.98"/>
+      <stop offset="100%" stop-color="#0D0D0D" stop-opacity="1"/>
+    </linearGradient>
+    <radialGradient id="master-shine" cx="38%" cy="30%" r="65%" fx="38%" fy="30%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.5"/>
+      <stop offset="40%" stop-color="#C0C0C0" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Master clip path and mask -->
+    <clipPath id="master-clip">
+      <circle cx="380" cy="690" r="55"/>
+    </clipPath>
+    <mask id="master-mask">
+      <rect x="310" y="620" width="140" height="140" fill="white"/>
+      <circle cx="380" cy="690" r="58" fill="black"/>
+      <circle cx="380" cy="690" r="55" fill="white"/>
+    </mask>
+    <!-- Master pattern fill (fine dots) -->
+    <pattern id="master-pattern" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
+      <rect width="6" height="6" fill="#1A1A1A"/>
+      <circle cx="3" cy="3" r="0.6" fill="#FFD700" opacity="0.35"/>
+    </pattern>
+    <!-- Master text path -->
+    <path id="master-text-arc" d="M 335,720 A 50,50 0 0,1 425,720" fill="none"/>
+  </defs>
+  <g id="badge-master" transform="translate(320, 610)">
+    <g class="badge-body-group" opacity="1">
+      <g class="badge-decoration-group">
+        <g class="badge-detail-group">
+          <g class="badge-element-group">
+            <g class="inner-master-group">
+              <!-- Master background circle -->
+              <circle cx="110" cy="90" r="58" fill="url(#master-bg-grad)" stroke="#000000" stroke-width="3" filter="url(#master-shadow)"/>
+              <circle cx="110" cy="90" r="55" fill="url(#master-pattern)" opacity="0.3"/>
+              <!-- Master ornate star -->
+              <polygon points="110,38 118,68 150,68 124,86 134,118 110,100 86,118 96,86 70,68 102,68"
+                       fill="none" stroke="#FFD700" stroke-width="1.8" stroke-linejoin="round"/>
+              <polygon points="110,50 116,72 136,72 120,84 126,106 110,94 94,106 100,84 84,72 104,72"
+                       fill="#1A1A1A" stroke="#C0C0C0" stroke-width="0.8"/>
+              <!-- Master infinity symbol -->
+              <path d="M 98,88 C 92,78 80,78 80,88 C 80,98 92,98 98,88 C 104,78 116,78 122,88" fill="none" stroke="#FFD700" stroke-width="1.2"/>
+              <path d="M 122,88 C 128,98 140,98 140,88 C 140,78 128,78 122,88" fill="none" stroke="#FFD700" stroke-width="1.2"/>
+              <!-- Master shine overlay -->
+              <circle cx="110" cy="90" r="54" fill="url(#master-shine)"/>
+              <!-- Master ribbon paths -->
+              <path d="M 75,135 L 55,175 L 82,158 L 77,138 Z" fill="#FFD700" stroke="#B8860B" stroke-width="0.8"/>
+              <path d="M 145,135 L 165,175 L 138,158 L 143,138 Z" fill="#FFD700" stroke="#B8860B" stroke-width="0.8"/>
+              <!-- Master arcs -->
+              <path d="M 54,90 A 58,58 0 0,1 110,30" fill="none" stroke="#C0C0C0" stroke-width="1.2" opacity="0.35"/>
+              <path d="M 166,90 A 58,58 0 0,0 110,30" fill="none" stroke="#C0C0C0" stroke-width="1.2" opacity="0.35"/>
+              <!-- Master polyline crown top -->
+              <polyline points="82,40 90,30 98,40 106,28 110,38 114,28 122,40 130,30 138,40" fill="none" stroke="#FFD700" stroke-width="0.8" opacity="0.6"/>
+              <!-- Master ellipse -->
+              <ellipse cx="110" cy="90" rx="46" ry="16" fill="none" stroke="#C0C0C0" stroke-width="0.6" style="opacity: 0.25; stroke-dasharray: 4 3;"/>
+              <!-- Master decorative rect border -->
+              <rect x="78" y="58" width="64" height="64" rx="4" fill="none" stroke="#FFD700" stroke-width="0.5" opacity="0.2"/>
+              <!-- Master text label -->
+              <text x="110" y="108" text-anchor="middle" font-family="'Lucida Console', monospace" font-size="12" font-weight="bold" fill="#FFD700" style="letter-spacing: 3px;">MASTER</text>
+              <!-- Master curved text -->
+              <text font-family="Georgia, serif" font-size="7" fill="#C0C0C0">
+                <textPath xlink:href="#master-text-arc" startOffset="50%" text-anchor="middle">~ Ultimate Mastery ~</textPath>
+              </text>
+              <line x1="64" y1="116" x2="90" y2="116" stroke="#FFD700" stroke-width="0.8" opacity="0.6"/>
+              <line x1="130" y1="116" x2="156" y2="116" stroke="#FFD700" stroke-width="0.8" opacity="0.6"/>
+              <rect x="93" y="114" width="34" height="3" rx="1.5" fill="#C0C0C0" opacity="0.4"/>
+            </g>
+          </g>
+          <g class="empty-master-final"/>
+        </g>
+      </g>
+    </g>
+  </g>
+
+</svg>

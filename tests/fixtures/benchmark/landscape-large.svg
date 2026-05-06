@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+     xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.0.dtd"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:cc="http://creativecommons.org/ns#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     viewBox="0 0 1400 800" width="1400" height="800"
+     id="svg-root" style="display:inline" version="1.1">
+  <!-- Inkscape Named View -->
+  <sodipodi:namedview id="namedview-1" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" inkscape:zoom="0.7" inkscape:cx="700" inkscape:cy="400" inkscape:window-width="1920" inkscape:window-height="1080" inkscape:current-layer="layer-main" showgrid="true" inkscape:guide-bbox="true" inkscape:pageopacity="0" inkscape:pageshadow="2">
+    <inkscape:grid type="xygrid" id="grid-1" spacingx="10" spacingy="10" empspacing="5" visible="true" enabled="true"/>
+    <sodipodi:guide id="guide-horizontal-center" position="0,400" orientation="1,0" inkscape:label="Horizontal Center"/>
+    <sodipodi:guide id="guide-vertical-center" position="700,0" orientation="0,1" inkscape:label="Vertical Center"/>
+    <sodipodi:guide id="guide-horizon-line" position="0,450" orientation="1,0" inkscape:label="Horizon Line"/>
+    <sodipodi:guide id="guide-tree-line" position="0,500" orientation="1,0" inkscape:label="Tree Line"/>
+  </sodipodi:namedview>
+  <!-- Document Metadata -->
+  <metadata id="metadata-1">
+    <rdf:RDF>
+      <cc:Work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <dc:title>Landscape Benchmark - Large Nature Scene</dc:title>
+        <dc:creator><cc:Agent><dc:title>Benchmark Generator</dc:title></cc:Agent></dc:creator>
+        <dc:description>A complex nature landscape SVG designed for optimizer benchmarking. Contains mountains, trees, river, clouds, wildlife, cabin, and atmospheric effects.</dc:description>
+        <dc:date>2024-01-15</dc:date>
+        <cc:license rdf:resource="http://creativecommons.org/licenses/by/4.0/"/>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <!-- Style Block 1: Base Styles -->
+  <style id="style-base" type="text/css">
+    .mountain-far { fill: #8a9bb2; stroke: none; opacity: 1; }
+    .mountain-mid { fill: #5a7a5e; stroke: none; opacity: 1; }
+    .mountain-near { fill: #3d5c3a; stroke: none; opacity: 1; }
+    .tree-trunk { fill: #5c3d2e; stroke: none; }
+    .canopy-far { fill: #6b8e5a; stroke: none; opacity: 0.85; }
+    .canopy-mid { fill: #4a7a3d; stroke: none; opacity: 0.9; }
+    .canopy-near { fill: #2d6b1e; stroke: none; opacity: 1; }
+    .cloud { fill: #ffffff; stroke: none; opacity: 0.8; }
+    .cloud-distant { fill: #e8e8f0; stroke: none; opacity: 0.5; }
+    .cabin-wall { fill: #8B6914; stroke: #5a4510; stroke-width: 1.5; }
+    .cabin-roof { fill: #6B3A2A; stroke: #4a2a1a; stroke-width: 1; }
+    .fence-post { fill: #7a5a3a; stroke: none; }
+    .fence-rail { stroke: #8a6a4a; stroke-width: 2; fill: none; }
+    .wildlife { fill: #2a2a2a; stroke: none; opacity: 1; }
+    .stone { fill: #9a9a8a; stroke: #7a7a6a; stroke-width: 0.5; }
+  </style>
+  <!-- Style Block 2: Effects and Duplicate Rules -->
+  <style id="style-effects" type="text/css">
+    .glow { filter: url(#glow-filter); }
+    .blur-far { filter: url(#atmo-far); }
+    .blur-mid { filter: url(#atmo-mid); }
+    .mountain-far { fill: #8a9bb2; stroke: none; opacity: 1; }
+    .tree-trunk { fill: #5c3d2e; stroke: none; }
+    .cloud { fill: #ffffff; stroke: none; opacity: 0.8; }
+  </style>
+  <!-- Style Block 3: Redundant Duplicate Rules -->
+  <style id="style-redundant" type="text/css">
+    .mountain-far { fill: #8a9bb2; stroke: none; opacity: 1; }
+    .mountain-mid { fill: #5a7a5e; stroke: none; opacity: 1; }
+    .canopy-far { fill: #6b8e5a; stroke: none; opacity: 0.85; }
+    .cloud { fill: #ffffff; stroke: none; opacity: 0.8; }
+    .wildlife { fill: #2a2a2a; stroke: none; opacity: 1; }
+    .cabin-wall { fill: #8B6914; stroke: #5a4510; stroke-width: 1.5; }
+  </style>
+  <!-- Definitions -->
+  <defs id="defs-main">
+    <!-- Sky Gradient (dawn-to-night, 8 stops) -->
+    <linearGradient id="sky-gradient" x1="0" y1="0" x2="0" y2="1">
+      <stop id="sky-stop-0" offset="0%" stop-color="#0a0e2a" style="display:inline"/>
+      <stop id="sky-stop-1" offset="12%" stop-color="#1a1e4a"/>
+      <stop id="sky-stop-2" offset="28%" stop-color="#2a3a6a"/>
+      <stop id="sky-stop-3" offset="42%" stop-color="#4a5a8a"/>
+      <stop id="sky-stop-4" offset="58%" stop-color="#7a6a6a"/>
+      <stop id="sky-stop-5" offset="72%" stop-color="#c87a4a"/>
+      <stop id="sky-stop-6" offset="88%" stop-color="#e8a060"/>
+      <stop id="sky-stop-7" offset="100%" stop-color="#f0c080"/>
+    </linearGradient>
+    <!-- Duplicate Sky Gradient (unused) -->
+    <linearGradient id="sky-gradient-copy" x1="0" y1="0" x2="0" y2="1">
+      <stop id="sky-dup-stop-0" offset="0%" stop-color="#0a0e2a"/>
+      <stop id="sky-dup-stop-1" offset="12%" stop-color="#1a1e4a"/>
+      <stop id="sky-dup-stop-2" offset="28%" stop-color="#2a3a6a"/>
+      <stop id="sky-dup-stop-3" offset="42%" stop-color="#4a5a8a"/>
+      <stop id="sky-dup-stop-4" offset="58%" stop-color="#7a6a6a"/>
+      <stop id="sky-dup-stop-5" offset="72%" stop-color="#c87a4a"/>
+      <stop id="sky-dup-stop-6" offset="88%" stop-color="#e8a060"/>
+      <stop id="sky-dup-stop-7" offset="100%" stop-color="#f0c080"/>
+    </linearGradient>
+    <!-- Moon Radial Gradient -->
+    <radialGradient id="moon-gradient" cx="50%" cy="50%" r="50%" fx="45%" fy="45%">
+      <stop id="moon-stop-1" offset="0%" stop-color="#fffde8"/><stop id="moon-stop-2" offset="40%" stop-color="#f0e8c0"/>
+      <stop id="moon-stop-3" offset="70%" stop-color="#d0c8a0"/><stop id="moon-stop-4" offset="100%" stop-color="#a0986080"/>
+    </radialGradient>
+    <radialGradient id="moon-gradient-alt" cx="50%" cy="50%" r="50%"><stop id="moon-alt-1" offset="0%" stop-color="#fffde8"/><stop id="moon-alt-2" offset="100%" stop-color="#a0986080"/></radialGradient>
+    <!-- Starfield Pattern -->
+    <pattern id="star-pattern" x="0" y="0" width="80" height="60" patternUnits="userSpaceOnUse">
+      <circle id="star-dot-0" cx="16" cy="3" r="0.8" fill="#fff" opacity="0.6" stroke="none"/>
+      <circle id="star-dot-1" cx="33" cy="16" r="0.4" fill="#fff" opacity="0.9" stroke="none"/>
+      <circle id="star-dot-2" cx="15" cy="45" r="0.8" fill="#fff" opacity="0.8" stroke="none"/>
+      <circle id="star-dot-3" cx="13" cy="39" r="0.6" fill="#fff" opacity="0.4" stroke="none"/>
+      <circle id="star-dot-4" cx="5" cy="7" r="0.4" fill="#fff" opacity="0.5" stroke="none"/>
+      <circle id="star-dot-5" cx="66" cy="40" r="0.3" fill="#fff" opacity="0.8" stroke="none"/>
+      <circle id="star-dot-6" cx="27" cy="47" r="0.8" fill="#fff" opacity="0.9" stroke="none"/>
+      <circle id="star-dot-7" cx="71" cy="28" r="0.4" fill="#fff" opacity="0.7" stroke="none"/>
+      <circle id="star-dot-8" cx="77" cy="19" r="0.3" fill="#fff" opacity="0.5" stroke="none"/>
+      <circle id="star-dot-9" cx="56" cy="23" r="0.5" fill="#fff" opacity="0.5" stroke="none"/>
+    </pattern>
+    <!-- Water Texture Pattern -->
+    <pattern id="water-pattern" x="0" y="0" width="60" height="20" patternUnits="userSpaceOnUse">
+      <rect id="water-bg" width="60" height="20" fill="#2a5a8a" stroke="none"/>
+      <path id="water-wave-0" d="M0,4 C10,2 20,6 30,4 S50,2 60,4" fill="none" stroke="#4a8aba" stroke-width="0.5" opacity="0.5"/>
+      <path id="water-wave-1" d="M0,9 C10,7 20,11 30,9 S50,7 60,9" fill="none" stroke="#4a8aba" stroke-width="0.5" opacity="0.5"/>
+      <path id="water-wave-2" d="M0,14 C10,12 20,16 30,14 S50,12 60,14" fill="none" stroke="#4a8aba" stroke-width="0.5" opacity="0.5"/>
+      <path id="water-wave-3" d="M0,19 C10,17 20,21 30,19 S50,17 60,19" fill="none" stroke="#4a8aba" stroke-width="0.5" opacity="0.5"/>
+    </pattern>
+    <!-- Grass Pattern -->
+    <pattern id="grass-pattern" x="0" y="0" width="20" height="15" patternUnits="userSpaceOnUse">
+      <rect id="grass-bg" width="20" height="15" fill="#4a8a3a" stroke="none"/>
+      <line id="grass-blade-0" x1="7" y1="15" x2="5" y2="6" stroke="#3a7a2a" stroke-width="0.8" fill="none"/>
+      <line id="grass-blade-1" x1="3" y1="15" x2="1" y2="5" stroke="#3a7a2a" stroke-width="0.8" fill="none"/>
+      <line id="grass-blade-2" x1="12" y1="15" x2="14" y2="6" stroke="#3a7a2a" stroke-width="0.8" fill="none"/>
+      <line id="grass-blade-3" x1="9" y1="15" x2="10" y2="11" stroke="#3a7a2a" stroke-width="0.8" fill="none"/>
+      <line id="grass-blade-4" x1="18" y1="15" x2="19" y2="10" stroke="#3a7a2a" stroke-width="0.8" fill="none"/>
+      <line id="grass-blade-5" x1="3" y1="15" x2="3" y2="3" stroke="#3a7a2a" stroke-width="0.8" fill="none"/>
+    </pattern>
+    <!-- Unused Patterns (never referenced) -->
+    <pattern id="unused-pattern-dots" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse"><circle id="unused-dot" cx="5" cy="5" r="2" fill="#f00" stroke="none"/></pattern>
+    <pattern id="unused-pattern-stripes" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse"><line id="unused-stripe" x1="0" y1="0" x2="10" y2="10" stroke="#0f0" stroke-width="1"/></pattern>
+    <!-- Unused Gradients (never referenced) -->
+    <linearGradient id="unused-gradient-warm" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#ff6600"/><stop offset="50%" stop-color="#ffaa00"/><stop offset="100%" stop-color="#ffee00"/></linearGradient>
+    <linearGradient id="unused-gradient-cool" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0066ff"/><stop offset="100%" stop-color="#00ccff"/></linearGradient>
+    <radialGradient id="unused-gradient-radial" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#fff"/><stop offset="100%" stop-color="#000"/></radialGradient>
+    <!-- Glow Filter -->
+    <filter id="glow-filter" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur id="glow-blur" in="SourceGraphic" stdDeviation="8" result="blur"/><feMerge id="glow-merge"><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <!-- Atmospheric Perspective Filters -->
+    <filter id="atmo-far" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur id="atmo-far-blur" stdDeviation="3" in="SourceGraphic" result="b"/><feColorMatrix id="atmo-far-desat" type="saturate" values="0.4" in="b"/></filter>
+    <filter id="atmo-mid" x="-2%" y="-2%" width="104%" height="104%"><feGaussianBlur id="atmo-mid-blur" stdDeviation="1.2" in="SourceGraphic" result="b"/><feColorMatrix id="atmo-mid-desat" type="saturate" values="0.7" in="b"/></filter>
+    <!-- Cloud Blur Filters -->
+    <filter id="cloud-blur-far" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur id="cloud-far-blur" stdDeviation="4" in="SourceGraphic"/></filter>
+    <filter id="cloud-blur-near" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur id="cloud-near-blur" stdDeviation="1.5" in="SourceGraphic"/></filter>
+    <!-- Duplicate Cloud Filter (optimizer target) -->
+    <filter id="cloud-blur-far-copy" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur id="cloud-far-blur-copy" stdDeviation="4" in="SourceGraphic"/></filter>
+  </defs>
+  <!-- Empty Groups (optimizer targets) -->
+  <g id="layer-empty-1" style="display:inline"></g>
+  <g id="layer-empty-2" style="display:inline"></g>
+  <g id="layer-empty-3" style="display:inline"></g>
+  <g id="layer-empty-4" style="display:inline"></g>
+  <g id="layer-empty-5" style="display:inline"></g>
+  <g id="layer-empty-6" style="display:inline"></g>
+  <!-- Sky Background -->
+  <rect id="sky-background" x="0" y="0" width="1400" height="800" fill="url(#sky-gradient)" stroke="none" style="display:inline;opacity:1"/>
+  <!-- Starfield Layer -->
+  <rect id="starfield-overlay" x="0" y="0" width="1400" height="350" fill="url(#star-pattern)" style="opacity:1;display:inline" stroke="none"/>
+  <!-- Moon with Glow Effect -->
+  <g id="moon-group" transform="matrix(1,0,0,1,1100,80)" style="display:inline;opacity:1">
+    <circle id="moon-outer-glow" cx="0" cy="0" r="60" fill="url(#moon-gradient)" class="glow" style="opacity:1" stroke="none"/>
+    <circle id="moon-body" cx="0" cy="0" r="35" fill="url(#moon-gradient)" style="display:inline;opacity:1" stroke="none"/>
+    <circle id="moon-crater-1" cx="-8" cy="-5" r="4" fill="#c8c0a0" style="opacity:0.3" stroke="none"/>
+    <circle id="moon-crater-2" cx="10" cy="8" r="6" fill="#c8c0a0" style="opacity:0.2" stroke="none"/>
+    <circle id="moon-crater-3" cx="3" cy="-12" r="3" fill="#c8c0a0" style="opacity:0.25" stroke="none"/>
+  </g>
+  <!-- Mountains Layer: Far Range -->
+  <g id="mountains-far" class="blur-far" style="display:inline;opacity:1">
+    <path id="mountain-far-0" d="M-20,500 C50,320 180,310 350,300 C430,380 650,350 800,360 S1050,340 1350,370 L1420,500 Z" class="mountain-far" style="display:inline;opacity:1" stroke="none" fill="none" transform="matrix(1,0,0,1,0,0)"/>
+    <path id="mountain-far-1" d="M-20,510 C80,360 220,370 400,350 C520,340 740,360 1100,370 L1420,510 Z" class="mountain-far" style="display:inline;opacity:1" stroke="none" fill="none" transform="matrix(1,0,0,1,0,5)"/>
+    <path id="mountain-far-2" d="M-20,520 C60,380 200,390 380,380 C500,370 720,390 1080,400 L1420,520 Z" class="mountain-far" style="display:inline;opacity:1" stroke="none" fill="none" transform="matrix(1,0,0,1,0,10)"/>
+    <path id="mountain-far-3" d="M-20,500 C100,340 280,340 460,330 C580,320 860,350 1260,360 L1420,500 Z" class="mountain-far" style="display:inline;opacity:1" stroke="none" fill="none" transform="matrix(1,0,0,1,0,15)"/>
+  </g>
+  <!-- Mountains Layer: Mid Range -->
+  <g id="mountains-mid" class="blur-mid" style="display:inline;opacity:1">
+    <path id="mountain-mid-0" d="M-20,550 C60,400 200,400 380,390 C510,370 800,400 1200,410 L1420,550 Z" class="mountain-mid" style="display:inline;opacity:1" stroke="none" fill="none" transform="matrix(1,0,0,1,0,0)"/>
+    <path id="mountain-mid-1" d="M-20,560 C80,420 240,420 420,410 C550,400 840,420 1300,430 L1420,560 Z" class="mountain-mid" style="display:inline;opacity:1" stroke="none" fill="none" transform="matrix(1,0,0,1,0,3)"/>
+    <path id="mountain-mid-2" d="M-20,540 C40,410 180,410 360,400 C480,390 780,410 1200,420 L1420,540 Z" class="mountain-mid" style="display:inline;opacity:1" stroke="none" fill="none" transform="matrix(1,0,0,1,0,6)"/>
+    <path id="mountain-mid-3" d="M-20,555 C70,430 210,430 390,420 C520,410 810,430 1260,440 L1420,555 Z" class="mountain-mid" style="display:inline;opacity:1" stroke="none" fill="none" transform="matrix(1,0,0,1,0,9)"/>
+    <path id="mountain-mid-4" d="M-20,545 C50,415 190,420 370,410 C500,400 790,420 1200,430 L1420,545 Z" class="mountain-mid" style="display:inline;opacity:1" stroke="none" fill="none" transform="matrix(1,0,0,1,0,12)"/>
+  </g>
+  <!-- Mountains Layer: Near Range -->
+  <g id="mountains-near" style="display:inline;opacity:1">
+    <path id="mountain-near-0" d="M-20,600 C40,480 180,480 360,470 C500,460 800,480 1260,490 L1420,600 Z" class="mountain-near" style="display:inline;opacity:1" stroke="none" fill="none" transform="matrix(1,0,0,1,0,0)"/>
+    <path id="mountain-near-1" d="M-20,610 C60,500 220,500 400,490 C540,480 840,500 1300,510 L1420,610 Z" class="mountain-near" style="display:inline;opacity:1" stroke="none" fill="none" transform="matrix(1,0,0,1,0,2)"/>
+    <path id="mountain-near-2" d="M-20,590 C80,490 240,490 420,480 C560,480 860,490 1300,500 L1420,590 Z" class="mountain-near" style="display:inline;opacity:1" stroke="none" fill="none" transform="matrix(1,0,0,1,0,4)"/>
+    <path id="mountain-near-3" d="M-20,605 C50,495 200,495 380,485 C520,485 820,495 1280,505 L1420,605 Z" class="mountain-near" style="display:inline;opacity:1" stroke="none" fill="none" transform="matrix(1,0,0,1,0,6)"/>
+    <path id="mountain-near-4" d="M-20,595 C70,485 230,485 410,475 C550,475 850,485 1310,495 L1420,595 Z" class="mountain-near" style="display:inline;opacity:1" stroke="none" fill="none" transform="matrix(1,0,0,1,0,8)"/>
+    <path id="mountain-near-5" d="M-20,615 C90,510 250,510 430,500 C570,500 870,510 1320,520 L1420,615 Z" class="mountain-near" style="display:inline;opacity:1" stroke="none" fill="none" transform="matrix(1,0,0,1,0,10)"/>
+  </g>
+  <!-- Ground Layer -->
+  <rect id="ground-fill" x="0" y="580" width="1400" height="220" fill="#3a6a2a" stroke="none" style="display:inline;opacity:1"/>
+  <rect id="ground-grass" x="0" y="600" width="1400" height="200" fill="url(#grass-pattern)" stroke="none" style="display:inline;opacity:1"/>
+  <!-- Trees Layer: Far -->
+  <g id="trees-far-layer" class="blur-far" style="display:inline;opacity:1">
+    <g id="tree-1" transform="matrix(1,0,0,1,41,530)" style="display:inline;opacity:1"><rect id="trunk-1" x="-2" y="-15" width="3" height="15" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-1" d="M-13,-15 C-17,-33 -7,-51 0,-51 S17,-33 13,-15 Z" class="canopy-far" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-2" transform="matrix(1,0,0,1,99,511)" style="display:inline;opacity:1"><rect id="trunk-2" x="-2" y="-16" width="3" height="16" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-2" d="M-11,-16 C-15,-32 -6,-48 0,-48 S15,-32 11,-16 Z" class="canopy-far" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-3" transform="matrix(1,0,0,1,186,513)" style="display:inline;opacity:1"><rect id="trunk-3" x="-2" y="-15" width="4" height="15" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-3" d="M-11,-15 C-15,-34 -6,-52 0,-52 S15,-34 11,-15 Z" class="canopy-far" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-4" transform="matrix(1,0,0,1,287,521)" style="display:inline;opacity:1"><rect id="trunk-4" x="-2" y="-11" width="4" height="11" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-4" d="M-11,-11 C-15,-26 -6,-41 0,-41 S15,-26 11,-11 Z" class="canopy-far" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-5" transform="matrix(1,0,0,1,364,518)" style="display:inline;opacity:1"><rect id="trunk-5" x="-3" y="-11" width="5" height="11" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-5" d="M-13,-11 C-17,-25 -7,-38 0,-38 S17,-25 13,-11 Z" class="canopy-far" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-6" transform="matrix(1,0,0,1,442,517)" style="display:inline;opacity:1"><rect id="trunk-6" x="-2" y="-12" width="4" height="12" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-6" d="M-12,-12 C-16,-27 -7,-42 0,-42 S16,-27 12,-12 Z" class="canopy-far" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-7" transform="matrix(1,0,0,1,536,530)" style="display:inline;opacity:1"><rect id="trunk-7" x="-2" y="-16" width="4" height="16" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-7" d="M-14,-16 C-18,-32 -7,-48 0,-48 S18,-32 14,-16 Z" class="canopy-far" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-8" transform="matrix(1,0,0,1,613,511)" style="display:inline;opacity:1"><rect id="trunk-8" x="-2" y="-13" width="4" height="13" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-8" d="M-9,-13 C-13,-29 -5,-45 0,-45 S13,-29 9,-13 Z" class="canopy-far" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-9" transform="matrix(1,0,0,1,679,512)" style="display:inline;opacity:1"><rect id="trunk-9" x="-3" y="-12" width="5" height="12" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-9" d="M-13,-12 C-17,-28 -7,-43 0,-43 S17,-28 13,-12 Z" class="canopy-far" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-10" transform="matrix(1,0,0,1,759,530)" style="display:inline;opacity:1"><rect id="trunk-10" x="-3" y="-13" width="5" height="13" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-10" d="M-12,-13 C-16,-33 -6,-53 0,-53 S16,-33 12,-13 Z" class="canopy-far" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-11" transform="matrix(1,0,0,1,839,518)" style="display:inline;opacity:1"><rect id="trunk-11" x="-3" y="-14" width="5" height="14" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-11" d="M-10,-14 C-14,-29 -6,-43 0,-43 S14,-29 10,-14 Z" class="canopy-far" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-12" transform="matrix(1,0,0,1,934,518)" style="display:inline;opacity:1"><rect id="trunk-12" x="-2" y="-12" width="4" height="12" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-12" d="M-13,-12 C-17,-31 -7,-50 0,-50 S17,-31 13,-12 Z" class="canopy-far" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-13" transform="matrix(1,0,0,1,1006,514)" style="display:inline;opacity:1"><rect id="trunk-13" x="-2" y="-16" width="3" height="16" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-13" d="M-9,-16 C-13,-36 -5,-56 0,-56 S13,-36 9,-16 Z" class="canopy-far" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-14" transform="matrix(1,0,0,1,1084,514)" style="display:inline;opacity:1"><rect id="trunk-14" x="-2" y="-14" width="4" height="14" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-14" d="M-14,-14 C-18,-29 -7,-44 0,-44 S18,-29 14,-14 Z" class="canopy-far" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-15" transform="matrix(1,0,0,1,1165,522)" style="display:inline;opacity:1"><rect id="trunk-15" x="-2" y="-14" width="4" height="14" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-15" d="M-13,-14 C-17,-33 -7,-51 0,-51 S17,-33 13,-14 Z" class="canopy-far" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-16" transform="matrix(1,0,0,1,1253,527)" style="display:inline;opacity:1"><rect id="trunk-16" x="-3" y="-10" width="5" height="10" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-16" d="M-14,-10 C-18,-23 -7,-35 0,-35 S18,-23 14,-10 Z" class="canopy-far" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-17" transform="matrix(1,0,0,1,1348,527)" style="display:inline;opacity:1"><rect id="trunk-17" x="-2" y="-10" width="4" height="10" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-17" d="M-14,-10 C-18,-27 -7,-43 0,-43 S18,-27 14,-10 Z" class="canopy-far" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+  </g>
+  <!-- Trees Layer: Mid -->
+  <g id="trees-mid-layer" class="blur-mid" style="display:inline;opacity:1">
+    <g id="tree-18" transform="matrix(1,0,0,1,18,563)" style="display:inline;opacity:1"><rect id="trunk-18" x="-2" y="-18" width="4" height="18" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-18" d="M-14,-18 C-18,-38 -8,-58 0,-58 S18,-38 14,-18 Z" class="canopy-mid" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-19" transform="matrix(1,0,0,1,114,555)" style="display:inline;opacity:1"><rect id="trunk-19" x="-3" y="-22" width="6" height="22" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-19" d="M-11,-22 C-15,-48 -6,-73 0,-73 S15,-48 11,-22 Z" class="canopy-mid" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-20" transform="matrix(1,0,0,1,202,556)" style="display:inline;opacity:1"><rect id="trunk-20" x="-3" y="-22" width="5" height="22" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-20" d="M-13,-22 C-17,-42 -7,-61 0,-61 S17,-42 13,-22 Z" class="canopy-mid" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-21" transform="matrix(1,0,0,1,279,550)" style="display:inline;opacity:1"><rect id="trunk-21" x="-4" y="-14" width="7" height="14" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-21" d="M-13,-14 C-17,-41 -7,-68 0,-68 S17,-41 13,-14 Z" class="canopy-mid" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-22" transform="matrix(1,0,0,1,335,561)" style="display:inline;opacity:1"><rect id="trunk-22" x="-2" y="-17" width="4" height="17" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-22" d="M-12,-17 C-16,-39 -7,-61 0,-61 S16,-39 12,-17 Z" class="canopy-mid" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-23" transform="matrix(1,0,0,1,446,552)" style="display:inline;opacity:1"><rect id="trunk-23" x="-4" y="-15" width="7" height="15" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-23" d="M-16,-15 C-20,-34 -9,-52 0,-52 S20,-34 16,-15 Z" class="canopy-mid" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-24" transform="matrix(1,0,0,1,526,554)" style="display:inline;opacity:1"><rect id="trunk-24" x="-4" y="-22" width="7" height="22" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-24" d="M-16,-22 C-20,-42 -8,-61 0,-61 S20,-42 16,-22 Z" class="canopy-mid" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-25" transform="matrix(1,0,0,1,584,558)" style="display:inline;opacity:1"><rect id="trunk-25" x="-4" y="-17" width="7" height="17" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-25" d="M-17,-17 C-21,-43 -9,-68 0,-68 S21,-43 17,-17 Z" class="canopy-mid" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-26" transform="matrix(1,0,0,1,690,556)" style="display:inline;opacity:1"><rect id="trunk-26" x="-3" y="-21" width="6" height="21" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-26" d="M-14,-21 C-18,-43 -7,-65 0,-65 S18,-43 14,-21 Z" class="canopy-mid" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-27" transform="matrix(1,0,0,1,771,564)" style="display:inline;opacity:1"><rect id="trunk-27" x="-3" y="-15" width="5" height="15" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-27" d="M-12,-15 C-16,-34 -7,-53 0,-53 S16,-34 12,-15 Z" class="canopy-mid" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-28" transform="matrix(1,0,0,1,841,550)" style="display:inline;opacity:1"><rect id="trunk-28" x="-3" y="-17" width="5" height="17" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-28" d="M-15,-17 C-19,-44 -8,-70 0,-70 S19,-44 15,-17 Z" class="canopy-mid" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-29" transform="matrix(1,0,0,1,902,552)" style="display:inline;opacity:1"><rect id="trunk-29" x="-3" y="-15" width="5" height="15" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-29" d="M-11,-15 C-15,-43 -6,-70 0,-70 S15,-43 11,-15 Z" class="canopy-mid" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-30" transform="matrix(1,0,0,1,986,560)" style="display:inline;opacity:1"><rect id="trunk-30" x="-3" y="-18" width="5" height="18" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-30" d="M-15,-18 C-19,-37 -8,-55 0,-55 S19,-37 15,-18 Z" class="canopy-mid" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-31" transform="matrix(1,0,0,1,1097,556)" style="display:inline;opacity:1"><rect id="trunk-31" x="-4" y="-17" width="7" height="17" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-31" d="M-12,-17 C-16,-43 -6,-69 0,-69 S16,-43 12,-17 Z" class="canopy-mid" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-32" transform="matrix(1,0,0,1,1178,563)" style="display:inline;opacity:1"><rect id="trunk-32" x="-2" y="-20" width="4" height="20" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-32" d="M-11,-20 C-15,-41 -6,-61 0,-61 S15,-41 11,-20 Z" class="canopy-mid" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-33" transform="matrix(1,0,0,1,1252,563)" style="display:inline;opacity:1"><rect id="trunk-33" x="-2" y="-15" width="4" height="15" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-33" d="M-14,-15 C-18,-39 -8,-63 0,-63 S18,-39 14,-15 Z" class="canopy-mid" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-34" transform="matrix(1,0,0,1,1315,562)" style="display:inline;opacity:1"><rect id="trunk-34" x="-2" y="-17" width="4" height="17" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-34" d="M-17,-17 C-21,-40 -9,-62 0,-62 S21,-40 17,-17 Z" class="canopy-mid" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+  </g>
+  <!-- Trees Layer: Near -->
+  <g id="trees-near-layer" style="display:inline;opacity:1">
+    <g id="tree-35" transform="matrix(1,0,0,1,-3,621)" style="display:inline;opacity:1"><rect id="trunk-35" x="-4" y="-24" width="7" height="24" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-35" d="M-22,-24 C-26,-58 -11,-91 0,-91 S26,-58 22,-24 Z" class="canopy-near" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-36" transform="matrix(1,0,0,1,74,623)" style="display:inline;opacity:1"><rect id="trunk-36" x="-3" y="-25" width="6" height="25" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-36" d="M-18,-25 C-22,-57 -10,-89 0,-89 S22,-57 18,-25 Z" class="canopy-near" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-37" transform="matrix(1,0,0,1,176,618)" style="display:inline;opacity:1"><rect id="trunk-37" x="-5" y="-18" width="10" height="18" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-37" d="M-25,-18 C-29,-44 -13,-69 0,-69 S29,-44 25,-18 Z" class="canopy-near" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-38" transform="matrix(1,0,0,1,224,622)" style="display:inline;opacity:1"><rect id="trunk-38" x="-5" y="-25" width="9" height="25" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-38" d="M-21,-25 C-25,-53 -11,-80 0,-80 S25,-53 21,-25 Z" class="canopy-near" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-39" transform="matrix(1,0,0,1,310,627)" style="display:inline;opacity:1"><rect id="trunk-39" x="-4" y="-24" width="7" height="24" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-39" d="M-15,-24 C-19,-63 -8,-102 0,-102 S19,-63 15,-24 Z" class="canopy-near" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-40" transform="matrix(1,0,0,1,375,627)" style="display:inline;opacity:1"><rect id="trunk-40" x="-4" y="-24" width="8" height="24" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-40" d="M-22,-24 C-26,-53 -11,-82 0,-82 S26,-53 22,-24 Z" class="canopy-near" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-41" transform="matrix(1,0,0,1,497,632)" style="display:inline;opacity:1"><rect id="trunk-41" x="-4" y="-21" width="7" height="21" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-41" d="M-22,-21 C-26,-57 -12,-92 0,-92 S26,-57 22,-21 Z" class="canopy-near" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-42" transform="matrix(1,0,0,1,549,621)" style="display:inline;opacity:1"><rect id="trunk-42" x="-5" y="-29" width="10" height="29" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-42" d="M-15,-29 C-19,-69 -8,-109 0,-109 S19,-69 15,-29 Z" class="canopy-near" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-43" transform="matrix(1,0,0,1,643,616)" style="display:inline;opacity:1"><rect id="trunk-43" x="-3" y="-18" width="6" height="18" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-43" d="M-20,-18 C-24,-55 -10,-91 0,-91 S24,-55 20,-18 Z" class="canopy-near" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-44" transform="matrix(1,0,0,1,724,630)" style="display:inline;opacity:1"><rect id="trunk-44" x="-4" y="-18" width="7" height="18" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-44" d="M-23,-18 C-27,-51 -12,-84 0,-84 S27,-51 23,-18 Z" class="canopy-near" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-45" transform="matrix(1,0,0,1,797,617)" style="display:inline;opacity:1"><rect id="trunk-45" x="-3" y="-27" width="6" height="27" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-45" d="M-17,-27 C-21,-66 -9,-104 0,-104 S21,-66 17,-27 Z" class="canopy-near" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-46" transform="matrix(1,0,0,1,847,622)" style="display:inline;opacity:1"><rect id="trunk-46" x="-5" y="-21" width="10" height="21" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-46" d="M-16,-21 C-20,-52 -9,-83 0,-83 S20,-52 16,-21 Z" class="canopy-near" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-47" transform="matrix(1,0,0,1,958,634)" style="display:inline;opacity:1"><rect id="trunk-47" x="-3" y="-24" width="6" height="24" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-47" d="M-24,-24 C-28,-50 -13,-75 0,-75 S28,-50 24,-24 Z" class="canopy-near" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-48" transform="matrix(1,0,0,1,1041,633)" style="display:inline;opacity:1"><rect id="trunk-48" x="-4" y="-22" width="8" height="22" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-48" d="M-23,-22 C-27,-56 -12,-90 0,-90 S27,-56 23,-22 Z" class="canopy-near" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-49" transform="matrix(1,0,0,1,1090,625)" style="display:inline;opacity:1"><rect id="trunk-49" x="-5" y="-20" width="9" height="20" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-49" d="M-19,-20 C-23,-49 -10,-77 0,-77 S23,-49 19,-20 Z" class="canopy-near" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-50" transform="matrix(1,0,0,1,1197,635)" style="display:inline;opacity:1"><rect id="trunk-50" x="-4" y="-30" width="8" height="30" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-50" d="M-22,-30 C-26,-60 -11,-89 0,-89 S26,-60 22,-30 Z" class="canopy-near" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-51" transform="matrix(1,0,0,1,1237,615)" style="display:inline;opacity:1"><rect id="trunk-51" x="-5" y="-19" width="10" height="19" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-51" d="M-24,-19 C-28,-51 -13,-83 0,-83 S28,-51 24,-19 Z" class="canopy-near" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="tree-52" transform="matrix(1,0,0,1,1315,632)" style="display:inline;opacity:1"><rect id="trunk-52" x="-4" y="-20" width="8" height="20" class="tree-trunk" style="display:inline;opacity:1" stroke="none"/><path id="canopy-52" d="M-23,-20 C-27,-48 -12,-76 0,-76 S27,-48 23,-20 Z" class="canopy-near" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+  </g>
+  <!-- River Layer -->
+  <g id="river-group" style="display:inline;opacity:1">
+    <path id="river-bed" d="M-20,640 C100,630 350,635 650,640 C950,650 1250,660 1420,640 L1420,680 C1250,690 950,685 650,680 C350,670 100,670 -20,680 Z" fill="#1a4a7a" stroke="none" style="display:inline;opacity:1"/>
+    <path id="river-surface" d="M-20,642 C100,632 350,637 650,642 C950,652 1250,662 1420,642 L1420,678 C1250,688 950,683 650,678 C350,668 100,668 -20,678 Z" fill="url(#water-pattern)" stroke="none" style="display:inline;opacity:1"/>
+    <rect id="river-wave-overlay" x="-60" y="640" width="1520" height="40" fill="url(#water-pattern)" opacity="0.4" stroke="none" style="display:inline"><animate id="river-flow-anim" attributeName="x" values="-60;-120;-60" dur="8s" repeatCount="indefinite"/></rect>
+  </g>
+  <!-- Clouds Layer -->
+  <g id="clouds-layer" style="display:inline;opacity:1">
+    <g id="cloud-1" transform="matrix(0.76,0,0,0.76,664,65)" filter="url(#cloud-blur-far)" style="display:inline;opacity:1">
+      <ellipse id="cloud-1-a" cx="0" cy="0" rx="51" ry="19" class="cloud-distant" style="display:inline;opacity:1" stroke="none" fill="none"/>
+      <ellipse id="cloud-1-b" cx="25" cy="1" rx="42" ry="14" class="cloud-distant" style="display:inline" stroke="none"/>
+    </g>
+    <g id="cloud-2" transform="matrix(0.8,0,0,0.8,1202,300)" style="display:inline;opacity:1">
+      <ellipse id="cloud-2-a" cx="0" cy="0" rx="57" ry="19" class="cloud" style="display:inline;opacity:1" stroke="none" fill="none"/>
+      <ellipse id="cloud-2-b" cx="23" cy="-4" rx="33" ry="11" class="cloud" style="display:inline" stroke="none"/>
+    </g>
+    <g id="cloud-3" transform="matrix(0.58,0,0,0.58,169,109)" filter="url(#cloud-blur-far)" style="display:inline;opacity:1">
+      <ellipse id="cloud-3-a" cx="0" cy="0" rx="59" ry="18" class="cloud-distant" style="display:inline;opacity:1" stroke="none" fill="none"/>
+      <ellipse id="cloud-3-b" cx="30" cy="-3" rx="45" ry="14" class="cloud-distant" style="display:inline" stroke="none"/>
+    </g>
+    <g id="cloud-4" transform="matrix(0.93,0,0,0.93,985,280)" style="display:inline;opacity:1">
+      <ellipse id="cloud-4-a" cx="0" cy="0" rx="41" ry="16" class="cloud" style="display:inline;opacity:1" stroke="none" fill="none"/>
+      <ellipse id="cloud-4-b" cx="40" cy="0" rx="33" ry="10" class="cloud" style="display:inline" stroke="none"/>
+    </g>
+    <g id="cloud-5" transform="matrix(1.19,0,0,1.19,-43,200)" filter="url(#cloud-blur-near)" style="display:inline;opacity:1">
+      <ellipse id="cloud-5-a" cx="0" cy="0" rx="60" ry="19" class="cloud" style="display:inline;opacity:1" stroke="none" fill="none"/>
+      <ellipse id="cloud-5-b" cx="25" cy="1" rx="42" ry="16" class="cloud" style="display:inline" stroke="none"/>
+    </g>
+    <g id="cloud-6" transform="matrix(0.53,0,0,0.53,1098,34)" filter="url(#cloud-blur-far)" style="display:inline;opacity:1">
+      <ellipse id="cloud-6-a" cx="0" cy="0" rx="44" ry="15" class="cloud-distant" style="display:inline;opacity:1" stroke="none" fill="none"/>
+      <ellipse id="cloud-6-b" cx="31" cy="3" rx="42" ry="12" class="cloud-distant" style="display:inline" stroke="none"/>
+    </g>
+    <g id="cloud-7" transform="matrix(0.51,0,0,0.51,830,95)" filter="url(#cloud-blur-far)" style="display:inline;opacity:1">
+      <ellipse id="cloud-7-a" cx="0" cy="0" rx="51" ry="15" class="cloud-distant" style="display:inline;opacity:1" stroke="none" fill="none"/>
+      <ellipse id="cloud-7-b" cx="31" cy="-3" rx="32" ry="11" class="cloud-distant" style="display:inline" stroke="none"/>
+    </g>
+    <g id="cloud-8" transform="matrix(1.29,0,0,1.29,674,238)" style="display:inline;opacity:1">
+      <ellipse id="cloud-8-a" cx="0" cy="0" rx="44" ry="18" class="cloud" style="display:inline;opacity:1" stroke="none" fill="none"/>
+      <ellipse id="cloud-8-b" cx="25" cy="-4" rx="38" ry="10" class="cloud" style="display:inline" stroke="none"/>
+    </g>
+    <g id="cloud-9" transform="matrix(1.19,0,0,1.19,317,200)" filter="url(#cloud-blur-near)" style="display:inline;opacity:1">
+      <ellipse id="cloud-9-a" cx="0" cy="0" rx="53" ry="18" class="cloud" style="display:inline;opacity:1" stroke="none" fill="none"/>
+      <ellipse id="cloud-9-b" cx="28" cy="-4" rx="28" ry="16" class="cloud" style="display:inline" stroke="none"/>
+    </g>
+    <g id="cloud-10" transform="matrix(0.91,0,0,0.91,29,270)" style="display:inline;opacity:1">
+      <ellipse id="cloud-10-a" cx="0" cy="0" rx="54" ry="20" class="cloud" style="display:inline;opacity:1" stroke="none" fill="none"/>
+      <ellipse id="cloud-10-b" cx="29" cy="-3" rx="32" ry="10" class="cloud" style="display:inline" stroke="none"/>
+    </g>
+    <g id="cloud-11" transform="matrix(0.62,0,0,0.62,1301,128)" filter="url(#cloud-blur-far)" style="display:inline;opacity:1">
+      <ellipse id="cloud-11-a" cx="0" cy="0" rx="48" ry="16" class="cloud-distant" style="display:inline;opacity:1" stroke="none" fill="none"/>
+      <ellipse id="cloud-11-b" cx="28" cy="-1" rx="45" ry="18" class="cloud-distant" style="display:inline" stroke="none"/>
+    </g>
+    <g id="cloud-12" transform="matrix(1.27,0,0,1.27,768,199)" filter="url(#cloud-blur-near)" style="display:inline;opacity:1">
+      <ellipse id="cloud-12-a" cx="0" cy="0" rx="43" ry="19" class="cloud" style="display:inline;opacity:1" stroke="none" fill="none"/>
+      <ellipse id="cloud-12-b" cx="25" cy="3" rx="33" ry="10" class="cloud" style="display:inline" stroke="none"/>
+    </g>
+    <g id="cloud-13" transform="matrix(0.97,0,0,0.97,172,252)" style="display:inline;opacity:1">
+      <ellipse id="cloud-13-a" cx="0" cy="0" rx="50" ry="21" class="cloud" style="display:inline;opacity:1" stroke="none" fill="none"/>
+      <ellipse id="cloud-13-b" cx="39" cy="2" rx="28" ry="16" class="cloud" style="display:inline" stroke="none"/>
+    </g>
+    <g id="cloud-14" transform="matrix(0.58,0,0,0.58,1130,127)" filter="url(#cloud-blur-far)" style="display:inline;opacity:1">
+      <ellipse id="cloud-14-a" cx="0" cy="0" rx="53" ry="15" class="cloud-distant" style="display:inline;opacity:1" stroke="none" fill="none"/>
+      <ellipse id="cloud-14-b" cx="36" cy="2" rx="31" ry="15" class="cloud-distant" style="display:inline" stroke="none"/>
+    </g>
+    <g id="cloud-15" transform="matrix(0.78,0,0,0.78,833,65)" filter="url(#cloud-blur-far)" style="display:inline;opacity:1">
+      <ellipse id="cloud-15-a" cx="0" cy="0" rx="50" ry="20" class="cloud-distant" style="display:inline;opacity:1" stroke="none" fill="none"/>
+      <ellipse id="cloud-15-b" cx="23" cy="-2" rx="41" ry="14" class="cloud-distant" style="display:inline" stroke="none"/>
+    </g>
+    <g id="cloud-16" transform="matrix(0.96,0,0,0.96,1315,239)" style="display:inline;opacity:1">
+      <ellipse id="cloud-16-a" cx="0" cy="0" rx="49" ry="17" class="cloud" style="display:inline;opacity:1" stroke="none" fill="none"/>
+      <ellipse id="cloud-16-b" cx="26" cy="0" rx="37" ry="12" class="cloud" style="display:inline" stroke="none"/>
+    </g>
+    <g id="cloud-17" transform="matrix(1.0,0,0,1.0,1210,184)" filter="url(#cloud-blur-near)" style="display:inline;opacity:1">
+      <ellipse id="cloud-17-a" cx="0" cy="0" rx="40" ry="19" class="cloud" style="display:inline;opacity:1" stroke="none" fill="none"/>
+      <ellipse id="cloud-17-b" cx="29" cy="-3" rx="38" ry="15" class="cloud" style="display:inline" stroke="none"/>
+    </g>
+    <g id="cloud-18" transform="matrix(1.02,0,0,1.02,902,256)" style="display:inline;opacity:1">
+      <ellipse id="cloud-18-a" cx="0" cy="0" rx="46" ry="22" class="cloud" style="display:inline;opacity:1" stroke="none" fill="none"/>
+      <ellipse id="cloud-18-b" cx="25" cy="4" rx="27" ry="14" class="cloud" style="display:inline" stroke="none"/>
+    </g>
+    <g id="cloud-19" transform="matrix(0.85,0,0,0.85,1005,201)" filter="url(#cloud-blur-near)" style="display:inline;opacity:1">
+      <ellipse id="cloud-19-a" cx="0" cy="0" rx="47" ry="19" class="cloud" style="display:inline;opacity:1" stroke="none" fill="none"/>
+      <ellipse id="cloud-19-b" cx="27" cy="-3" rx="29" ry="10" class="cloud" style="display:inline" stroke="none"/>
+    </g>
+    <g id="cloud-20" transform="matrix(1.29,0,0,1.29,44,155)" filter="url(#cloud-blur-near)" style="display:inline;opacity:1">
+      <ellipse id="cloud-20-a" cx="0" cy="0" rx="59" ry="16" class="cloud" style="display:inline;opacity:1" stroke="none" fill="none"/>
+      <ellipse id="cloud-20-b" cx="34" cy="0" rx="45" ry="13" class="cloud" style="display:inline" stroke="none"/>
+    </g>
+  </g>
+  <!-- Wildlife Silhouettes Layer -->
+  <g id="wildlife-layer" style="display:inline;opacity:1">
+    <g id="deer-1" transform="matrix(1,0,0,1,950,595)" style="display:inline;opacity:1"><path id="deer-1-body" d="M0,0 C-5,-15 -8,-25 -3,-35 S5,-40 8,-35 C12,-28 15,-20 12,-10 S8,0 5,5 Z" class="wildlife" style="display:inline;opacity:1" stroke="none" fill="none"/><path id="deer-1-legs" d="M-2,0 L-4,18 M3,0 L5,18 M-5,-5 L-8,16 M7,-5 L10,16" stroke="#2a2a2a" stroke-width="1.5" fill="none"/><path id="deer-1-antlers" d="M2,-35 C0,-42 -3,-48 -6,-50 M2,-35 C4,-42 7,-48 10,-50" stroke="#2a2a2a" stroke-width="1" fill="none"/></g>
+    <g id="deer-2" transform="matrix(1,0,0,1,1020,600)" style="display:inline;opacity:1"><path id="deer-2-body" d="M0,0 C-4,-12 -6,-22 -2,-30 S4,-34 7,-30 C10,-24 12,-16 10,-8 S6,0 4,4 Z" class="wildlife" style="display:inline;opacity:1" stroke="none"/><path id="deer-2-legs" d="M-1,0 L-3,15 M2,0 L4,15 M-4,-4 L-6,14 M5,-4 L8,14" stroke="#2a2a2a" stroke-width="1.5" fill="none"/></g>
+    <g id="deer-3" transform="matrix(1,0,0,1,200,605)" style="display:inline;opacity:1"><path id="deer-3-body" d="M0,0 C-3,-10 -5,-18 -1,-25 S4,-28 6,-25 C9,-20 10,-14 8,-6 S5,0 3,3 Z" class="wildlife" style="display:inline;opacity:1" stroke="none"/><path id="deer-3-legs" d="M-1,0 L-2,14 M2,0 L3,14" stroke="#2a2a2a" stroke-width="1.2" fill="none"/></g>
+    <g id="rabbit-1" transform="matrix(1,0,0,1,750,688)" style="display:inline;opacity:1"><path id="rabbit-1-body" d="M0,0 C-3,-5 -4,-10 -2,-13 S2,-15 4,-13 C6,-10 5,-5 3,0 Z" class="wildlife" style="display:inline;opacity:1" stroke="none"/><path id="rabbit-1-ears" d="M0,-13 C-1,-18 -2,-22 -1,-24 M3,-13 C4,-18 5,-22 4,-24" stroke="#2a2a2a" stroke-width="1" fill="none"/></g>
+    <g id="rabbit-2" transform="matrix(1,0,0,1,780,690)" style="display:inline;opacity:1"><path id="rabbit-2-body" d="M0,0 C-2,-4 -3,-8 -1,-11 S2,-12 3,-11 C5,-8 4,-4 2,0 Z" class="wildlife" style="display:inline;opacity:1" stroke="none"/><path id="rabbit-2-ears" d="M0,-11 C-1,-15 -1,-18 0,-20 M2,-11 C3,-15 3,-18 2,-20" stroke="#2a2a2a" stroke-width="1" fill="none"/></g>
+    <g id="eagle-1" transform="matrix(1,0,0,1,400,120)" style="display:inline;opacity:1"><path id="eagle-1-body" d="M0,0 C-15,-3 -30,-8 -40,-2 S-30,5 -20,2 C-10,0 10,0 20,2 C30,5 40,-2 30,-8 S15,-3 0,0 Z" class="wildlife" style="display:inline;opacity:1" stroke="none" fill="none"/></g>
+    <g id="eagle-2" transform="matrix(1,0,0,1,520,90)" style="display:inline;opacity:1"><path id="eagle-2-body" d="M0,0 C-12,-2 -25,-7 -35,-1 S-25,4 -17,2 C-8,0 8,0 17,2 C25,4 35,-1 25,-7 S12,-2 0,0 Z" class="wildlife" style="display:inline;opacity:1" stroke="none"/></g>
+  </g>
+  <!-- Cabin Layer -->
+  <g id="cabin-group" transform="matrix(1,0,0,1,300,580)" style="display:inline;opacity:1">
+    <rect id="cabin-wall-main" x="-40" y="-50" width="80" height="50" class="cabin-wall" style="display:inline;opacity:1" stroke="none" fill="#8B6914"/>
+    <rect id="cabin-wall-side" x="40" y="-45" width="25" height="45" fill="#7a5a10" stroke="#5a4510" stroke-width="1" style="display:inline;opacity:1"/>
+    <path id="cabin-roof-main" d="M-50,-50 L0,-80 L50,-50 Z" class="cabin-roof" style="display:inline;opacity:1" stroke="none"/>
+    <path id="cabin-roof-side" d="M50,-50 L0,-80 L65,-45 Z" fill="#5a2a1a" stroke="#4a2a1a" stroke-width="1" style="display:inline"/>
+    <rect id="cabin-door" x="-10" y="-30" width="20" height="30" fill="#5a3a1a" stroke="#4a2a0a" stroke-width="1" style="display:inline;opacity:1"/>
+    <circle id="cabin-doorknob" cx="6" cy="-15" r="2" fill="#c0a030" stroke="none" style="display:inline;opacity:1"/>
+    <rect id="cabin-window-left" x="-35" y="-42" width="14" height="12" fill="#6080a0" stroke="#4a3a1a" stroke-width="1.5" style="display:inline;opacity:1"/>
+    <rect id="cabin-window-right" x="22" y="-42" width="14" height="12" fill="#6080a0" stroke="#4a3a1a" stroke-width="1.5" style="display:inline;opacity:1"/>
+    <line id="win-left-h" x1="-35" y1="-36" x2="-21" y2="-36" stroke="#4a3a1a" stroke-width="1"/><line id="win-left-v" x1="-28" y1="-42" x2="-28" y2="-30" stroke="#4a3a1a" stroke-width="1"/>
+    <line id="win-right-h" x1="22" y1="-36" x2="36" y2="-36" stroke="#4a3a1a" stroke-width="1"/><line id="win-right-v" x1="29" y1="-42" x2="29" y2="-30" stroke="#4a3a1a" stroke-width="1"/>
+    <rect id="cabin-chimney" x="15" y="-85" width="12" height="25" fill="#8a5a3a" stroke="#6a4a2a" stroke-width="1" style="display:inline;opacity:1"/>
+    <path id="cabin-smoke-1" d="M21,-85 C23,-95 18,-105 22,-115 S26,-125 20,-135" fill="none" stroke="#ccc" stroke-width="3" style="display:inline;opacity:0.6"><animate id="smoke-anim-1" attributeName="d" values="M21,-85 C23,-95 18,-105 22,-115 S26,-125 20,-135;M21,-85 C19,-95 24,-105 20,-115 S16,-125 22,-135;M21,-85 C23,-95 18,-105 22,-115 S26,-125 20,-135" dur="6s" repeatCount="indefinite"/></path>
+    <path id="cabin-smoke-2" d="M21,-85 C25,-92 17,-100 23,-110 S28,-118 19,-128" fill="none" stroke="#ccc" stroke-width="2" style="display:inline;opacity:0.4"><animate id="smoke-anim-2" attributeName="d" values="M21,-85 C25,-92 17,-100 23,-110 S28,-118 19,-128;M21,-85 C17,-92 25,-100 19,-110 S14,-118 23,-128;M21,-85 C25,-92 17,-100 23,-110 S28,-118 19,-128" dur="7s" repeatCount="indefinite"/></path>
+  </g>
+  <!-- Fence Posts Layer -->
+  <g id="fence-group" style="display:inline;opacity:1">
+    <g id="fence-post-1" transform="matrix(1,0,0,1,381,579)" style="display:inline;opacity:1"><rect id="fence-rect-1" x="-3" y="-34" width="6" height="34" class="fence-post" style="display:inline;opacity:1" stroke="none"/><circle id="fence-cap-1" cx="0" cy="-34" r="4" fill="#8a6a4a" stroke="none" style="display:inline"/></g>
+    <g id="fence-post-2" transform="matrix(1,0,0,1,409,577)" style="display:inline;opacity:1"><rect id="fence-rect-2" x="-3" y="-28" width="6" height="28" class="fence-post" style="display:inline;opacity:1" stroke="none"/><circle id="fence-cap-2" cx="0" cy="-28" r="4" fill="#8a6a4a" stroke="none" style="display:inline"/></g>
+    <g id="fence-post-3" transform="matrix(1,0,0,1,438,579)" style="display:inline;opacity:1"><rect id="fence-rect-3" x="-3" y="-31" width="6" height="31" class="fence-post" style="display:inline;opacity:1" stroke="none"/><circle id="fence-cap-3" cx="0" cy="-31" r="4" fill="#8a6a4a" stroke="none" style="display:inline"/></g>
+    <g id="fence-post-4" transform="matrix(1,0,0,1,469,580)" style="display:inline;opacity:1"><rect id="fence-rect-4" x="-3" y="-35" width="6" height="35" class="fence-post" style="display:inline;opacity:1" stroke="none"/><circle id="fence-cap-4" cx="0" cy="-35" r="4" fill="#8a6a4a" stroke="none" style="display:inline"/></g>
+    <g id="fence-post-5" transform="matrix(1,0,0,1,498,580)" style="display:inline;opacity:1"><rect id="fence-rect-5" x="-3" y="-31" width="6" height="31" class="fence-post" style="display:inline;opacity:1" stroke="none"/><circle id="fence-cap-5" cx="0" cy="-31" r="4" fill="#8a6a4a" stroke="none" style="display:inline"/></g>
+    <g id="fence-post-6" transform="matrix(1,0,0,1,528,579)" style="display:inline;opacity:1"><rect id="fence-rect-6" x="-3" y="-30" width="6" height="30" class="fence-post" style="display:inline;opacity:1" stroke="none"/><circle id="fence-cap-6" cx="0" cy="-30" r="4" fill="#8a6a4a" stroke="none" style="display:inline"/></g>
+    <g id="fence-post-7" transform="matrix(1,0,0,1,561,580)" style="display:inline;opacity:1"><rect id="fence-rect-7" x="-3" y="-33" width="6" height="33" class="fence-post" style="display:inline;opacity:1" stroke="none"/><circle id="fence-cap-7" cx="0" cy="-33" r="4" fill="#8a6a4a" stroke="none" style="display:inline"/></g>
+    <g id="fence-post-8" transform="matrix(1,0,0,1,591,580)" style="display:inline;opacity:1"><rect id="fence-rect-8" x="-3" y="-34" width="6" height="34" class="fence-post" style="display:inline;opacity:1" stroke="none"/><circle id="fence-cap-8" cx="0" cy="-34" r="4" fill="#8a6a4a" stroke="none" style="display:inline"/></g>
+    <g id="fence-post-9" transform="matrix(1,0,0,1,622,579)" style="display:inline;opacity:1"><rect id="fence-rect-9" x="-3" y="-30" width="6" height="30" class="fence-post" style="display:inline;opacity:1" stroke="none"/><circle id="fence-cap-9" cx="0" cy="-30" r="4" fill="#8a6a4a" stroke="none" style="display:inline"/></g>
+    <g id="fence-post-10" transform="matrix(1,0,0,1,651,579)" style="display:inline;opacity:1"><rect id="fence-rect-10" x="-3" y="-32" width="6" height="32" class="fence-post" style="display:inline;opacity:1" stroke="none"/><circle id="fence-cap-10" cx="0" cy="-32" r="4" fill="#8a6a4a" stroke="none" style="display:inline"/></g>
+    <line id="fence-rail-upper" x1="380" y1="556" x2="650" y2="556" class="fence-rail" style="display:inline;opacity:1" fill="none"/>
+    <line id="fence-rail-lower" x1="380" y1="568" x2="650" y2="568" class="fence-rail" style="display:inline;opacity:1" fill="none"/>
+  </g>
+  <!-- Flowers Layer -->
+  <g id="flowers-layer" style="display:inline;opacity:1">
+    <g id="flower-1" transform="matrix(1,0,0,1,556,757)" style="display:inline;opacity:1">
+      <line id="flower-stem-1" x1="0" y1="0" x2="3" y2="-22" stroke="#3a7a2a" stroke-width="1.5" fill="none" style="display:inline;opacity:1"/>
+      <ellipse id="petal-1-0" cx="0" cy="-22" rx="9" ry="4.5" fill="#a040e0" stroke="none" style="display:inline;opacity:1" transform="rotate(0,0,-22)"/>
+      <ellipse id="petal-1-1" cx="0" cy="-22" rx="9" ry="4.5" fill="#a040e0" stroke="none" style="display:inline;opacity:1" transform="rotate(72,0,-22)"/>
+      <ellipse id="petal-1-2" cx="0" cy="-22" rx="9" ry="4.5" fill="#a040e0" stroke="none" style="display:inline;opacity:1" transform="rotate(144,0,-22)"/>
+      <ellipse id="petal-1-3" cx="0" cy="-22" rx="9" ry="4.5" fill="#a040e0" stroke="none" style="display:inline;opacity:1" transform="rotate(216,0,-22)"/>
+      <ellipse id="petal-1-4" cx="0" cy="-22" rx="9" ry="4.5" fill="#a040e0" stroke="none" style="display:inline;opacity:1" transform="rotate(288,0,-22)"/>
+      <circle id="flower-center-1" cx="0" cy="-22" r="3.1" fill="#f0e040" stroke="none" style="display:inline;opacity:1"/>
+    </g>
+    <g id="flower-2" transform="matrix(1,0,0,1,1117,712)" style="display:inline;opacity:1">
+      <line id="flower-stem-2" x1="0" y1="0" x2="0" y2="-14" stroke="#3a7a2a" stroke-width="1.5" fill="none" style="display:inline;opacity:1"/>
+      <ellipse id="petal-2-0" cx="0" cy="-14" rx="9" ry="4.5" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(0,0,-14)"/>
+      <ellipse id="petal-2-1" cx="0" cy="-14" rx="9" ry="4.5" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(72,0,-14)"/>
+      <ellipse id="petal-2-2" cx="0" cy="-14" rx="9" ry="4.5" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(144,0,-14)"/>
+      <ellipse id="petal-2-3" cx="0" cy="-14" rx="9" ry="4.5" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(216,0,-14)"/>
+      <ellipse id="petal-2-4" cx="0" cy="-14" rx="9" ry="4.5" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(288,0,-14)"/>
+      <circle id="flower-center-2" cx="0" cy="-14" r="3.1" fill="#f0e040" stroke="none" style="display:inline;opacity:1"/>
+    </g>
+    <g id="flower-3" transform="matrix(1,0,0,1,208,741)" style="display:inline;opacity:1">
+      <line id="flower-stem-3" x1="0" y1="0" x2="-1" y2="-14" stroke="#3a7a2a" stroke-width="1.5" fill="none" style="display:inline;opacity:1"/>
+      <ellipse id="petal-3-0" cx="0" cy="-14" rx="6" ry="3.0" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(0,0,-14)"/>
+      <ellipse id="petal-3-1" cx="0" cy="-14" rx="6" ry="3.0" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(72,0,-14)"/>
+      <ellipse id="petal-3-2" cx="0" cy="-14" rx="6" ry="3.0" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(144,0,-14)"/>
+      <ellipse id="petal-3-3" cx="0" cy="-14" rx="6" ry="3.0" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(216,0,-14)"/>
+      <ellipse id="petal-3-4" cx="0" cy="-14" rx="6" ry="3.0" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(288,0,-14)"/>
+      <circle id="flower-center-3" cx="0" cy="-14" r="2.1" fill="#f0e040" stroke="none" style="display:inline;opacity:1"/>
+    </g>
+    <g id="flower-4" transform="matrix(1,0,0,1,704,719)" style="display:inline;opacity:1">
+      <line id="flower-stem-4" x1="0" y1="0" x2="-2" y2="-12" stroke="#3a7a2a" stroke-width="1.5" fill="none" style="display:inline;opacity:1"/>
+      <ellipse id="petal-4-0" cx="0" cy="-12" rx="4" ry="2.0" fill="#f0a030" stroke="none" style="display:inline;opacity:1" transform="rotate(0,0,-12)"/>
+      <ellipse id="petal-4-1" cx="0" cy="-12" rx="4" ry="2.0" fill="#f0a030" stroke="none" style="display:inline;opacity:1" transform="rotate(72,0,-12)"/>
+      <ellipse id="petal-4-2" cx="0" cy="-12" rx="4" ry="2.0" fill="#f0a030" stroke="none" style="display:inline;opacity:1" transform="rotate(144,0,-12)"/>
+      <ellipse id="petal-4-3" cx="0" cy="-12" rx="4" ry="2.0" fill="#f0a030" stroke="none" style="display:inline;opacity:1" transform="rotate(216,0,-12)"/>
+      <ellipse id="petal-4-4" cx="0" cy="-12" rx="4" ry="2.0" fill="#f0a030" stroke="none" style="display:inline;opacity:1" transform="rotate(288,0,-12)"/>
+      <circle id="flower-center-4" cx="0" cy="-12" r="1.4" fill="#f0e040" stroke="none" style="display:inline;opacity:1"/>
+    </g>
+    <g id="flower-5" transform="matrix(1,0,0,1,834,738)" style="display:inline;opacity:1">
+      <line id="flower-stem-5" x1="0" y1="0" x2="0" y2="-11" stroke="#3a7a2a" stroke-width="1.5" fill="none" style="display:inline;opacity:1"/>
+      <ellipse id="petal-5-0" cx="0" cy="-11" rx="5" ry="2.5" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(0,0,-11)"/>
+      <ellipse id="petal-5-1" cx="0" cy="-11" rx="5" ry="2.5" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(72,0,-11)"/>
+      <ellipse id="petal-5-2" cx="0" cy="-11" rx="5" ry="2.5" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(144,0,-11)"/>
+      <ellipse id="petal-5-3" cx="0" cy="-11" rx="5" ry="2.5" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(216,0,-11)"/>
+      <ellipse id="petal-5-4" cx="0" cy="-11" rx="5" ry="2.5" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(288,0,-11)"/>
+      <circle id="flower-center-5" cx="0" cy="-11" r="1.8" fill="#f0e040" stroke="none" style="display:inline;opacity:1"/>
+    </g>
+    <g id="flower-6" transform="matrix(1,0,0,1,884,692)" style="display:inline;opacity:1">
+      <line id="flower-stem-6" x1="0" y1="0" x2="-3" y2="-16" stroke="#3a7a2a" stroke-width="1.5" fill="none" style="display:inline;opacity:1"/>
+      <ellipse id="petal-6-0" cx="0" cy="-16" rx="8" ry="4.0" fill="#cc44aa" stroke="none" style="display:inline;opacity:1" transform="rotate(0,0,-16)"/>
+      <ellipse id="petal-6-1" cx="0" cy="-16" rx="8" ry="4.0" fill="#cc44aa" stroke="none" style="display:inline;opacity:1" transform="rotate(72,0,-16)"/>
+      <ellipse id="petal-6-2" cx="0" cy="-16" rx="8" ry="4.0" fill="#cc44aa" stroke="none" style="display:inline;opacity:1" transform="rotate(144,0,-16)"/>
+      <ellipse id="petal-6-3" cx="0" cy="-16" rx="8" ry="4.0" fill="#cc44aa" stroke="none" style="display:inline;opacity:1" transform="rotate(216,0,-16)"/>
+      <ellipse id="petal-6-4" cx="0" cy="-16" rx="8" ry="4.0" fill="#cc44aa" stroke="none" style="display:inline;opacity:1" transform="rotate(288,0,-16)"/>
+      <circle id="flower-center-6" cx="0" cy="-16" r="2.8" fill="#f0e040" stroke="none" style="display:inline;opacity:1"/>
+    </g>
+    <g id="flower-7" transform="matrix(1,0,0,1,473,756)" style="display:inline;opacity:1">
+      <line id="flower-stem-7" x1="0" y1="0" x2="1" y2="-22" stroke="#3a7a2a" stroke-width="1.5" fill="none" style="display:inline;opacity:1"/>
+      <ellipse id="petal-7-0" cx="0" cy="-22" rx="7" ry="3.5" fill="#ff6688" stroke="none" style="display:inline;opacity:1" transform="rotate(0,0,-22)"/>
+      <ellipse id="petal-7-1" cx="0" cy="-22" rx="7" ry="3.5" fill="#ff6688" stroke="none" style="display:inline;opacity:1" transform="rotate(72,0,-22)"/>
+      <ellipse id="petal-7-2" cx="0" cy="-22" rx="7" ry="3.5" fill="#ff6688" stroke="none" style="display:inline;opacity:1" transform="rotate(144,0,-22)"/>
+      <ellipse id="petal-7-3" cx="0" cy="-22" rx="7" ry="3.5" fill="#ff6688" stroke="none" style="display:inline;opacity:1" transform="rotate(216,0,-22)"/>
+      <ellipse id="petal-7-4" cx="0" cy="-22" rx="7" ry="3.5" fill="#ff6688" stroke="none" style="display:inline;opacity:1" transform="rotate(288,0,-22)"/>
+      <circle id="flower-center-7" cx="0" cy="-22" r="2.4" fill="#f0e040" stroke="none" style="display:inline;opacity:1"/>
+    </g>
+    <g id="flower-8" transform="matrix(1,0,0,1,90,759)" style="display:inline;opacity:1">
+      <line id="flower-stem-8" x1="0" y1="0" x2="-3" y2="-17" stroke="#3a7a2a" stroke-width="1.5" fill="none" style="display:inline;opacity:1"/>
+      <ellipse id="petal-8-0" cx="0" cy="-17" rx="10" ry="5.0" fill="#ff6688" stroke="none" style="display:inline;opacity:1" transform="rotate(0,0,-17)"/>
+      <ellipse id="petal-8-1" cx="0" cy="-17" rx="10" ry="5.0" fill="#ff6688" stroke="none" style="display:inline;opacity:1" transform="rotate(72,0,-17)"/>
+      <ellipse id="petal-8-2" cx="0" cy="-17" rx="10" ry="5.0" fill="#ff6688" stroke="none" style="display:inline;opacity:1" transform="rotate(144,0,-17)"/>
+      <ellipse id="petal-8-3" cx="0" cy="-17" rx="10" ry="5.0" fill="#ff6688" stroke="none" style="display:inline;opacity:1" transform="rotate(216,0,-17)"/>
+      <ellipse id="petal-8-4" cx="0" cy="-17" rx="10" ry="5.0" fill="#ff6688" stroke="none" style="display:inline;opacity:1" transform="rotate(288,0,-17)"/>
+      <circle id="flower-center-8" cx="0" cy="-17" r="3.5" fill="#f0e040" stroke="none" style="display:inline;opacity:1"/>
+    </g>
+    <g id="flower-9" transform="matrix(1,0,0,1,770,688)" style="display:inline;opacity:1">
+      <line id="flower-stem-9" x1="0" y1="0" x2="1" y2="-16" stroke="#3a7a2a" stroke-width="1.5" fill="none" style="display:inline;opacity:1"/>
+      <ellipse id="petal-9-0" cx="0" cy="-16" rx="10" ry="5.0" fill="#ff6688" stroke="none" style="display:inline;opacity:1" transform="rotate(0,0,-16)"/>
+      <ellipse id="petal-9-1" cx="0" cy="-16" rx="10" ry="5.0" fill="#ff6688" stroke="none" style="display:inline;opacity:1" transform="rotate(72,0,-16)"/>
+      <ellipse id="petal-9-2" cx="0" cy="-16" rx="10" ry="5.0" fill="#ff6688" stroke="none" style="display:inline;opacity:1" transform="rotate(144,0,-16)"/>
+      <ellipse id="petal-9-3" cx="0" cy="-16" rx="10" ry="5.0" fill="#ff6688" stroke="none" style="display:inline;opacity:1" transform="rotate(216,0,-16)"/>
+      <ellipse id="petal-9-4" cx="0" cy="-16" rx="10" ry="5.0" fill="#ff6688" stroke="none" style="display:inline;opacity:1" transform="rotate(288,0,-16)"/>
+      <circle id="flower-center-9" cx="0" cy="-16" r="3.5" fill="#f0e040" stroke="none" style="display:inline;opacity:1"/>
+    </g>
+    <g id="flower-10" transform="matrix(1,0,0,1,1168,752)" style="display:inline;opacity:1">
+      <line id="flower-stem-10" x1="0" y1="0" x2="-2" y2="-17" stroke="#3a7a2a" stroke-width="1.5" fill="none" style="display:inline;opacity:1"/>
+      <ellipse id="petal-10-0" cx="0" cy="-17" rx="8" ry="4.0" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(0,0,-17)"/>
+      <ellipse id="petal-10-1" cx="0" cy="-17" rx="8" ry="4.0" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(72,0,-17)"/>
+      <ellipse id="petal-10-2" cx="0" cy="-17" rx="8" ry="4.0" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(144,0,-17)"/>
+      <ellipse id="petal-10-3" cx="0" cy="-17" rx="8" ry="4.0" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(216,0,-17)"/>
+      <ellipse id="petal-10-4" cx="0" cy="-17" rx="8" ry="4.0" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(288,0,-17)"/>
+      <circle id="flower-center-10" cx="0" cy="-17" r="2.8" fill="#f0e040" stroke="none" style="display:inline;opacity:1"/>
+    </g>
+    <g id="flower-11" transform="matrix(1,0,0,1,608,705)" style="display:inline;opacity:1">
+      <line id="flower-stem-11" x1="0" y1="0" x2="-1" y2="-16" stroke="#3a7a2a" stroke-width="1.5" fill="none" style="display:inline;opacity:1"/>
+      <ellipse id="petal-11-0" cx="0" cy="-16" rx="7" ry="3.5" fill="#e04040" stroke="none" style="display:inline;opacity:1" transform="rotate(0,0,-16)"/>
+      <ellipse id="petal-11-1" cx="0" cy="-16" rx="7" ry="3.5" fill="#e04040" stroke="none" style="display:inline;opacity:1" transform="rotate(72,0,-16)"/>
+      <ellipse id="petal-11-2" cx="0" cy="-16" rx="7" ry="3.5" fill="#e04040" stroke="none" style="display:inline;opacity:1" transform="rotate(144,0,-16)"/>
+      <ellipse id="petal-11-3" cx="0" cy="-16" rx="7" ry="3.5" fill="#e04040" stroke="none" style="display:inline;opacity:1" transform="rotate(216,0,-16)"/>
+      <ellipse id="petal-11-4" cx="0" cy="-16" rx="7" ry="3.5" fill="#e04040" stroke="none" style="display:inline;opacity:1" transform="rotate(288,0,-16)"/>
+      <circle id="flower-center-11" cx="0" cy="-16" r="2.4" fill="#f0e040" stroke="none" style="display:inline;opacity:1"/>
+    </g>
+    <g id="flower-12" transform="matrix(1,0,0,1,878,742)" style="display:inline;opacity:1">
+      <line id="flower-stem-12" x1="0" y1="0" x2="1" y2="-12" stroke="#3a7a2a" stroke-width="1.5" fill="none" style="display:inline;opacity:1"/>
+      <ellipse id="petal-12-0" cx="0" cy="-12" rx="5" ry="2.5" fill="#cc44aa" stroke="none" style="display:inline;opacity:1" transform="rotate(0,0,-12)"/>
+      <ellipse id="petal-12-1" cx="0" cy="-12" rx="5" ry="2.5" fill="#cc44aa" stroke="none" style="display:inline;opacity:1" transform="rotate(72,0,-12)"/>
+      <ellipse id="petal-12-2" cx="0" cy="-12" rx="5" ry="2.5" fill="#cc44aa" stroke="none" style="display:inline;opacity:1" transform="rotate(144,0,-12)"/>
+      <ellipse id="petal-12-3" cx="0" cy="-12" rx="5" ry="2.5" fill="#cc44aa" stroke="none" style="display:inline;opacity:1" transform="rotate(216,0,-12)"/>
+      <ellipse id="petal-12-4" cx="0" cy="-12" rx="5" ry="2.5" fill="#cc44aa" stroke="none" style="display:inline;opacity:1" transform="rotate(288,0,-12)"/>
+      <circle id="flower-center-12" cx="0" cy="-12" r="1.8" fill="#f0e040" stroke="none" style="display:inline;opacity:1"/>
+    </g>
+    <g id="flower-13" transform="matrix(1,0,0,1,1143,653)" style="display:inline;opacity:1">
+      <line id="flower-stem-13" x1="0" y1="0" x2="2" y2="-11" stroke="#3a7a2a" stroke-width="1.5" fill="none" style="display:inline;opacity:1"/>
+      <ellipse id="petal-13-0" cx="0" cy="-11" rx="7" ry="3.5" fill="#e04040" stroke="none" style="display:inline;opacity:1" transform="rotate(0,0,-11)"/>
+      <ellipse id="petal-13-1" cx="0" cy="-11" rx="7" ry="3.5" fill="#e04040" stroke="none" style="display:inline;opacity:1" transform="rotate(72,0,-11)"/>
+      <ellipse id="petal-13-2" cx="0" cy="-11" rx="7" ry="3.5" fill="#e04040" stroke="none" style="display:inline;opacity:1" transform="rotate(144,0,-11)"/>
+      <ellipse id="petal-13-3" cx="0" cy="-11" rx="7" ry="3.5" fill="#e04040" stroke="none" style="display:inline;opacity:1" transform="rotate(216,0,-11)"/>
+      <ellipse id="petal-13-4" cx="0" cy="-11" rx="7" ry="3.5" fill="#e04040" stroke="none" style="display:inline;opacity:1" transform="rotate(288,0,-11)"/>
+      <circle id="flower-center-13" cx="0" cy="-11" r="2.4" fill="#f0e040" stroke="none" style="display:inline;opacity:1"/>
+    </g>
+    <g id="flower-14" transform="matrix(1,0,0,1,927,667)" style="display:inline;opacity:1">
+      <line id="flower-stem-14" x1="0" y1="0" x2="-3" y2="-12" stroke="#3a7a2a" stroke-width="1.5" fill="none" style="display:inline;opacity:1"/>
+      <ellipse id="petal-14-0" cx="0" cy="-12" rx="10" ry="5.0" fill="#cc44aa" stroke="none" style="display:inline;opacity:1" transform="rotate(0,0,-12)"/>
+      <ellipse id="petal-14-1" cx="0" cy="-12" rx="10" ry="5.0" fill="#cc44aa" stroke="none" style="display:inline;opacity:1" transform="rotate(72,0,-12)"/>
+      <ellipse id="petal-14-2" cx="0" cy="-12" rx="10" ry="5.0" fill="#cc44aa" stroke="none" style="display:inline;opacity:1" transform="rotate(144,0,-12)"/>
+      <ellipse id="petal-14-3" cx="0" cy="-12" rx="10" ry="5.0" fill="#cc44aa" stroke="none" style="display:inline;opacity:1" transform="rotate(216,0,-12)"/>
+      <ellipse id="petal-14-4" cx="0" cy="-12" rx="10" ry="5.0" fill="#cc44aa" stroke="none" style="display:inline;opacity:1" transform="rotate(288,0,-12)"/>
+      <circle id="flower-center-14" cx="0" cy="-12" r="3.5" fill="#f0e040" stroke="none" style="display:inline;opacity:1"/>
+    </g>
+    <g id="flower-15" transform="matrix(1,0,0,1,582,698)" style="display:inline;opacity:1">
+      <line id="flower-stem-15" x1="0" y1="0" x2="-1" y2="-17" stroke="#3a7a2a" stroke-width="1.5" fill="none" style="display:inline;opacity:1"/>
+      <ellipse id="petal-15-0" cx="0" cy="-17" rx="6" ry="3.0" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(0,0,-17)"/>
+      <ellipse id="petal-15-1" cx="0" cy="-17" rx="6" ry="3.0" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(72,0,-17)"/>
+      <ellipse id="petal-15-2" cx="0" cy="-17" rx="6" ry="3.0" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(144,0,-17)"/>
+      <ellipse id="petal-15-3" cx="0" cy="-17" rx="6" ry="3.0" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(216,0,-17)"/>
+      <ellipse id="petal-15-4" cx="0" cy="-17" rx="6" ry="3.0" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(288,0,-17)"/>
+      <circle id="flower-center-15" cx="0" cy="-17" r="2.1" fill="#f0e040" stroke="none" style="display:inline;opacity:1"/>
+    </g>
+    <g id="flower-16" transform="matrix(1,0,0,1,741,747)" style="display:inline;opacity:1">
+      <line id="flower-stem-16" x1="0" y1="0" x2="3" y2="-22" stroke="#3a7a2a" stroke-width="1.5" fill="none" style="display:inline;opacity:1"/>
+      <ellipse id="petal-16-0" cx="0" cy="-22" rx="7" ry="3.5" fill="#a040e0" stroke="none" style="display:inline;opacity:1" transform="rotate(0,0,-22)"/>
+      <ellipse id="petal-16-1" cx="0" cy="-22" rx="7" ry="3.5" fill="#a040e0" stroke="none" style="display:inline;opacity:1" transform="rotate(72,0,-22)"/>
+      <ellipse id="petal-16-2" cx="0" cy="-22" rx="7" ry="3.5" fill="#a040e0" stroke="none" style="display:inline;opacity:1" transform="rotate(144,0,-22)"/>
+      <ellipse id="petal-16-3" cx="0" cy="-22" rx="7" ry="3.5" fill="#a040e0" stroke="none" style="display:inline;opacity:1" transform="rotate(216,0,-22)"/>
+      <ellipse id="petal-16-4" cx="0" cy="-22" rx="7" ry="3.5" fill="#a040e0" stroke="none" style="display:inline;opacity:1" transform="rotate(288,0,-22)"/>
+      <circle id="flower-center-16" cx="0" cy="-22" r="2.4" fill="#f0e040" stroke="none" style="display:inline;opacity:1"/>
+    </g>
+    <g id="flower-17" transform="matrix(1,0,0,1,913,682)" style="display:inline;opacity:1">
+      <line id="flower-stem-17" x1="0" y1="0" x2="-3" y2="-17" stroke="#3a7a2a" stroke-width="1.5" fill="none" style="display:inline;opacity:1"/>
+      <ellipse id="petal-17-0" cx="0" cy="-17" rx="10" ry="5.0" fill="#e060a0" stroke="none" style="display:inline;opacity:1" transform="rotate(0,0,-17)"/>
+      <ellipse id="petal-17-1" cx="0" cy="-17" rx="10" ry="5.0" fill="#e060a0" stroke="none" style="display:inline;opacity:1" transform="rotate(72,0,-17)"/>
+      <ellipse id="petal-17-2" cx="0" cy="-17" rx="10" ry="5.0" fill="#e060a0" stroke="none" style="display:inline;opacity:1" transform="rotate(144,0,-17)"/>
+      <ellipse id="petal-17-3" cx="0" cy="-17" rx="10" ry="5.0" fill="#e060a0" stroke="none" style="display:inline;opacity:1" transform="rotate(216,0,-17)"/>
+      <ellipse id="petal-17-4" cx="0" cy="-17" rx="10" ry="5.0" fill="#e060a0" stroke="none" style="display:inline;opacity:1" transform="rotate(288,0,-17)"/>
+      <circle id="flower-center-17" cx="0" cy="-17" r="3.5" fill="#f0e040" stroke="none" style="display:inline;opacity:1"/>
+    </g>
+    <g id="flower-18" transform="matrix(1,0,0,1,1154,656)" style="display:inline;opacity:1">
+      <line id="flower-stem-18" x1="0" y1="0" x2="-3" y2="-20" stroke="#3a7a2a" stroke-width="1.5" fill="none" style="display:inline;opacity:1"/>
+      <ellipse id="petal-18-0" cx="0" cy="-20" rx="6" ry="3.0" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(0,0,-20)"/>
+      <ellipse id="petal-18-1" cx="0" cy="-20" rx="6" ry="3.0" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(72,0,-20)"/>
+      <ellipse id="petal-18-2" cx="0" cy="-20" rx="6" ry="3.0" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(144,0,-20)"/>
+      <ellipse id="petal-18-3" cx="0" cy="-20" rx="6" ry="3.0" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(216,0,-20)"/>
+      <ellipse id="petal-18-4" cx="0" cy="-20" rx="6" ry="3.0" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(288,0,-20)"/>
+      <circle id="flower-center-18" cx="0" cy="-20" r="2.1" fill="#f0e040" stroke="none" style="display:inline;opacity:1"/>
+    </g>
+    <g id="flower-19" transform="matrix(1,0,0,1,132,746)" style="display:inline;opacity:1">
+      <line id="flower-stem-19" x1="0" y1="0" x2="3" y2="-13" stroke="#3a7a2a" stroke-width="1.5" fill="none" style="display:inline;opacity:1"/>
+      <ellipse id="petal-19-0" cx="0" cy="-13" rx="4" ry="2.0" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(0,0,-13)"/>
+      <ellipse id="petal-19-1" cx="0" cy="-13" rx="4" ry="2.0" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(72,0,-13)"/>
+      <ellipse id="petal-19-2" cx="0" cy="-13" rx="4" ry="2.0" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(144,0,-13)"/>
+      <ellipse id="petal-19-3" cx="0" cy="-13" rx="4" ry="2.0" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(216,0,-13)"/>
+      <ellipse id="petal-19-4" cx="0" cy="-13" rx="4" ry="2.0" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(288,0,-13)"/>
+      <circle id="flower-center-19" cx="0" cy="-13" r="1.4" fill="#f0e040" stroke="none" style="display:inline;opacity:1"/>
+    </g>
+    <g id="flower-20" transform="matrix(1,0,0,1,91,729)" style="display:inline;opacity:1">
+      <line id="flower-stem-20" x1="0" y1="0" x2="0" y2="-12" stroke="#3a7a2a" stroke-width="1.5" fill="none" style="display:inline;opacity:1"/>
+      <ellipse id="petal-20-0" cx="0" cy="-12" rx="5" ry="2.5" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(0,0,-12)"/>
+      <ellipse id="petal-20-1" cx="0" cy="-12" rx="5" ry="2.5" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(72,0,-12)"/>
+      <ellipse id="petal-20-2" cx="0" cy="-12" rx="5" ry="2.5" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(144,0,-12)"/>
+      <ellipse id="petal-20-3" cx="0" cy="-12" rx="5" ry="2.5" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(216,0,-12)"/>
+      <ellipse id="petal-20-4" cx="0" cy="-12" rx="5" ry="2.5" fill="#f0e040" stroke="none" style="display:inline;opacity:1" transform="rotate(288,0,-12)"/>
+      <circle id="flower-center-20" cx="0" cy="-12" r="1.8" fill="#f0e040" stroke="none" style="display:inline;opacity:1"/>
+    </g>
+  </g>
+  <!-- Stone Path Layer -->
+  <g id="stone-path" style="display:inline;opacity:1">
+    <ellipse id="stone-1" cx="245" cy="701" rx="11" ry="8" fill="#97977a" stroke="#7a7a6a" stroke-width="0.5" class="stone" style="display:inline;opacity:1" transform="rotate(-4,245,701)"/>
+    <ellipse id="stone-2" cx="260" cy="696" rx="12" ry="5" fill="#818183" stroke="#7a7a6a" stroke-width="0.5" class="stone" style="display:inline;opacity:1" transform="rotate(17,260,696)"/>
+    <ellipse id="stone-3" cx="284" cy="697" rx="11" ry="5" fill="#a8a87f" stroke="#7a7a6a" stroke-width="0.5" class="stone" style="display:inline;opacity:1" transform="rotate(17,284,697)"/>
+    <ellipse id="stone-4" cx="290" cy="689" rx="9" ry="9" fill="#96968b" stroke="#7a7a6a" stroke-width="0.5" class="stone" style="display:inline;opacity:1" transform="rotate(-18,290,689)"/>
+    <ellipse id="stone-5" cx="313" cy="679" rx="16" ry="10" fill="#80808a" stroke="#7a7a6a" stroke-width="0.5" class="stone" style="display:inline;opacity:1" transform="rotate(1,313,679)"/>
+    <ellipse id="stone-6" cx="332" cy="677" rx="14" ry="7" fill="#9d9d79" stroke="#7a7a6a" stroke-width="0.5" class="stone" style="display:inline;opacity:1" transform="rotate(20,332,677)"/>
+    <ellipse id="stone-7" cx="345" cy="681" rx="16" ry="10" fill="#a7a78e" stroke="#7a7a6a" stroke-width="0.5" class="stone" style="display:inline;opacity:1" transform="rotate(-3,345,681)"/>
+    <ellipse id="stone-8" cx="361" cy="692" rx="12" ry="7" fill="#858581" stroke="#7a7a6a" stroke-width="0.5" class="stone" style="display:inline;opacity:1" transform="rotate(-5,361,692)"/>
+    <ellipse id="stone-9" cx="376" cy="695" rx="15" ry="9" fill="#aaaa88" stroke="#7a7a6a" stroke-width="0.5" class="stone" style="display:inline;opacity:1" transform="rotate(19,376,695)"/>
+    <ellipse id="stone-10" cx="387" cy="694" rx="15" ry="7" fill="#9f9f7d" stroke="#7a7a6a" stroke-width="0.5" class="stone" style="display:inline;opacity:1" transform="rotate(-9,387,694)"/>
+    <ellipse id="stone-11" cx="403" cy="694" rx="13" ry="7" fill="#919170" stroke="#7a7a6a" stroke-width="0.5" class="stone" style="display:inline;opacity:1" transform="rotate(18,403,694)"/>
+    <ellipse id="stone-12" cx="423" cy="687" rx="9" ry="6" fill="#9f9f7f" stroke="#7a7a6a" stroke-width="0.5" class="stone" style="display:inline;opacity:1" transform="rotate(6,423,687)"/>
+    <ellipse id="stone-13" cx="437" cy="687" rx="15" ry="8" fill="#858582" stroke="#7a7a6a" stroke-width="0.5" class="stone" style="display:inline;opacity:1" transform="rotate(-19,437,687)"/>
+    <ellipse id="stone-14" cx="444" cy="682" rx="11" ry="7" fill="#97978e" stroke="#7a7a6a" stroke-width="0.5" class="stone" style="display:inline;opacity:1" transform="rotate(17,444,682)"/>
+  </g>
+  <!-- Additional Empty Layers -->
+  <g id="layer-empty-7" style="display:inline"></g>
+  <g id="layer-empty-8" style="display:inline"></g>
+  <g id="layer-empty-9" style="display:inline"></g>
+  <g id="layer-empty-10" style="display:inline"></g>
+  <g id="layer-empty-11" style="display:inline"></g>
+  <g id="layer-empty-12" style="display:inline"></g>
+</svg>
