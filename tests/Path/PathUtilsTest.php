@@ -6,9 +6,16 @@ use Atelier\Svg\Geometry\Transformation;
 use Atelier\Svg\Path\PathBuilder;
 use Atelier\Svg\Path\PathParser;
 use Atelier\Svg\Path\PathUtils;
+use Atelier\Svg\Path\Segment\ArcTo;
+use Atelier\Svg\Path\Segment\ClosePath;
 use Atelier\Svg\Path\Segment\CurveTo;
+use Atelier\Svg\Path\Segment\HorizontalLineTo;
 use Atelier\Svg\Path\Segment\LineTo;
 use Atelier\Svg\Path\Segment\MoveTo;
+use Atelier\Svg\Path\Segment\QuadraticCurveTo;
+use Atelier\Svg\Path\Segment\SmoothCurveTo;
+use Atelier\Svg\Path\Segment\SmoothQuadraticCurveTo;
+use Atelier\Svg\Path\Segment\VerticalLineTo;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -215,7 +222,7 @@ final class PathUtilsTest extends TestCase
         $this->assertEquals('C', $segments[1]->getCommand());
     }
 
-    public function testToRelativePreservesNonLineSegments(): void
+    public function testToRelativeConvertsCurveTo(): void
     {
         $parser = new PathParser();
         $data = $parser->parse('M 0 0 C 10 10 20 20 30 30');
@@ -226,8 +233,60 @@ final class PathUtilsTest extends TestCase
         $this->assertCount(2, $segments);
         $this->assertInstanceOf(MoveTo::class, $segments[0]);
         $this->assertInstanceOf(CurveTo::class, $segments[1]);
-        // CurveTo is kept as-is (not converted)
-        $this->assertEquals('C', $segments[1]->getCommand());
+        // CurveTo is now properly converted to relative
+        $this->assertEquals('c', $segments[1]->getCommand());
+    }
+
+    public function testToAbsoluteConvertsAllSegmentTypes(): void
+    {
+        $parser = new PathParser();
+        // Mix of relative commands: moveto, lineto, h, v, curveto, arc, close
+        $data = $parser->parse('m 10 20 l 5 5 h 10 v 15 c 1 2 3 4 5 6 a 5 5 0 0 1 10 0 z');
+
+        $absolute = PathUtils::toAbsolute($data);
+        $result = $absolute->toString();
+
+        // After converting to absolute, all commands should be uppercase (except Z)
+        $segments = $absolute->getSegments();
+        foreach ($segments as $segment) {
+            if ($segment instanceof ClosePath) {
+                continue;
+            }
+            $this->assertFalse($segment->isRelative(), 'Segment '.$segment->getCommand().' should be absolute');
+        }
+    }
+
+    public function testToRelativeConvertsAllSegmentTypes(): void
+    {
+        $parser = new PathParser();
+        $data = $parser->parse('M 10 20 L 15 25 H 25 V 40 C 26 42 28 44 30 46 A 5 5 0 0 1 40 46 Z');
+
+        $relative = PathUtils::toRelative($data);
+
+        $segments = $relative->getSegments();
+        foreach ($segments as $segment) {
+            if ($segment instanceof ClosePath) {
+                continue;
+            }
+            $this->assertTrue($segment->isRelative(), 'Segment '.$segment->getCommand().' should be relative');
+        }
+    }
+
+    public function testToAbsoluteRoundTrip(): void
+    {
+        $parser = new PathParser();
+        // Start with absolute, convert to relative, convert back to absolute
+        $original = $parser->parse('M 10 20 L 30 40 C 35 45 40 50 50 60 Z');
+
+        $relative = PathUtils::toRelative($original);
+        $backToAbsolute = PathUtils::toAbsolute($relative);
+        $segments = $backToAbsolute->getSegments();
+
+        // The endpoint of the CurveTo should be 50,60
+        $curveTo = $segments[2];
+        $this->assertInstanceOf(CurveTo::class, $curveTo);
+        $this->assertEqualsWithDelta(50.0, $curveTo->getTargetPoint()->x, 0.001);
+        $this->assertEqualsWithDelta(60.0, $curveTo->getTargetPoint()->y, 0.001);
     }
 
     public function testSimplify(): void
@@ -276,5 +335,272 @@ final class PathUtilsTest extends TestCase
         // The segment should be transformed
         $targetPoint = $segments[1]->getTargetPoint();
         $this->assertNotNull($targetPoint);
+    }
+
+    public function testToAbsoluteWithAlreadyAbsoluteHorizontalLineTo(): void
+    {
+        $parser = new PathParser();
+        $data = $parser->parse('M 0 0 H 10');
+
+        $absolute = PathUtils::toAbsolute($data);
+        $segments = $absolute->getSegments();
+
+        $this->assertCount(2, $segments);
+        $this->assertInstanceOf(HorizontalLineTo::class, $segments[1]);
+        $this->assertSame('H', $segments[1]->getCommand());
+    }
+
+    public function testToAbsoluteWithAlreadyAbsoluteVerticalLineTo(): void
+    {
+        $parser = new PathParser();
+        $data = $parser->parse('M 0 0 V 20');
+
+        $absolute = PathUtils::toAbsolute($data);
+        $segments = $absolute->getSegments();
+
+        $this->assertCount(2, $segments);
+        $this->assertInstanceOf(VerticalLineTo::class, $segments[1]);
+        $this->assertSame('V', $segments[1]->getCommand());
+    }
+
+    public function testToAbsoluteWithAlreadyAbsoluteSmoothCurveTo(): void
+    {
+        $parser = new PathParser();
+        $data = $parser->parse('M 0 0 S 10 10 20 20');
+
+        $absolute = PathUtils::toAbsolute($data);
+        $segments = $absolute->getSegments();
+
+        $this->assertCount(2, $segments);
+        $this->assertInstanceOf(SmoothCurveTo::class, $segments[1]);
+        $this->assertSame('S', $segments[1]->getCommand());
+    }
+
+    public function testToAbsoluteWithAlreadyAbsoluteQuadraticCurveTo(): void
+    {
+        $parser = new PathParser();
+        $data = $parser->parse('M 0 0 Q 10 10 20 20');
+
+        $absolute = PathUtils::toAbsolute($data);
+        $segments = $absolute->getSegments();
+
+        $this->assertCount(2, $segments);
+        $this->assertInstanceOf(QuadraticCurveTo::class, $segments[1]);
+        $this->assertSame('Q', $segments[1]->getCommand());
+    }
+
+    public function testToAbsoluteWithAlreadyAbsoluteSmoothQuadraticCurveTo(): void
+    {
+        $parser = new PathParser();
+        $data = $parser->parse('M 0 0 Q 10 10 20 20 T 30 30');
+
+        $absolute = PathUtils::toAbsolute($data);
+        $segments = $absolute->getSegments();
+
+        $this->assertCount(3, $segments);
+        $this->assertInstanceOf(SmoothQuadraticCurveTo::class, $segments[2]);
+        $this->assertSame('T', $segments[2]->getCommand());
+    }
+
+    public function testToAbsoluteWithAlreadyAbsoluteArcTo(): void
+    {
+        $parser = new PathParser();
+        $data = $parser->parse('M 0 0 A 25 25 0 0 1 50 50');
+
+        $absolute = PathUtils::toAbsolute($data);
+        $segments = $absolute->getSegments();
+
+        $this->assertCount(2, $segments);
+        $this->assertInstanceOf(ArcTo::class, $segments[1]);
+        $this->assertSame('A', $segments[1]->getCommand());
+    }
+
+    public function testToRelativeWithAlreadyRelativeHorizontalLineTo(): void
+    {
+        $parser = new PathParser();
+        $data = $parser->parse('m 10 20 h 10');
+
+        $relative = PathUtils::toRelative($data);
+        $segments = $relative->getSegments();
+
+        $this->assertCount(2, $segments);
+        $this->assertInstanceOf(HorizontalLineTo::class, $segments[1]);
+        $this->assertSame('h', $segments[1]->getCommand());
+    }
+
+    public function testToRelativeWithAlreadyRelativeVerticalLineTo(): void
+    {
+        $parser = new PathParser();
+        $data = $parser->parse('m 10 20 v 15');
+
+        $relative = PathUtils::toRelative($data);
+        $segments = $relative->getSegments();
+
+        $this->assertCount(2, $segments);
+        $this->assertInstanceOf(VerticalLineTo::class, $segments[1]);
+        $this->assertSame('v', $segments[1]->getCommand());
+    }
+
+    public function testToRelativeWithAlreadyRelativeSmoothCurveTo(): void
+    {
+        $parser = new PathParser();
+        $data = $parser->parse('m 10 20 s 5 5 10 10');
+
+        $relative = PathUtils::toRelative($data);
+        $segments = $relative->getSegments();
+
+        $this->assertCount(2, $segments);
+        $this->assertInstanceOf(SmoothCurveTo::class, $segments[1]);
+        $this->assertSame('s', $segments[1]->getCommand());
+    }
+
+    public function testToRelativeWithAlreadyRelativeQuadraticCurveTo(): void
+    {
+        $parser = new PathParser();
+        $data = $parser->parse('m 10 20 q 5 5 10 10');
+
+        $relative = PathUtils::toRelative($data);
+        $segments = $relative->getSegments();
+
+        $this->assertCount(2, $segments);
+        $this->assertInstanceOf(QuadraticCurveTo::class, $segments[1]);
+        $this->assertSame('q', $segments[1]->getCommand());
+    }
+
+    public function testToRelativeWithAlreadyRelativeSmoothQuadraticCurveTo(): void
+    {
+        $parser = new PathParser();
+        $data = $parser->parse('m 10 20 q 5 5 10 10 t 10 10');
+
+        $relative = PathUtils::toRelative($data);
+        $segments = $relative->getSegments();
+
+        $this->assertCount(3, $segments);
+        $this->assertInstanceOf(SmoothQuadraticCurveTo::class, $segments[2]);
+        $this->assertSame('t', $segments[2]->getCommand());
+    }
+
+    public function testToRelativeWithAlreadyRelativeArcTo(): void
+    {
+        $parser = new PathParser();
+        $data = $parser->parse('m 10 20 a 5 5 0 0 1 10 0');
+
+        $relative = PathUtils::toRelative($data);
+        $segments = $relative->getSegments();
+
+        $this->assertCount(2, $segments);
+        $this->assertInstanceOf(ArcTo::class, $segments[1]);
+        $this->assertSame('a', $segments[1]->getCommand());
+    }
+
+    public function testToRelativeWithAlreadyRelativeCurveTo(): void
+    {
+        $parser = new PathParser();
+        $data = $parser->parse('m 10 20 c 1 2 3 4 5 6');
+
+        $relative = PathUtils::toRelative($data);
+        $segments = $relative->getSegments();
+
+        $this->assertCount(2, $segments);
+        $this->assertInstanceOf(CurveTo::class, $segments[1]);
+        $this->assertSame('c', $segments[1]->getCommand());
+    }
+
+    public function testToAbsoluteConvertsRelativeSmoothCurveTo(): void
+    {
+        $parser = new PathParser();
+        $data = $parser->parse('M 10 20 s 5 5 10 10');
+
+        $absolute = PathUtils::toAbsolute($data);
+        $segments = $absolute->getSegments();
+
+        $this->assertCount(2, $segments);
+        $this->assertInstanceOf(SmoothCurveTo::class, $segments[1]);
+        $this->assertSame('S', $segments[1]->getCommand());
+        $this->assertEqualsWithDelta(15.0, $segments[1]->getControlPoint2()->x, 0.001);
+        $this->assertEqualsWithDelta(25.0, $segments[1]->getControlPoint2()->y, 0.001);
+        $this->assertEqualsWithDelta(20.0, $segments[1]->getTargetPoint()->x, 0.001);
+        $this->assertEqualsWithDelta(30.0, $segments[1]->getTargetPoint()->y, 0.001);
+    }
+
+    public function testToAbsoluteConvertsRelativeQuadraticCurveTo(): void
+    {
+        $parser = new PathParser();
+        $data = $parser->parse('M 10 20 q 5 5 10 10');
+
+        $absolute = PathUtils::toAbsolute($data);
+        $segments = $absolute->getSegments();
+
+        $this->assertCount(2, $segments);
+        $this->assertInstanceOf(QuadraticCurveTo::class, $segments[1]);
+        $this->assertSame('Q', $segments[1]->getCommand());
+        $this->assertEqualsWithDelta(15.0, $segments[1]->getControlPoint()->x, 0.001);
+        $this->assertEqualsWithDelta(25.0, $segments[1]->getControlPoint()->y, 0.001);
+        $this->assertEqualsWithDelta(20.0, $segments[1]->getTargetPoint()->x, 0.001);
+        $this->assertEqualsWithDelta(30.0, $segments[1]->getTargetPoint()->y, 0.001);
+    }
+
+    public function testToAbsoluteConvertsRelativeSmoothQuadraticCurveTo(): void
+    {
+        $parser = new PathParser();
+        $data = $parser->parse('M 10 20 t 5 5');
+
+        $absolute = PathUtils::toAbsolute($data);
+        $segments = $absolute->getSegments();
+
+        $this->assertCount(2, $segments);
+        $this->assertInstanceOf(SmoothQuadraticCurveTo::class, $segments[1]);
+        $this->assertSame('T', $segments[1]->getCommand());
+        $this->assertEqualsWithDelta(15.0, $segments[1]->getTargetPoint()->x, 0.001);
+        $this->assertEqualsWithDelta(25.0, $segments[1]->getTargetPoint()->y, 0.001);
+    }
+
+    public function testToRelativeConvertsAbsoluteSmoothCurveTo(): void
+    {
+        $parser = new PathParser();
+        $data = $parser->parse('M 10 20 S 20 30 30 40');
+
+        $relative = PathUtils::toRelative($data);
+        $segments = $relative->getSegments();
+
+        $this->assertCount(2, $segments);
+        $this->assertInstanceOf(SmoothCurveTo::class, $segments[1]);
+        $this->assertSame('s', $segments[1]->getCommand());
+        $this->assertEqualsWithDelta(10.0, $segments[1]->getControlPoint2()->x, 0.001);
+        $this->assertEqualsWithDelta(10.0, $segments[1]->getControlPoint2()->y, 0.001);
+        $this->assertEqualsWithDelta(20.0, $segments[1]->getTargetPoint()->x, 0.001);
+        $this->assertEqualsWithDelta(20.0, $segments[1]->getTargetPoint()->y, 0.001);
+    }
+
+    public function testToRelativeConvertsAbsoluteQuadraticCurveTo(): void
+    {
+        $parser = new PathParser();
+        $data = $parser->parse('M 10 20 Q 20 30 30 40');
+
+        $relative = PathUtils::toRelative($data);
+        $segments = $relative->getSegments();
+
+        $this->assertCount(2, $segments);
+        $this->assertInstanceOf(QuadraticCurveTo::class, $segments[1]);
+        $this->assertSame('q', $segments[1]->getCommand());
+        $this->assertEqualsWithDelta(10.0, $segments[1]->getControlPoint()->x, 0.001);
+        $this->assertEqualsWithDelta(10.0, $segments[1]->getControlPoint()->y, 0.001);
+        $this->assertEqualsWithDelta(20.0, $segments[1]->getTargetPoint()->x, 0.001);
+        $this->assertEqualsWithDelta(20.0, $segments[1]->getTargetPoint()->y, 0.001);
+    }
+
+    public function testToRelativeConvertsAbsoluteSmoothQuadraticCurveTo(): void
+    {
+        $parser = new PathParser();
+        $data = $parser->parse('M 10 20 T 20 30');
+
+        $relative = PathUtils::toRelative($data);
+        $segments = $relative->getSegments();
+
+        $this->assertCount(2, $segments);
+        $this->assertInstanceOf(SmoothQuadraticCurveTo::class, $segments[1]);
+        $this->assertSame('t', $segments[1]->getCommand());
+        $this->assertEqualsWithDelta(10.0, $segments[1]->getTargetPoint()->x, 0.001);
+        $this->assertEqualsWithDelta(10.0, $segments[1]->getTargetPoint()->y, 0.001);
     }
 }

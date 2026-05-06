@@ -289,15 +289,204 @@ final class PathParserTest extends TestCase
 
     public function testParseWithUnknownCommandSkipsIt(): void
     {
-        // 'X' is not a valid SVG path command, it matches isCommand (single alpha)
-        // but falls through to the default case in the switch
-        // Actually 'X' does NOT match the regex /^[MmLlHhVvCcSsQqTtAaZz]$/
-        // So it won't be treated as a command. Need to verify behavior.
-        // The isCommand check filters out non-command tokens, and the switch default
-        // handles unknown commands that somehow pass. Since isCommand is strict,
-        // this branch can only be hit if isCommand is modified. Let's just verify
-        // the parser handles gracefully when given a valid path with mixed content.
+        // 'X' does NOT match the isCommand regex, so it's skipped as a non-command token.
+        // The default branch in the match is unreachable but kept as defensive code.
         $data = $this->parser->parse('M 0,0 L 10,10');
         $this->assertCount(2, $data->getSegments());
+    }
+
+    public function testParseTruncatedCurveStopsGracefully(): void
+    {
+        // Second C only has 3 args instead of 6 -- parser should stop gracefully
+        $data = $this->parser->parse('M 0 0 C 10 20 30 40 50 60 C 70 80 90');
+        $segments = $data->getSegments();
+
+        // Only M and the first (complete) C should be parsed
+        $this->assertCount(2, $segments);
+        $this->assertInstanceOf(MoveTo::class, $segments[0]);
+        $this->assertInstanceOf(CurveTo::class, $segments[1]);
+    }
+
+    public function testParseTruncatedLineStopsGracefully(): void
+    {
+        // L needs 2 args but only 1 is provided
+        $data = $this->parser->parse('M 0 0 L 10');
+        $segments = $data->getSegments();
+
+        $this->assertCount(1, $segments);
+        $this->assertInstanceOf(MoveTo::class, $segments[0]);
+    }
+
+    public function testImplicitRepeatedLineTo(): void
+    {
+        // L 10 20 30 40 = L10,20 L30,40
+        $data = $this->parser->parse('M 0 0 L 10 20 30 40');
+        $segments = $data->getSegments();
+
+        $this->assertCount(3, $segments);
+        $this->assertInstanceOf(MoveTo::class, $segments[0]);
+        $this->assertInstanceOf(LineTo::class, $segments[1]);
+        $this->assertInstanceOf(LineTo::class, $segments[2]);
+        $this->assertSame(30.0, $segments[2]->getTargetPoint()->x);
+        $this->assertSame(40.0, $segments[2]->getTargetPoint()->y);
+    }
+
+    public function testImplicitMoveToBecomesLineTo(): void
+    {
+        // Per SVG spec, implicit repeats after M become L
+        $data = $this->parser->parse('M 0 0 10 20 30 40');
+        $segments = $data->getSegments();
+
+        $this->assertCount(3, $segments);
+        $this->assertInstanceOf(MoveTo::class, $segments[0]);
+        $this->assertInstanceOf(LineTo::class, $segments[1]);
+        $this->assertSame('L', $segments[1]->getCommand());
+        $this->assertInstanceOf(LineTo::class, $segments[2]);
+        $this->assertSame('L', $segments[2]->getCommand());
+    }
+
+    public function testImplicitRelativeMoveToBecomesRelativeLineTo(): void
+    {
+        // Implicit repeats after m become l (lowercase)
+        $data = $this->parser->parse('m 0 0 10 20');
+        $segments = $data->getSegments();
+
+        $this->assertCount(2, $segments);
+        $this->assertInstanceOf(MoveTo::class, $segments[0]);
+        $this->assertInstanceOf(LineTo::class, $segments[1]);
+        $this->assertSame('l', $segments[1]->getCommand());
+    }
+
+    public function testImplicitRepeatedCurveTo(): void
+    {
+        // Two implicit cubic curves
+        $data = $this->parser->parse('M 0 0 C 1 2 3 4 5 6 7 8 9 10 11 12');
+        $segments = $data->getSegments();
+
+        $this->assertCount(3, $segments);
+        $this->assertInstanceOf(CurveTo::class, $segments[1]);
+        $this->assertInstanceOf(CurveTo::class, $segments[2]);
+        $this->assertSame(11.0, $segments[2]->getTargetPoint()->x);
+    }
+
+    public function testImplicitRepeatedQuadraticCurveTo(): void
+    {
+        // q with 8 args = 2 quadratic curves
+        $data = $this->parser->parse('M 0 0 q 17.521 0 27.886 8.76 10.366 8.76 10.366 23.944');
+        $segments = $data->getSegments();
+
+        $this->assertCount(3, $segments);
+        $this->assertInstanceOf(QuadraticCurveTo::class, $segments[1]);
+        $this->assertInstanceOf(QuadraticCurveTo::class, $segments[2]);
+        $this->assertSame('q', $segments[2]->getCommand());
+        $this->assertSame(10.366, $segments[2]->getControlPoint()->x);
+    }
+
+    public function testImplicitRepeatedArcTo(): void
+    {
+        $data = $this->parser->parse('M 0 0 A 10 10 0 0 1 50 50 10 10 0 1 0 100 100');
+        $segments = $data->getSegments();
+
+        $this->assertCount(3, $segments);
+        $this->assertInstanceOf(ArcTo::class, $segments[1]);
+        $this->assertInstanceOf(ArcTo::class, $segments[2]);
+        $this->assertSame(100.0, $segments[2]->getTargetPoint()->x);
+    }
+
+    public function testImplicitRepeatedHorizontalLineTo(): void
+    {
+        $data = $this->parser->parse('M 0 0 H 10 20 30');
+        $segments = $data->getSegments();
+
+        $this->assertCount(4, $segments);
+        $this->assertInstanceOf(HorizontalLineTo::class, $segments[1]);
+        $this->assertInstanceOf(HorizontalLineTo::class, $segments[2]);
+        $this->assertInstanceOf(HorizontalLineTo::class, $segments[3]);
+    }
+
+    public function testImplicitRepeatedVerticalLineTo(): void
+    {
+        $data = $this->parser->parse('M 0 0 V 10 20 30');
+        $segments = $data->getSegments();
+
+        $this->assertCount(4, $segments);
+        $this->assertInstanceOf(VerticalLineTo::class, $segments[1]);
+        $this->assertInstanceOf(VerticalLineTo::class, $segments[2]);
+        $this->assertInstanceOf(VerticalLineTo::class, $segments[3]);
+    }
+
+    public function testImplicitRepeatTruncatedStopsGracefully(): void
+    {
+        // L needs 2 args; first pair is complete, second pair is truncated
+        $data = $this->parser->parse('M 0 0 L 10 20 30');
+        $segments = $data->getSegments();
+
+        $this->assertCount(2, $segments);
+        $this->assertInstanceOf(MoveTo::class, $segments[0]);
+        $this->assertInstanceOf(LineTo::class, $segments[1]);
+    }
+
+    public function testParseTruncatedMoveTo(): void
+    {
+        $parser = new PathParser();
+        // M with only one coordinate -- truncated
+        $segments = $parser->parse('M 5')->getSegments();
+        $this->assertCount(0, $segments);
+    }
+
+    public function testParseTruncatedHorizontalLineTo(): void
+    {
+        $parser = new PathParser();
+        $segments = $parser->parse('M0 0 H')->getSegments();
+        $this->assertCount(1, $segments);
+    }
+
+    public function testParseTruncatedVerticalLineTo(): void
+    {
+        $parser = new PathParser();
+        $segments = $parser->parse('M0 0 V')->getSegments();
+        $this->assertCount(1, $segments);
+    }
+
+    public function testParseTruncatedLineTo(): void
+    {
+        $parser = new PathParser();
+        $segments = $parser->parse('M0 0 L 5')->getSegments();
+        $this->assertCount(1, $segments);
+    }
+
+    public function testParseTruncatedCurveTo(): void
+    {
+        $parser = new PathParser();
+        $segments = $parser->parse('M0 0 C 1 2 3 4 5')->getSegments();
+        $this->assertCount(1, $segments);
+    }
+
+    public function testParseTruncatedSmoothCurveTo(): void
+    {
+        $parser = new PathParser();
+        $segments = $parser->parse('M0 0 S 1 2 3')->getSegments();
+        $this->assertCount(1, $segments);
+    }
+
+    public function testParseTruncatedQuadraticCurveTo(): void
+    {
+        $parser = new PathParser();
+        $segments = $parser->parse('M0 0 Q 1 2 3')->getSegments();
+        $this->assertCount(1, $segments);
+    }
+
+    public function testParseTruncatedSmoothQuadraticCurveTo(): void
+    {
+        $parser = new PathParser();
+        $segments = $parser->parse('M0 0 T 5')->getSegments();
+        $this->assertCount(1, $segments);
+    }
+
+    public function testParseTruncatedArcTo(): void
+    {
+        $parser = new PathParser();
+        $segments = $parser->parse('M0 0 A 10 10 0 0 1 5')->getSegments();
+        $this->assertCount(1, $segments);
     }
 }

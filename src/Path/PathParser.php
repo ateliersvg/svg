@@ -41,8 +41,9 @@ final class PathParser
         // Tokenize the path data
         $tokens = $this->tokenize($pathData);
         $i = 0;
+        $parsing = true;
 
-        while ($i < count($tokens)) {
+        while ($parsing && $i < count($tokens)) {
             $command = $tokens[$i];
             ++$i;
 
@@ -51,98 +52,140 @@ final class PathParser
                 continue;
             }
 
-            // Parse the segment based on command
-            switch (strtoupper($command)) {
-                case 'M': // MoveTo
-                    $x = (float) $tokens[$i++];
-                    $y = (float) $tokens[$i++];
-                    $segments[] = new MoveTo($command, new Point($x, $y));
-                    break;
+            // Handle the command and any implicit repeats
+            do {
+                $tokenCount = count($tokens);
 
-                case 'L': // LineTo
-                    $x = (float) $tokens[$i++];
-                    $y = (float) $tokens[$i++];
-                    $segments[] = new LineTo($command, new Point($x, $y));
-                    break;
+                switch (strtoupper($command)) {
+                    case 'M': // MoveTo
+                        if ($i + 2 > $tokenCount) {
+                            $parsing = false;
+                            break;
+                        }
+                        $x = (float) $tokens[$i++];
+                        $y = (float) $tokens[$i++];
+                        $segments[] = new MoveTo($command, new Point($x, $y));
+                        // Per SVG spec, implicit repeats after M become L
+                        $command = ctype_upper($command) ? 'L' : 'l';
+                        break;
 
-                case 'H': // HorizontalLineTo
-                    $x = (float) $tokens[$i++];
-                    $segments[] = new HorizontalLineTo($command, $x);
-                    break;
+                    case 'L': // LineTo
+                        if ($i + 2 > $tokenCount) {
+                            $parsing = false;
+                            break;
+                        }
+                        $x = (float) $tokens[$i++];
+                        $y = (float) $tokens[$i++];
+                        $segments[] = new LineTo($command, new Point($x, $y));
+                        break;
 
-                case 'V': // VerticalLineTo
-                    $y = (float) $tokens[$i++];
-                    $segments[] = new VerticalLineTo($command, $y);
-                    break;
+                    case 'H': // HorizontalLineTo
+                        if ($i + 1 > $tokenCount) {
+                            $parsing = false;
+                            break;
+                        }
+                        $x = (float) $tokens[$i++];
+                        $segments[] = new HorizontalLineTo($command, $x);
+                        break;
 
-                case 'C': // CurveTo
-                    $x1 = (float) $tokens[$i++];
-                    $y1 = (float) $tokens[$i++];
-                    $x2 = (float) $tokens[$i++];
-                    $y2 = (float) $tokens[$i++];
-                    $x = (float) $tokens[$i++];
-                    $y = (float) $tokens[$i++];
-                    $segments[] = new CurveTo(
-                        $command,
-                        new Point($x1, $y1),
-                        new Point($x2, $y2),
-                        new Point($x, $y)
-                    );
-                    break;
+                    case 'V': // VerticalLineTo
+                        if ($i + 1 > $tokenCount) {
+                            $parsing = false;
+                            break;
+                        }
+                        $y = (float) $tokens[$i++];
+                        $segments[] = new VerticalLineTo($command, $y);
+                        break;
 
-                case 'S': // SmoothCurveTo
-                    $x2 = (float) $tokens[$i++];
-                    $y2 = (float) $tokens[$i++];
-                    $x = (float) $tokens[$i++];
-                    $y = (float) $tokens[$i++];
-                    $segments[] = new SmoothCurveTo(
-                        $command,
-                        new Point($x2, $y2),
-                        new Point($x, $y)
-                    );
-                    break;
+                    case 'C': // CurveTo
+                        if ($i + 6 > $tokenCount) {
+                            $parsing = false;
+                            break;
+                        }
+                        $x1 = (float) $tokens[$i++];
+                        $y1 = (float) $tokens[$i++];
+                        $x2 = (float) $tokens[$i++];
+                        $y2 = (float) $tokens[$i++];
+                        $x = (float) $tokens[$i++];
+                        $y = (float) $tokens[$i++];
+                        $segments[] = new CurveTo(
+                            $command,
+                            new Point($x1, $y1),
+                            new Point($x2, $y2),
+                            new Point($x, $y)
+                        );
+                        break;
 
-                case 'Q': // QuadraticCurveTo
-                    $x1 = (float) $tokens[$i++];
-                    $y1 = (float) $tokens[$i++];
-                    $x = (float) $tokens[$i++];
-                    $y = (float) $tokens[$i++];
-                    $segments[] = new QuadraticCurveTo(
-                        $command,
-                        new Point($x1, $y1),
-                        new Point($x, $y)
-                    );
-                    break;
+                    case 'S': // SmoothCurveTo
+                        if ($i + 4 > $tokenCount) {
+                            $parsing = false;
+                            break;
+                        }
+                        $x2 = (float) $tokens[$i++];
+                        $y2 = (float) $tokens[$i++];
+                        $x = (float) $tokens[$i++];
+                        $y = (float) $tokens[$i++];
+                        $segments[] = new SmoothCurveTo(
+                            $command,
+                            new Point($x2, $y2),
+                            new Point($x, $y)
+                        );
+                        break;
 
-                case 'T': // SmoothQuadraticCurveTo
-                    $x = (float) $tokens[$i++];
-                    $y = (float) $tokens[$i++];
-                    $segments[] = new SmoothQuadraticCurveTo($command, new Point($x, $y));
-                    break;
+                    case 'Q': // QuadraticCurveTo
+                        if ($i + 4 > $tokenCount) {
+                            $parsing = false;
+                            break;
+                        }
+                        $x1 = (float) $tokens[$i++];
+                        $y1 = (float) $tokens[$i++];
+                        $x = (float) $tokens[$i++];
+                        $y = (float) $tokens[$i++];
+                        $segments[] = new QuadraticCurveTo(
+                            $command,
+                            new Point($x1, $y1),
+                            new Point($x, $y)
+                        );
+                        break;
 
-                case 'A': // ArcTo
-                    $rx = (float) $tokens[$i++];
-                    $ry = (float) $tokens[$i++];
-                    $xAxisRotation = (float) $tokens[$i++];
-                    $largeArcFlag = (bool) (int) $tokens[$i++];
-                    $sweepFlag = (bool) (int) $tokens[$i++];
-                    $x = (float) $tokens[$i++];
-                    $y = (float) $tokens[$i++];
-                    $segments[] = new ArcTo(
-                        $command,
-                        $rx,
-                        $ry,
-                        $xAxisRotation,
-                        $largeArcFlag,
-                        $sweepFlag,
-                        new Point($x, $y)
-                    );
-                    break;
+                    case 'T': // SmoothQuadraticCurveTo
+                        if ($i + 2 > $tokenCount) {
+                            $parsing = false;
+                            break;
+                        }
+                        $x = (float) $tokens[$i++];
+                        $y = (float) $tokens[$i++];
+                        $segments[] = new SmoothQuadraticCurveTo($command, new Point($x, $y));
+                        break;
 
-                case 'Z': // ClosePath
-                    $segments[] = new ClosePath($command);
-                    break;
-            }
+                    case 'A': // ArcTo
+                        if ($i + 7 > $tokenCount) {
+                            $parsing = false;
+                            break;
+                        }
+                        $rx = (float) $tokens[$i++];
+                        $ry = (float) $tokens[$i++];
+                        $xAxisRotation = (float) $tokens[$i++];
+                        $largeArcFlag = (bool) (int) $tokens[$i++];
+                        $sweepFlag = (bool) (int) $tokens[$i++];
+                        $x = (float) $tokens[$i++];
+                        $y = (float) $tokens[$i++];
+                        $segments[] = new ArcTo(
+                            $command,
+                            $rx,
+                            $ry,
+                            $xAxisRotation,
+                            $largeArcFlag,
+                            $sweepFlag,
+                            new Point($x, $y)
+                        );
+                        break;
+
+                    case 'Z': // ClosePath
+                        $segments[] = new ClosePath($command);
+                        break;
+                }
+            } while ($parsing && 'Z' !== strtoupper($command) && $i < count($tokens) && !$this->isCommand($tokens[$i]));
         }
 
         return new Data($segments);

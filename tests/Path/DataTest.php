@@ -161,7 +161,7 @@ final class DataTest extends TestCase
         ]);
 
         $result = $data->toString();
-        $this->assertSame('M 10,20 L 30,40 Z', $result);
+        $this->assertSame('M10,20L30,40Z', $result);
     }
 
     public function testToStringEmpty(): void

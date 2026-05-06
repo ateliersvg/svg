@@ -32,18 +32,56 @@ final class PathTransformer
     public function transform(Data $data, Matrix $matrix): Data
     {
         $transformedSegments = [];
+        $currentPoint = new Point(0, 0);
+        $subpathStart = new Point(0, 0);
 
         foreach ($data->getSegments() as $segment) {
-            $transformedSegments[] = $this->transformSegment($segment, $matrix);
+            $result = $this->transformSegment($segment, $matrix, $currentPoint);
+            $transformedSegments[] = $result;
+
+            // Track current point for H/V resolution
+            $currentPoint = $this->advanceCurrentPoint($segment, $currentPoint, $subpathStart);
+            if ($segment instanceof MoveTo) {
+                $subpathStart = $currentPoint;
+            } elseif ($segment instanceof ClosePath) {
+                $currentPoint = $subpathStart;
+            }
         }
 
         return new Data($transformedSegments);
     }
 
     /**
+     * Advance the current point based on the original (pre-transform) segment.
+     */
+    private function advanceCurrentPoint(SegmentInterface $segment, Point $currentPoint, Point $subpathStart): Point
+    {
+        if ($segment instanceof ClosePath) {
+            return $subpathStart;
+        }
+
+        if ($segment instanceof HorizontalLineTo) {
+            $x = $segment->isRelative() ? $currentPoint->x + $segment->getX() : $segment->getX();
+
+            return new Point($x, $currentPoint->y);
+        }
+
+        if ($segment instanceof VerticalLineTo) {
+            $y = $segment->isRelative() ? $currentPoint->y + $segment->getY() : $segment->getY();
+
+            return new Point($currentPoint->x, $y);
+        }
+
+        $point = $segment->getTargetPoint();
+        \assert($point instanceof Point);
+
+        return $segment->isRelative() ? $currentPoint->add($point) : $point;
+    }
+
+    /**
      * Transform a single segment.
      */
-    private function transformSegment(SegmentInterface $segment, Matrix $matrix): SegmentInterface
+    private function transformSegment(SegmentInterface $segment, Matrix $matrix, Point $currentPoint): SegmentInterface
     {
         $command = $segment->getCommand();
 
@@ -54,8 +92,8 @@ final class PathTransformer
         return match (true) {
             $segment instanceof MoveTo => $this->transformMoveTo($segment, $matrix, $absoluteCommand),
             $segment instanceof LineTo => $this->transformLineTo($segment, $matrix, $absoluteCommand),
-            $segment instanceof HorizontalLineTo => $this->transformHorizontalLineTo($segment, $matrix),
-            $segment instanceof VerticalLineTo => $this->transformVerticalLineTo($segment, $matrix),
+            $segment instanceof HorizontalLineTo => $this->transformHorizontalLineTo($segment, $matrix, $currentPoint),
+            $segment instanceof VerticalLineTo => $this->transformVerticalLineTo($segment, $matrix, $currentPoint),
             $segment instanceof CurveTo => $this->transformCurveTo($segment, $matrix, $absoluteCommand),
             $segment instanceof SmoothCurveTo => $this->transformSmoothCurveTo($segment, $matrix, $absoluteCommand),
             $segment instanceof QuadraticCurveTo => $this->transformQuadraticCurveTo($segment, $matrix, $absoluteCommand),
@@ -82,22 +120,21 @@ final class PathTransformer
         return new LineTo($command, $transformedPoint);
     }
 
-    private function transformHorizontalLineTo(HorizontalLineTo $segment, Matrix $matrix): LineTo
+    private function transformHorizontalLineTo(HorizontalLineTo $segment, Matrix $matrix, Point $currentPoint): LineTo
     {
-        // Convert H/h to L/L since transformation makes it non-horizontal
-        // We need the current point to do this properly, so we'll approximate
-        // For now, convert to LineTo with y=0 (this is a simplification)
-        // In production, you'd track current point through transformation
-        $point = new Point($segment->getX(), 0);
+        // Resolve to absolute point using current position for the missing coordinate
+        $absX = $segment->isRelative() ? $currentPoint->x + $segment->getX() : $segment->getX();
+        $point = new Point($absX, $currentPoint->y);
         $transformedPoint = $matrix->transform($point);
 
         return new LineTo('L', $transformedPoint);
     }
 
-    private function transformVerticalLineTo(VerticalLineTo $segment, Matrix $matrix): LineTo
+    private function transformVerticalLineTo(VerticalLineTo $segment, Matrix $matrix, Point $currentPoint): LineTo
     {
-        // Convert V/v to L/L since transformation makes it non-vertical
-        $point = new Point(0, $segment->getY());
+        // Resolve to absolute point using current position for the missing coordinate
+        $absY = $segment->isRelative() ? $currentPoint->y + $segment->getY() : $segment->getY();
+        $point = new Point($currentPoint->x, $absY);
         $transformedPoint = $matrix->transform($point);
 
         return new LineTo('L', $transformedPoint);
