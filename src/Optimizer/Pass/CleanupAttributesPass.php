@@ -125,15 +125,8 @@ final class CleanupAttributesPass extends AbstractOptimizerPass
      */
     private function cleanupPathDataAttribute(string $value): string
     {
-        // Normalize whitespace around path commands and numbers
-        // Replace multiple spaces/commas with single space
+        // Normalize whitespace: replace multiple spaces/commas with single space
         $value = (string) preg_replace('/[\s,]+/', ' ', $value);
-
-        // Add space before path commands when they follow a number
-        $value = (string) preg_replace('/([0-9])([MLHVCSQTAZmlhvcsqtaz])/', '$1 $2', $value);
-
-        // Add space after path commands when they're followed by a number or minus
-        $value = (string) preg_replace('/([MLHVCSQTAZmlhvcsqtaz])([0-9-])/', '$1 $2', $value);
 
         $value = trim($value);
 

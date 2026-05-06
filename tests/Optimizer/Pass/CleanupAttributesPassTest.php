@@ -218,8 +218,8 @@ final class CleanupAttributesPassTest extends TestCase
 
         $pass->optimize($document);
 
-        // Commands should have space after them
-        $this->assertSame('M 10 20 L 30 40 C 50 60 70 80 90 100', $path->getAttribute('d'));
+        // Commands should NOT have spaces injected -- path data is kept compact
+        $this->assertSame('M10 20L30 40C50 60 70 80 90 100', $path->getAttribute('d'));
     }
 
     public function testCleanupTransformAttribute(): void
@@ -371,7 +371,7 @@ final class CleanupAttributesPassTest extends TestCase
         $this->assertSame('0 0 100 100', $svg->getAttribute('viewBox'));
         $this->assertSame('foo bar', $svg->getAttribute('class'));
         $this->assertSame('svg1', $svg->getAttribute('id'));
-        $this->assertSame('M 10 20 L 30 40', $path->getAttribute('d'));
+        $this->assertSame('M10 20L30 40', $path->getAttribute('d'));
         $this->assertSame('translate(5, 10)', $path->getAttribute('transform'));
     }
 
@@ -418,7 +418,7 @@ final class CleanupAttributesPassTest extends TestCase
         $this->assertSame('icon svg-icon', $svg->getAttribute('class'));
         $this->assertSame('grad1', $gradient->getAttribute('id'));
         $this->assertSame('translate(10, 20) scale(1.5)', $group->getAttribute('transform'));
-        $this->assertSame('M 10 20 L 30.1 40.2 C 50 60 70.5 80 90 100 Z', $path->getAttribute('d'));
+        $this->assertSame('M10 20L30.1 40.2C50 60 70.5 80 90 100Z', $path->getAttribute('d'));
         $this->assertSame('primary stroke', $path->getAttribute('class'));
     }
 
@@ -434,7 +434,7 @@ final class CleanupAttributesPassTest extends TestCase
 
         $pass->optimize($document);
 
-        $this->assertSame('M 100 200 C 150 250 200 250 250 200 L 300 150 Z', $path->getAttribute('d'));
+        $this->assertSame('M100 200 C150 250 200 250 250 200 L300 150 Z', $path->getAttribute('d'));
     }
 
     public function testLowercasePathCommands(): void
@@ -449,8 +449,8 @@ final class CleanupAttributesPassTest extends TestCase
 
         $pass->optimize($document);
 
-        // Lowercase commands should also get proper spacing
-        $this->assertSame('m 10 20 l 30 40 c 50 60 70 80 90 100 z', $path->getAttribute('d'));
+        // Lowercase commands should be preserved as-is (no space injection)
+        $this->assertSame('m10 20l30 40c50 60 70 80 90 100z', $path->getAttribute('d'));
     }
 
     public function testPreserveZeroInDecimal(): void
