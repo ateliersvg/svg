@@ -19,12 +19,12 @@ use Atelier\Svg\Element\Text\TspanElement;
  *
  * Equivalent to SVGO's `removeEmptyText` plugin.
  */
-final class RemoveEmptyTextPass implements OptimizerPassInterface
+final readonly class RemoveEmptyTextPass implements OptimizerPassInterface
 {
     use PreservingAttributesTrait;
 
     /** @var list<string> */
-    private readonly array $preservingAttributes;
+    private array $preservingAttributes;
 
     /**
      * @param list<string>|null $preservingAttributes Attributes that prevent removal
