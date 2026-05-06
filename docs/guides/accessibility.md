@@ -125,27 +125,40 @@ assert($remaining === []);
 
 ## Preserve accessibility during optimization
 
-The default optimizer preset strips `<title>` and `<desc>` elements
-to reduce file size. Use the accessible preset instead:
+The `web` and `aggressive` presets strip `<title>` and `<desc>` elements
+to reduce file size. Use the `safe` or `default` preset to preserve them:
 
 ```php
 use Atelier\Svg\Optimizer\Optimizer;
 use Atelier\Svg\Optimizer\OptimizerPresets;
 
-$optimizer = new Optimizer(OptimizerPresets::accessible());
+// default keeps titles, removes descriptions
+$optimizer = new Optimizer(OptimizerPresets::default());
+$optimizer->optimize($doc);
+
+// safe keeps both titles and descriptions
+$optimizer = new Optimizer(OptimizerPresets::safe());
 $optimizer->optimize($doc);
 ```
 
-This preset skips `RemoveTitlePass` and `RemoveDescPass`, keeps
-metadata, and preserves readable IDs. It still applies structural
-and value optimizations.
-
 | Preset | Titles | Descriptions | ARIA attrs |
 |--------|--------|-------------|------------|
-| `default()` | Removed | Removed | Kept |
-| `aggressive()` | Removed | Removed | Kept |
 | `safe()` | Kept | Kept | Kept |
-| `accessible()` | Kept | Kept | Kept |
+| `default()` | Kept | Removed | Kept |
+| `web()` | Removed | Removed | Kept |
+| `aggressive()` | Removed | Removed | Kept |
+
+For full control, compose a custom pipeline with `optimizeWith()`:
+
+```php
+use Atelier\Svg\Svg;
+
+Svg::load('icon.svg')->optimizeWith([
+    new RemoveDoctypePass(),
+    new RemoveCommentsPass(),
+    // ...add only the passes you need
+])->save('icon.min.svg');
+```
 
 ## CI pipeline example
 
@@ -153,7 +166,7 @@ Combine auditing with optimization in a build step:
 
 ```php
 $loader = new DomLoader();
-$optimizer = new Optimizer(OptimizerPresets::accessible());
+$optimizer = new Optimizer(OptimizerPresets::safe());
 
 foreach (glob('assets/svg/*.svg') as $file) {
     $doc = $loader->loadFromFile($file);

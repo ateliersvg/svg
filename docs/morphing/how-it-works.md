@@ -113,6 +113,68 @@ $result = $interpolator->interpolate($matchedA, $matchedB, 0.5, $easing);
 
 ---
 
+## Constraints and edge cases
+
+### Compatible paths
+
+Two paths are compatible if, after normalization, the PathMatcher can bring them to the same segment count. This is always possible when both paths consist of a single subpath (one `M` command).
+
+### Multiple subpaths
+
+A path with multiple `M` commands creates multiple subpaths. The matcher treats each normalized segment independently, so a path like `M 0 0 L 50 0 M 100 0 L 150 0`, which produces two subpaths, will have a different segment structure than a single-subpath path of similar total length. Morphing across different subpath counts produces unexpected visual results.
+
+### Open vs. closed paths
+
+A path ending in `Z` and one that does not will both normalize to `M`/`C` segments. The matcher can equalize their curve counts, but the `Z` segment is passed through unchanged. Morphing an open path against a closed path will result in the closing segment appearing or disappearing abruptly rather than animating.
+
+### What the interpolator rejects
+
+`MorphingInterpolator::interpolate()` throws `InvalidArgumentException` in two cases:
+
+1. The paths have different segment counts, call `PathMatcher::match()` first.
+2. Corresponding segments are different types, this should not happen after normalization, but if you pass raw (non-normalized) paths directly to the interpolator, it can occur.
+
+### Working example
+
+```php
+<?php
+
+use Atelier\Svg\Path\Data;
+use Atelier\Svg\Morphing\ShapeMorpher;
+
+$morpher = new ShapeMorpher();
+
+// Both are single-subpath shapes, compatible
+$triangle = Data::parse('M 50 10 L 90 90 L 10 90 Z');
+$square   = Data::parse('M 10 10 L 90 10 L 90 90 L 10 90 Z');
+
+$mid = $morpher->morph($triangle, $square, 0.5);
+// The matcher subdivides the triangle's three curves to match
+// the square's four, then interpolates coordinate by coordinate.
+```
+
+### Incompatible case to avoid
+
+```php
+<?php
+
+use Atelier\Svg\Path\Data;
+use Atelier\Svg\Morphing\ShapeMorpher;
+
+$morpher = new ShapeMorpher();
+
+// Two separate subpaths vs. one subpath
+$twoSubpaths = Data::parse('M 0 0 L 40 0 M 60 0 L 100 0');
+$onePath     = Data::parse('M 0 50 L 100 50');
+
+// The matcher equalizes segment counts, but the two M commands in
+// $twoSubpaths mean the visual result jumps rather than morphs
+// smoothly. Flatten multi-subpath shapes into one before morphing.
+$mid = $morpher->morph($twoSubpaths, $onePath, 0.5);
+```
+
+---
+
 See also:
 
 - [Overview](overview.md): the Morph facade and basic usage

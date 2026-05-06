@@ -24,7 +24,7 @@ $scaled = $transformer->transform($data, $matrix);
 echo $scaled; // coordinates are doubled
 ```
 
-All segment types are handled, including control points on curves. H/V segments are promoted to full `LineTo` segments after transformation since scaling or rotation breaks their axis alignment.
+All segment types are handled, including control points on curves. H/V segments are promoted to full `LineTo` segments after transformation since scaling or rotation breaks their axis alignment. The transformer maintains a current-point cursor that tracks position through the path, including ClosePath segments that reset the cursor to the subpath start.
 
 ## Transformation
 

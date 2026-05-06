@@ -19,6 +19,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Patterns, clipping paths, and masks
 - SMIL animation support with AnimationBuilder
 - 40+ optimization passes with 4 presets (default, aggressive, safe, accessible)
+- `ConvertPathDataPass` uses parsed path infrastructure with per-segment abs/rel comparison and L-to-H/V shorthand
+- `ConvertPathDataPass` curve optimizations: C-to-Q (cubic-to-quadratic), C-to-S (smooth cubic), Q-to-T (smooth quadratic), compact arc flags
+- `MergeStylesPass` now minifies CSS even with a single `<style>` element and removes obsolete `type="text/css"` attributes
+- `PathUtils::toAbsolute()` and `toRelative()` handle all 10 SVG path segment types
 - SVG sanitization with 3 security profiles (strict, default, permissive)
 - Document validation with configurable profiles
 - Accessibility checking and auto-improvement

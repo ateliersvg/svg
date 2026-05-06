@@ -141,7 +141,7 @@ Removes `width` and `height` attributes from the root `<svg>` element, but only 
 new RemoveDimensionsPass();
 ```
 
-No constructor options. Used in the aggressive preset.
+No constructor options. Used in the `web` and `aggressive` presets.
 
 ## See also
 

@@ -65,3 +65,5 @@ Accessibility::improveAccessibility($document);
 - [Accessibility](../elements/accessibility.md): full accessibility API
 - [Layout](../styling/layout.md): positioning and alignment utilities
 - [Text elements](../elements/text.md): text styling and tspan
+- [Styling overview](../styling/overview.md): fill, stroke, and presentation attributes
+- [Document exporting](../document/exporting.md): save and serialize documents

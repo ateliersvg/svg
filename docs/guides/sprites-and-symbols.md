@@ -130,7 +130,7 @@ $optimizer->optimize($sprite);
 $dumper->dumpToFile($sprite, 'sprite.min.svg');
 ```
 
-Use `OptimizerPresets::accessible()` if you need to preserve `<title>`
+Use `OptimizerPresets::safe()` if you need to preserve `<title>`
 and `<desc>` elements inside symbols for screen readers.
 
 ## Batch process a directory

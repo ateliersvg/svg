@@ -27,10 +27,10 @@ foreach (glob('assets/svg/*.svg') as $file) {
 
 | Preset | Use when |
 |--------|----------|
-| `OptimizerPresets::default()` | General use: safe, good compression |
-| `OptimizerPresets::aggressive()` | Maximum file size reduction, CI pipelines |
-| `OptimizerPresets::safe()` | When you need to preserve structure exactly |
-| `OptimizerPresets::accessible()` | Keeps `<title>`, `<desc>`, and ARIA attributes |
+| `OptimizerPresets::safe()` | Preserve structure, IDs, metadata. Version-controlled SVGs. |
+| `OptimizerPresets::default()` | General use: balanced compression. The recommended starting point. |
+| `OptimizerPresets::web()` | Production delivery: `<img>`, inline SVG, icon systems. |
+| `OptimizerPresets::aggressive()` | Maximum file size reduction: CI pipelines, CDNs. |
 
 ## Measuring results
 

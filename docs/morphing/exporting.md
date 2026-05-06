@@ -106,3 +106,5 @@ See also:
 
 - [Overview](overview.md): the Morph facade and basic usage
 - [How It Works](how-it-works.md): the normalization, matching, and interpolation pipeline
+- [Animate shapes guide](../guides/animate-shapes.md): practical animation workflows
+- [Animation elements](../elements/animation.md): SMIL animation element API
