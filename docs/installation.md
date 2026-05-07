@@ -10,7 +10,7 @@ description: PHP 8.3+, two standard extensions, one Composer command.
 
 PHP 8.3 or higher. No Node, no build step, no external binaries.
 
-The `ext-dom` and `ext-libxml` extensions are required; both ship with PHP and are enabled by default in all standard distributions.
+The `ext-dom` and `ext-xml` extensions are required; both ship with PHP and are enabled by default in all standard distributions.
 
 ## Install
 
