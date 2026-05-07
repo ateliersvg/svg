@@ -1,6 +1,6 @@
 # Atelier SVG
 
-[![CI](https://github.com/smnandre/atelier-svg/actions/workflows/ci.yml/badge.svg)](https://github.com/smnandre/atelier-svg/actions/workflows/ci.yml)
+[![CI](https://github.com/ateliersvg/svg/actions/workflows/ci.yml/badge.svg)](https://github.com/ateliersvg/svg/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![PHP 8.3+](https://img.shields.io/badge/PHP-8.3%2B-777BB4.svg)](https://php.net)
 
