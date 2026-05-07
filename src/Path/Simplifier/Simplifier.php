@@ -34,41 +34,30 @@ final class Simplifier implements SimplifierInterface
         /** @var MoveTo|null The MoveTo segment that started the current polyline */
         $startSegmentOfPolyline = null;
 
-        foreach ($originalSegments as $i => $segment) {
+        foreach ($originalSegments as $segment) {
             $targetPoint = $segment->getTargetPoint(); // May be null
-            $isStart = ($segment instanceof MoveTo && null !== $targetPoint);
-            $isLine = ($segment instanceof LineTo && null !== $targetPoint);
 
-            if ($isStart || ($isLine && null !== $startSegmentOfPolyline)) {
-                \assert($targetPoint instanceof Point);
-                // Part of a polyline sequence
-                if ($isStart) {
-                    // Process previous polyline before starting a new one
-                    $this->processPolyline(
-                        $newSegments,
-                        $startSegmentOfPolyline,
-                        $currentPolylinePoints,
-                        $tolerance
-                    );
-                    // Start new polyline tracking
-                    /** @var MoveTo $segment */
-                    $startSegmentOfPolyline = $segment;
-                    $currentPolylinePoints = [$targetPoint];
-                } else { // $isLine && $startSegmentOfPolyline !== null
-                    $currentPolylinePoints[] = $targetPoint;
-                }
-            } else {
-                // Segment is not MoveTo or LineTo, or is LineTo without a start point.
-                // Process any preceding polyline.
+            if ($segment instanceof MoveTo && null !== $targetPoint) {
+                // Process previous polyline before starting a new one
                 $this->processPolyline(
                     $newSegments,
                     $startSegmentOfPolyline,
                     $currentPolylinePoints,
                     $tolerance
                 );
-                // Add the current segment (Curve, Arc, ClosePath, etc.) as is.
+                $startSegmentOfPolyline = $segment;
+                $currentPolylinePoints = [$targetPoint];
+            } elseif ($segment instanceof LineTo && null !== $targetPoint && null !== $startSegmentOfPolyline) {
+                $currentPolylinePoints[] = $targetPoint;
+            } else {
+                // Anything else: process preceding polyline, append segment as-is, reset.
+                $this->processPolyline(
+                    $newSegments,
+                    $startSegmentOfPolyline,
+                    $currentPolylinePoints,
+                    $tolerance
+                );
                 $newSegments[] = $segment;
-                // Reset polyline tracking
                 $startSegmentOfPolyline = null;
                 $currentPolylinePoints = [];
             }

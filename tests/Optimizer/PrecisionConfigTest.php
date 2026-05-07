@@ -190,13 +190,13 @@ final class PrecisionConfigTest extends TestCase
         $this->assertSame(PrecisionConfig::ANGLE_SAFE, $config['angle']);
     }
 
-    public function testForPresetAccessible(): void
+    public function testForPresetWeb(): void
     {
-        $config = PrecisionConfig::forPreset('accessible');
+        $config = PrecisionConfig::forPreset('web');
 
-        // Accessible preset uses same numeric precision as default
-        $defaultConfig = PrecisionConfig::forPreset('default');
-        $this->assertSame($defaultConfig, $config);
+        // Web preset uses same numeric precision as aggressive
+        $aggressiveConfig = PrecisionConfig::forPreset('aggressive');
+        $this->assertSame($aggressiveConfig, $config);
     }
 
     public function testForPresetWithUnknownPresetThrows(): void

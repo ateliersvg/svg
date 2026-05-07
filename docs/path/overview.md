@@ -69,6 +69,8 @@ foreach ($data->getSegments() as $segment) {
 }
 ```
 
+The parser handles truncated path data gracefully: if a command has fewer coordinates than expected (e.g., `C` with only 4 values instead of 6), parsing stops at that point and returns the segments parsed so far. This prevents errors on malformed SVGs from design tool exports.
+
 ### Serializer
 
 `Atelier\Svg\Path\Serializer` converts structured command arrays back to a path string. It accepts arrays or objects with `type` and `coords` fields.
@@ -87,9 +89,30 @@ $d = Serializer::serialize([
 
 The `precision` parameter (default 6) controls decimal places in coordinate output. Trailing zeros are stripped automatically.
 
+### PathUtils
+
+`Atelier\Svg\Path\PathUtils` provides coordinate-system conversion utilities for path data.
+
+```php
+use Atelier\Svg\Path\PathUtils;
+use Atelier\Svg\Path\PathParser;
+
+$parser = new PathParser();
+$data = $parser->parse('M 10,10 L 50,60 C 70,80 90,100 110,120 Z');
+
+// Convert all segments to absolute coordinates
+$absolute = PathUtils::toAbsolute($data);
+
+// Convert all segments to relative coordinates
+$relative = PathUtils::toRelative($data);
+```
+
+All 10 segment types are handled (M, L, H, V, C, S, Q, T, A, Z) with proper cursor tracking across subpaths. ClosePath (`Z`) resets the cursor to the subpath start point.
+
 ## See also
 
 - [Building paths](building.md): PathBuilder, ShapeFactory
 - [Path analysis](analysis.md): length, bounding box, point-at-length
 - [Path transforms](transforms.md): applying matrix transforms to path data
+- [Path simplification](simplification.md): reducing path complexity
 - [Geometry](geometry.md): Point, BoundingBox, Matrix primitives

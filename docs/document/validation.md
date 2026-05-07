@@ -1,5 +1,5 @@
 ---
-order: 40
+order: 30
 ---
 # Validation
 
@@ -127,6 +127,43 @@ $broken = $document->findBrokenReferences();
 // Find circular dependency chains (e.g., A references B, B references A)
 $cycles = $document->findCircularReferences();
 ```
+
+## Error handling
+
+Validation does not throw. `validate()` always returns a `ValidationResult`; check `isValid()` to determine whether to proceed.
+
+```php
+<?php
+use Atelier\Svg\Svg;
+use Atelier\Svg\Validation\Validator;
+use Atelier\Svg\Validation\ValidationProfile;
+
+$document = Svg::load('icon.svg')->getDocument();
+$result = (new Validator(ValidationProfile::strict()))->validate($document);
+
+if (!$result->isValid()) {
+    foreach ($result->getErrors() as $issue) {
+        // Each $issue has ->format(), ->getMessage(), ->getSeverity(), ->getElement()
+        echo $issue->format() . "\n";
+    }
+    // Optionally bail out, auto-fix, or log
+}
+```
+
+### What `ValidationResult` contains on failure
+
+| Method | Returns |
+|--------|---------|
+| `isValid()` | `false` when at least one error exists |
+| `hasIssues()` | `true` when any issue exists (including warnings) |
+| `getErrors()` | Array of error-level `ValidationIssue` objects |
+| `getWarnings()` | Array of warning-level `ValidationIssue` objects |
+| `getInfo()` | Array of info-level `ValidationIssue` objects |
+| `getCounts()` | `['errors' => N, 'warnings' => N, 'info' => N]` |
+| `format()` | Human-readable multi-line report |
+| `toArray()` | Serializable array of all issues |
+
+Validation never throws `ParseException` or `RuntimeException`; those come from loading. If you need to catch loading failures before validating, wrap `Svg::load()` in a try/catch (see [Parsing](/document/parsing/)).
 
 ## See also
 

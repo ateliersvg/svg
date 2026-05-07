@@ -103,7 +103,8 @@ new SimplifyPathPass(
 Typical tolerance values:
 - `0.1`: safe preset (near-lossless)
 - `0.5`: default preset
-- `1.0`: aggressive preset
+- `1.0`: web preset
+- `2.0`: aggressive preset
 
 ## SimplifyTransformsPass
 
@@ -140,6 +141,8 @@ $pass->setPrecision(3);
 ## ScaleCoordinatesPass
 
 Scales all coordinate and dimension attributes by a given factor. Also scales `viewBox`, path data, and `points`. Useful for scaling coordinates up before rounding to integers, preserving relative precision.
+
+This pass is not included in any preset. Use it in custom pipelines when you need to rescale SVG coordinates.
 
 ```php
 new ScaleCoordinatesPass(

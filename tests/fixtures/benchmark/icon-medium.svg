@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24">
+  <title>Settings Gear Icon</title>
+  <desc>A gear/cog icon representing settings or configuration options</desc>
+  <defs>
+    <style type="text/css">
+      .gear-outer { fill: none; stroke: #333333; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+      .gear-inner { fill: none; stroke: #333333; stroke-width: 1.8; }
+      .gear-center { fill: #333333; opacity: 0.15; }
+    </style>
+  </defs>
+  <g id="settings-icon" class="icon-group" transform="translate(0, 0)">
+    <g id="gear-body" class="gear-outer">
+      <path id="gear-path" class="gear-outer" d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+    </g>
+    <g id="gear-center-group">
+      <circle id="gear-center-fill" class="gear-center" cx="12" cy="12" r="3"/>
+      <circle id="gear-center-stroke" class="gear-inner" cx="12" cy="12" r="3"/>
+    </g>
+  </g>
+  <!-- Decorative elements for additional weight -->
+  <g id="decorative" style="display:none">
+    <rect id="bounds" x="0" y="0" width="24" height="24" fill="none" stroke="none"/>
+    <line id="guide-h" x1="0" y1="12" x2="24" y2="12" stroke="#ff0000" stroke-width="0.25" opacity="0.3"/>
+    <line id="guide-v" x1="12" y1="0" x2="12" y2="24" stroke="#ff0000" stroke-width="0.25" opacity="0.3"/>
+  </g>
+</svg>

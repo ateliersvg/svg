@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 60">
+  <title>ACME Corporation Logo</title>
+  <desc>Official logo of ACME Corporation with gradient styling</desc>
+  <defs>
+    <linearGradient id="brand-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#e63946"/>
+      <stop offset="50%" stop-color="#d62839"/>
+      <stop offset="100%" stop-color="#c1121f"/>
+    </linearGradient>
+    <linearGradient id="text-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1a1a1a"/>
+      <stop offset="100%" stop-color="#333333"/>
+    </linearGradient>
+    <linearGradient id="underline-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#e63946" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#e63946" stop-opacity="0.3"/>
+    </linearGradient>
+  </defs>
+  <g id="logo-group" fill="black">
+    <g id="badge" fill="black">
+      <circle cx="25" cy="30" r="22" fill="none" stroke="url(#brand-gradient)" stroke-width="2"/>
+      <path d="M15 42 L25 12 L35 42 M19 33 h12" fill="none" stroke="url(#brand-gradient)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <g id="text-group" fill="black">
+      <text x="55" y="32" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="28" font-weight="700" fill="url(#text-gradient)" letter-spacing="2">ACME</text>
+      <text x="55" y="48" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="10" font-weight="300" fill="#666666" letter-spacing="4" text-transform="uppercase">Corporation</text>
+    </g>
+    <line id="divider" x1="55" y1="53" x2="175" y2="53" stroke="url(#underline-gradient)" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+</svg>

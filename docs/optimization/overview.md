@@ -13,7 +13,7 @@ $svg = Svg::load('icon.svg')->optimize()->save('icon.min.svg');
 // Or pick a preset explicitly
 $svg = Svg::load('icon.svg')->optimizeAggressive()->save('icon.min.svg');
 $svg = Svg::load('icon.svg')->optimizeSafe()->save('icon.min.svg');
-$svg = Svg::load('icon.svg')->optimizeAccessible()->save('icon.min.svg');
+$svg = Svg::load('icon.svg')->optimizeWeb()->save('icon.min.svg');
 ```
 
 ## The Optimizer class
@@ -62,14 +62,23 @@ The `Optimizer` also exposes static convenience methods for common operations:
 
 ## Presets
 
-`Atelier\Svg\Optimizer\OptimizerPresets` provides four preconfigured pipelines:
+`Atelier\Svg\Optimizer\OptimizerPresets` provides four preconfigured pipelines, forming a clear gradient: `safe < default < web < aggressive`.
 
-| Preset | Method | Description |
-|---|---|---|
-| `default` | `OptimizerPresets::default()` | Balanced optimization for production use. Keeps titles, descriptions, and readable IDs. |
-| `aggressive` | `OptimizerPresets::aggressive()` | Maximum size reduction. Removes all metadata, minifies IDs, converts shapes to paths, merges paths. |
-| `safe` | `OptimizerPresets::safe()` | Conservative. Preserves metadata, IDs, and uses very low simplification tolerance (0.1). |
-| `accessible` | `OptimizerPresets::accessible()` | Preserves `<title>`, `<desc>`, and ARIA attributes. Keeps readable IDs. |
+### `safe`: `OptimizerPresets::safe()`
+
+Conservative. Preserves metadata, IDs, titles, and descriptions. Very low simplification tolerance (0.1). For version-controlled assets, design tools, and scripted SVGs.
+
+### `default`: `OptimizerPresets::default()`
+
+Balanced optimization. Removes metadata and descriptions but keeps titles. Readable IDs. The recommended starting point.
+
+### `web`: `OptimizerPresets::web()`
+
+Production delivery. Strips titles, descriptions, and dimensions. Converts shapes to paths, merges paths, minifies IDs. For `<img>`, inline SVG, and icon systems.
+
+### `aggressive`: `OptimizerPresets::aggressive()`
+
+Maximum reduction. Integer-only coordinates (precision 0), lossy simplification. For build pipelines where every byte counts.
 
 ```php
 use Atelier\Svg\Optimizer\Optimizer;
@@ -84,14 +93,17 @@ $optimizer->optimize($document);
 
 `Atelier\Svg\Optimizer\PrecisionConfig` centralizes numeric precision constants used across passes. Different contexts tolerate different precision levels:
 
-| Context | Default | Aggressive | Safe | Rationale |
-|---|---|---|---|---|
-| Coordinates | 2 | 1 | 3 | 0.01px is imperceptible at normal scales |
-| Transforms | 3 | 2 | 4 | Errors compound through transform chains |
-| Paths | 3 | 2 | 4 | Curves are sensitive to control point precision |
-| Opacity | 2 | 2 | 3 | 0.01 steps sufficient for the 0-1 range |
-| Cleanup | 3 | 2 | 4 | Safety margin above rounding precision |
-| Angles | 1 | 1 | 2 | 0.1 degrees is rarely perceptible |
+| Context | Safe | Default | Web | Aggressive | Rationale |
+|---|---|---|---|---|---|
+| Coordinates | 3 | 2 | 1 | 0 | 0.01px is imperceptible at normal scales |
+| Transforms | 4 | 3 | 2 | 2 | Errors compound through transform chains |
+| Paths | 4 | 3 | 2 | 0 | Curves are sensitive to control point precision |
+| Opacity | 3 | 2 | 2 | 2 | 0.01 steps sufficient for the 0-1 range |
+| Cleanup | 4 | 3 | 2 | 0 | Safety margin above rounding precision |
+| Angles | 2 | 1 | 1 | 1 | 0.1 degrees is rarely perceptible |
+
+The `web` preset uses the same precision values as `aggressive` but preserves decimal
+coordinates (precision 1-2), while `aggressive` rounds everything to integers (precision 0).
 
 ```php
 use Atelier\Svg\Optimizer\PrecisionConfig;

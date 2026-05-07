@@ -189,14 +189,14 @@ final class SvgFacadeTest extends TestCase
         $this->assertInstanceOf(Svg::class, $svg);
     }
 
-    public function testOptimizeAccessible(): void
+    public function testOptimizeWeb(): void
     {
         $svgContent = '<svg width="100" height="100"><rect x="10" y="10"/></svg>';
         $filePath = $this->tempDir.'/input.svg';
         file_put_contents($filePath, $svgContent);
 
         $svg = Svg::load($filePath);
-        $svg->optimizeAccessible();
+        $svg->optimizeWeb();
 
         $this->assertInstanceOf(Svg::class, $svg);
     }

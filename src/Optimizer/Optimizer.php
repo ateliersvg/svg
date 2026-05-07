@@ -56,7 +56,7 @@ final class Optimizer implements OptimizerInterface
      * Optimizes a document with the given preset and options.
      *
      * @param Document             $document The document to optimize
-     * @param string               $preset   One of: default, aggressive, safe, accessible
+     * @param string               $preset   One of: default, aggressive, safe, web
      * @param array<string, mixed> $options  Additional optimization options
      *
      * @return Document The optimized document

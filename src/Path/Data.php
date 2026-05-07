@@ -134,7 +134,7 @@ final class Data implements \Stringable
         $pathData = '';
         foreach ($this->segments as $segment) {
             $args = $segment->commandArgumentsToString();
-            $pathData .= $segment->getCommand().('' !== $args ? ' '.$args : '').' ';
+            $pathData .= $segment->getCommand().$args;
         }
 
         return trim($pathData);

@@ -1,0 +1,752 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     viewBox="0 0 1200 900" width="1200" height="900"
+     role="img" aria-label="Sales Dashboard">
+
+  <title>Annual Sales Dashboard 2024</title>
+  <desc>A comprehensive sales dashboard showing monthly revenue as a bar chart, trend lines comparing two years, and market share as a pie chart. Data is fictional and used for benchmarking SVG optimization.</desc>
+
+  <!-- ============================================================ -->
+  <!-- Style Block 1: Base typography and color scheme               -->
+  <!-- ============================================================ -->
+  <style type="text/css">
+    .dashboard-title { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 24px; font-weight: bold; fill: #1a1a2e; }
+    .chart-title { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #16213e; }
+    .axis-label { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 11px; fill: #555555; }
+    .axis-label-small { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 9px; fill: #777777; }
+    .value-label { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 10px; fill: #333333; font-weight: bold; }
+    .legend-text { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 11px; fill: #444444; }
+    .grid-line { stroke: #e0e0e0; stroke-width: 0.5; }
+    .grid-line-major { stroke: #cccccc; stroke-width: 1; }
+    .axis-line { stroke: #333333; stroke-width: 1.5; }
+    .bar-primary { fill: url(#barGradient1); }
+    .bar-secondary { fill: url(#barGradient2); }
+    .line-series-a { stroke: #0f3460; stroke-width: 2.5; fill: none; }
+    .line-series-b { stroke: #e94560; stroke-width: 2.5; fill: none; }
+    .pie-label { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; fill: #222222; font-weight: bold; }
+    .pie-pct { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 10px; fill: #555555; }
+    .tooltip-bg { fill: #ffffff; stroke: #cccccc; stroke-width: 1; rx: 4; ry: 4; }
+    .tooltip-text { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 10px; fill: #111111; }
+  </style>
+
+  <!-- ============================================================ -->
+  <!-- Style Block 2: Color scheme definitions (some duplicates)     -->
+  <!-- ============================================================ -->
+  <style type="text/css">
+    .color-scheme-blue { fill: #0f3460; }
+    .color-scheme-red { fill: #e94560; }
+    .color-scheme-green { fill: #00b894; }
+    .color-scheme-orange { fill: #fdcb6e; }
+    .color-scheme-purple { fill: #6c5ce7; }
+    .color-scheme-teal { fill: #00cec9; }
+    .dashboard-title { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 24px; font-weight: bold; fill: #1a1a2e; }
+    .chart-title { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #16213e; }
+    .axis-label { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 11px; fill: #555555; }
+    .value-label { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 10px; fill: #333333; font-weight: bold; }
+    .bar-highlight { fill: #ffd700; stroke: #e6c200; stroke-width: 1; }
+    .area-fill-a { fill: url(#areaGradientA); opacity: 0.3; }
+    .area-fill-b { fill: url(#areaGradientB); opacity: 0.2; }
+    .data-point { stroke-width: 2; }
+    .data-point-a { fill: #ffffff; stroke: #0f3460; }
+    .data-point-b { fill: #ffffff; stroke: #e94560; }
+  </style>
+
+  <!-- ============================================================ -->
+  <!-- Style Block 3: Responsive + animation + more duplicates       -->
+  <!-- ============================================================ -->
+  <style type="text/css">
+    .grid-line { stroke: #e0e0e0; stroke-width: 0.5; }
+    .axis-line { stroke: #333333; stroke-width: 1.5; }
+    .legend-text { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 11px; fill: #444444; }
+    .pie-slice { stroke: #ffffff; stroke-width: 2; }
+    .pie-slice:hover { opacity: 0.85; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .chart-container { animation: fadeIn 0.5s ease-in; }
+    .bar-animate { animation: slideUp 0.3s ease-out; }
+    .dashboard-bg { fill: #f8f9fa; }
+    .card-bg { fill: #ffffff; stroke: #e0e0e0; stroke-width: 1; rx: 8; ry: 8; }
+    .card-shadow { fill: rgba(0,0,0,0.05); }
+    .separator { stroke: #dee2e6; stroke-width: 1; stroke-dasharray: 4 2; }
+  </style>
+
+  <!-- ============================================================ -->
+  <!-- Definitions: Gradients, Patterns, Filters, Markers            -->
+  <!-- ============================================================ -->
+  <defs>
+    <!-- Bar chart gradients -->
+    <linearGradient id="barGradient1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0f3460" stop-opacity="1"/>
+      <stop offset="50%" stop-color="#1a4a8a" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#2565b0" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="barGradient2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e94560" stop-opacity="1"/>
+      <stop offset="50%" stop-color="#f06878" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#f78b99" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="barGradient3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00b894" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#55efc4" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="headerGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1a1a2e" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#16213e" stop-opacity="1"/>
+    </linearGradient>
+
+    <!-- Area fill gradients for line chart -->
+    <linearGradient id="areaGradientA" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0f3460" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#0f3460" stop-opacity="0.02"/>
+    </linearGradient>
+    <linearGradient id="areaGradientB" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e94560" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#e94560" stop-opacity="0.02"/>
+    </linearGradient>
+
+    <!-- Pie chart slice gradients -->
+    <linearGradient id="pieGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f3460" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#1a5276" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="pieGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e94560" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#c0392b" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="pieGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00b894" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#27ae60" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="pieGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fdcb6e" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#f39c12" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="pieGrad5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6c5ce7" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#8e44ad" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="pieGrad6" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00cec9" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#0984e3" stop-opacity="1"/>
+    </linearGradient>
+
+    <!-- Hatching pattern for bar chart -->
+    <pattern id="hatchPattern" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="6" stroke="#ffffff" stroke-width="1" stroke-opacity="0.2" fill="none" stroke-linecap="butt" transform="translate(0,0)"/>
+    </pattern>
+
+    <!-- Dot pattern for backgrounds -->
+    <pattern id="dotPattern" patternUnits="userSpaceOnUse" width="20" height="20">
+      <circle cx="10" cy="10" r="1" fill="#e0e0e0" stroke="none" opacity="1" transform="translate(0,0)"/>
+    </pattern>
+
+    <!-- Drop shadow filter -->
+    <filter id="cardShadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.08"/>
+    </filter>
+    <filter id="cardShadowHover" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.12"/>
+    </filter>
+
+    <!-- Marker for line endpoints -->
+    <marker id="arrowEnd" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#333333" stroke="none" opacity="1" transform="translate(0,0)"/>
+    </marker>
+
+    <!-- Clip paths -->
+    <clipPath id="barChartClip">
+      <rect x="60" y="40" width="520" height="280" fill="none" stroke="none" opacity="1" transform="translate(0,0)"/>
+    </clipPath>
+    <clipPath id="lineChartClip">
+      <rect x="0" y="0" width="480" height="280" fill="none" stroke="none" opacity="1" transform="translate(0,0)"/>
+    </clipPath>
+    <clipPath id="pieChartClip">
+      <circle cx="200" cy="200" r="160" fill="none" stroke="none" opacity="1" transform="translate(0,0)"/>
+    </clipPath>
+  </defs>
+
+  <!-- ============================================================ -->
+  <!-- Dashboard Background                                          -->
+  <!-- ============================================================ -->
+  <rect x="0" y="0" width="1200" height="900" class="dashboard-bg" fill="#f8f9fa" stroke="none" opacity="1" transform="translate(0,0)"/>
+  <rect x="0" y="0" width="1200" height="900" fill="url(#dotPattern)" stroke="none" opacity="1" transform="translate(0,0)"/>
+
+  <!-- Empty groups for structural bloat -->
+  <g id="unused-layer-1" transform="translate(0,0)" opacity="1"></g>
+  <g id="unused-layer-2" transform="translate(0,0)" opacity="1"></g>
+  <g id="unused-annotations" transform="translate(0,0)" opacity="1"></g>
+
+  <!-- ============================================================ -->
+  <!-- Dashboard Header                                              -->
+  <!-- ============================================================ -->
+  <g id="dashboard-header" transform="translate(0,0)" opacity="1" role="heading" aria-level="1">
+    <rect x="0" y="0" width="1200" height="55" fill="url(#headerGradient)" stroke="none" opacity="1" transform="translate(0,0)"/>
+    <text x="30" y="36" class="dashboard-title" fill="#ffffff" stroke="none" opacity="1" transform="translate(0,0)">Sales Dashboard 2024</text>
+    <text x="1170" y="36" class="axis-label" fill="#aaaaaa" text-anchor="end" stroke="none" opacity="1" transform="translate(0,0)">Last updated: Dec 2024</text>
+    <line x1="0" y1="55" x2="1200" y2="55" stroke="#0a0a1e" stroke-width="1" fill="none" opacity="1" transform="translate(0,0)"/>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- CHART 1: Bar Chart — Monthly Revenue (top-left)               -->
+  <!-- ============================================================ -->
+  <g id="bar-chart" transform="translate(20, 75)" opacity="1" role="img" aria-label="Monthly Revenue Bar Chart" class="chart-container">
+
+    <!-- Card background -->
+    <rect x="0" y="0" width="620" height="380" class="card-bg" fill="#ffffff" stroke="#e0e0e0" stroke-width="1" rx="8" ry="8" opacity="1" transform="translate(0,0)" filter="url(#cardShadow)"/>
+    <rect x="0" y="0" width="620" height="380" class="card-shadow" fill="none" stroke="none" opacity="1" transform="translate(0,0)"/>
+
+    <!-- Chart title -->
+    <text x="30" y="32" class="chart-title" fill="#16213e" stroke="none" opacity="1" transform="translate(0,0)">Monthly Revenue ($K)</text>
+    <line x1="30" y1="40" x2="590" y2="40" class="separator" stroke="#dee2e6" stroke-width="1" fill="none" opacity="1" transform="translate(0,0)"/>
+
+    <!-- Y-axis -->
+    <g id="bar-y-axis" transform="translate(0,0)" opacity="1">
+      <line x1="70" y1="55" x2="70" y2="330" class="axis-line" stroke="#333333" stroke-width="1.5" fill="none" opacity="1" transform="translate(0,0)"/>
+      <!-- Y-axis labels and grid lines -->
+      <text x="62" y="333" class="axis-label-small" text-anchor="end" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">0</text>
+      <line x1="70" y1="330" x2="590" y2="330" class="grid-line" stroke="#e0e0e0" stroke-width="0.5" fill="none" opacity="1" transform="translate(0,0)"/>
+
+      <text x="62" y="278" class="axis-label-small" text-anchor="end" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">50</text>
+      <line x1="70" y1="275" x2="590" y2="275" class="grid-line" stroke="#e0e0e0" stroke-width="0.5" fill="none" opacity="1" transform="translate(0,0)"/>
+
+      <text x="62" y="223" class="axis-label-small" text-anchor="end" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">100</text>
+      <line x1="70" y1="220" x2="590" y2="220" class="grid-line-major" stroke="#cccccc" stroke-width="1" fill="none" opacity="1" transform="translate(0,0)"/>
+
+      <text x="62" y="168" class="axis-label-small" text-anchor="end" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">150</text>
+      <line x1="70" y1="165" x2="590" y2="165" class="grid-line" stroke="#e0e0e0" stroke-width="0.5" fill="none" opacity="1" transform="translate(0,0)"/>
+
+      <text x="62" y="113" class="axis-label-small" text-anchor="end" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">200</text>
+      <line x1="70" y1="110" x2="590" y2="110" class="grid-line-major" stroke="#cccccc" stroke-width="1" fill="none" opacity="1" transform="translate(0,0)"/>
+
+      <text x="62" y="58" class="axis-label-small" text-anchor="end" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">250</text>
+      <line x1="70" y1="55" x2="590" y2="55" class="grid-line" stroke="#e0e0e0" stroke-width="0.5" fill="none" opacity="1" transform="translate(0,0)"/>
+
+      <!-- Y-axis title -->
+      <text x="15" y="192" class="axis-label" text-anchor="middle" fill="#555555" stroke="none" opacity="1" transform="rotate(-90, 15, 192)">Revenue ($K)</text>
+    </g>
+
+    <!-- X-axis -->
+    <g id="bar-x-axis" transform="translate(0,0)" opacity="1">
+      <line x1="70" y1="330" x2="590" y2="330" class="axis-line" stroke="#333333" stroke-width="1.5" fill="none" opacity="1" transform="translate(0,0)"/>
+    </g>
+
+    <!-- Vertical grid lines -->
+    <g id="bar-v-grid" transform="translate(0,0)" opacity="1">
+      <line x1="113" y1="55" x2="113" y2="330" class="grid-line" stroke="#e0e0e0" stroke-width="0.5" fill="none" opacity="1" transform="translate(0,0)"/>
+      <line x1="156" y1="55" x2="156" y2="330" class="grid-line" stroke="#e0e0e0" stroke-width="0.5" fill="none" opacity="1" transform="translate(0,0)"/>
+      <line x1="199" y1="55" x2="199" y2="330" class="grid-line" stroke="#e0e0e0" stroke-width="0.5" fill="none" opacity="1" transform="translate(0,0)"/>
+      <line x1="242" y1="55" x2="242" y2="330" class="grid-line" stroke="#e0e0e0" stroke-width="0.5" fill="none" opacity="1" transform="translate(0,0)"/>
+      <line x1="285" y1="55" x2="285" y2="330" class="grid-line" stroke="#e0e0e0" stroke-width="0.5" fill="none" opacity="1" transform="translate(0,0)"/>
+      <line x1="328" y1="55" x2="328" y2="330" class="grid-line" stroke="#e0e0e0" stroke-width="0.5" fill="none" opacity="1" transform="translate(0,0)"/>
+      <line x1="371" y1="55" x2="371" y2="330" class="grid-line" stroke="#e0e0e0" stroke-width="0.5" fill="none" opacity="1" transform="translate(0,0)"/>
+      <line x1="414" y1="55" x2="414" y2="330" class="grid-line" stroke="#e0e0e0" stroke-width="0.5" fill="none" opacity="1" transform="translate(0,0)"/>
+      <line x1="457" y1="55" x2="457" y2="330" class="grid-line" stroke="#e0e0e0" stroke-width="0.5" fill="none" opacity="1" transform="translate(0,0)"/>
+      <line x1="500" y1="55" x2="500" y2="330" class="grid-line" stroke="#e0e0e0" stroke-width="0.5" fill="none" opacity="1" transform="translate(0,0)"/>
+      <line x1="543" y1="55" x2="543" y2="330" class="grid-line" stroke="#e0e0e0" stroke-width="0.5" fill="none" opacity="1" transform="translate(0,0)"/>
+      <line x1="586" y1="55" x2="586" y2="330" class="grid-line" stroke="#e0e0e0" stroke-width="0.5" fill="none" opacity="1" transform="translate(0,0)"/>
+    </g>
+
+    <!-- Bar chart bars (12 months) with hatching overlay -->
+    <g id="bar-data" clip-path="url(#barChartClip)" transform="translate(0,0)" opacity="1">
+      <!-- January: 120K -->
+      <g class="bar-animate" transform="translate(0,0)" opacity="1">
+        <rect x="80" y="198" width="30" height="132" class="bar-primary" fill="url(#barGradient1)" stroke="none" opacity="1" transform="translate(0,0)" rx="2" ry="2" data-month="Jan" data-value="120" data-year="2024" role="graphics-symbol" aria-label="January: $120K"/>
+        <rect x="80" y="198" width="30" height="132" fill="url(#hatchPattern)" stroke="none" opacity="1" transform="translate(0,0)" rx="2" ry="2"/>
+        <text x="95" y="193" class="value-label" text-anchor="middle" fill="#333333" stroke="none" opacity="1" transform="translate(0,0)">120</text>
+      </g>
+
+      <!-- February: 95K -->
+      <g class="bar-animate" transform="translate(0,0)" opacity="1">
+        <rect x="123" y="225.5" width="30" height="104.5" class="bar-primary" fill="url(#barGradient1)" stroke="none" opacity="1" transform="translate(0,0)" rx="2" ry="2" data-month="Feb" data-value="95" data-year="2024" role="graphics-symbol" aria-label="February: $95K"/>
+        <rect x="123" y="225.5" width="30" height="104.5" fill="url(#hatchPattern)" stroke="none" opacity="1" transform="translate(0,0)" rx="2" ry="2"/>
+        <text x="138" y="220.5" class="value-label" text-anchor="middle" fill="#333333" stroke="none" opacity="1" transform="translate(0,0)">95</text>
+      </g>
+
+      <!-- March: 145K -->
+      <g class="bar-animate" transform="translate(0,0)" opacity="1">
+        <rect x="166" y="170.5" width="30" height="159.5" class="bar-primary" fill="url(#barGradient1)" stroke="none" opacity="1" transform="translate(0,0)" rx="2" ry="2" data-month="Mar" data-value="145" data-year="2024" role="graphics-symbol" aria-label="March: $145K"/>
+        <rect x="166" y="170.5" width="30" height="159.5" fill="url(#hatchPattern)" stroke="none" opacity="1" transform="translate(0,0)" rx="2" ry="2"/>
+        <text x="181" y="165.5" class="value-label" text-anchor="middle" fill="#333333" stroke="none" opacity="1" transform="translate(0,0)">145</text>
+      </g>
+
+      <!-- April: 110K -->
+      <g class="bar-animate" transform="translate(0,0)" opacity="1">
+        <rect x="209" y="209" width="30" height="121" class="bar-primary" fill="url(#barGradient1)" stroke="none" opacity="1" transform="translate(0,0)" rx="2" ry="2" data-month="Apr" data-value="110" data-year="2024" role="graphics-symbol" aria-label="April: $110K"/>
+        <rect x="209" y="209" width="30" height="121" fill="url(#hatchPattern)" stroke="none" opacity="1" transform="translate(0,0)" rx="2" ry="2"/>
+        <text x="224" y="204" class="value-label" text-anchor="middle" fill="#333333" stroke="none" opacity="1" transform="translate(0,0)">110</text>
+      </g>
+
+      <!-- May: 165K -->
+      <g class="bar-animate" transform="translate(0,0)" opacity="1">
+        <rect x="252" y="148.5" width="30" height="181.5" class="bar-primary" fill="url(#barGradient1)" stroke="none" opacity="1" transform="translate(0,0)" rx="2" ry="2" data-month="May" data-value="165" data-year="2024" role="graphics-symbol" aria-label="May: $165K"/>
+        <rect x="252" y="148.5" width="30" height="181.5" fill="url(#hatchPattern)" stroke="none" opacity="1" transform="translate(0,0)" rx="2" ry="2"/>
+        <text x="267" y="143.5" class="value-label" text-anchor="middle" fill="#333333" stroke="none" opacity="1" transform="translate(0,0)">165</text>
+      </g>
+
+      <!-- June: 190K -->
+      <g class="bar-animate" transform="translate(0,0)" opacity="1">
+        <rect x="295" y="121" width="30" height="209" class="bar-primary" fill="url(#barGradient1)" stroke="none" opacity="1" transform="translate(0,0)" rx="2" ry="2" data-month="Jun" data-value="190" data-year="2024" role="graphics-symbol" aria-label="June: $190K"/>
+        <rect x="295" y="121" width="30" height="209" fill="url(#hatchPattern)" stroke="none" opacity="1" transform="translate(0,0)" rx="2" ry="2"/>
+        <text x="310" y="116" class="value-label" text-anchor="middle" fill="#333333" stroke="none" opacity="1" transform="translate(0,0)">190</text>
+      </g>
+
+      <!-- July: 210K -->
+      <g class="bar-animate" transform="translate(0,0)" opacity="1">
+        <rect x="338" y="99" width="30" height="231" class="bar-primary" fill="url(#barGradient1)" stroke="none" opacity="1" transform="translate(0,0)" rx="2" ry="2" data-month="Jul" data-value="210" data-year="2024" role="graphics-symbol" aria-label="July: $210K"/>
+        <rect x="338" y="99" width="30" height="231" fill="url(#hatchPattern)" stroke="none" opacity="1" transform="translate(0,0)" rx="2" ry="2"/>
+        <text x="353" y="94" class="value-label" text-anchor="middle" fill="#333333" stroke="none" opacity="1" transform="translate(0,0)">210</text>
+      </g>
+
+      <!-- August: 185K -->
+      <g class="bar-animate" transform="translate(0,0)" opacity="1">
+        <rect x="381" y="126.5" width="30" height="203.5" class="bar-primary" fill="url(#barGradient1)" stroke="none" opacity="1" transform="translate(0,0)" rx="2" ry="2" data-month="Aug" data-value="185" data-year="2024" role="graphics-symbol" aria-label="August: $185K"/>
+        <rect x="381" y="126.5" width="30" height="203.5" fill="url(#hatchPattern)" stroke="none" opacity="1" transform="translate(0,0)" rx="2" ry="2"/>
+        <text x="396" y="121.5" class="value-label" text-anchor="middle" fill="#333333" stroke="none" opacity="1" transform="translate(0,0)">185</text>
+      </g>
+
+      <!-- September: 155K -->
+      <g class="bar-animate" transform="translate(0,0)" opacity="1">
+        <rect x="424" y="159.5" width="30" height="170.5" class="bar-primary" fill="url(#barGradient1)" stroke="none" opacity="1" transform="translate(0,0)" rx="2" ry="2" data-month="Sep" data-value="155" data-year="2024" role="graphics-symbol" aria-label="September: $155K"/>
+        <rect x="424" y="159.5" width="30" height="170.5" fill="url(#hatchPattern)" stroke="none" opacity="1" transform="translate(0,0)" rx="2" ry="2"/>
+        <text x="439" y="154.5" class="value-label" text-anchor="middle" fill="#333333" stroke="none" opacity="1" transform="translate(0,0)">155</text>
+      </g>
+
+      <!-- October: 175K -->
+      <g class="bar-animate" transform="translate(0,0)" opacity="1">
+        <rect x="467" y="137.5" width="30" height="192.5" class="bar-primary" fill="url(#barGradient1)" stroke="none" opacity="1" transform="translate(0,0)" rx="2" ry="2" data-month="Oct" data-value="175" data-year="2024" role="graphics-symbol" aria-label="October: $175K"/>
+        <rect x="467" y="137.5" width="30" height="192.5" fill="url(#hatchPattern)" stroke="none" opacity="1" transform="translate(0,0)" rx="2" ry="2"/>
+        <text x="482" y="132.5" class="value-label" text-anchor="middle" fill="#333333" stroke="none" opacity="1" transform="translate(0,0)">175</text>
+      </g>
+
+      <!-- November: 230K -->
+      <g class="bar-animate" transform="translate(0,0)" opacity="1">
+        <rect x="510" y="77" width="30" height="253" class="bar-primary" fill="url(#barGradient1)" stroke="none" opacity="1" transform="translate(0,0)" rx="2" ry="2" data-month="Nov" data-value="230" data-year="2024" role="graphics-symbol" aria-label="November: $230K"/>
+        <rect x="510" y="77" width="30" height="253" fill="url(#hatchPattern)" stroke="none" opacity="1" transform="translate(0,0)" rx="2" ry="2"/>
+        <text x="525" y="72" class="value-label" text-anchor="middle" fill="#333333" stroke="none" opacity="1" transform="translate(0,0)">230</text>
+      </g>
+
+      <!-- December: 245K -->
+      <g class="bar-animate" transform="translate(0,0)" opacity="1">
+        <rect x="553" y="60.5" width="30" height="269.5" class="bar-primary" fill="url(#barGradient1)" stroke="none" opacity="1" transform="translate(0,0)" rx="2" ry="2" data-month="Dec" data-value="245" data-year="2024" role="graphics-symbol" aria-label="December: $245K"/>
+        <rect x="553" y="60.5" width="30" height="269.5" fill="url(#hatchPattern)" stroke="none" opacity="1" transform="translate(0,0)" rx="2" ry="2"/>
+        <text x="568" y="55.5" class="value-label" text-anchor="middle" fill="#333333" stroke="none" opacity="1" transform="translate(0,0)">245</text>
+      </g>
+    </g>
+
+    <!-- X-axis month labels -->
+    <g id="bar-x-labels" transform="translate(0,0)" opacity="1">
+      <text x="95" y="348" class="axis-label-small" text-anchor="middle" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">Jan</text>
+      <text x="138" y="348" class="axis-label-small" text-anchor="middle" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">Feb</text>
+      <text x="181" y="348" class="axis-label-small" text-anchor="middle" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">Mar</text>
+      <text x="224" y="348" class="axis-label-small" text-anchor="middle" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">Apr</text>
+      <text x="267" y="348" class="axis-label-small" text-anchor="middle" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">May</text>
+      <text x="310" y="348" class="axis-label-small" text-anchor="middle" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">Jun</text>
+      <text x="353" y="348" class="axis-label-small" text-anchor="middle" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">Jul</text>
+      <text x="396" y="348" class="axis-label-small" text-anchor="middle" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">Aug</text>
+      <text x="439" y="348" class="axis-label-small" text-anchor="middle" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">Sep</text>
+      <text x="482" y="348" class="axis-label-small" text-anchor="middle" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">Oct</text>
+      <text x="525" y="348" class="axis-label-small" text-anchor="middle" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">Nov</text>
+      <text x="568" y="348" class="axis-label-small" text-anchor="middle" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">Dec</text>
+    </g>
+
+    <!-- Legend -->
+    <g id="bar-legend" transform="translate(400, 15)" opacity="1" role="list" aria-label="Bar Chart Legend">
+      <rect x="0" y="0" width="12" height="12" fill="url(#barGradient1)" stroke="none" opacity="1" transform="translate(0,0)" rx="2" ry="2"/>
+      <text x="18" y="11" class="legend-text" fill="#444444" stroke="none" opacity="1" transform="translate(0,0)">2024 Revenue</text>
+      <rect x="120" y="0" width="12" height="12" fill="url(#hatchPattern)" stroke="#0f3460" stroke-width="1" opacity="1" transform="translate(0,0)" rx="2" ry="2"/>
+      <text x="138" y="11" class="legend-text" fill="#444444" stroke="none" opacity="1" transform="translate(0,0)">Projected</text>
+    </g>
+
+    <!-- Empty structural groups -->
+    <g id="bar-tooltips" transform="translate(0,0)" opacity="1"></g>
+    <g id="bar-annotations" transform="translate(0,0)" opacity="1"></g>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- CHART 2: Line Chart — YoY Trend (top-right)                   -->
+  <!-- ============================================================ -->
+  <g id="line-chart" transform="translate(660, 75)" opacity="1" role="img" aria-label="Year-over-Year Trend Line Chart" class="chart-container">
+
+    <!-- Card background -->
+    <rect x="0" y="0" width="520" height="380" class="card-bg" fill="#ffffff" stroke="#e0e0e0" stroke-width="1" rx="8" ry="8" opacity="1" transform="translate(0,0)" filter="url(#cardShadow)"/>
+
+    <!-- Chart title -->
+    <text x="30" y="32" class="chart-title" fill="#16213e" stroke="none" opacity="1" transform="translate(0,0)">Year-over-Year Trend</text>
+    <line x1="30" y1="40" x2="490" y2="40" class="separator" stroke="#dee2e6" stroke-width="1" fill="none" opacity="1" transform="translate(0,0)"/>
+
+    <!-- Y-axis -->
+    <g id="line-y-axis" transform="translate(0,0)" opacity="1">
+      <line x1="60" y1="55" x2="60" y2="320" class="axis-line" stroke="#333333" stroke-width="1.5" fill="none" opacity="1" transform="translate(0,0)"/>
+      <text x="52" y="323" class="axis-label-small" text-anchor="end" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">0</text>
+      <line x1="60" y1="320" x2="490" y2="320" class="grid-line" stroke="#e0e0e0" stroke-width="0.5" fill="none" opacity="1" transform="translate(0,0)"/>
+      <text x="52" y="268" class="axis-label-small" text-anchor="end" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">50</text>
+      <line x1="60" y1="265" x2="490" y2="265" class="grid-line" stroke="#e0e0e0" stroke-width="0.5" fill="none" opacity="1" transform="translate(0,0)"/>
+      <text x="52" y="213" class="axis-label-small" text-anchor="end" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">100</text>
+      <line x1="60" y1="210" x2="490" y2="210" class="grid-line-major" stroke="#cccccc" stroke-width="1" fill="none" opacity="1" transform="translate(0,0)"/>
+      <text x="52" y="158" class="axis-label-small" text-anchor="end" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">150</text>
+      <line x1="60" y1="155" x2="490" y2="155" class="grid-line" stroke="#e0e0e0" stroke-width="0.5" fill="none" opacity="1" transform="translate(0,0)"/>
+      <text x="52" y="103" class="axis-label-small" text-anchor="end" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">200</text>
+      <line x1="60" y1="100" x2="490" y2="100" class="grid-line-major" stroke="#cccccc" stroke-width="1" fill="none" opacity="1" transform="translate(0,0)"/>
+      <text x="52" y="58" class="axis-label-small" text-anchor="end" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">250</text>
+      <line x1="60" y1="55" x2="490" y2="55" class="grid-line" stroke="#e0e0e0" stroke-width="0.5" fill="none" opacity="1" transform="translate(0,0)"/>
+      <!-- Y-axis title -->
+      <text x="12" y="187" class="axis-label" text-anchor="middle" fill="#555555" stroke="none" opacity="1" transform="rotate(-90, 12, 187)">Units Sold (K)</text>
+    </g>
+
+    <!-- X-axis -->
+    <g id="line-x-axis" transform="translate(0,0)" opacity="1">
+      <line x1="60" y1="320" x2="490" y2="320" class="axis-line" stroke="#333333" stroke-width="1.5" fill="none" opacity="1" transform="translate(0,0)"/>
+      <!-- Vertical grid + labels -->
+      <line x1="99" y1="55" x2="99" y2="320" class="grid-line" stroke="#e0e0e0" stroke-width="0.5" fill="none" opacity="1" transform="translate(0,0)"/>
+      <text x="99" y="338" class="axis-label-small" text-anchor="middle" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">Jan</text>
+      <line x1="138" y1="55" x2="138" y2="320" class="grid-line" stroke="#e0e0e0" stroke-width="0.5" fill="none" opacity="1" transform="translate(0,0)"/>
+      <text x="138" y="338" class="axis-label-small" text-anchor="middle" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">Feb</text>
+      <line x1="177" y1="55" x2="177" y2="320" class="grid-line" stroke="#e0e0e0" stroke-width="0.5" fill="none" opacity="1" transform="translate(0,0)"/>
+      <text x="177" y="338" class="axis-label-small" text-anchor="middle" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">Mar</text>
+      <line x1="216" y1="55" x2="216" y2="320" class="grid-line" stroke="#e0e0e0" stroke-width="0.5" fill="none" opacity="1" transform="translate(0,0)"/>
+      <text x="216" y="338" class="axis-label-small" text-anchor="middle" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">Apr</text>
+      <line x1="255" y1="55" x2="255" y2="320" class="grid-line" stroke="#e0e0e0" stroke-width="0.5" fill="none" opacity="1" transform="translate(0,0)"/>
+      <text x="255" y="338" class="axis-label-small" text-anchor="middle" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">May</text>
+      <line x1="294" y1="55" x2="294" y2="320" class="grid-line" stroke="#e0e0e0" stroke-width="0.5" fill="none" opacity="1" transform="translate(0,0)"/>
+      <text x="294" y="338" class="axis-label-small" text-anchor="middle" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">Jun</text>
+      <line x1="333" y1="55" x2="333" y2="320" class="grid-line" stroke="#e0e0e0" stroke-width="0.5" fill="none" opacity="1" transform="translate(0,0)"/>
+      <text x="333" y="338" class="axis-label-small" text-anchor="middle" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">Jul</text>
+      <line x1="372" y1="55" x2="372" y2="320" class="grid-line" stroke="#e0e0e0" stroke-width="0.5" fill="none" opacity="1" transform="translate(0,0)"/>
+      <text x="372" y="338" class="axis-label-small" text-anchor="middle" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">Aug</text>
+      <line x1="411" y1="55" x2="411" y2="320" class="grid-line" stroke="#e0e0e0" stroke-width="0.5" fill="none" opacity="1" transform="translate(0,0)"/>
+      <text x="411" y="338" class="axis-label-small" text-anchor="middle" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">Sep</text>
+      <line x1="450" y1="55" x2="450" y2="320" class="grid-line" stroke="#e0e0e0" stroke-width="0.5" fill="none" opacity="1" transform="translate(0,0)"/>
+      <text x="450" y="338" class="axis-label-small" text-anchor="middle" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">Oct</text>
+    </g>
+
+    <!-- Area fills under lines -->
+    <g id="line-area-fills" clip-path="url(#lineChartClip)" transform="translate(0,0)" opacity="1">
+      <!-- 2024 area -->
+      <path d="M99,188 L138,210 L177,166 L216,199 L255,144 L294,111 L333,89 L372,116 L411,155 L450,133 L450,320 L99,320 Z"
+            class="area-fill-a" fill="url(#areaGradientA)" stroke="none" opacity="0.3" transform="translate(0,0)"/>
+      <!-- 2023 area -->
+      <path d="M99,243 L138,254 L177,221 L216,232 L255,199 L294,177 L333,166 L372,177 L411,199 L450,188 L450,320 L99,320 Z"
+            class="area-fill-b" fill="url(#areaGradientB)" stroke="none" opacity="0.2" transform="translate(0,0)"/>
+    </g>
+
+    <!-- Line series A: 2024 data -->
+    <!-- Data: Jan=120, Feb=100, Mar=140, Apr=110, May=160, Jun=190, Jul=210, Aug=185, Sep=150, Oct=170 -->
+    <g id="line-series-a" transform="translate(0,0)" opacity="1">
+      <path d="M99,188 L138,210 L177,166 L216,199 L255,144 L294,111 L333,89 L372,116 L411,155 L450,133"
+            class="line-series-a" stroke="#0f3460" stroke-width="2.5" fill="none" opacity="1" transform="translate(0,0)"
+            stroke-linecap="round" stroke-linejoin="round">
+        <animate attributeName="stroke-dashoffset" from="1200" to="0" dur="2s" fill="freeze" begin="0s" repeatCount="1"/>
+      </path>
+      <!-- Data points -->
+      <circle cx="99" cy="188" r="4" class="data-point data-point-a" fill="#ffffff" stroke="#0f3460" stroke-width="2" opacity="1" transform="translate(0,0)"/>
+      <circle cx="138" cy="210" r="4" class="data-point data-point-a" fill="#ffffff" stroke="#0f3460" stroke-width="2" opacity="1" transform="translate(0,0)"/>
+      <circle cx="177" cy="166" r="4" class="data-point data-point-a" fill="#ffffff" stroke="#0f3460" stroke-width="2" opacity="1" transform="translate(0,0)"/>
+      <circle cx="216" cy="199" r="4" class="data-point data-point-a" fill="#ffffff" stroke="#0f3460" stroke-width="2" opacity="1" transform="translate(0,0)"/>
+      <circle cx="255" cy="144" r="4" class="data-point data-point-a" fill="#ffffff" stroke="#0f3460" stroke-width="2" opacity="1" transform="translate(0,0)"/>
+      <circle cx="294" cy="111" r="4" class="data-point data-point-a" fill="#ffffff" stroke="#0f3460" stroke-width="2" opacity="1" transform="translate(0,0)"/>
+      <circle cx="333" cy="89" r="4" class="data-point data-point-a" fill="#ffffff" stroke="#0f3460" stroke-width="2" opacity="1" transform="translate(0,0)"/>
+      <circle cx="372" cy="116" r="4" class="data-point data-point-a" fill="#ffffff" stroke="#0f3460" stroke-width="2" opacity="1" transform="translate(0,0)"/>
+      <circle cx="411" cy="155" r="4" class="data-point data-point-a" fill="#ffffff" stroke="#0f3460" stroke-width="2" opacity="1" transform="translate(0,0)"/>
+      <circle cx="450" cy="133" r="4" class="data-point data-point-a" fill="#ffffff" stroke="#0f3460" stroke-width="2" opacity="1" transform="translate(0,0)"/>
+      <!-- Value labels for series A -->
+      <text x="99" y="180" class="axis-label-small" text-anchor="middle" fill="#0f3460" stroke="none" opacity="1" transform="translate(0,0)">120</text>
+      <text x="138" y="224" class="axis-label-small" text-anchor="middle" fill="#0f3460" stroke="none" opacity="1" transform="translate(0,0)">100</text>
+      <text x="177" y="158" class="axis-label-small" text-anchor="middle" fill="#0f3460" stroke="none" opacity="1" transform="translate(0,0)">140</text>
+      <text x="216" y="213" class="axis-label-small" text-anchor="middle" fill="#0f3460" stroke="none" opacity="1" transform="translate(0,0)">110</text>
+      <text x="255" y="136" class="axis-label-small" text-anchor="middle" fill="#0f3460" stroke="none" opacity="1" transform="translate(0,0)">160</text>
+      <text x="294" y="103" class="axis-label-small" text-anchor="middle" fill="#0f3460" stroke="none" opacity="1" transform="translate(0,0)">190</text>
+      <text x="333" y="81" class="axis-label-small" text-anchor="middle" fill="#0f3460" stroke="none" opacity="1" transform="translate(0,0)">210</text>
+      <text x="372" y="108" class="axis-label-small" text-anchor="middle" fill="#0f3460" stroke="none" opacity="1" transform="translate(0,0)">185</text>
+      <text x="411" y="147" class="axis-label-small" text-anchor="middle" fill="#0f3460" stroke="none" opacity="1" transform="translate(0,0)">150</text>
+      <text x="450" y="125" class="axis-label-small" text-anchor="middle" fill="#0f3460" stroke="none" opacity="1" transform="translate(0,0)">170</text>
+    </g>
+
+    <!-- Line series B: 2023 data -->
+    <!-- Data: Jan=70, Feb=60, Mar=90, Apr=80, May=110, Jun=130, Jul=140, Aug=130, Sep=110, Oct=120 -->
+    <g id="line-series-b" transform="translate(0,0)" opacity="1">
+      <path d="M99,243 L138,254 L177,221 L216,232 L255,199 L294,177 L333,166 L372,177 L411,199 L450,188"
+            class="line-series-b" stroke="#e94560" stroke-width="2.5" fill="none" opacity="1" transform="translate(0,0)"
+            stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 4">
+        <animate attributeName="stroke-dashoffset" from="1200" to="0" dur="2.5s" fill="freeze" begin="0.3s" repeatCount="1"/>
+      </path>
+      <!-- Data points -->
+      <circle cx="99" cy="243" r="4" class="data-point data-point-b" fill="#ffffff" stroke="#e94560" stroke-width="2" opacity="1" transform="translate(0,0)"/>
+      <circle cx="138" cy="254" r="4" class="data-point data-point-b" fill="#ffffff" stroke="#e94560" stroke-width="2" opacity="1" transform="translate(0,0)"/>
+      <circle cx="177" cy="221" r="4" class="data-point data-point-b" fill="#ffffff" stroke="#e94560" stroke-width="2" opacity="1" transform="translate(0,0)"/>
+      <circle cx="216" cy="232" r="4" class="data-point data-point-b" fill="#ffffff" stroke="#e94560" stroke-width="2" opacity="1" transform="translate(0,0)"/>
+      <circle cx="255" cy="199" r="4" class="data-point data-point-b" fill="#ffffff" stroke="#e94560" stroke-width="2" opacity="1" transform="translate(0,0)"/>
+      <circle cx="294" cy="177" r="4" class="data-point data-point-b" fill="#ffffff" stroke="#e94560" stroke-width="2" opacity="1" transform="translate(0,0)"/>
+      <circle cx="333" cy="166" r="4" class="data-point data-point-b" fill="#ffffff" stroke="#e94560" stroke-width="2" opacity="1" transform="translate(0,0)"/>
+      <circle cx="372" cy="177" r="4" class="data-point data-point-b" fill="#ffffff" stroke="#e94560" stroke-width="2" opacity="1" transform="translate(0,0)"/>
+      <circle cx="411" cy="199" r="4" class="data-point data-point-b" fill="#ffffff" stroke="#e94560" stroke-width="2" opacity="1" transform="translate(0,0)"/>
+      <circle cx="450" cy="188" r="4" class="data-point data-point-b" fill="#ffffff" stroke="#e94560" stroke-width="2" opacity="1" transform="translate(0,0)"/>
+      <!-- Value labels for series B -->
+      <text x="99" y="257" class="axis-label-small" text-anchor="middle" fill="#e94560" stroke="none" opacity="1" transform="translate(0,0)">70</text>
+      <text x="138" y="268" class="axis-label-small" text-anchor="middle" fill="#e94560" stroke="none" opacity="1" transform="translate(0,0)">60</text>
+      <text x="177" y="235" class="axis-label-small" text-anchor="middle" fill="#e94560" stroke="none" opacity="1" transform="translate(0,0)">90</text>
+      <text x="216" y="246" class="axis-label-small" text-anchor="middle" fill="#e94560" stroke="none" opacity="1" transform="translate(0,0)">80</text>
+      <text x="255" y="213" class="axis-label-small" text-anchor="middle" fill="#e94560" stroke="none" opacity="1" transform="translate(0,0)">110</text>
+      <text x="294" y="169" class="axis-label-small" text-anchor="middle" fill="#e94560" stroke="none" opacity="1" transform="translate(0,0)">130</text>
+      <text x="333" y="158" class="axis-label-small" text-anchor="middle" fill="#e94560" stroke="none" opacity="1" transform="translate(0,0)">140</text>
+      <text x="372" y="191" class="axis-label-small" text-anchor="middle" fill="#e94560" stroke="none" opacity="1" transform="translate(0,0)">130</text>
+      <text x="411" y="213" class="axis-label-small" text-anchor="middle" fill="#e94560" stroke="none" opacity="1" transform="translate(0,0)">110</text>
+      <text x="450" y="202" class="axis-label-small" text-anchor="middle" fill="#e94560" stroke="none" opacity="1" transform="translate(0,0)">120</text>
+    </g>
+
+    <!-- Legend -->
+    <g id="line-legend" transform="translate(300, 15)" opacity="1" role="list" aria-label="Line Chart Legend">
+      <line x1="0" y1="6" x2="20" y2="6" stroke="#0f3460" stroke-width="2.5" fill="none" opacity="1" transform="translate(0,0)"/>
+      <text x="26" y="11" class="legend-text" fill="#444444" stroke="none" opacity="1" transform="translate(0,0)">2024</text>
+      <line x1="70" y1="6" x2="90" y2="6" stroke="#e94560" stroke-width="2.5" stroke-dasharray="8 4" fill="none" opacity="1" transform="translate(0,0)"/>
+      <text x="96" y="11" class="legend-text" fill="#444444" stroke="none" opacity="1" transform="translate(0,0)">2023</text>
+    </g>
+
+    <!-- Empty groups -->
+    <g id="line-tooltips" transform="translate(0,0)" opacity="1"></g>
+    <g id="line-crosshair" transform="translate(0,0)" opacity="1"></g>
+    <g id="line-annotations" transform="translate(0,0)" opacity="1"></g>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- CHART 3: Pie Chart — Market Share (bottom center)             -->
+  <!-- ============================================================ -->
+  <g id="pie-chart" transform="translate(350, 480)" opacity="1" role="img" aria-label="Market Share Pie Chart" class="chart-container">
+
+    <!-- Card background -->
+    <rect x="0" y="0" width="500" height="400" class="card-bg" fill="#ffffff" stroke="#e0e0e0" stroke-width="1" rx="8" ry="8" opacity="1" transform="translate(0,0)" filter="url(#cardShadow)"/>
+
+    <!-- Chart title -->
+    <text x="30" y="32" class="chart-title" fill="#16213e" stroke="none" opacity="1" transform="translate(0,0)">Market Share by Product</text>
+    <line x1="30" y1="40" x2="470" y2="40" class="separator" stroke="#dee2e6" stroke-width="1" fill="none" opacity="1" transform="translate(0,0)"/>
+
+    <!-- Pie center at (200, 220), radius 140 -->
+    <!-- Slices: Enterprise 28%, SMB 22%, Consumer 18%, Government 14%, Education 10%, Other 8% -->
+    <g id="pie-slices" transform="translate(200, 220)" opacity="1">
+
+      <!-- Slice 1: Enterprise 28% = 100.8deg, 0 to 100.8 -->
+      <g class="pie-slice-group" transform="translate(0,0)" opacity="1">
+        <path d="M0,-140 A140,140 0 0,1 130.76,-49.37 L0,0 Z"
+              class="pie-slice" fill="url(#pieGrad1)" stroke="#ffffff" stroke-width="2" opacity="1" transform="translate(0,0)"
+              data-segment="Enterprise" data-value="28" role="graphics-symbol" aria-label="Enterprise: 28%">
+          <animateTransform attributeName="transform" type="scale" from="1" to="1.03" dur="0.2s" begin="mouseover" fill="freeze" additive="replace"/>
+          <animateTransform attributeName="transform" type="scale" from="1.03" to="1" dur="0.2s" begin="mouseout" fill="freeze" additive="replace"/>
+        </path>
+      </g>
+
+      <!-- Slice 2: SMB 22% = 79.2deg, 100.8 to 180 -->
+      <g class="pie-slice-group" transform="translate(0,0)" opacity="1">
+        <path d="M130.76,-49.37 A140,140 0 0,1 0,140 L0,0 Z"
+              class="pie-slice" fill="url(#pieGrad2)" stroke="#ffffff" stroke-width="2" opacity="1" transform="translate(0,0)"
+              data-segment="SMB" data-value="22" role="graphics-symbol" aria-label="SMB: 22%">
+          <animateTransform attributeName="transform" type="scale" from="1" to="1.03" dur="0.2s" begin="mouseover" fill="freeze" additive="replace"/>
+          <animateTransform attributeName="transform" type="scale" from="1.03" to="1" dur="0.2s" begin="mouseout" fill="freeze" additive="replace"/>
+        </path>
+      </g>
+
+      <!-- Slice 3: Consumer 18% = 64.8deg, 180 to 244.8 -->
+      <g class="pie-slice-group" transform="translate(0,0)" opacity="1">
+        <path d="M0,140 A140,140 0 0,1 -126.28,60.17 L0,0 Z"
+              class="pie-slice" fill="url(#pieGrad3)" stroke="#ffffff" stroke-width="2" opacity="1" transform="translate(0,0)"
+              data-segment="Consumer" data-value="18" role="graphics-symbol" aria-label="Consumer: 18%">
+          <animateTransform attributeName="transform" type="scale" from="1" to="1.03" dur="0.2s" begin="mouseover" fill="freeze" additive="replace"/>
+          <animateTransform attributeName="transform" type="scale" from="1.03" to="1" dur="0.2s" begin="mouseout" fill="freeze" additive="replace"/>
+        </path>
+      </g>
+
+      <!-- Slice 4: Government 14% = 50.4deg, 244.8 to 295.2 -->
+      <g class="pie-slice-group" transform="translate(0,0)" opacity="1">
+        <path d="M-126.28,60.17 A140,140 0 0,1 -119.21,-73.08 L0,0 Z"
+              class="pie-slice" fill="url(#pieGrad4)" stroke="#ffffff" stroke-width="2" opacity="1" transform="translate(0,0)"
+              data-segment="Government" data-value="14" role="graphics-symbol" aria-label="Government: 14%">
+          <animateTransform attributeName="transform" type="scale" from="1" to="1.03" dur="0.2s" begin="mouseover" fill="freeze" additive="replace"/>
+          <animateTransform attributeName="transform" type="scale" from="1.03" to="1" dur="0.2s" begin="mouseout" fill="freeze" additive="replace"/>
+        </path>
+      </g>
+
+      <!-- Slice 5: Education 10% = 36deg, 295.2 to 331.2 -->
+      <g class="pie-slice-group" transform="translate(0,0)" opacity="1">
+        <path d="M-119.21,-73.08 A140,140 0 0,1 -55.21,-128.67 L0,0 Z"
+              class="pie-slice" fill="url(#pieGrad5)" stroke="#ffffff" stroke-width="2" opacity="1" transform="translate(0,0)"
+              data-segment="Education" data-value="10" role="graphics-symbol" aria-label="Education: 10%">
+          <animateTransform attributeName="transform" type="scale" from="1" to="1.03" dur="0.2s" begin="mouseover" fill="freeze" additive="replace"/>
+          <animateTransform attributeName="transform" type="scale" from="1.03" to="1" dur="0.2s" begin="mouseout" fill="freeze" additive="replace"/>
+        </path>
+      </g>
+
+      <!-- Slice 6: Other 8% = 28.8deg, 331.2 to 360 -->
+      <g class="pie-slice-group" transform="translate(0,0)" opacity="1">
+        <path d="M-55.21,-128.67 A140,140 0 0,1 0,-140 L0,0 Z"
+              class="pie-slice" fill="url(#pieGrad6)" stroke="#ffffff" stroke-width="2" opacity="1" transform="translate(0,0)"
+              data-segment="Other" data-value="8" role="graphics-symbol" aria-label="Other: 8%">
+          <animateTransform attributeName="transform" type="scale" from="1" to="1.03" dur="0.2s" begin="mouseover" fill="freeze" additive="replace"/>
+          <animateTransform attributeName="transform" type="scale" from="1.03" to="1" dur="0.2s" begin="mouseout" fill="freeze" additive="replace"/>
+        </path>
+      </g>
+
+      <!-- Center circle (donut hole) -->
+      <circle cx="0" cy="0" r="55" fill="#ffffff" stroke="none" opacity="1" transform="translate(0,0)"/>
+      <text x="0" y="-5" class="chart-title" text-anchor="middle" fill="#16213e" stroke="none" opacity="1" transform="translate(0,0)">Total</text>
+      <text x="0" y="15" class="pie-label" text-anchor="middle" fill="#333333" stroke="none" opacity="1" transform="translate(0,0)">$1,925K</text>
+    </g>
+
+    <!-- Pie labels positioned around the chart -->
+    <g id="pie-labels" transform="translate(0,0)" opacity="1">
+      <!-- Enterprise -->
+      <line x1="290" y1="140" x2="340" y2="120" stroke="#1a5276" stroke-width="1" fill="none" opacity="1" transform="translate(0,0)"/>
+      <text x="345" y="117" class="pie-label" fill="#222222" stroke="none" opacity="1" transform="translate(0,0)">Enterprise</text>
+      <text x="345" y="132" class="pie-pct" fill="#555555" stroke="none" opacity="1" transform="translate(0,0)">28% ($539K)</text>
+
+      <!-- SMB -->
+      <line x1="290" y1="280" x2="340" y2="300" stroke="#c0392b" stroke-width="1" fill="none" opacity="1" transform="translate(0,0)"/>
+      <text x="345" y="297" class="pie-label" fill="#222222" stroke="none" opacity="1" transform="translate(0,0)">SMB</text>
+      <text x="345" y="312" class="pie-pct" fill="#555555" stroke="none" opacity="1" transform="translate(0,0)">22% ($424K)</text>
+
+      <!-- Consumer -->
+      <line x1="110" y1="330" x2="60" y2="350" stroke="#27ae60" stroke-width="1" fill="none" opacity="1" transform="translate(0,0)"/>
+      <text x="15" y="347" class="pie-label" fill="#222222" stroke="none" opacity="1" transform="translate(0,0)">Consumer</text>
+      <text x="15" y="362" class="pie-pct" fill="#555555" stroke="none" opacity="1" transform="translate(0,0)">18% ($347K)</text>
+
+      <!-- Government -->
+      <line x1="95" y1="195" x2="40" y2="185" stroke="#f39c12" stroke-width="1" fill="none" opacity="1" transform="translate(0,0)"/>
+      <text x="15" y="182" class="pie-label" fill="#222222" stroke="none" opacity="1" transform="translate(0,0)">Gov</text>
+      <text x="15" y="197" class="pie-pct" fill="#555555" stroke="none" opacity="1" transform="translate(0,0)">14% ($270K)</text>
+
+      <!-- Education -->
+      <line x1="140" y1="110" x2="90" y2="90" stroke="#8e44ad" stroke-width="1" fill="none" opacity="1" transform="translate(0,0)"/>
+      <text x="15" y="87" class="pie-label" fill="#222222" stroke="none" opacity="1" transform="translate(0,0)">Education</text>
+      <text x="15" y="102" class="pie-pct" fill="#555555" stroke="none" opacity="1" transform="translate(0,0)">10% ($193K)</text>
+
+      <!-- Other -->
+      <line x1="175" y1="95" x2="175" y2="65" stroke="#0984e3" stroke-width="1" fill="none" opacity="1" transform="translate(0,0)"/>
+      <text x="160" y="62" class="pie-label" fill="#222222" stroke="none" opacity="1" transform="translate(0,0)">Other</text>
+      <text x="160" y="77" class="pie-pct" fill="#555555" stroke="none" opacity="1" transform="translate(0,0)">8% ($154K)</text>
+    </g>
+
+    <!-- Empty groups -->
+    <g id="pie-tooltips" transform="translate(0,0)" opacity="1"></g>
+    <g id="pie-interactions" transform="translate(0,0)" opacity="1"></g>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- Summary Cards (bottom-left and bottom-right)                  -->
+  <!-- ============================================================ -->
+
+  <!-- Summary card: Total Revenue -->
+  <g id="summary-card-1" transform="translate(20, 480)" opacity="1" role="region" aria-label="Total Revenue Summary">
+    <rect x="0" y="0" width="310" height="180" class="card-bg" fill="#ffffff" stroke="#e0e0e0" stroke-width="1" rx="8" ry="8" opacity="1" transform="translate(0,0)" filter="url(#cardShadow)"/>
+    <rect x="0" y="0" width="6" height="180" fill="#0f3460" stroke="none" opacity="1" transform="translate(0,0)" rx="3" ry="3"/>
+    <text x="25" y="35" class="chart-title" fill="#16213e" stroke="none" opacity="1" transform="translate(0,0)">Total Revenue</text>
+    <text x="25" y="85" font-family="'Helvetica Neue', Arial, sans-serif" font-size="36" font-weight="bold" fill="#0f3460" stroke="none" opacity="1" transform="translate(0,0)">$1,925K</text>
+    <text x="25" y="110" class="axis-label" fill="#00b894" stroke="none" opacity="1" transform="translate(0,0)">+18.3% vs 2023</text>
+    <line x1="25" y1="125" x2="285" y2="125" class="separator" stroke="#dee2e6" stroke-width="1" fill="none" opacity="1" transform="translate(0,0)"/>
+    <text x="25" y="148" class="axis-label-small" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">Monthly avg: $160.4K</text>
+    <text x="25" y="165" class="axis-label-small" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">Best month: Dec ($245K)</text>
+    <!-- Sparkline -->
+    <polyline points="200,140 210,135 220,145 230,130 240,120 250,115 260,105 270,110 280,125 290,118"
+              fill="none" stroke="#0f3460" stroke-width="1.5" opacity="0.5" transform="translate(0,0)" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Summary card: Growth Metrics -->
+  <g id="summary-card-2" transform="translate(870, 480)" opacity="1" role="region" aria-label="Growth Metrics Summary">
+    <rect x="0" y="0" width="310" height="180" class="card-bg" fill="#ffffff" stroke="#e0e0e0" stroke-width="1" rx="8" ry="8" opacity="1" transform="translate(0,0)" filter="url(#cardShadow)"/>
+    <rect x="0" y="0" width="6" height="180" fill="#e94560" stroke="none" opacity="1" transform="translate(0,0)" rx="3" ry="3"/>
+    <text x="25" y="35" class="chart-title" fill="#16213e" stroke="none" opacity="1" transform="translate(0,0)">Growth Metrics</text>
+    <text x="25" y="85" font-family="'Helvetica Neue', Arial, sans-serif" font-size="36" font-weight="bold" fill="#e94560" stroke="none" opacity="1" transform="translate(0,0)">+34.2%</text>
+    <text x="25" y="110" class="axis-label" fill="#00b894" stroke="none" opacity="1" transform="translate(0,0)">Customer growth YoY</text>
+    <line x1="25" y1="125" x2="285" y2="125" class="separator" stroke="#dee2e6" stroke-width="1" fill="none" opacity="1" transform="translate(0,0)"/>
+    <text x="25" y="148" class="axis-label-small" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">New customers: 1,247</text>
+    <text x="25" y="165" class="axis-label-small" fill="#777777" stroke="none" opacity="1" transform="translate(0,0)">Churn rate: 2.1%</text>
+    <!-- Mini bar chart -->
+    <rect x="200" y="155" width="12" height="15" fill="#e94560" stroke="none" opacity="0.3" transform="translate(0,0)"/>
+    <rect x="216" y="148" width="12" height="22" fill="#e94560" stroke="none" opacity="0.4" transform="translate(0,0)"/>
+    <rect x="232" y="140" width="12" height="30" fill="#e94560" stroke="none" opacity="0.5" transform="translate(0,0)"/>
+    <rect x="248" y="135" width="12" height="35" fill="#e94560" stroke="none" opacity="0.6" transform="translate(0,0)"/>
+    <rect x="264" y="125" width="12" height="45" fill="#e94560" stroke="none" opacity="0.8" transform="translate(0,0)"/>
+    <rect x="280" y="118" width="12" height="52" fill="#e94560" stroke="none" opacity="1" transform="translate(0,0)"/>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- KPI Row (bottom strip)                                        -->
+  <!-- ============================================================ -->
+  <g id="kpi-row" transform="translate(20, 680)" opacity="1" role="region" aria-label="Key Performance Indicators">
+    <!-- KPI card backgrounds -->
+    <rect x="0" y="0" width="275" height="90" class="card-bg" fill="#ffffff" stroke="#e0e0e0" stroke-width="1" rx="8" ry="8" opacity="1" transform="translate(0,0)" filter="url(#cardShadow)"/>
+    <rect x="295" y="0" width="275" height="90" class="card-bg" fill="#ffffff" stroke="#e0e0e0" stroke-width="1" rx="8" ry="8" opacity="1" transform="translate(0,0)" filter="url(#cardShadow)"/>
+    <rect x="590" y="0" width="275" height="90" class="card-bg" fill="#ffffff" stroke="#e0e0e0" stroke-width="1" rx="8" ry="8" opacity="1" transform="translate(0,0)" filter="url(#cardShadow)"/>
+    <rect x="885" y="0" width="275" height="90" class="card-bg" fill="#ffffff" stroke="#e0e0e0" stroke-width="1" rx="8" ry="8" opacity="1" transform="translate(0,0)" filter="url(#cardShadow)"/>
+
+    <!-- KPI 1: Conversion Rate -->
+    <text x="20" y="30" class="axis-label" fill="#555555" stroke="none" opacity="1" transform="translate(0,0)">Conversion Rate</text>
+    <text x="20" y="60" font-family="'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="bold" fill="#0f3460" stroke="none" opacity="1" transform="translate(0,0)">4.7%</text>
+    <text x="20" y="78" class="axis-label-small" fill="#00b894" stroke="none" opacity="1" transform="translate(0,0)">+0.8% from last quarter</text>
+    <rect x="220" y="20" width="35" height="50" fill="none" stroke="#e0e0e0" stroke-width="1" rx="4" ry="4" opacity="1" transform="translate(0,0)"/>
+    <rect x="220" y="45" width="35" height="25" fill="#0f3460" stroke="none" opacity="0.2" rx="0" ry="0" transform="translate(0,0)"/>
+
+    <!-- KPI 2: Avg Order Value -->
+    <text x="315" y="30" class="axis-label" fill="#555555" stroke="none" opacity="1" transform="translate(0,0)">Avg Order Value</text>
+    <text x="315" y="60" font-family="'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="bold" fill="#e94560" stroke="none" opacity="1" transform="translate(0,0)">$847</text>
+    <text x="315" y="78" class="axis-label-small" fill="#00b894" stroke="none" opacity="1" transform="translate(0,0)">+$62 from last quarter</text>
+    <rect x="515" y="20" width="35" height="50" fill="none" stroke="#e0e0e0" stroke-width="1" rx="4" ry="4" opacity="1" transform="translate(0,0)"/>
+    <rect x="515" y="38" width="35" height="32" fill="#e94560" stroke="none" opacity="0.2" rx="0" ry="0" transform="translate(0,0)"/>
+
+    <!-- KPI 3: Customer Satisfaction -->
+    <text x="610" y="30" class="axis-label" fill="#555555" stroke="none" opacity="1" transform="translate(0,0)">Customer Satisfaction</text>
+    <text x="610" y="60" font-family="'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="bold" fill="#00b894" stroke="none" opacity="1" transform="translate(0,0)">92.3%</text>
+    <text x="610" y="78" class="axis-label-small" fill="#00b894" stroke="none" opacity="1" transform="translate(0,0)">+3.1% from last quarter</text>
+    <rect x="810" y="20" width="35" height="50" fill="none" stroke="#e0e0e0" stroke-width="1" rx="4" ry="4" opacity="1" transform="translate(0,0)"/>
+    <rect x="810" y="28" width="35" height="42" fill="#00b894" stroke="none" opacity="0.2" rx="0" ry="0" transform="translate(0,0)"/>
+
+    <!-- KPI 4: Active Users -->
+    <text x="905" y="30" class="axis-label" fill="#555555" stroke="none" opacity="1" transform="translate(0,0)">Active Users</text>
+    <text x="905" y="60" font-family="'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="bold" fill="#6c5ce7" stroke="none" opacity="1" transform="translate(0,0)">12.4K</text>
+    <text x="905" y="78" class="axis-label-small" fill="#00b894" stroke="none" opacity="1" transform="translate(0,0)">+2.1K from last quarter</text>
+    <rect x="1105" y="20" width="35" height="50" fill="none" stroke="#e0e0e0" stroke-width="1" rx="4" ry="4" opacity="1" transform="translate(0,0)"/>
+    <rect x="1105" y="32" width="35" height="38" fill="#6c5ce7" stroke="none" opacity="0.2" rx="0" ry="0" transform="translate(0,0)"/>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- Footer                                                        -->
+  <!-- ============================================================ -->
+  <g id="dashboard-footer" transform="translate(0, 785)" opacity="1">
+    <line x1="20" y1="0" x2="1180" y2="0" stroke="#dee2e6" stroke-width="1" fill="none" opacity="1" transform="translate(0,0)"/>
+    <text x="30" y="25" class="axis-label-small" fill="#999999" stroke="none" opacity="1" transform="translate(0,0)">Data source: Internal CRM | Refresh frequency: Daily | Generated: 2024-12-15T10:30:00Z</text>
+    <text x="1170" y="25" class="axis-label-small" text-anchor="end" fill="#999999" stroke="none" opacity="1" transform="translate(0,0)">Dashboard v2.4.1</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- Additional bloat: decorative elements and redundant groups     -->
+  <!-- ============================================================ -->
+  <g id="decorative-elements" transform="translate(0,0)" opacity="1">
+    <!-- Decorative dots along top -->
+    <circle cx="30" cy="870" r="3" fill="#0f3460" stroke="none" opacity="0.3" transform="translate(0,0)"/>
+    <circle cx="45" cy="870" r="3" fill="#e94560" stroke="none" opacity="0.3" transform="translate(0,0)"/>
+    <circle cx="60" cy="870" r="3" fill="#00b894" stroke="none" opacity="0.3" transform="translate(0,0)"/>
+    <circle cx="75" cy="870" r="3" fill="#fdcb6e" stroke="none" opacity="0.3" transform="translate(0,0)"/>
+    <circle cx="90" cy="870" r="3" fill="#6c5ce7" stroke="none" opacity="0.3" transform="translate(0,0)"/>
+    <circle cx="105" cy="870" r="3" fill="#00cec9" stroke="none" opacity="0.3" transform="translate(0,0)"/>
+  </g>
+
+  <!-- More empty groups for optimizer to clean up -->
+  <g id="unused-overlay" transform="translate(0,0)" opacity="1"></g>
+  <g id="unused-responsive-wrapper" transform="translate(0,0)" opacity="1">
+    <g id="unused-inner-wrapper" transform="translate(0,0)" opacity="1">
+      <g id="unused-deep-wrapper" transform="translate(0,0)" opacity="1"></g>
+    </g>
+  </g>
+  <g id="unused-debug-layer" transform="translate(0,0)" opacity="1"></g>
+  <g id="unused-watermark" transform="translate(0,0)" opacity="1"></g>
+
+  <!-- ============================================================ -->
+  <!-- Additional redundant rect elements for padding/spacing        -->
+  <!-- ============================================================ -->
+  <g id="spacer-elements" transform="translate(0,0)" opacity="1">
+    <rect x="0" y="0" width="0" height="0" fill="none" stroke="none" opacity="1" transform="translate(0,0)"/>
+    <rect x="0" y="0" width="0" height="0" fill="none" stroke="none" opacity="1" transform="translate(0,0)"/>
+    <rect x="0" y="0" width="0" height="0" fill="none" stroke="none" opacity="1" transform="translate(0,0)"/>
+    <rect x="0" y="0" width="1200" height="1" fill="none" stroke="none" opacity="1" transform="translate(0,0)"/>
+    <rect x="0" y="899" width="1200" height="1" fill="none" stroke="none" opacity="1" transform="translate(0,0)"/>
+    <rect x="0" y="0" width="1" height="900" fill="none" stroke="none" opacity="1" transform="translate(0,0)"/>
+    <rect x="1199" y="0" width="1" height="900" fill="none" stroke="none" opacity="1" transform="translate(0,0)"/>
+  </g>
+
+</svg>

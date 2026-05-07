@@ -33,6 +33,8 @@ final class Document implements \Stringable
     /** @var array<string, ElementInterface> */
     private array $elementsById = [];
 
+    private bool $omitXmlDeclaration = false;
+
     public function __construct(?SvgElement $rootElement = null)
     {
         if (null !== $rootElement) {
@@ -68,6 +70,18 @@ final class Document implements \Stringable
     {
         $this->rootElement = $rootElement;
         $this->indexElement($rootElement);
+
+        return $this;
+    }
+
+    public function getOmitXmlDeclaration(): bool
+    {
+        return $this->omitXmlDeclaration;
+    }
+
+    public function setOmitXmlDeclaration(bool $omit): self
+    {
+        $this->omitXmlDeclaration = $omit;
 
         return $this;
     }
@@ -963,7 +977,7 @@ final class Document implements \Stringable
     /**
      * Optimizes the document using a preset configuration.
      *
-     * @param string               $preset  One of: default, aggressive, safe, accessible
+     * @param string               $preset  One of: default, aggressive, safe, web
      * @param array<string, mixed> $options Additional optimization options
      *
      * @throws InvalidArgumentException If the preset name is unknown

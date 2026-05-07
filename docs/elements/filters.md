@@ -39,12 +39,14 @@ adding them to the document's `<defs>`.
 ```php
 use Atelier\Svg\Element\Builder\FilterBuilder;
 
+// Each method's last two args are: in (input name) and result (output name).
+// A result from one step becomes the in of the next.
 $filter = FilterBuilder::create($doc, 'custom-effect')
-    ->gaussianBlur(3, 'SourceAlpha', 'blur')
-    ->offset(2, 2, 'blur', 'shifted')
-    ->flood('#000000', 0.3, 'color')
-    ->composite('in', 'color', 'shifted', 'shadow')
-    ->blend('normal', 'SourceGraphic', 'shadow')
+    ->gaussianBlur(3, 'SourceAlpha', 'blur')      // blur the alpha channel, output: 'blur'
+    ->offset(2, 2, 'blur', 'shifted')              // shift the blurred layer, output: 'shifted'
+    ->flood('#000000', 0.3, 'color')               // solid color fill, output: 'color'
+    ->composite('in', 'color', 'shifted', 'shadow') // clip color to shifted shape, output: 'shadow'
+    ->blend('normal', 'SourceGraphic', 'shadow')   // layer original graphic over shadow
     ->addToDefs()
     ->getFilter();
 ```

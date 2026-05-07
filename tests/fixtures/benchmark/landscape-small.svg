@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600">
+  <path d="M0 600 V400 L150 250 L300 350 L500 150 L650 300 L800 200 L1000 350 V600 Z" fill="#5c6b73"/>
+  <path d="M0 600 V450 L200 350 L400 420 L600 300 L800 400 L1000 380 V600 Z" fill="#9db4c0"/>
+  <circle cx="850" cy="100" r="60" fill="#fca311"/>
+  <path d="M0 600 V500 Q250 450 500 500 Q750 550 1000 480 V600 Z" fill="#3a86a8"/>
+</svg>

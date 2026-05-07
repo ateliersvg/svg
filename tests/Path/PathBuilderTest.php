@@ -18,29 +18,29 @@ final class PathBuilderTest extends TestCase
     public function testStartAt(): void
     {
         $builder = PathBuilder::startAt(10, 20);
-        $this->assertEquals('M 10,20', $builder->getPathData());
+        $this->assertEquals('M10,20', $builder->getPathData());
     }
 
     public function testMoveTo(): void
     {
         $builder = PathBuilder::new();
         $builder->moveTo(10, 20);
-        $this->assertEquals('M 10,20', $builder->getPathData());
+        $this->assertEquals('M10,20', $builder->getPathData());
 
         $builder = PathBuilder::new();
         $builder->moveTo(10, 20, true);
-        $this->assertEquals('m 10,20', $builder->getPathData());
+        $this->assertEquals('m10,20', $builder->getPathData());
     }
 
     public function testLineTo(): void
     {
         $builder = PathBuilder::startAt(10, 20);
         $builder->lineTo(30, 40);
-        $this->assertEquals('M 10,20 L 30,40', $builder->getPathData());
+        $this->assertEquals('M10,20L30,40', $builder->getPathData());
 
         $builder = PathBuilder::startAt(10, 20);
         $builder->lineTo(30, 40, true);
-        $this->assertEquals('M 10,20 l 30,40', $builder->getPathData());
+        $this->assertEquals('M10,20l30,40', $builder->getPathData());
     }
 
     public function testLineToWithoutStartingPoint(): void
@@ -54,7 +54,7 @@ final class PathBuilderTest extends TestCase
     {
         $builder = PathBuilder::startAt(10, 20);
         $builder->closePath();
-        $this->assertEquals('M 10,20 Z', $builder->getPathData());
+        $this->assertEquals('M10,20Z', $builder->getPathData());
     }
 
     public function testGetPathData(): void
@@ -62,7 +62,7 @@ final class PathBuilderTest extends TestCase
         $builder = PathBuilder::startAt(10, 20);
         $builder->lineTo(30, 40);
         $builder->closePath();
-        $this->assertEquals('M 10,20 L 30,40 Z', $builder->getPathData());
+        $this->assertEquals('M10,20L30,40Z', $builder->getPathData());
     }
 
     public function testChaining(): void
@@ -70,21 +70,21 @@ final class PathBuilderTest extends TestCase
         $builder = PathBuilder::startAt(10, 20)
             ->lineTo(30, 40)
             ->closePath();
-        $this->assertEquals('M 10,20 L 30,40 Z', $builder->getPathData());
+        $this->assertEquals('M10,20L30,40Z', $builder->getPathData());
     }
 
     public function testCurveTo(): void
     {
         $builder = PathBuilder::startAt(10, 20);
         $builder->curveTo(20, 30, 40, 50, 60, 70);
-        $this->assertEquals('M 10,20 C 20,30 40,50 60,70', $builder->getPathData());
+        $this->assertEquals('M10,20C20,30 40,50 60,70', $builder->getPathData());
     }
 
     public function testCurveToRelative(): void
     {
         $builder = PathBuilder::startAt(10, 20);
         $builder->curveTo(20, 30, 40, 50, 60, 70, true);
-        $this->assertEquals('M 10,20 c 20,30 40,50 60,70', $builder->getPathData());
+        $this->assertEquals('M10,20c20,30 40,50 60,70', $builder->getPathData());
     }
 
     public function testCurveToWithoutStartingPoint(): void
@@ -98,14 +98,14 @@ final class PathBuilderTest extends TestCase
     {
         $builder = PathBuilder::startAt(10, 20);
         $builder->quadraticCurveTo(30, 40, 50, 60);
-        $this->assertEquals('M 10,20 Q 30,40 50,60', $builder->getPathData());
+        $this->assertEquals('M10,20Q30,40 50,60', $builder->getPathData());
     }
 
     public function testQuadraticCurveToRelative(): void
     {
         $builder = PathBuilder::startAt(10, 20);
         $builder->quadraticCurveTo(30, 40, 50, 60, true);
-        $this->assertEquals('M 10,20 q 30,40 50,60', $builder->getPathData());
+        $this->assertEquals('M10,20q30,40 50,60', $builder->getPathData());
     }
 
     public function testQuadraticCurveToWithoutStartingPoint(): void
@@ -119,14 +119,14 @@ final class PathBuilderTest extends TestCase
     {
         $builder = PathBuilder::startAt(10, 20);
         $builder->arcTo(25, 25, 0, false, true, 50, 60);
-        $this->assertEquals('M 10,20 A 25,25 0 0,1 50,60', $builder->getPathData());
+        $this->assertEquals('M10,20A25,25 0 0,1 50,60', $builder->getPathData());
     }
 
     public function testArcToRelative(): void
     {
         $builder = PathBuilder::startAt(10, 20);
         $builder->arcTo(25, 25, 45, true, false, 50, 60, true);
-        $this->assertEquals('M 10,20 a 25,25 45 1,0 50,60', $builder->getPathData());
+        $this->assertEquals('M10,20a25,25 45 1,0 50,60', $builder->getPathData());
     }
 
     public function testArcToWithoutStartingPoint(): void
@@ -140,14 +140,14 @@ final class PathBuilderTest extends TestCase
     {
         $builder = PathBuilder::startAt(10, 20);
         $builder->horizontalLineTo(50);
-        $this->assertEquals('M 10,20 H 50', $builder->getPathData());
+        $this->assertEquals('M10,20H50', $builder->getPathData());
     }
 
     public function testHorizontalLineToRelative(): void
     {
         $builder = PathBuilder::startAt(10, 20);
         $builder->horizontalLineTo(30, true);
-        $this->assertEquals('M 10,20 h 30', $builder->getPathData());
+        $this->assertEquals('M10,20h30', $builder->getPathData());
     }
 
     public function testHorizontalLineToWithoutStartingPoint(): void
@@ -161,14 +161,14 @@ final class PathBuilderTest extends TestCase
     {
         $builder = PathBuilder::startAt(10, 20);
         $builder->verticalLineTo(50);
-        $this->assertEquals('M 10,20 V 50', $builder->getPathData());
+        $this->assertEquals('M10,20V50', $builder->getPathData());
     }
 
     public function testVerticalLineToRelative(): void
     {
         $builder = PathBuilder::startAt(10, 20);
         $builder->verticalLineTo(30, true);
-        $this->assertEquals('M 10,20 v 30', $builder->getPathData());
+        $this->assertEquals('M10,20v30', $builder->getPathData());
     }
 
     public function testVerticalLineToWithoutStartingPoint(): void
@@ -182,14 +182,14 @@ final class PathBuilderTest extends TestCase
     {
         $builder = PathBuilder::startAt(10, 20);
         $builder->smoothCurveTo(40, 50, 60, 70);
-        $this->assertEquals('M 10,20 S 40,50 60,70', $builder->getPathData());
+        $this->assertEquals('M10,20S40,50 60,70', $builder->getPathData());
     }
 
     public function testSmoothCurveToRelative(): void
     {
         $builder = PathBuilder::startAt(10, 20);
         $builder->smoothCurveTo(40, 50, 60, 70, true);
-        $this->assertEquals('M 10,20 s 40,50 60,70', $builder->getPathData());
+        $this->assertEquals('M10,20s40,50 60,70', $builder->getPathData());
     }
 
     public function testSmoothCurveToWithoutStartingPoint(): void
@@ -203,14 +203,14 @@ final class PathBuilderTest extends TestCase
     {
         $builder = PathBuilder::startAt(10, 20);
         $builder->smoothQuadraticCurveTo(50, 60);
-        $this->assertEquals('M 10,20 T 50,60', $builder->getPathData());
+        $this->assertEquals('M10,20T50,60', $builder->getPathData());
     }
 
     public function testSmoothQuadraticCurveToRelative(): void
     {
         $builder = PathBuilder::startAt(10, 20);
         $builder->smoothQuadraticCurveTo(50, 60, true);
-        $this->assertEquals('M 10,20 t 50,60', $builder->getPathData());
+        $this->assertEquals('M10,20t50,60', $builder->getPathData());
     }
 
     public function testSmoothQuadraticCurveToWithoutStartingPoint(): void
@@ -233,7 +233,7 @@ final class PathBuilderTest extends TestCase
             ->smoothQuadraticCurveTo(280, 290)
             ->closePath();
 
-        $expected = 'M 10,20 L 30,40 C 40,50 60,70 80,90 Q 100,110 120,130 A 25,25 0 0,1 150,160 H 200 V 250 S 220,260 240,270 T 280,290 Z';
+        $expected = 'M10,20L30,40C40,50 60,70 80,90Q100,110 120,130A25,25 0 0,1 150,160H200V250S220,260 240,270T280,290Z';
         $this->assertEquals($expected, $builder->getPathData());
     }
 
@@ -249,7 +249,7 @@ final class PathBuilderTest extends TestCase
             ->smoothCurveTo(20, 20, 30, 30, true)
             ->smoothQuadraticCurveTo(25, 25, true);
 
-        $expected = 'm 10,20 l 30,40 c 10,10 20,20 30,30 q 15,15 25,25 a 20,20 0 0,1 30,30 h 50 v 50 s 20,20 30,30 t 25,25';
+        $expected = 'm10,20l30,40c10,10 20,20 30,30q15,15 25,25a20,20 0 0,1 30,30h50v50s20,20 30,30t25,25';
         $this->assertEquals($expected, $builder->getPathData());
     }
 
@@ -270,7 +270,7 @@ final class PathBuilderTest extends TestCase
 
         $data = $builder->toData();
         $this->assertInstanceOf(\Atelier\Svg\Path\Data::class, $data);
-        $this->assertSame('M 10,20 L 30,40', $data->toString());
+        $this->assertSame('M10,20L30,40', $data->toString());
     }
 
     public function testToPathData(): void
@@ -279,7 +279,7 @@ final class PathBuilderTest extends TestCase
 
         $data = $builder->toPathData();
         $this->assertInstanceOf(\Atelier\Svg\Path\Data::class, $data);
-        $this->assertSame('M 10,20', $data->toString());
+        $this->assertSame('M10,20', $data->toString());
     }
 
     public function testToPath(): void
@@ -335,7 +335,7 @@ final class PathBuilderTest extends TestCase
         $result = $builder->addSegment($segment);
 
         $this->assertSame($builder, $result);
-        $this->assertSame('M 10,20', $builder->getPathData());
+        $this->assertSame('M10,20', $builder->getPathData());
     }
 
     public function testAddSegmentWithNullTargetPoint(): void

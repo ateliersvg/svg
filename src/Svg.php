@@ -7,6 +7,7 @@ namespace Atelier\Svg;
 use Atelier\Svg\Dumper\CompactXmlDumper;
 use Atelier\Svg\Dumper\DumperInterface;
 use Atelier\Svg\Dumper\PrettyXmlDumper;
+use Atelier\Svg\Dumper\XmlDumper;
 use Atelier\Svg\Element\Builder;
 use Atelier\Svg\Element\ElementCollection;
 use Atelier\Svg\Element\ElementInterface;
@@ -696,13 +697,16 @@ final class Svg implements \Stringable
     }
 
     /**
-     * Optimizes the SVG with accessibility in mind.
+     * Optimizes the SVG using the web preset.
+     *
+     * Optimized for production web delivery (inline SVG, `<img>`, CSS backgrounds, icons).
+     * Strips title, desc, dimensions. Converts shapes to paths and merges them.
      *
      * @return self For chaining
      */
-    public function optimizeAccessible(): self
+    public function optimizeWeb(): self
     {
-        $optimizer = new Optimizer(OptimizerPresets::accessible());
+        $optimizer = new Optimizer(OptimizerPresets::web());
         $optimizer->optimize($this->document);
 
         return $this;
@@ -761,6 +765,10 @@ final class Svg implements \Stringable
     {
         $dumper = new CompactXmlDumper();
 
+        if ($this->document->getOmitXmlDeclaration()) {
+            $dumper->includeXmlDeclaration(false);
+        }
+
         return $dumper->dump($this->document);
     }
 
@@ -772,6 +780,10 @@ final class Svg implements \Stringable
     public function toPrettyString(): string
     {
         $dumper = new PrettyXmlDumper();
+
+        if ($this->document->getOmitXmlDeclaration()) {
+            $dumper->includeXmlDeclaration(false);
+        }
 
         return $dumper->dump($this->document);
     }
@@ -789,6 +801,11 @@ final class Svg implements \Stringable
     public function save(string $path, ?DumperInterface $dumper = null): self
     {
         $dumper ??= new CompactXmlDumper();
+
+        if ($this->document->getOmitXmlDeclaration() && $dumper instanceof XmlDumper) {
+            $dumper->includeXmlDeclaration(false);
+        }
+
         $content = $dumper->dump($this->document);
 
         $result = @file_put_contents($path, $content);

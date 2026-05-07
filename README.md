@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![PHP 8.3+](https://img.shields.io/badge/PHP-8.3%2B-777BB4.svg)](https://php.net)
 
-Designed precisely. Built to scale.
+The SVG toolkit for PHP.
 
 A PHP library for SVG manipulation, optimization, and morphing. Parse, build, style, transform, validate, sanitize, and animate SVG graphics with a type-safe, fluent API.
 
@@ -156,7 +156,7 @@ Svg::load('input.svg')->optimize()->save('output.svg');
 $optimizer = new Optimizer(OptimizerPresets::default());      // Balanced
 $optimizer = new Optimizer(OptimizerPresets::aggressive());   // Maximum reduction
 $optimizer = new Optimizer(OptimizerPresets::safe());         // Conservative
-$optimizer = new Optimizer(OptimizerPresets::accessible());   // Keeps a11y metadata
+$optimizer = new Optimizer(OptimizerPresets::web());          // Production delivery
 ```
 
 [Optimization documentation](./docs/optimization/overview.md): Passes, presets, custom pipelines
@@ -295,7 +295,8 @@ $animated = AnimationExporter::toAnimatedSVG($frames, [
 
 ## Documentation
 
-- [Getting Started](./docs/getting-started/installation.md): Installation and quick start
+- [Installation](./docs/installation.md): Requirements and setup
+- [Quick Start](./docs/quick-start.md): Create, load, manipulate SVGs
 - [Document Handling](./docs/document/overview.md): Creating, loading, exporting, sanitization, validation
 - [Elements](./docs/elements/overview.md): Shapes, text, animation, selectors, gradients, filters, clipping
 - [Path Operations](./docs/path/overview.md): Building, analysis, transforms, geometry, simplification

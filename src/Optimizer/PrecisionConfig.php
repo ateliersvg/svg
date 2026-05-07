@@ -135,7 +135,7 @@ final class PrecisionConfig
      * Returns an array of precision values for different contexts
      * based on the preset name.
      *
-     * @param string $preset One of: default, aggressive, safe, accessible
+     * @param string $preset One of: default, aggressive, safe, web
      *
      * @return array{coordinate: int, dimension: int, transform: int, path: int, opacity: int, cleanup: int, angle: int}
      *
@@ -144,7 +144,7 @@ final class PrecisionConfig
     public static function forPreset(string $preset): array
     {
         return match ($preset) {
-            'default', 'accessible' => [
+            'default' => [
                 'coordinate' => self::COORDINATE_DEFAULT,
                 'dimension' => self::DIMENSION_DEFAULT,
                 'transform' => self::TRANSFORM_DEFAULT,
@@ -171,7 +171,16 @@ final class PrecisionConfig
                 'cleanup' => self::CLEANUP_SAFE,
                 'angle' => self::ANGLE_SAFE,
             ],
-            default => throw new InvalidArgumentException(sprintf("Unknown preset '%s'. Available: default, aggressive, safe, accessible", $preset)),
+            'web' => [
+                'coordinate' => self::COORDINATE_AGGRESSIVE,
+                'dimension' => self::DIMENSION_AGGRESSIVE,
+                'transform' => self::TRANSFORM_AGGRESSIVE,
+                'path' => self::PATH_AGGRESSIVE,
+                'opacity' => self::OPACITY_AGGRESSIVE,
+                'cleanup' => self::CLEANUP_AGGRESSIVE,
+                'angle' => self::ANGLE_AGGRESSIVE,
+            ],
+            default => throw new InvalidArgumentException(sprintf("Unknown preset '%s'. Available: default, aggressive, safe, web", $preset)),
         };
     }
 }

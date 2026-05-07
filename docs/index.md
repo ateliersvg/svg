@@ -4,8 +4,8 @@ A PHP library for SVG parsing, manipulation, optimization, and morphing.
 
 ## Getting Started
 
-- [Installation](getting-started/installation.md): requirements and setup
-- [Quick Start](getting-started/quick-start.md): create, load, and manipulate SVGs
+- [Installation](installation.md): requirements and setup
+- [Quick Start](quick-start.md): create, load, and manipulate SVGs
 
 ## Documentation
 

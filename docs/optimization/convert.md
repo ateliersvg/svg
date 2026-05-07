@@ -12,7 +12,7 @@ Conversion passes transform SVG elements and attributes from one representation 
 | `ConvertColorsPass` | Converts colors to shortest representation (#fff, named, short hex) |
 | `ConvertShapeToPathPass` | Converts shapes (rect, circle, ellipse, line, polygon, polyline) to `<path>` |
 | `ConvertTransformPass` | Applies simple transforms (translate, scale) directly to coordinates |
-| `ConvertPathDataPass` | Optimizes path `d` strings: whitespace, redundant commands, number formatting |
+| `ConvertPathDataPass` | Optimizes path `d` strings: abs/rel comparison, L-to-H/V shorthand, number formatting |
 | `ConvertStyleToAttrsPass` | Converts inline `style=""` properties to presentation attributes |
 | `ConvertEllipseToCirclePass` | Converts ellipses with equal radii (rx = ry) to circles |
 
@@ -68,11 +68,22 @@ Should run before path optimization passes to ensure coordinates are finalized.
 
 ## ConvertPathDataPass
 
-Optimizes SVG path `d` attribute strings. Normalizes whitespace, removes redundant commands, and formats numbers compactly.
+Optimizes SVG path `d` attribute strings using the parsed path infrastructure. Instead of regex-based string manipulation, the pass parses each path into typed segments, computes both absolute and relative representations for each segment, and picks the shorter one.
+
+Key optimizations:
+- **Absolute/relative comparison**: each segment is serialized both ways; the shorter representation wins.
+- **Line-to-shorthand**: `L dx 0` becomes `H`/`h`, `L 0 dy` becomes `V`/`v`.
+- **Cubic-to-quadratic (C-to-Q)**: when a cubic bezier's control points satisfy the quadratic relationship, the pass emits `Q` (4 args) instead of `C` (6 args), saving ~40% per curve.
+- **Smooth cubic (C-to-S)**: when a cubic's first control point is the reflection of the previous curve's CP2, emits `S` (4 args) instead of `C` (6 args).
+- **Smooth quadratic (Q-to-T)**: same smooth-continuation logic for quadratic curves; emits `T` (2 args) instead of `Q` (4 args).
+- **Compact arc flags**: arc sweep/large-arc flags are single digits (0/1) that need no separator between them.
+- **Redundant command elision**: consecutive same commands share a single command letter.
+- **Compact number formatting**: trailing zeros removed, leading zeros removed (`.5` instead of `0.5`), negative sign used as separator (`10-20` instead of `10 -20`).
+- **Precision-aware rounding**: numbers rounded to the configured decimal places.
 
 ```php
 new ConvertPathDataPass(
-    removeRedundantCommands: true, // remove consecutive same commands (default: true)
+    removeRedundantCommands: true, // merge consecutive same commands (default: true)
     precision: 3,                  // decimal places for path values (default: 3)
 );
 ```

@@ -66,7 +66,7 @@ final class PathElementTest extends TestCase
         $result = $path->setData($data);
 
         $this->assertSame($path, $result);
-        $this->assertSame('M10,20 L30,40', $path->getAttribute('d'));
+        $this->assertSame('M10,20L30,40', $path->getAttribute('d'));
     }
 
     public function testSetDataWithClosePath(): void
@@ -81,7 +81,7 @@ final class PathElementTest extends TestCase
 
         $path->setData($data);
 
-        $this->assertSame('M0,0 L100,0 L100,100 Z', $path->getAttribute('d'));
+        $this->assertSame('M0,0L100,0L100,100Z', $path->getAttribute('d'));
     }
 
     public function testSetDataWithRelativeCommands(): void
@@ -95,7 +95,7 @@ final class PathElementTest extends TestCase
 
         $path->setData($data);
 
-        $this->assertSame('M10,10 l20,0 l0,20', $path->getAttribute('d'));
+        $this->assertSame('M10,10l20,0l0,20', $path->getAttribute('d'));
     }
 
     public function testSetDataWithEmptyData(): void

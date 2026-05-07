@@ -1,0 +1,701 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generator: Adobe Illustrator 26.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0) -->
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<!-- This is a sprite sheet containing multiple icon definitions for use across the application -->
+<svg version="1.1"
+     id="svg-root-element"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+     xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.0.dtd"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:cc="http://creativecommons.org/ns#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     viewBox="0 0 300 300"
+     width="300"
+     height="300"
+     style="enable-background:new 0 0 300 300;"
+     xml:space="preserve">
+
+  <!-- ========== Metadata Section ========== -->
+  <metadata id="metadata-block-1">
+    <rdf:RDF>
+      <cc:Work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <dc:title>Application Icon Sprite Sheet</dc:title>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Design Team - Atelier Studio</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:description>A collection of UI icons for the main application interface including navigation, user, notifications, search, and favorites.</dc:description>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>icons</rdf:li>
+            <rdf:li>ui</rdf:li>
+            <rdf:li>sprite</rdf:li>
+            <rdf:li>interface</rdf:li>
+            <rdf:li>navigation</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>Copyright 2024 Atelier Studio. All rights reserved.</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <dc:date>2024-01-15</dc:date>
+        <dc:language>en</dc:language>
+        <dc:publisher>
+          <cc:Agent>
+            <dc:title>Atelier Studio Publishing</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <cc:license rdf:resource="http://creativecommons.org/licenses/by-nc-sa/4.0/"/>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+
+  <!-- ========== Inkscape / Sodipodi Editor Data ========== -->
+  <sodipodi:namedview
+      id="namedview-main"
+      pagecolor="#ffffff"
+      bordercolor="#666666"
+      borderopacity="1.0"
+      inkscape:pageopacity="0.0"
+      inkscape:pageshadow="2"
+      inkscape:zoom="5.6568542"
+      inkscape:cx="150"
+      inkscape:cy="150"
+      inkscape:document-units="px"
+      inkscape:current-layer="layer1"
+      inkscape:document-rotation="0"
+      showgrid="true"
+      inkscape:window-width="1920"
+      inkscape:window-height="1080"
+      inkscape:window-x="0"
+      inkscape:window-y="0"
+      inkscape:window-maximized="1"
+      inkscape:pagecheckerboard="0"
+      inkscape:snap-global="true"
+      inkscape:snap-bbox="true"
+      inkscape:snap-nodes="true"
+      inkscape:object-paths="true"
+      inkscape:snap-smooth-nodes="true"
+      inkscape:snap-midpoints="true"
+      inkscape:snap-center="true"
+      inkscape:snap-intersection-paths="true"
+      fit-margin-top="0"
+      fit-margin-left="0"
+      fit-margin-right="0"
+      fit-margin-bottom="0">
+    <inkscape:grid
+        type="xygrid"
+        id="grid-main"
+        empspacing="5"
+        visible="true"
+        enabled="true"
+        snapvisiblegridlinesonly="true"
+        originx="0"
+        originy="0"
+        spacingx="1"
+        spacingy="1"/>
+  </sodipodi:namedview>
+
+  <!-- ========== Style Blocks ========== -->
+  <!-- Primary icon styles -->
+  <style id="style-block-primary" type="text/css">
+    .icon-base {
+      fill: #333333;
+      stroke: none;
+      stroke-width: 0;
+      fill-rule: evenodd;
+      clip-rule: evenodd;
+    }
+    .icon-outline {
+      fill: none;
+      stroke: #333333;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10;
+    }
+    .icon-filled {
+      fill: #333333;
+      stroke: #333333;
+      stroke-width: 0.5;
+      fill-opacity: 1;
+      stroke-opacity: 1;
+    }
+    .icon-accent {
+      fill: #0066cc;
+      stroke: none;
+      fill-opacity: 1;
+    }
+  </style>
+
+  <!-- Secondary / hover state styles (partially duplicate) -->
+  <style id="style-block-secondary" type="text/css">
+    .icon-base {
+      fill: #333333;
+      stroke: none;
+    }
+    .icon-hover {
+      fill: #0066cc;
+      stroke: none;
+      stroke-width: 0;
+      cursor: pointer;
+    }
+    .icon-active {
+      fill: #004499;
+      stroke: #004499;
+      stroke-width: 1;
+      opacity: 1;
+    }
+    .icon-disabled {
+      fill: #cccccc;
+      stroke: none;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  </style>
+
+  <!-- Layout and sizing utility styles -->
+  <style id="style-block-utility" type="text/css">
+    .icon-sm { width: 16px; height: 16px; }
+    .icon-md { width: 24px; height: 24px; }
+    .icon-lg { width: 32px; height: 32px; }
+    .icon-xl { width: 48px; height: 48px; }
+    .icon-base {
+      fill: #333333;
+      fill-rule: evenodd;
+    }
+    .hidden { display: none; }
+    .visible { display: inline; }
+    .no-stroke {
+      stroke: none;
+      stroke-width: 0;
+    }
+  </style>
+
+  <!-- ========== Definitions ========== -->
+  <defs id="defs-main">
+    <!-- Shared gradients and filters -->
+    <linearGradient id="gradient-icon-fill" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop id="gradient-stop-1" offset="0%" style="stop-color:#444444;stop-opacity:1"/>
+      <stop id="gradient-stop-2" offset="100%" style="stop-color:#222222;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="gradient-icon-stroke" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop id="gradient-stroke-stop-1" offset="0%" style="stop-color:#555555;stop-opacity:1"/>
+      <stop id="gradient-stroke-stop-2" offset="50%" style="stop-color:#333333;stop-opacity:1"/>
+      <stop id="gradient-stroke-stop-3" offset="100%" style="stop-color:#555555;stop-opacity:1"/>
+    </linearGradient>
+    <radialGradient id="gradient-radial-highlight" cx="50%" cy="30%" r="50%" fx="50%" fy="30%">
+      <stop id="radial-stop-1" offset="0%" style="stop-color:#666666;stop-opacity:0.3"/>
+      <stop id="radial-stop-2" offset="100%" style="stop-color:#333333;stop-opacity:0"/>
+    </radialGradient>
+    <clipPath id="clip-icon-bounds">
+      <rect id="clip-rect-bounds" x="0" y="0" width="24" height="24" rx="0" ry="0"/>
+    </clipPath>
+    <filter id="filter-drop-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow id="filter-shadow-effect" dx="0" dy="1" stdDeviation="1" flood-color="#000000" flood-opacity="0.15"/>
+    </filter>
+
+    <!-- ========== Symbol: Gear Icon ========== -->
+    <!-- A settings/gear icon with 8 teeth and a center hole -->
+    <symbol id="icon-gear" viewBox="0 0 24 24">
+      <title id="title-gear">Settings Gear</title>
+      <desc id="desc-gear">A gear icon representing settings and configuration options for the application. Features eight evenly-spaced teeth around a circular center with a hollow core.</desc>
+      <g id="gear-group-outer" style="display:inline" transform="translate(0,0)">
+        <g id="gear-group-inner" opacity="1" style="display:inline">
+          <!-- Gear body with teeth - constructed using lines, arcs and curves -->
+          <path id="gear-path-body"
+                class="icon-base"
+                style="display:inline;fill:#333333;fill-opacity:1;stroke:none;stroke-width:0"
+                d="M10.5,1.0 L13.5,1.0 L13.5,1.0 C13.78,1.0 14.0,1.22 14.0,1.5
+                   L14.0,3.42 C14.0,3.42 14.0,3.42 14.0,3.42
+                   C14.62,3.6 15.2,3.86 15.73,4.2
+                   L17.14,2.79 C17.33,2.6 17.64,2.6 17.83,2.79
+                   L19.95,4.91 C20.14,5.1 20.14,5.41 19.95,5.6
+                   l-1.41,1.41 c0.34,0.53 0.6,1.11 0.78,1.73
+                   h1.92 c0.28,0 0.5,0.22 0.5,0.5
+                   v3.0 c0,0.28 -0.22,0.5 -0.5,0.5
+                   h-1.92 c-0.18,0.62 -0.44,1.2 -0.78,1.73
+                   l1.41,1.41 c0.19,0.19 0.19,0.51 0,0.7
+                   l-2.12,2.12 c-0.19,0.19 -0.51,0.19 -0.7,0
+                   l-1.41,-1.41 c-0.53,0.34 -1.11,0.6 -1.73,0.78
+                   v1.92 c0,0.28 -0.22,0.5 -0.5,0.5
+                   h-3.0 c-0.28,0 -0.5,-0.22 -0.5,-0.5
+                   v-1.92 c-0.62,-0.18 -1.2,-0.44 -1.73,-0.78
+                   l-1.41,1.41 c-0.19,0.19 -0.51,0.19 -0.7,0
+                   L4.05,19.09 c-0.19,-0.19 -0.19,-0.51 0,-0.7
+                   l1.41,-1.41 c-0.34,-0.53 -0.6,-1.11 -0.78,-1.73
+                   H2.76 c-0.28,0 -0.5,-0.22 -0.5,-0.5
+                   v-3.0 c0,-0.28 0.22,-0.5 0.5,-0.5
+                   h1.92 c0.18,-0.62 0.44,-1.2 0.78,-1.73
+                   L4.05,8.11 c-0.19,-0.19 -0.19,-0.51 0,-0.7
+                   L6.17,5.29 c0.19,-0.19 0.51,-0.19 0.7,0
+                   l1.41,1.41 c0.53,-0.34 1.11,-0.6 1.73,-0.78
+                   V3.0 L10.0,1.5 C10.0,1.22 10.22,1.0 10.5,1.0 Z"/>
+          <!-- Center hole -->
+          <circle id="gear-center-hole" cx="12" cy="12" r="3.5"
+                  style="display:inline;fill:#ffffff;fill-opacity:1;stroke:none"
+                  class="icon-base"/>
+          <!-- Inner ring detail -->
+          <circle id="gear-inner-ring" cx="12" cy="12" r="2.5"
+                  style="display:inline;fill:none;stroke:#333333;stroke-width:0.5;stroke-opacity:0.3"/>
+          <!-- Empty group left by editor -->
+          <g id="gear-empty-group-1" style="display:inline" transform="translate(0,0)"/>
+          <g id="gear-empty-group-2" style="display:inline" opacity="1"/>
+        </g>
+      </g>
+    </symbol>
+
+    <!-- ========== Symbol: User Icon ========== -->
+    <!-- A person/user silhouette icon -->
+    <symbol id="icon-user" viewBox="0 0 24 24">
+      <title id="title-user">User Profile</title>
+      <desc id="desc-user">A user silhouette icon showing a person's head and shoulders, commonly used for profile and account sections. The head is rendered as a circle and the body as curved shoulders.</desc>
+      <g id="user-group-outer" style="display:inline" transform="translate(0,0)">
+        <g id="user-group-inner" opacity="1" style="display:inline">
+          <!-- Head circle using arc commands -->
+          <path id="user-head-path"
+                class="icon-filled"
+                style="display:inline;fill:#333333;fill-opacity:1;stroke:none;stroke-width:0"
+                d="M12,2.0
+                   C9.24,2.0 7.0,4.24 7.0,7.0
+                   c0,2.76 2.24,5.0 5.0,5.0
+                   s5.0,-2.24 5.0,-5.0
+                   C17.0,4.24 14.76,2.0 12.0,2.0 Z
+                   M12,3.5
+                   c1.93,0 3.5,1.57 3.5,3.5
+                   S13.93,10.5 12.0,10.5
+                   S8.5,8.93 8.5,7.0
+                   S10.07,3.5 12.0,3.5 Z"/>
+          <!-- Body / shoulders curve using cubic beziers -->
+          <path id="user-body-path"
+                class="icon-filled"
+                style="display:inline;fill:#333333;fill-opacity:1;stroke:none;stroke-width:0"
+                d="M12.0,13.0
+                   C7.58,13.0 2.0,15.22 2.0,17.5
+                   V19.0
+                   C2.0,20.1 2.9,21.0 4.0,21.0
+                   H20.0
+                   C21.1,21.0 22.0,20.1 22.0,19.0
+                   V17.5
+                   C22.0,15.22 16.42,13.0 12.0,13.0 Z
+                   M12.0,14.5
+                   c4.14,0 8.5,2.02 8.5,3.0
+                   v1.5 c0,0.28 -0.22,0.5 -0.5,0.5
+                   H4.0 c-0.28,0 -0.5,-0.22 -0.5,-0.5
+                   V17.5 c0,-0.98 4.36,-3.0 8.5,-3.0 Z"/>
+          <!-- Subtle shoulder detail arcs -->
+          <path id="user-shoulder-detail-left"
+                style="display:inline;fill:none;stroke:#333333;stroke-width:0.3;stroke-opacity:0.2"
+                d="M4.5,18.0 C4.5,16.5 6.5,14.8 9.0,14.2"/>
+          <path id="user-shoulder-detail-right"
+                style="display:inline;fill:none;stroke:#333333;stroke-width:0.3;stroke-opacity:0.2"
+                d="M19.5,18.0 C19.5,16.5 17.5,14.8 15.0,14.2"/>
+          <g id="user-empty-group-1" style="display:inline" transform="translate(0,0)" opacity="1"/>
+          <g id="user-empty-group-2" style="display:inline"/>
+        </g>
+      </g>
+    </symbol>
+
+    <!-- ========== Symbol: Bell / Notification Icon ========== -->
+    <!-- A bell shape for notifications -->
+    <symbol id="icon-bell" viewBox="0 0 24 24">
+      <title id="title-bell">Notifications Bell</title>
+      <desc id="desc-bell">A bell-shaped notification icon with a clapper at the bottom and a small circle notification dot at the top right. Used to indicate alerts and notifications in the interface.</desc>
+      <g id="bell-group-outer" style="display:inline" transform="translate(0,0)">
+        <g id="bell-group-inner" opacity="1" style="display:inline">
+          <!-- Bell body using cubic bezier curves and arcs -->
+          <path id="bell-body-path"
+                class="icon-base"
+                style="display:inline;fill:#333333;fill-opacity:1;stroke:none;stroke-width:0"
+                d="M12.0,2.0
+                   C11.45,2.0 11.0,2.45 11.0,3.0
+                   V3.29
+                   C8.12,3.82 6.0,6.34 6.0,9.38
+                   V14.0
+                   L4.27,16.17
+                   C4.1,16.38 4.0,16.63 4.0,16.89
+                   C4.0,17.5 4.5,18.0 5.11,18.0
+                   H18.89
+                   C19.5,18.0 20.0,17.5 20.0,16.89
+                   c0,-0.26 -0.1,-0.51 -0.27,-0.72
+                   L18.0,14.0
+                   V9.38
+                   c0,-3.04 -2.12,-5.56 -5.0,-6.09
+                   V3.0
+                   C13.0,2.45 12.55,2.0 12.0,2.0 Z
+                   M12.0,4.5
+                   c2.49,0 4.5,2.01 4.5,4.88
+                   v5.12
+                   l1.12,1.5
+                   H6.38
+                   L7.5,14.5
+                   V9.38
+                   C7.5,6.51 9.51,4.5 12.0,4.5 Z"/>
+          <!-- Bell clapper at bottom using arcs -->
+          <path id="bell-clapper-path"
+                class="icon-base"
+                style="display:inline;fill:#333333;fill-opacity:1;stroke:none"
+                d="M9.5,19.0
+                   C9.5,20.38 10.62,21.5 12.0,21.5
+                   S14.5,20.38 14.5,19.0
+                   H9.5 Z"/>
+          <!-- Notification dot -->
+          <circle id="bell-notification-dot" cx="17" cy="5" r="2.5"
+                  style="display:inline;fill:#e53935;fill-opacity:1;stroke:#ffffff;stroke-width:1"/>
+          <!-- Sound wave detail lines -->
+          <path id="bell-wave-left"
+                style="display:inline;fill:none;stroke:#333333;stroke-width:0.4;stroke-opacity:0.15;stroke-linecap:round"
+                d="M3.5,11.0 C2.8,11.0 2.2,11.3 1.8,11.8"/>
+          <path id="bell-wave-right"
+                style="display:inline;fill:none;stroke:#333333;stroke-width:0.4;stroke-opacity:0.15;stroke-linecap:round"
+                d="M20.5,11.0 C21.2,11.0 21.8,11.3 22.2,11.8"/>
+          <g id="bell-empty-group-1" style="display:inline" transform="translate(0,0)"/>
+          <g id="bell-empty-group-2" style="display:inline" opacity="1" transform="translate(0,0)"/>
+          <g id="bell-empty-group-3" style="display:inline"/>
+        </g>
+      </g>
+    </symbol>
+
+    <!-- ========== Symbol: Home Icon ========== -->
+    <!-- A house shape for home/dashboard navigation -->
+    <symbol id="icon-home" viewBox="0 0 24 24">
+      <title id="title-home">Home</title>
+      <desc id="desc-home">A house-shaped icon representing the home page or dashboard. Features a pitched roof with chimney, a front door, and a window. Used for primary navigation back to the main view.</desc>
+      <g id="home-group-outer" style="display:inline" transform="translate(0,0)">
+        <g id="home-group-inner" opacity="1" style="display:inline">
+          <!-- House roof using line commands -->
+          <path id="home-roof-path"
+                class="icon-base"
+                style="display:inline;fill:#333333;fill-opacity:1;stroke:none;stroke-width:0"
+                d="M12.0,2.5
+                   L1.5,11.0
+                   C1.19,11.26 1.0,11.63 1.0,12.02
+                   c0,0.83 0.67,1.48 1.49,1.48
+                   H4.0
+                   V20.0
+                   c0,0.55 0.45,1.0 1.0,1.0
+                   h4.0
+                   V15.0
+                   c0,-0.55 0.45,-1.0 1.0,-1.0
+                   h4.0
+                   c0.55,0 1.0,0.45 1.0,1.0
+                   v6.0
+                   h4.0
+                   c0.55,0 1.0,-0.45 1.0,-1.0
+                   V13.5
+                   h1.51
+                   C22.33,13.5 23.0,12.85 23.0,12.02
+                   c0,-0.39 -0.19,-0.76 -0.5,-1.02
+                   L12.0,2.5 Z"/>
+          <!-- Chimney detail -->
+          <path id="home-chimney-path"
+                class="icon-base"
+                style="display:inline;fill:#333333;fill-opacity:1;stroke:none"
+                d="M17.5,4.5 H19.5 V9.5 L17.5,7.83 V4.5 Z"/>
+          <!-- Window on the house -->
+          <rect id="home-window-rect" x="10" y="15.5" width="4" height="4" rx="0.5" ry="0.5"
+                style="display:inline;fill:#ffffff;fill-opacity:0.9;stroke:none"/>
+          <!-- Window cross detail -->
+          <line id="home-window-cross-h" x1="10" y1="17.5" x2="14" y2="17.5"
+                style="display:inline;stroke:#333333;stroke-width:0.4;stroke-opacity:0.3"/>
+          <line id="home-window-cross-v" x1="12" y1="15.5" x2="12" y2="19.5"
+                style="display:inline;stroke:#333333;stroke-width:0.4;stroke-opacity:0.3"/>
+          <!-- Roof outline for extra definition -->
+          <path id="home-roof-outline"
+                style="display:inline;fill:none;stroke:#333333;stroke-width:0.3;stroke-opacity:0.15"
+                d="M12.0,2.5 L1.5,11.0 M12.0,2.5 L22.5,11.0"/>
+          <!-- Door step -->
+          <rect id="home-door-step" x="9.5" y="19.8" width="5" height="0.4" rx="0.2" ry="0.2"
+                style="display:inline;fill:#333333;fill-opacity:0.2;stroke:none"/>
+          <g id="home-empty-group-1" style="display:inline" transform="translate(0,0)" opacity="1"/>
+          <g id="home-empty-group-2" style="display:inline" transform="translate(0,0)"/>
+        </g>
+      </g>
+    </symbol>
+
+    <!-- ========== Symbol: Search / Magnifying Glass Icon ========== -->
+    <!-- A magnifying glass for search functionality -->
+    <symbol id="icon-search" viewBox="0 0 24 24">
+      <title id="title-search">Search</title>
+      <desc id="desc-search">A magnifying glass icon used for search functionality. Consists of a circular lens rendered with arc commands and an angled handle using line segments. The lens has a subtle glare highlight.</desc>
+      <g id="search-group-outer" style="display:inline" transform="translate(0,0)">
+        <g id="search-group-inner" opacity="1" style="display:inline">
+          <!-- Magnifying glass lens - circle via arc commands -->
+          <path id="search-lens-path"
+                class="icon-outline"
+                style="display:inline;fill:none;stroke:#333333;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+                d="M10.5,3.0
+                   A7.5,7.5 0 1,0 10.5,18.0
+                   A7.5,7.5 0 1,0 10.5,3.0 Z"/>
+          <!-- Inner lens ring -->
+          <path id="search-lens-inner"
+                style="display:inline;fill:none;stroke:#333333;stroke-width:0.5;stroke-opacity:0.2"
+                d="M10.5,5.0
+                   a5.5,5.5 0 1,0 0,11.0
+                   a5.5,5.5 0 1,0 0,-11.0 z"/>
+          <!-- Lens glare highlight using quadratic bezier -->
+          <path id="search-lens-glare"
+                style="display:inline;fill:none;stroke:#ffffff;stroke-width:0.8;stroke-opacity:0.4;stroke-linecap:round"
+                d="M7.0,7.5 Q8.0,5.5 10.5,5.2"/>
+          <!-- Handle using line and curve -->
+          <path id="search-handle-path"
+                class="icon-outline"
+                style="display:inline;fill:none;stroke:#333333;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+                d="M15.8,15.8
+                   L21.0,21.0"/>
+          <!-- Handle grip detail -->
+          <path id="search-handle-grip"
+                style="display:inline;fill:none;stroke:#333333;stroke-width:0.4;stroke-opacity:0.2;stroke-linecap:round"
+                d="M17.5,17.5 l0.8,-0.8 M18.5,18.5 l0.8,-0.8 M19.5,19.5 l0.8,-0.8"/>
+          <!-- Cross-hair in lens center -->
+          <line id="search-crosshair-h" x1="8.5" y1="10.5" x2="12.5" y2="10.5"
+                style="display:inline;stroke:#333333;stroke-width:0.25;stroke-opacity:0.1"/>
+          <line id="search-crosshair-v" x1="10.5" y1="8.5" x2="10.5" y2="12.5"
+                style="display:inline;stroke:#333333;stroke-width:0.25;stroke-opacity:0.1"/>
+          <g id="search-empty-group-1" style="display:inline" transform="translate(0,0)" opacity="1"/>
+          <g id="search-empty-group-2" style="display:inline" transform="translate(0,0)"/>
+          <g id="search-empty-group-3" style="display:inline" opacity="1"/>
+        </g>
+      </g>
+    </symbol>
+
+    <!-- ========== Symbol: Heart / Favorites Icon ========== -->
+    <!-- A heart shape for favorites/likes -->
+    <symbol id="icon-heart" viewBox="0 0 24 24">
+      <title id="title-heart">Favorite Heart</title>
+      <desc id="desc-heart">A heart-shaped icon used for favorites, likes, and wishlists. The heart is constructed using cubic bezier curves to create smooth lobes and a pointed bottom. Includes subtle highlight and shadow details.</desc>
+      <g id="heart-group-outer" style="display:inline" transform="translate(0,0)">
+        <g id="heart-group-inner" opacity="1" style="display:inline">
+          <!-- Heart outline using cubic bezier curves for smooth lobes -->
+          <path id="heart-main-path"
+                class="icon-base"
+                style="display:inline;fill:#333333;fill-opacity:1;stroke:none;stroke-width:0"
+                d="M12.0,21.35
+                   l-1.45,-1.32
+                   C5.4,15.36 2.0,12.28 2.0,8.5
+                   C2.0,5.42 4.42,3.0 7.5,3.0
+                   c1.74,0 3.41,0.81 4.5,2.09
+                   C13.09,3.81 14.76,3.0 16.5,3.0
+                   C19.58,3.0 22.0,5.42 22.0,8.5
+                   c0,3.78 -3.4,6.86 -8.55,11.54
+                   L12.0,21.35 Z"/>
+          <!-- Heart highlight on left lobe -->
+          <path id="heart-highlight-left"
+                style="display:inline;fill:none;stroke:#ffffff;stroke-width:0.6;stroke-opacity:0.3;stroke-linecap:round"
+                d="M5.5,7.0
+                   C5.5,5.62 6.62,4.5 7.5,4.5
+                   c0.88,0 1.75,0.4 2.4,1.05"/>
+          <!-- Heart highlight on right lobe -->
+          <path id="heart-highlight-right"
+                style="display:inline;fill:none;stroke:#ffffff;stroke-width:0.6;stroke-opacity:0.2;stroke-linecap:round"
+                d="M18.5,7.0
+                   C18.5,5.62 17.38,4.5 16.5,4.5"/>
+          <!-- Inner heart shape (smaller, for depth) -->
+          <path id="heart-inner-path"
+                style="display:inline;fill:none;stroke:#333333;stroke-width:0.3;stroke-opacity:0.1"
+                d="M12.0,19.5
+                   l-1.0,-0.91
+                   C6.5,14.4 4.0,11.8 4.0,8.8
+                   C4.0,6.36 5.86,4.5 7.8,4.5
+                   c1.2,0 2.35,0.56 3.2,1.45
+                   L12.0,7.1
+                   l1.0,-1.15
+                   C13.85,5.06 15.0,4.5 16.2,4.5
+                   C18.14,4.5 20.0,6.36 20.0,8.8
+                   c0,3.0 -2.5,5.6 -7.0,9.79
+                   L12.0,19.5 Z"/>
+          <!-- Bottom point shadow -->
+          <path id="heart-bottom-shadow"
+                style="display:inline;fill:none;stroke:#000000;stroke-width:0.3;stroke-opacity:0.05;stroke-linecap:round"
+                d="M11.0,19.0 L12.0,21.0 L13.0,19.0"/>
+          <!-- Decorative line through center -->
+          <line id="heart-center-line" x1="12" y1="7" x2="12" y2="18"
+                style="display:inline;stroke:#333333;stroke-width:0.15;stroke-opacity:0.05"/>
+          <g id="heart-empty-group-1" style="display:inline" transform="translate(0,0)" opacity="1"/>
+          <g id="heart-empty-group-2" style="display:inline" transform="translate(0,0)"/>
+          <g id="heart-empty-group-3" style="display:inline" opacity="1" transform="translate(0,0)"/>
+          <g id="heart-empty-group-4" style="display:inline"/>
+        </g>
+      </g>
+    </symbol>
+
+  </defs>
+
+  <!-- ========== Grid Layout Using <use> Elements ========== -->
+  <!-- Row 1: gear, user, bell -->
+  <!-- Each use element is wrapped in a group with redundant transforms and attributes -->
+
+  <!-- Gear icon instance at position (10, 10) -->
+  <g id="grid-cell-r1c1" transform="translate(0,0)" opacity="1" style="display:inline">
+    <g id="grid-cell-r1c1-wrapper" transform="translate(10,10)" opacity="1" style="display:inline">
+      <use id="use-gear-1" xlink:href="#icon-gear" x="0" y="0" width="80" height="80"
+           style="display:inline;overflow:visible;opacity:1"
+           transform="translate(0,0)"/>
+    </g>
+  </g>
+
+  <!-- User icon instance at position (110, 10) -->
+  <g id="grid-cell-r1c2" transform="translate(0,0)" opacity="1" style="display:inline">
+    <g id="grid-cell-r1c2-wrapper" transform="translate(110,10)" opacity="1" style="display:inline">
+      <use id="use-user-1" xlink:href="#icon-user" x="0" y="0" width="80" height="80"
+           style="display:inline;overflow:visible;opacity:1"
+           transform="translate(0,0)"/>
+    </g>
+  </g>
+
+  <!-- Bell icon instance at position (210, 10) -->
+  <g id="grid-cell-r1c3" transform="translate(0,0)" opacity="1" style="display:inline">
+    <g id="grid-cell-r1c3-wrapper" transform="translate(210,10)" opacity="1" style="display:inline">
+      <use id="use-bell-1" xlink:href="#icon-bell" x="0" y="0" width="80" height="80"
+           style="display:inline;overflow:visible;opacity:1"
+           transform="translate(0,0)"/>
+    </g>
+  </g>
+
+  <!-- Row 2: home, search, heart -->
+  <!-- Home icon instance at position (10, 110) -->
+  <g id="grid-cell-r2c1" transform="translate(0,0)" opacity="1" style="display:inline">
+    <g id="grid-cell-r2c1-wrapper" transform="translate(10,110)" opacity="1" style="display:inline">
+      <use id="use-home-1" xlink:href="#icon-home" x="0" y="0" width="80" height="80"
+           style="display:inline;overflow:visible;opacity:1"
+           transform="translate(0,0)"/>
+    </g>
+  </g>
+
+  <!-- Search icon instance at position (110, 110) -->
+  <g id="grid-cell-r2c2" transform="translate(0,0)" opacity="1" style="display:inline">
+    <g id="grid-cell-r2c2-wrapper" transform="translate(110,110)" opacity="1" style="display:inline">
+      <use id="use-search-1" xlink:href="#icon-search" x="0" y="0" width="80" height="80"
+           style="display:inline;overflow:visible;opacity:1"
+           transform="translate(0,0)"/>
+    </g>
+  </g>
+
+  <!-- Heart icon instance at position (210, 110) -->
+  <g id="grid-cell-r2c3" transform="translate(0,0)" opacity="1" style="display:inline">
+    <g id="grid-cell-r2c3-wrapper" transform="translate(210,110)" opacity="1" style="display:inline">
+      <use id="use-heart-1" xlink:href="#icon-heart" x="0" y="0" width="80" height="80"
+           style="display:inline;overflow:visible;opacity:1"
+           transform="translate(0,0)"/>
+    </g>
+  </g>
+
+  <!-- ========== Row 3: Duplicate instances with variations ========== -->
+  <!-- Smaller duplicates for testing redundancy removal -->
+
+  <!-- Gear small duplicate -->
+  <g id="grid-cell-r3c1" transform="translate(0,0)" opacity="1" style="display:inline">
+    <g id="grid-cell-r3c1-wrapper" transform="translate(25,210)" opacity="1" style="display:inline">
+      <g id="grid-cell-r3c1-inner" transform="translate(0,0)" opacity="1" style="display:inline">
+        <use id="use-gear-2" xlink:href="#icon-gear" x="0" y="0" width="50" height="50"
+             style="display:inline;overflow:visible;opacity:1"
+             transform="translate(0,0)"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- User small duplicate -->
+  <g id="grid-cell-r3c2" transform="translate(0,0)" opacity="1" style="display:inline">
+    <g id="grid-cell-r3c2-wrapper" transform="translate(85,210)" opacity="1" style="display:inline">
+      <g id="grid-cell-r3c2-inner" transform="translate(0,0)" opacity="1" style="display:inline">
+        <use id="use-user-2" xlink:href="#icon-user" x="0" y="0" width="50" height="50"
+             style="display:inline;overflow:visible;opacity:1"
+             transform="translate(0,0)"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- Bell small duplicate -->
+  <g id="grid-cell-r3c3" transform="translate(0,0)" opacity="1" style="display:inline">
+    <g id="grid-cell-r3c3-wrapper" transform="translate(145,210)" opacity="1" style="display:inline">
+      <g id="grid-cell-r3c3-inner" transform="translate(0,0)" opacity="1" style="display:inline">
+        <use id="use-bell-2" xlink:href="#icon-bell" x="0" y="0" width="50" height="50"
+             style="display:inline;overflow:visible;opacity:1"
+             transform="translate(0,0)"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- Home small duplicate -->
+  <g id="grid-cell-r3c4" transform="translate(0,0)" opacity="1" style="display:inline">
+    <g id="grid-cell-r3c4-wrapper" transform="translate(205,210)" opacity="1" style="display:inline">
+      <g id="grid-cell-r3c4-inner" transform="translate(0,0)" opacity="1" style="display:inline">
+        <use id="use-home-2" xlink:href="#icon-home" x="0" y="0" width="50" height="50"
+             style="display:inline;overflow:visible;opacity:1"
+             transform="translate(0,0)"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- ========== Additional Decorative / Cruft Elements ========== -->
+  <!-- These empty and redundant elements simulate typical editor output -->
+  <g id="layer-background" style="display:inline" transform="translate(0,0)" opacity="1">
+    <g id="layer-background-sub1" style="display:inline" transform="translate(0,0)" opacity="1"/>
+    <g id="layer-background-sub2" style="display:inline" transform="translate(0,0)" opacity="1">
+      <g id="layer-background-sub2-inner" style="display:inline" transform="translate(0,0)" opacity="1"/>
+    </g>
+  </g>
+
+  <g id="layer-guides" style="display:inline" transform="translate(0,0)" opacity="1">
+    <g id="layer-guides-horizontal" style="display:inline" transform="translate(0,0)" opacity="1"/>
+    <g id="layer-guides-vertical" style="display:inline" transform="translate(0,0)" opacity="1"/>
+    <g id="layer-guides-diagonal" style="display:inline" transform="translate(0,0)" opacity="1"/>
+  </g>
+
+  <g id="layer-annotations" style="display:inline" transform="translate(0,0)" opacity="1">
+    <g id="annotation-group-1" style="display:inline" transform="translate(0,0)" opacity="1"/>
+    <g id="annotation-group-2" style="display:inline" transform="translate(0,0)" opacity="1"/>
+    <g id="annotation-group-3" style="display:inline" transform="translate(0,0)" opacity="1">
+      <g id="annotation-group-3-sub" style="display:inline" transform="translate(0,0)" opacity="1"/>
+    </g>
+  </g>
+
+  <!-- Completely empty layer groups from copy/paste operations -->
+  <g id="layer-copy-1" style="display:inline" transform="translate(0,0)" opacity="1"/>
+  <g id="layer-copy-2" style="display:inline" transform="translate(0,0)" opacity="1"/>
+  <g id="layer-copy-3" style="display:inline" transform="translate(0,0)" opacity="1"/>
+  <g id="layer-paste-buffer" style="display:inline" transform="translate(0,0)" opacity="1">
+    <g id="layer-paste-buffer-inner" style="display:inline" transform="translate(0,0)" opacity="1"/>
+  </g>
+
+  <!-- Hidden elements that editors sometimes leave behind -->
+  <g id="layer-hidden-elements" style="display:none" transform="translate(0,0)" opacity="1">
+    <rect id="hidden-bounding-box" x="0" y="0" width="300" height="300"
+          style="display:none;fill:none;stroke:#ff0000;stroke-width:0.5;stroke-dasharray:2,2"/>
+    <circle id="hidden-center-marker" cx="150" cy="150" r="3"
+            style="display:none;fill:#ff0000;fill-opacity:0.5"/>
+    <line id="hidden-guide-h" x1="0" y1="150" x2="300" y2="150"
+          style="display:none;stroke:#0000ff;stroke-width:0.25;stroke-dasharray:4,4"/>
+    <line id="hidden-guide-v" x1="150" y1="0" x2="150" y2="300"
+          style="display:none;stroke:#0000ff;stroke-width:0.25;stroke-dasharray:4,4"/>
+  </g>
+
+  <!-- Editor selection rectangles (should not be in production SVG) -->
+  <g id="editor-selection-group" style="display:inline" transform="translate(0,0)" opacity="1">
+    <rect id="editor-selection-rect-1" x="0" y="0" width="0" height="0"
+          style="display:inline;fill:none;stroke:none;stroke-width:0;opacity:0"/>
+    <rect id="editor-selection-rect-2" x="0" y="0" width="0" height="0"
+          style="display:inline;fill:none;stroke:none;stroke-width:0;opacity:0"/>
+  </g>
+
+  <!-- Redundant clipping and masking groups -->
+  <g id="clip-group-unused-1" style="display:inline" transform="translate(0,0)" opacity="1" clip-path="none">
+    <g id="clip-group-unused-1-inner" style="display:inline" transform="translate(0,0)" opacity="1"/>
+  </g>
+  <g id="mask-group-unused-1" style="display:inline" transform="translate(0,0)" opacity="1">
+    <g id="mask-group-unused-1-inner" style="display:inline" transform="translate(0,0)" opacity="1"/>
+  </g>
+
+  <!-- Final empty export layer -->
+  <g id="layer-export" inkscape:label="Export" inkscape:groupmode="layer" style="display:inline" transform="translate(0,0)" opacity="1">
+    <g id="layer-export-inner" style="display:inline" transform="translate(0,0)" opacity="1"/>
+  </g>
+
+</svg>

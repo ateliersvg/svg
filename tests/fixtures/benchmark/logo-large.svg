@@ -1,0 +1,664 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: Adobe Illustrator 27.3.1, SVG Export Plug-In . SVG Version: 6.00 Build 0) -->
+<!-- Created: 2024-01-15T10:23:45Z -->
+<!-- ACME Corporation Brand Kit - Full Logo Suite -->
+<!-- This file contains all approved logo variants for print and digital use -->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns:i="http://ns.adobe.com/AdobeIllustrator/10.0/"
+  xmlns:x="http://ns.adobe.com/Extensibility/1.0/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:cc="http://creativecommons.org/ns#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  version="1.1"
+  id="acme-brand-kit-master"
+  viewBox="0 0 400 800"
+  width="400"
+  height="800"
+  xml:space="preserve"
+  enable-background="new 0 0 400 800"
+  opacity="1"
+  transform="translate(0,0)">
+
+  <!-- ============================================ -->
+  <!-- METADATA SECTION                             -->
+  <!-- ============================================ -->
+  <metadata id="metadata-block">
+    <rdf:RDF>
+      <cc:Work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <dc:title>ACME Corporation Brand Kit</dc:title>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>ACME Design Department</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:description>Official brand assets for ACME Corporation. Contains full color, monochrome, and reversed logo variants. For internal and approved partner use only.</dc:description>
+        <dc:date>2024-01-15</dc:date>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>Copyright 2024 ACME Corporation. All rights reserved.</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <cc:license rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+      </cc:Work>
+    </rdf:RDF>
+    <!-- Illustrator metadata -->
+    <i:pgf id="adobe-illustrator-pgf">
+      <i:dict>
+        <i:string name="creator">Adobe Illustrator</i:string>
+        <i:string name="version">27.3.1</i:string>
+        <i:string name="colorSpace">RGB</i:string>
+      </i:dict>
+    </i:pgf>
+  </metadata>
+
+  <!-- ============================================ -->
+  <!-- STYLE BLOCKS                                 -->
+  <!-- ============================================ -->
+
+  <!-- Primary style block for text elements -->
+  <style id="style-block-primary" type="text/css">
+    /* ACME Brand Typography */
+    .brand-heading {
+      font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+    }
+    .brand-tagline {
+      font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      font-style: italic;
+    }
+    .brand-legal {
+      font-family: 'Courier New', monospace;
+      font-size: 6px;
+      fill: #999999;
+    }
+  </style>
+
+  <!-- Secondary style block for shapes -->
+  <style id="style-block-secondary" type="text/css">
+    /* Shape styles - some duplicate inline styles intentionally */
+    .outline-thin { stroke-width: 0.75; fill: none; }
+    .outline-medium { stroke-width: 1.5; fill: none; }
+    .shadow-filter { filter: url(#drop-shadow-1); }
+  </style>
+
+  <!-- Tertiary style block - mostly redundant -->
+  <style id="style-block-tertiary" type="text/css">
+    .hidden-print { display: inline; }
+    .accent-fill { fill: #E84C3D; }
+  </style>
+
+  <!-- ============================================ -->
+  <!-- PRIMARY DEFS SECTION                         -->
+  <!-- ============================================ -->
+  <defs id="defs-primary">
+    <!-- Primary brand gradient: red to orange -->
+    <linearGradient id="brand-gradient-primary" x1="0%" y1="0%" x2="100%" y2="100%" gradientUnits="userSpaceOnUse">
+      <stop id="brand-grad-primary-stop1" offset="0%" style="stop-color:#E84C3D;stop-opacity:1"/>
+      <stop id="brand-grad-primary-stop2" offset="45%" style="stop-color:#E87D3D;stop-opacity:1"/>
+      <stop id="brand-grad-primary-stop3" offset="100%" style="stop-color:#F39C12;stop-opacity:1"/>
+    </linearGradient>
+
+    <!-- Secondary brand gradient: blue spectrum -->
+    <linearGradient id="brand-gradient-secondary" x1="0%" y1="0%" x2="0%" y2="100%" gradientUnits="userSpaceOnUse">
+      <stop id="brand-grad-secondary-stop1" offset="0%" style="stop-color:#2C3E50;stop-opacity:1"/>
+      <stop id="brand-grad-secondary-stop2" offset="50%" style="stop-color:#3498DB;stop-opacity:1"/>
+      <stop id="brand-grad-secondary-stop3" offset="100%" style="stop-color:#1ABC9C;stop-opacity:1"/>
+    </linearGradient>
+
+    <!-- Accent gradient for badge -->
+    <linearGradient id="badge-gradient-accent" x1="50%" y1="0%" x2="50%" y2="100%" gradientUnits="objectBoundingBox">
+      <stop id="badge-grad-stop1" offset="0%" style="stop-color:#F1C40F;stop-opacity:1"/>
+      <stop id="badge-grad-stop2" offset="100%" style="stop-color:#F39C12;stop-opacity:1"/>
+    </linearGradient>
+
+    <!-- DUPLICATE of primary gradient (intentional bloat - copy/paste artifact) -->
+    <linearGradient id="gradient-copy-primary" x1="0%" y1="0%" x2="100%" y2="100%" gradientUnits="userSpaceOnUse">
+      <stop id="grad-copy-primary-stop1" offset="0%" style="stop-color:#E84C3D;stop-opacity:1"/>
+      <stop id="grad-copy-primary-stop2" offset="45%" style="stop-color:#E87D3D;stop-opacity:1"/>
+      <stop id="grad-copy-primary-stop3" offset="100%" style="stop-color:#F39C12;stop-opacity:1"/>
+    </linearGradient>
+
+    <!-- Radial gradient for circular badge glow -->
+    <radialGradient id="badge-radial-glow" cx="50%" cy="50%" r="50%" fx="40%" fy="40%" gradientUnits="objectBoundingBox">
+      <stop id="badge-radial-stop1" offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.4"/>
+      <stop id="badge-radial-stop2" offset="70%" style="stop-color:#FFFFFF;stop-opacity:0.05"/>
+      <stop id="badge-radial-stop3" offset="100%" style="stop-color:#FFFFFF;stop-opacity:0"/>
+    </radialGradient>
+
+    <!-- Radial gradient for background spotlight -->
+    <radialGradient id="spotlight-radial" cx="200" cy="100" r="180" gradientUnits="userSpaceOnUse">
+      <stop id="spotlight-stop1" offset="0%" style="stop-color:#FEFEFE;stop-opacity:1"/>
+      <stop id="spotlight-stop2" offset="100%" style="stop-color:#F5F5F5;stop-opacity:1"/>
+    </radialGradient>
+
+    <!-- Clip path for badge circle -->
+    <clipPath id="clip-badge-circle">
+      <circle id="clip-badge-circle-shape" cx="80" cy="100" r="55" transform="translate(0,0)"/>
+    </clipPath>
+
+    <!-- Clip path for rectangular crop -->
+    <clipPath id="clip-variant-rect">
+      <rect id="clip-variant-rect-shape" x="20" y="10" width="360" height="190" rx="4" ry="4" transform="translate(0,0)"/>
+    </clipPath>
+
+    <!-- Mask for fade-out effect -->
+    <mask id="mask-fade-bottom" maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">
+      <linearGradient id="mask-fade-gradient" x1="0" y1="0" x2="0" y2="1">
+        <stop id="mask-fade-stop1" offset="0.7" style="stop-color:#FFFFFF;stop-opacity:1"/>
+        <stop id="mask-fade-stop2" offset="1.0" style="stop-color:#FFFFFF;stop-opacity:0"/>
+      </linearGradient>
+      <rect id="mask-fade-rect" x="0" y="0" width="1" height="1" style="fill:url(#mask-fade-gradient)" transform="translate(0,0)" opacity="1"/>
+    </mask>
+  </defs>
+
+  <!-- ============================================ -->
+  <!-- SECONDARY DEFS (duplicate/monochrome)        -->
+  <!-- ============================================ -->
+  <defs id="defs-secondary">
+    <!-- Monochrome gradient: dark gray to light gray -->
+    <linearGradient id="mono-gradient-primary" x1="0%" y1="0%" x2="100%" y2="100%" gradientUnits="userSpaceOnUse">
+      <stop id="mono-grad-stop1" offset="0%" style="stop-color:#333333;stop-opacity:1"/>
+      <stop id="mono-grad-stop2" offset="45%" style="stop-color:#666666;stop-opacity:1"/>
+      <stop id="mono-grad-stop3" offset="100%" style="stop-color:#999999;stop-opacity:1"/>
+    </linearGradient>
+
+    <!-- DUPLICATE of monochrome gradient (another copy/paste artifact) -->
+    <linearGradient id="mono-gradient-primary-copy" x1="0%" y1="0%" x2="100%" y2="100%" gradientUnits="userSpaceOnUse">
+      <stop id="mono-grad-copy-stop1" offset="0%" style="stop-color:#333333;stop-opacity:1"/>
+      <stop id="mono-grad-copy-stop2" offset="45%" style="stop-color:#666666;stop-opacity:1"/>
+      <stop id="mono-grad-copy-stop3" offset="100%" style="stop-color:#999999;stop-opacity:1"/>
+    </linearGradient>
+
+    <!-- Monochrome badge gradient -->
+    <linearGradient id="mono-badge-gradient" x1="50%" y1="0%" x2="50%" y2="100%" gradientUnits="objectBoundingBox">
+      <stop id="mono-badge-stop1" offset="0%" style="stop-color:#AAAAAA;stop-opacity:1"/>
+      <stop id="mono-badge-stop2" offset="100%" style="stop-color:#888888;stop-opacity:1"/>
+    </linearGradient>
+
+    <!-- Monochrome radial glow -->
+    <radialGradient id="mono-radial-glow" cx="50%" cy="50%" r="50%" fx="40%" fy="40%" gradientUnits="objectBoundingBox">
+      <stop id="mono-radial-stop1" offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.3"/>
+      <stop id="mono-radial-stop2" offset="100%" style="stop-color:#FFFFFF;stop-opacity:0"/>
+    </radialGradient>
+
+    <!-- Clip path for monochrome badge -->
+    <clipPath id="clip-mono-badge">
+      <circle id="clip-mono-badge-shape" cx="80" cy="320" r="55" transform="translate(0,0)"/>
+    </clipPath>
+  </defs>
+
+  <!-- ============================================ -->
+  <!-- TERTIARY DEFS (reversed variant)             -->
+  <!-- ============================================ -->
+  <defs id="defs-tertiary">
+    <!-- Reversed variant white gradient -->
+    <linearGradient id="reversed-gradient-white" x1="0%" y1="0%" x2="100%" y2="100%" gradientUnits="userSpaceOnUse">
+      <stop id="rev-grad-stop1" offset="0%" style="stop-color:#FFFFFF;stop-opacity:1"/>
+      <stop id="rev-grad-stop2" offset="100%" style="stop-color:#EEEEEE;stop-opacity:1"/>
+    </linearGradient>
+
+    <!-- DUPLICATE of badge gradient (same colors as accent) -->
+    <linearGradient id="reversed-badge-accent" x1="50%" y1="0%" x2="50%" y2="100%" gradientUnits="objectBoundingBox">
+      <stop id="rev-badge-stop1" offset="0%" style="stop-color:#F1C40F;stop-opacity:1"/>
+      <stop id="rev-badge-stop2" offset="100%" style="stop-color:#F39C12;stop-opacity:1"/>
+    </linearGradient>
+
+    <!-- Radial for reversed glow -->
+    <radialGradient id="reversed-radial-glow" cx="50%" cy="50%" r="50%" fx="40%" fy="40%" gradientUnits="objectBoundingBox">
+      <stop id="rev-radial-stop1" offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.5"/>
+      <stop id="rev-radial-stop2" offset="70%" style="stop-color:#FFFFFF;stop-opacity:0.1"/>
+      <stop id="rev-radial-stop3" offset="100%" style="stop-color:#FFFFFF;stop-opacity:0"/>
+    </radialGradient>
+
+    <!-- Mask for reversed variant -->
+    <mask id="mask-reversed-vignette" maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">
+      <radialGradient id="mask-vignette-gradient" cx="0.5" cy="0.5" r="0.6">
+        <stop id="mask-vig-stop1" offset="0%" style="stop-color:#FFFFFF;stop-opacity:1"/>
+        <stop id="mask-vig-stop2" offset="100%" style="stop-color:#FFFFFF;stop-opacity:0.85"/>
+      </radialGradient>
+      <rect id="mask-vig-rect" x="0" y="0" width="1" height="1" style="fill:url(#mask-vignette-gradient)" transform="translate(0,0)" opacity="1"/>
+    </mask>
+  </defs>
+
+  <!-- ============================================ -->
+  <!-- VARIANT 1: FULL COLOR LOGO (y=0..200)        -->
+  <!-- ============================================ -->
+  <g id="variant-fullcolor" transform="translate(0,0)" opacity="1" style="display:inline">
+    <!-- Background area -->
+    <g id="fullcolor-background" transform="translate(0,0)" opacity="1">
+      <!-- Subtle background fill -->
+      <rect id="fullcolor-bg-rect" x="0" y="0" width="400" height="210" style="fill:url(#spotlight-radial);stroke:none;opacity:1" transform="translate(0,0)"/>
+    </g>
+
+    <!-- Empty group (Illustrator export artifact) -->
+    <g id="fullcolor-layer-hidden-1" transform="translate(0,0)" opacity="1"/>
+    <!-- Another empty group -->
+    <g id="fullcolor-layer-hidden-2" transform="translate(0,0)" opacity="1">
+      <!-- Intentionally left empty -->
+    </g>
+
+    <!-- Badge / Circular emblem -->
+    <g id="fullcolor-badge-group" transform="translate(0,0)" opacity="1" style="fill:#000000">
+      <!-- Outer badge ring -->
+      <circle id="fullcolor-badge-outer-ring" cx="80" cy="100" r="58" style="fill:none;stroke:url(#brand-gradient-primary);stroke-width:2.5;opacity:1" transform="translate(0,0)"/>
+      <!-- Inner badge circle -->
+      <circle id="fullcolor-badge-inner" cx="80" cy="100" r="52" style="fill:url(#badge-gradient-accent);stroke:none;opacity:1" transform="translate(0,0)"/>
+      <!-- Badge highlight (radial glow overlay) -->
+      <circle id="fullcolor-badge-glow" cx="80" cy="100" r="52" style="fill:url(#badge-radial-glow);stroke:none;opacity:1" transform="translate(0,0)"/>
+
+      <!-- Decorative "A" letterform inside badge -->
+      <g id="fullcolor-badge-letter" transform="translate(0,0)" opacity="1" clip-path="url(#clip-badge-circle)">
+        <!-- "A" constructed from paths with realistic curve data -->
+        <path id="fullcolor-letter-a-left"
+          d="M 64,130 L 80,60 C 80,58 80.5,56.5 81,56 C 81.5,55.5 82,55 83,55 L 80,60 L 64,130 Z"
+          style="fill:#FFFFFF;stroke:none;fill-rule:evenodd;opacity:1"
+          transform="translate(0,0)"/>
+        <path id="fullcolor-letter-a-right"
+          d="M 96,130 L 80,60 C 80,58 79.5,56.5 79,56 C 78.5,55.5 78,55 77,55 L 80,60 L 96,130 Z"
+          style="fill:#FFFFFF;stroke:none;fill-rule:evenodd;opacity:1"
+          transform="translate(0,0)"/>
+        <path id="fullcolor-letter-a-crossbar"
+          d="M 69,108 L 91,108 L 89,100 L 71,100 Z"
+          style="fill:#FFFFFF;stroke:none;fill-rule:evenodd;opacity:1"
+          transform="translate(0,0)"/>
+
+        <!-- Decorative flourish under the A -->
+        <path id="fullcolor-flourish-under-a"
+          d="M 55,135 C 60,132 70,130 80,130 S 100,132 105,135 Q 102,138 95,139 C 90,140 70,140 65,139 Q 58,138 55,135 Z"
+          style="fill:#FFFFFF;stroke:none;fill-opacity:0.3;opacity:1"
+          transform="translate(0,0)"/>
+      </g>
+
+      <!-- Small decorative dots around badge -->
+      <circle id="fullcolor-dot-top" cx="80" cy="38" r="2" style="fill:url(#brand-gradient-primary);stroke:none;opacity:1" transform="translate(0,0)"/>
+      <circle id="fullcolor-dot-bottom" cx="80" cy="162" r="2" style="fill:url(#brand-gradient-primary);stroke:none;opacity:1" transform="translate(0,0)"/>
+      <circle id="fullcolor-dot-left" cx="18" cy="100" r="2" style="fill:url(#brand-gradient-primary);stroke:none;opacity:1" transform="translate(0,0)"/>
+      <circle id="fullcolor-dot-right" cx="142" cy="100" r="2" style="fill:url(#brand-gradient-primary);stroke:none;opacity:1" transform="translate(0,0)"/>
+    </g>
+
+    <!-- Company name text block -->
+    <g id="fullcolor-text-group" transform="translate(0,0)" opacity="1" style="fill:#000000">
+      <!-- "ACME" main wordmark -->
+      <text id="fullcolor-text-acme" x="160" y="95" style="fill:url(#brand-gradient-primary);font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;font-weight:700;font-size:48px;letter-spacing:0.15em;opacity:1" transform="translate(0,0)" class="brand-heading">
+        ACME
+      </text>
+      <!-- "CORPORATION" subtitle -->
+      <text id="fullcolor-text-corp" x="162" y="118" style="fill:#2C3E50;font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;font-weight:400;font-size:14px;letter-spacing:0.35em;opacity:1" transform="translate(0,0)">
+        CORPORATION
+      </text>
+      <!-- Tagline -->
+      <text id="fullcolor-text-tagline" x="162" y="142" style="fill:#7F8C8D;font-family:'Open Sans','Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:10px;letter-spacing:0.08em;font-style:italic;opacity:1" transform="translate(0,0)" class="brand-tagline">
+        Innovation Through Excellence
+      </text>
+    </g>
+
+    <!-- Decorative underline swoosh -->
+    <g id="fullcolor-swoosh-group" transform="translate(0,0)" opacity="1">
+      <path id="fullcolor-swoosh-line"
+        d="M 160,150 C 180,148 220,146 280,148 S 340,152 360,155 Q 355,156 340,155 C 300,153 220,150 160,150 Z"
+        style="fill:url(#gradient-copy-primary);stroke:none;fill-opacity:0.6;opacity:1"
+        transform="translate(0,0)"/>
+    </g>
+
+    <!-- Decorative corner ornaments -->
+    <g id="fullcolor-ornaments" transform="translate(0,0)" opacity="1" style="fill:none;stroke:#E84C3D;stroke-width:0.5">
+      <!-- Top-left corner -->
+      <path id="fullcolor-ornament-tl" d="M 15,15 L 15,30 M 15,15 L 30,15" style="fill:none;stroke:#E84C3D;stroke-width:0.5;opacity:1" transform="translate(0,0)"/>
+      <!-- Top-right corner -->
+      <path id="fullcolor-ornament-tr" d="M 385,15 L 385,30 M 385,15 L 370,15" style="fill:none;stroke:#E84C3D;stroke-width:0.5;opacity:1" transform="translate(0,0)"/>
+      <!-- Bottom-left corner -->
+      <path id="fullcolor-ornament-bl" d="M 15,195 L 15,180 M 15,195 L 30,195" style="fill:none;stroke:#E84C3D;stroke-width:0.5;opacity:1" transform="translate(0,0)"/>
+      <!-- Bottom-right corner -->
+      <path id="fullcolor-ornament-br" d="M 385,195 L 385,180 M 385,195 L 370,195" style="fill:none;stroke:#E84C3D;stroke-width:0.5;opacity:1" transform="translate(0,0)"/>
+    </g>
+
+    <!-- Registration mark -->
+    <text id="fullcolor-registration" x="360" y="88" style="fill:#2C3E50;font-family:'Helvetica Neue',Arial,sans-serif;font-weight:400;font-size:8px;opacity:1" transform="translate(0,0)">&#xAE;</text>
+
+    <!-- Legal text (redundant fill) -->
+    <text id="fullcolor-legal" x="20" y="205" style="fill:#999999;font-family:'Courier New',monospace;font-size:5px;letter-spacing:0.02em;opacity:1" transform="translate(0,0)" class="brand-legal" fill="#999999">
+      TM &amp; &#xA9; 2024 ACME Corporation. All rights reserved. Unauthorized reproduction prohibited.
+    </text>
+  </g>
+
+  <!-- ============================================ -->
+  <!-- DIVIDER SECTION 1 (y=210..220)               -->
+  <!-- ============================================ -->
+  <g id="divider-section-1" transform="translate(0,0)" opacity="1">
+    <!-- Horizontal rule -->
+    <line id="divider-1-line" x1="30" y1="215" x2="370" y2="215" style="stroke:#DDDDDD;stroke-width:0.5;opacity:1" transform="translate(0,0)"/>
+    <!-- Center diamond ornament -->
+    <path id="divider-1-diamond"
+      d="M 200,210 L 205,215 L 200,220 L 195,215 Z"
+      style="fill:#DDDDDD;stroke:none;opacity:1"
+      transform="translate(0,0)"/>
+    <!-- Decorative side curves -->
+    <path id="divider-1-curve-left"
+      d="M 100,215 C 120,210 140,212 160,215 S 180,218 190,215"
+      style="fill:none;stroke:#EEEEEE;stroke-width:0.5;opacity:1"
+      transform="translate(0,0)"/>
+    <path id="divider-1-curve-right"
+      d="M 300,215 C 280,210 260,212 240,215 S 220,218 210,215"
+      style="fill:none;stroke:#EEEEEE;stroke-width:0.5;opacity:1"
+      transform="translate(0,0)"/>
+    <!-- Label -->
+    <text id="divider-1-label" x="200" y="230" style="fill:#CCCCCC;font-family:'Courier New',monospace;font-size:5px;text-anchor:middle;letter-spacing:0.3em;opacity:1" transform="translate(0,0)">MONOCHROME VARIANT</text>
+
+    <!-- Empty group artifact -->
+    <g id="divider-1-empty" transform="translate(0,0)" opacity="1"/>
+  </g>
+
+  <!-- ============================================ -->
+  <!-- VARIANT 2: MONOCHROME LOGO (y=235..430)      -->
+  <!-- ============================================ -->
+  <g id="variant-monochrome" transform="translate(0,235)" opacity="1" style="display:inline">
+    <!-- Background -->
+    <g id="mono-background" transform="translate(0,0)" opacity="1">
+      <rect id="mono-bg-rect" x="0" y="0" width="400" height="195" style="fill:#FAFAFA;stroke:none;opacity:1" transform="translate(0,0)"/>
+    </g>
+
+    <!-- Empty groups -->
+    <g id="mono-layer-empty-1" transform="translate(0,0)" opacity="1"/>
+    <g id="mono-layer-empty-2" transform="translate(0,0)" opacity="1">
+      <!-- Removed in revision 4 but group kept -->
+    </g>
+    <g id="mono-layer-empty-3" transform="translate(0,0)" opacity="1"/>
+
+    <!-- Badge -->
+    <g id="mono-badge-group" transform="translate(0,0)" opacity="1" style="fill:#000000">
+      <!-- Outer ring -->
+      <circle id="mono-badge-outer-ring" cx="80" cy="85" r="58" style="fill:none;stroke:url(#mono-gradient-primary);stroke-width:2.5;opacity:1" transform="translate(0,0)"/>
+      <!-- Inner circle -->
+      <circle id="mono-badge-inner" cx="80" cy="85" r="52" style="fill:url(#mono-badge-gradient);stroke:none;opacity:1" transform="translate(0,0)"/>
+      <!-- Glow overlay -->
+      <circle id="mono-badge-glow" cx="80" cy="85" r="52" style="fill:url(#mono-radial-glow);stroke:none;opacity:1" transform="translate(0,0)"/>
+
+      <!-- "A" letterform -->
+      <g id="mono-badge-letter" transform="translate(0,-15)" opacity="1" clip-path="url(#clip-mono-badge)">
+        <path id="mono-letter-a-left"
+          d="M 64,130 L 80,60 C 80,58 80.5,56.5 81,56 C 81.5,55.5 82,55 83,55 L 80,60 L 64,130 Z"
+          style="fill:#FFFFFF;stroke:none;fill-rule:evenodd;opacity:1"
+          transform="translate(0,0)"/>
+        <path id="mono-letter-a-right"
+          d="M 96,130 L 80,60 C 80,58 79.5,56.5 79,56 C 78.5,55.5 78,55 77,55 L 80,60 L 96,130 Z"
+          style="fill:#FFFFFF;stroke:none;fill-rule:evenodd;opacity:1"
+          transform="translate(0,0)"/>
+        <path id="mono-letter-a-crossbar"
+          d="M 69,108 L 91,108 L 89,100 L 71,100 Z"
+          style="fill:#FFFFFF;stroke:none;fill-rule:evenodd;opacity:1"
+          transform="translate(0,0)"/>
+        <!-- Flourish -->
+        <path id="mono-flourish-under-a"
+          d="M 55,135 C 60,132 70,130 80,130 S 100,132 105,135 Q 102,138 95,139 C 90,140 70,140 65,139 Q 58,138 55,135 Z"
+          style="fill:#FFFFFF;stroke:none;fill-opacity:0.3;opacity:1"
+          transform="translate(0,0)"/>
+      </g>
+
+      <!-- Decorative dots -->
+      <circle id="mono-dot-top" cx="80" cy="23" r="2" style="fill:#666666;stroke:none;opacity:1" transform="translate(0,0)"/>
+      <circle id="mono-dot-bottom" cx="80" cy="147" r="2" style="fill:#666666;stroke:none;opacity:1" transform="translate(0,0)"/>
+      <circle id="mono-dot-left" cx="18" cy="85" r="2" style="fill:#666666;stroke:none;opacity:1" transform="translate(0,0)"/>
+      <circle id="mono-dot-right" cx="142" cy="85" r="2" style="fill:#666666;stroke:none;opacity:1" transform="translate(0,0)"/>
+    </g>
+
+    <!-- Text block -->
+    <g id="mono-text-group" transform="translate(0,0)" opacity="1" style="fill:#000000">
+      <!-- "ACME" -->
+      <text id="mono-text-acme" x="160" y="80" style="fill:url(#mono-gradient-primary);font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;font-weight:700;font-size:48px;letter-spacing:0.15em;opacity:1" transform="translate(0,0)" class="brand-heading" fill="black">
+        ACME
+      </text>
+      <!-- "CORPORATION" -->
+      <text id="mono-text-corp" x="162" y="103" style="fill:#555555;font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;font-weight:400;font-size:14px;letter-spacing:0.35em;opacity:1" transform="translate(0,0)" fill="black">
+        CORPORATION
+      </text>
+      <!-- Tagline -->
+      <text id="mono-text-tagline" x="162" y="127" style="fill:#888888;font-family:'Open Sans','Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:10px;letter-spacing:0.08em;font-style:italic;opacity:1" transform="translate(0,0)" class="brand-tagline" fill="black">
+        Innovation Through Excellence
+      </text>
+    </g>
+
+    <!-- Swoosh -->
+    <g id="mono-swoosh-group" transform="translate(0,0)" opacity="1">
+      <path id="mono-swoosh-line"
+        d="M 160,135 C 180,133 220,131 280,133 S 340,137 360,140 Q 355,141 340,140 C 300,138 220,135 160,135 Z"
+        style="fill:url(#mono-gradient-primary-copy);stroke:none;fill-opacity:0.4;opacity:1"
+        transform="translate(0,0)"/>
+    </g>
+
+    <!-- Corner ornaments (monochrome) -->
+    <g id="mono-ornaments" transform="translate(0,0)" opacity="1" style="fill:none;stroke:#AAAAAA;stroke-width:0.5">
+      <path id="mono-ornament-tl" d="M 15,15 L 15,30 M 15,15 L 30,15" style="fill:none;stroke:#AAAAAA;stroke-width:0.5;opacity:1" transform="translate(0,0)"/>
+      <path id="mono-ornament-tr" d="M 385,15 L 385,30 M 385,15 L 370,15" style="fill:none;stroke:#AAAAAA;stroke-width:0.5;opacity:1" transform="translate(0,0)"/>
+      <path id="mono-ornament-bl" d="M 15,180 L 15,165 M 15,180 L 30,180" style="fill:none;stroke:#AAAAAA;stroke-width:0.5;opacity:1" transform="translate(0,0)"/>
+      <path id="mono-ornament-br" d="M 385,180 L 385,165 M 385,180 L 370,180" style="fill:none;stroke:#AAAAAA;stroke-width:0.5;opacity:1" transform="translate(0,0)"/>
+    </g>
+
+    <!-- Registration mark (redundant fill attribute) -->
+    <text id="mono-registration" x="360" y="73" style="fill:#555555;font-family:'Helvetica Neue',Arial,sans-serif;font-weight:400;font-size:8px;opacity:1" transform="translate(0,0)" fill="#555555">&#xAE;</text>
+
+    <!-- Legal text -->
+    <text id="mono-legal" x="20" y="192" style="fill:#AAAAAA;font-family:'Courier New',monospace;font-size:5px;letter-spacing:0.02em;opacity:1" transform="translate(0,0)" class="brand-legal" fill="#AAAAAA">
+      TM &amp; &#xA9; 2024 ACME Corporation. Monochrome variant for single-color reproduction.
+    </text>
+  </g>
+
+  <!-- ============================================ -->
+  <!-- DIVIDER SECTION 2 (y=430..445)               -->
+  <!-- ============================================ -->
+  <g id="divider-section-2" transform="translate(0,0)" opacity="1">
+    <line id="divider-2-line" x1="30" y1="435" x2="370" y2="435" style="stroke:#DDDDDD;stroke-width:0.5;opacity:1" transform="translate(0,0)"/>
+    <!-- Center diamond -->
+    <path id="divider-2-diamond"
+      d="M 200,430 L 205,435 L 200,440 L 195,435 Z"
+      style="fill:#DDDDDD;stroke:none;opacity:1"
+      transform="translate(0,0)"/>
+    <!-- Decorative arcs -->
+    <path id="divider-2-arc-left"
+      d="M 80,435 A 60,8 0 0 1 190,435"
+      style="fill:none;stroke:#EEEEEE;stroke-width:0.5;opacity:1"
+      transform="translate(0,0)"/>
+    <path id="divider-2-arc-right"
+      d="M 210,435 A 60,8 0 0 1 320,435"
+      style="fill:none;stroke:#EEEEEE;stroke-width:0.5;opacity:1"
+      transform="translate(0,0)"/>
+    <!-- Label -->
+    <text id="divider-2-label" x="200" y="450" style="fill:#CCCCCC;font-family:'Courier New',monospace;font-size:5px;text-anchor:middle;letter-spacing:0.3em;opacity:1" transform="translate(0,0)">REVERSED VARIANT</text>
+
+    <!-- Empty artifact groups -->
+    <g id="divider-2-empty-1" transform="translate(0,0)" opacity="1"/>
+    <g id="divider-2-empty-2" transform="translate(0,0)" opacity="1"/>
+  </g>
+
+  <!-- ============================================ -->
+  <!-- VARIANT 3: REVERSED LOGO (y=455..645)        -->
+  <!-- ============================================ -->
+  <g id="variant-reversed" transform="translate(0,455)" opacity="1" style="display:inline">
+    <!-- Dark background -->
+    <g id="reversed-background" transform="translate(0,0)" opacity="1">
+      <rect id="reversed-bg-rect" x="0" y="0" width="400" height="195" rx="0" ry="0" style="fill:#1A1A2E;stroke:none;opacity:1" transform="translate(0,0)"/>
+      <!-- Subtle texture overlay -->
+      <rect id="reversed-bg-overlay" x="0" y="0" width="400" height="195" style="fill:url(#reversed-radial-glow);stroke:none;opacity:0.15" transform="translate(0,0)" mask="url(#mask-reversed-vignette)"/>
+    </g>
+
+    <!-- Empty groups -->
+    <g id="reversed-layer-empty-1" transform="translate(0,0)" opacity="1"/>
+    <g id="reversed-layer-empty-2" transform="translate(0,0)" opacity="1">
+      <!-- Placeholder for future use -->
+    </g>
+
+    <!-- Badge (white on dark) -->
+    <g id="reversed-badge-group" transform="translate(0,0)" opacity="1" style="fill:#FFFFFF">
+      <!-- Outer ring -->
+      <circle id="reversed-badge-outer-ring" cx="80" cy="85" r="58" style="fill:none;stroke:url(#reversed-gradient-white);stroke-width:2.5;opacity:1" transform="translate(0,0)"/>
+      <!-- Inner circle -->
+      <circle id="reversed-badge-inner" cx="80" cy="85" r="52" style="fill:url(#reversed-badge-accent);stroke:none;opacity:1" transform="translate(0,0)"/>
+      <!-- Glow -->
+      <circle id="reversed-badge-glow" cx="80" cy="85" r="52" style="fill:url(#reversed-radial-glow);stroke:none;opacity:1" transform="translate(0,0)"/>
+
+      <!-- "A" letterform (dark on accent) -->
+      <g id="reversed-badge-letter" transform="translate(0,-15)" opacity="1">
+        <path id="reversed-letter-a-left"
+          d="M 64,130 L 80,60 C 80,58 80.5,56.5 81,56 C 81.5,55.5 82,55 83,55 L 80,60 L 64,130 Z"
+          style="fill:#1A1A2E;stroke:none;fill-rule:evenodd;opacity:1"
+          transform="translate(0,0)"/>
+        <path id="reversed-letter-a-right"
+          d="M 96,130 L 80,60 C 80,58 79.5,56.5 79,56 C 78.5,55.5 78,55 77,55 L 80,60 L 96,130 Z"
+          style="fill:#1A1A2E;stroke:none;fill-rule:evenodd;opacity:1"
+          transform="translate(0,0)"/>
+        <path id="reversed-letter-a-crossbar"
+          d="M 69,108 L 91,108 L 89,100 L 71,100 Z"
+          style="fill:#1A1A2E;stroke:none;fill-rule:evenodd;opacity:1"
+          transform="translate(0,0)"/>
+        <!-- Flourish -->
+        <path id="reversed-flourish-under-a"
+          d="M 55,135 C 60,132 70,130 80,130 S 100,132 105,135 Q 102,138 95,139 C 90,140 70,140 65,139 Q 58,138 55,135 Z"
+          style="fill:#1A1A2E;stroke:none;fill-opacity:0.3;opacity:1"
+          transform="translate(0,0)"/>
+      </g>
+
+      <!-- Decorative dots -->
+      <circle id="reversed-dot-top" cx="80" cy="23" r="2" style="fill:#FFFFFF;stroke:none;opacity:0.6" transform="translate(0,0)"/>
+      <circle id="reversed-dot-bottom" cx="80" cy="147" r="2" style="fill:#FFFFFF;stroke:none;opacity:0.6" transform="translate(0,0)"/>
+      <circle id="reversed-dot-left" cx="18" cy="85" r="2" style="fill:#FFFFFF;stroke:none;opacity:0.6" transform="translate(0,0)"/>
+      <circle id="reversed-dot-right" cx="142" cy="85" r="2" style="fill:#FFFFFF;stroke:none;opacity:0.6" transform="translate(0,0)"/>
+    </g>
+
+    <!-- Text block (white text) -->
+    <g id="reversed-text-group" transform="translate(0,0)" opacity="1" style="fill:#FFFFFF">
+      <!-- "ACME" -->
+      <text id="reversed-text-acme" x="160" y="80" style="fill:url(#reversed-gradient-white);font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;font-weight:700;font-size:48px;letter-spacing:0.15em;opacity:1" transform="translate(0,0)" class="brand-heading" fill="white">
+        ACME
+      </text>
+      <!-- "CORPORATION" -->
+      <text id="reversed-text-corp" x="162" y="103" style="fill:#CCCCCC;font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;font-weight:400;font-size:14px;letter-spacing:0.35em;opacity:1" transform="translate(0,0)" fill="white">
+        CORPORATION
+      </text>
+      <!-- Tagline -->
+      <text id="reversed-text-tagline" x="162" y="127" style="fill:#AAAAAA;font-family:'Open Sans','Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:10px;letter-spacing:0.08em;font-style:italic;opacity:1" transform="translate(0,0)" class="brand-tagline" fill="white">
+        Innovation Through Excellence
+      </text>
+    </g>
+
+    <!-- Swoosh (white variant) -->
+    <g id="reversed-swoosh-group" transform="translate(0,0)" opacity="1">
+      <path id="reversed-swoosh-line"
+        d="M 160,135 C 180,133 220,131 280,133 S 340,137 360,140 Q 355,141 340,140 C 300,138 220,135 160,135 Z"
+        style="fill:url(#reversed-gradient-white);stroke:none;fill-opacity:0.3;opacity:1"
+        transform="translate(0,0)"/>
+    </g>
+
+    <!-- Corner ornaments (light on dark) -->
+    <g id="reversed-ornaments" transform="translate(0,0)" opacity="1" style="fill:none;stroke:#FFFFFF;stroke-width:0.5;stroke-opacity:0.3">
+      <path id="reversed-ornament-tl" d="M 15,15 L 15,30 M 15,15 L 30,15" style="fill:none;stroke:#FFFFFF;stroke-width:0.5;stroke-opacity:0.3;opacity:1" transform="translate(0,0)"/>
+      <path id="reversed-ornament-tr" d="M 385,15 L 385,30 M 385,15 L 370,15" style="fill:none;stroke:#FFFFFF;stroke-width:0.5;stroke-opacity:0.3;opacity:1" transform="translate(0,0)"/>
+      <path id="reversed-ornament-bl" d="M 15,180 L 15,165 M 15,180 L 30,180" style="fill:none;stroke:#FFFFFF;stroke-width:0.5;stroke-opacity:0.3;opacity:1" transform="translate(0,0)"/>
+      <path id="reversed-ornament-br" d="M 385,180 L 385,165 M 385,180 L 370,180" style="fill:none;stroke:#FFFFFF;stroke-width:0.5;stroke-opacity:0.3;opacity:1" transform="translate(0,0)"/>
+    </g>
+
+    <!-- Registration mark -->
+    <text id="reversed-registration" x="360" y="73" style="fill:#CCCCCC;font-family:'Helvetica Neue',Arial,sans-serif;font-weight:400;font-size:8px;opacity:1" transform="translate(0,0)" fill="#CCCCCC">&#xAE;</text>
+
+    <!-- Legal text -->
+    <text id="reversed-legal" x="20" y="192" style="fill:#666666;font-family:'Courier New',monospace;font-size:5px;letter-spacing:0.02em;opacity:1" transform="translate(0,0)" class="brand-legal" fill="#666666">
+      TM &amp; &#xA9; 2024 ACME Corporation. Reversed variant for dark backgrounds and overlays.
+    </text>
+  </g>
+
+  <!-- ============================================ -->
+  <!-- FOOTER SECTION (y=660..800)                  -->
+  <!-- ============================================ -->
+  <g id="footer-section" transform="translate(0,0)" opacity="1">
+    <!-- Divider line -->
+    <line id="footer-divider" x1="30" y1="660" x2="370" y2="660" style="stroke:#EEEEEE;stroke-width:0.5;opacity:1" transform="translate(0,0)"/>
+
+    <!-- Brand guidelines reference -->
+    <g id="footer-guidelines-text" transform="translate(0,0)" opacity="1">
+      <text id="footer-title" x="200" y="680" style="fill:#BBBBBB;font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;font-weight:600;font-size:7px;text-anchor:middle;letter-spacing:0.2em;opacity:1" transform="translate(0,0)">
+        BRAND GUIDELINES REFERENCE
+      </text>
+      <text id="footer-line1" x="200" y="695" style="fill:#CCCCCC;font-family:'Open Sans','Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:5.5px;text-anchor:middle;opacity:1" transform="translate(0,0)">
+        Primary: #E84C3D / Secondary: #2C3E50 / Accent: #F1C40F
+      </text>
+      <text id="footer-line2" x="200" y="707" style="fill:#CCCCCC;font-family:'Open Sans','Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:5.5px;text-anchor:middle;opacity:1" transform="translate(0,0)">
+        Typography: Montserrat 700 (Headings) / Open Sans 300 (Body)
+      </text>
+      <text id="footer-line3" x="200" y="719" style="fill:#CCCCCC;font-family:'Open Sans','Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:5.5px;text-anchor:middle;opacity:1" transform="translate(0,0)">
+        Minimum clear space: 1x height of the "A" lettermark
+      </text>
+    </g>
+
+    <!-- Color swatches -->
+    <g id="footer-swatches" transform="translate(0,0)" opacity="1">
+      <!-- Primary swatch -->
+      <rect id="swatch-primary" x="100" y="730" width="20" height="12" rx="2" ry="2" style="fill:#E84C3D;stroke:#DDDDDD;stroke-width:0.25;opacity:1" transform="translate(0,0)"/>
+      <text id="swatch-primary-label" x="110" y="752" style="fill:#AAAAAA;font-family:'Courier New',monospace;font-size:4px;text-anchor:middle;opacity:1" transform="translate(0,0)">#E84C3D</text>
+      <!-- Secondary swatch -->
+      <rect id="swatch-secondary" x="140" y="730" width="20" height="12" rx="2" ry="2" style="fill:#2C3E50;stroke:#DDDDDD;stroke-width:0.25;opacity:1" transform="translate(0,0)"/>
+      <text id="swatch-secondary-label" x="150" y="752" style="fill:#AAAAAA;font-family:'Courier New',monospace;font-size:4px;text-anchor:middle;opacity:1" transform="translate(0,0)">#2C3E50</text>
+      <!-- Accent swatch -->
+      <rect id="swatch-accent" x="180" y="730" width="20" height="12" rx="2" ry="2" style="fill:#F1C40F;stroke:#DDDDDD;stroke-width:0.25;opacity:1" transform="translate(0,0)"/>
+      <text id="swatch-accent-label" x="190" y="752" style="fill:#AAAAAA;font-family:'Courier New',monospace;font-size:4px;text-anchor:middle;opacity:1" transform="translate(0,0)">#F1C40F</text>
+      <!-- Success swatch -->
+      <rect id="swatch-success" x="220" y="730" width="20" height="12" rx="2" ry="2" style="fill:#1ABC9C;stroke:#DDDDDD;stroke-width:0.25;opacity:1" transform="translate(0,0)"/>
+      <text id="swatch-success-label" x="230" y="752" style="fill:#AAAAAA;font-family:'Courier New',monospace;font-size:4px;text-anchor:middle;opacity:1" transform="translate(0,0)">#1ABC9C</text>
+      <!-- Dark swatch -->
+      <rect id="swatch-dark" x="260" y="730" width="20" height="12" rx="2" ry="2" style="fill:#1A1A2E;stroke:#DDDDDD;stroke-width:0.25;opacity:1" transform="translate(0,0)"/>
+      <text id="swatch-dark-label" x="270" y="752" style="fill:#AAAAAA;font-family:'Courier New',monospace;font-size:4px;text-anchor:middle;opacity:1" transform="translate(0,0)">#1A1A2E</text>
+    </g>
+
+    <!-- Decorative bottom flourish -->
+    <g id="footer-flourish" transform="translate(0,0)" opacity="1">
+      <path id="footer-flourish-left"
+        d="M 120,770 C 130,765 150,763 170,765 S 190,770 200,772"
+        style="fill:none;stroke:#DDDDDD;stroke-width:0.5;opacity:1"
+        transform="translate(0,0)"/>
+      <path id="footer-flourish-right"
+        d="M 280,770 C 270,765 250,763 230,765 S 210,770 200,772"
+        style="fill:none;stroke:#DDDDDD;stroke-width:0.5;opacity:1"
+        transform="translate(0,0)"/>
+      <!-- Center dot -->
+      <circle id="footer-flourish-dot" cx="200" cy="772" r="1.5" style="fill:#DDDDDD;stroke:none;opacity:1" transform="translate(0,0)"/>
+    </g>
+
+    <!-- Final legal line -->
+    <text id="footer-final-legal" x="200" y="790" style="fill:#CCCCCC;font-family:'Courier New',monospace;font-size:4px;text-anchor:middle;letter-spacing:0.05em;opacity:1" transform="translate(0,0)" class="brand-legal">
+      Document ID: ACME-BK-2024-001 | Version 3.2 | Export: Illustrator CC 2024
+    </text>
+
+    <!-- Empty artifact groups at end of file -->
+    <g id="footer-empty-1" transform="translate(0,0)" opacity="1"/>
+    <g id="footer-empty-2" transform="translate(0,0)" opacity="1"/>
+    <g id="footer-empty-3" transform="translate(0,0)" opacity="1">
+      <!-- Reserved for watermark layer -->
+    </g>
+  </g>
+
+  <!-- ============================================ -->
+  <!-- SWITCH / FOREIGNOBJECT FALLBACK              -->
+  <!-- ============================================ -->
+  <switch id="switch-accessibility-block" transform="translate(0,0)">
+    <foreignObject id="foreign-object-desc" x="20" y="650" width="360" height="40" requiredExtensions="http://www.w3.org/1999/xhtml">
+      <body xmlns="http://www.w3.org/1999/xhtml" style="margin:0;padding:0">
+        <p style="font-family:Arial,sans-serif;font-size:10px;color:#999999;margin:0">
+          ACME Corporation Brand Kit containing full color, monochrome, and reversed logo variants.
+          For approved usage guidelines visit brand.acme-corp.example.com
+        </p>
+      </body>
+    </foreignObject>
+    <!-- Fallback for SVG viewers that don't support foreignObject -->
+    <text id="switch-fallback-text" x="200" y="665" style="fill:#999999;font-family:Arial,sans-serif;font-size:6px;text-anchor:middle;opacity:1" transform="translate(0,0)">
+      ACME Corporation Brand Kit - See brand.acme-corp.example.com for usage guidelines
+    </text>
+  </switch>
+
+  <!-- End of ACME Brand Kit SVG -->
+  <!-- Last modified: 2024-01-15 by design@acme-corp.example.com -->
+  <!-- Approved by: VP of Marketing, January 2024 -->
+</svg>

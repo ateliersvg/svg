@@ -1,5 +1,5 @@
 ---
-order: 10
+order: 20
 ---
 # Parsing
 
@@ -104,18 +104,52 @@ The parser recognizes all standard SVG elements: shapes (`rect`, `circle`, `elli
 
 Both loader and parser throw specific exceptions:
 
-- `Atelier\Svg\Exception\RuntimeException`: File not found or unreadable (loader).
-- `Atelier\Svg\Exception\ParseException`: Invalid XML or missing root `<svg>` element (parser).
+- `Atelier\Svg\Exception\RuntimeException` - file not found, unreadable, or exceeds the configured size limit (loader).
+- `Atelier\Svg\Exception\ParseException` - invalid XML, missing root `<svg>` element, or any XML error when using `ParseProfile::STRICT` (parser).
+
+Both implement `Atelier\Svg\Exception\SvgExceptionInterface` and extend `\RuntimeException`.
+
+### Via the facade
 
 ```php
+<?php
+use Atelier\Svg\Svg;
 use Atelier\Svg\Exception\ParseException;
+use Atelier\Svg\Exception\RuntimeException;
 
 try {
-    $document = $parser->parse($invalidSvg);
+    $svg = Svg::load('icon.svg');
+} catch (RuntimeException $e) {
+    // File missing, unreadable, or too large
+    echo 'Load error: ' . $e->getMessage();
+} catch (ParseException $e) {
+    // Malformed XML or not an SVG document
+    echo 'Parse error: ' . $e->getMessage();
+}
+```
+
+### Via DomParser directly
+
+`ParseProfile::STRICT` throws on the first XML warning; `ParseProfile::LENIENT` records warnings and continues.
+
+```php
+<?php
+use Atelier\Svg\Parser\DomParser;
+use Atelier\Svg\Parser\ParseProfile;
+use Atelier\Svg\Exception\ParseException;
+
+$parser = new DomParser(ParseProfile::STRICT);
+
+try {
+    $document = $parser->parse($svgString);
 } catch (ParseException $e) {
     echo 'Parse error: ' . $e->getMessage();
 }
 ```
+
+### File not found vs. parse failure
+
+`RuntimeException` is thrown before parsing begins - the file could not be read. `ParseException` is thrown after the file is read but the content is not valid SVG XML. Catching both lets you distinguish input problems from infrastructure problems.
 
 ## See also
 

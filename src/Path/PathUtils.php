@@ -7,9 +7,17 @@ namespace Atelier\Svg\Path;
 use Atelier\Svg\Geometry\Matrix;
 use Atelier\Svg\Geometry\Point;
 use Atelier\Svg\Geometry\Transformation;
+use Atelier\Svg\Path\Segment\ArcTo;
+use Atelier\Svg\Path\Segment\ClosePath;
+use Atelier\Svg\Path\Segment\CurveTo;
+use Atelier\Svg\Path\Segment\HorizontalLineTo;
 use Atelier\Svg\Path\Segment\LineTo;
 use Atelier\Svg\Path\Segment\MoveTo;
+use Atelier\Svg\Path\Segment\QuadraticCurveTo;
 use Atelier\Svg\Path\Segment\SegmentInterface;
+use Atelier\Svg\Path\Segment\SmoothCurveTo;
+use Atelier\Svg\Path\Segment\SmoothQuadraticCurveTo;
+use Atelier\Svg\Path\Segment\VerticalLineTo;
 use Atelier\Svg\Path\Simplifier\Simplifier;
 
 /**
@@ -118,19 +126,21 @@ final class PathUtils
 
     /**
      * Converts a path to absolute coordinates.
+     *
+     * Handles all segment types: M, L, H, V, C, S, Q, T, A, Z.
      */
     public static function toAbsolute(Data $path): Data
     {
         $absoluteSegments = [];
         $currentPoint = new Point(0, 0);
+        $subpathStart = new Point(0, 0);
 
         foreach ($path->getSegments() as $segment) {
-            $command = $segment->getCommand();
+            $isRelative = $segment->isRelative();
 
             if ($segment instanceof MoveTo) {
                 $point = $segment->getTargetPoint();
-                if (ctype_lower($command)) {
-                    // Relative command - convert to absolute
+                if ($isRelative) {
                     $absolutePoint = $currentPoint->add($point);
                     $absoluteSegments[] = new MoveTo('M', $absolutePoint);
                     $currentPoint = $absolutePoint;
@@ -138,10 +148,10 @@ final class PathUtils
                     $absoluteSegments[] = $segment;
                     $currentPoint = $point;
                 }
+                $subpathStart = $currentPoint;
             } elseif ($segment instanceof LineTo) {
                 $point = $segment->getTargetPoint();
-                if (ctype_lower($command)) {
-                    // Relative command - convert to absolute
+                if ($isRelative) {
                     $absolutePoint = $currentPoint->add($point);
                     $absoluteSegments[] = new LineTo('L', $absolutePoint);
                     $currentPoint = $absolutePoint;
@@ -149,9 +159,99 @@ final class PathUtils
                     $absoluteSegments[] = $segment;
                     $currentPoint = $point;
                 }
-            } else {
-                // For other segment types, keep as-is for now
+            } elseif ($segment instanceof HorizontalLineTo) {
+                $x = $segment->getX();
+                if ($isRelative) {
+                    $absX = $currentPoint->x + $x;
+                    $absoluteSegments[] = new HorizontalLineTo('H', $absX);
+                    $currentPoint = new Point($absX, $currentPoint->y);
+                } else {
+                    $absoluteSegments[] = $segment;
+                    $currentPoint = new Point($x, $currentPoint->y);
+                }
+            } elseif ($segment instanceof VerticalLineTo) {
+                $y = $segment->getY();
+                if ($isRelative) {
+                    $absY = $currentPoint->y + $y;
+                    $absoluteSegments[] = new VerticalLineTo('V', $absY);
+                    $currentPoint = new Point($currentPoint->x, $absY);
+                } else {
+                    $absoluteSegments[] = $segment;
+                    $currentPoint = new Point($currentPoint->x, $y);
+                }
+            } elseif ($segment instanceof CurveTo) {
+                $cp1 = $segment->getControlPoint1();
+                $cp2 = $segment->getControlPoint2();
+                $point = $segment->getTargetPoint();
+                if ($isRelative) {
+                    $absoluteSegments[] = new CurveTo(
+                        'C',
+                        $currentPoint->add($cp1),
+                        $currentPoint->add($cp2),
+                        $currentPoint->add($point),
+                    );
+                    $currentPoint = $currentPoint->add($point);
+                } else {
+                    $absoluteSegments[] = $segment;
+                    $currentPoint = $point;
+                }
+            } elseif ($segment instanceof SmoothCurveTo) {
+                $cp2 = $segment->getControlPoint2();
+                $point = $segment->getTargetPoint();
+                if ($isRelative) {
+                    $absoluteSegments[] = new SmoothCurveTo(
+                        'S',
+                        $currentPoint->add($cp2),
+                        $currentPoint->add($point),
+                    );
+                    $currentPoint = $currentPoint->add($point);
+                } else {
+                    $absoluteSegments[] = $segment;
+                    $currentPoint = $point;
+                }
+            } elseif ($segment instanceof QuadraticCurveTo) {
+                $cp = $segment->getControlPoint();
+                $point = $segment->getTargetPoint();
+                if ($isRelative) {
+                    $absoluteSegments[] = new QuadraticCurveTo(
+                        'Q',
+                        $currentPoint->add($cp),
+                        $currentPoint->add($point),
+                    );
+                    $currentPoint = $currentPoint->add($point);
+                } else {
+                    $absoluteSegments[] = $segment;
+                    $currentPoint = $point;
+                }
+            } elseif ($segment instanceof SmoothQuadraticCurveTo) {
+                $point = $segment->getTargetPoint();
+                if ($isRelative) {
+                    $absoluteSegments[] = new SmoothQuadraticCurveTo('T', $currentPoint->add($point));
+                    $currentPoint = $currentPoint->add($point);
+                } else {
+                    $absoluteSegments[] = $segment;
+                    $currentPoint = $point;
+                }
+            } elseif ($segment instanceof ArcTo) {
+                $point = $segment->getTargetPoint();
+                if ($isRelative) {
+                    $absoluteSegments[] = new ArcTo(
+                        'A',
+                        $segment->getRx(),
+                        $segment->getRy(),
+                        $segment->getXAxisRotation(),
+                        $segment->getLargeArcFlag(),
+                        $segment->getSweepFlag(),
+                        $currentPoint->add($point),
+                    );
+                    $currentPoint = $currentPoint->add($point);
+                } else {
+                    $absoluteSegments[] = $segment;
+                    $currentPoint = $point;
+                }
+            } elseif ($segment instanceof ClosePath) {
                 $absoluteSegments[] = $segment;
+                $currentPoint = $subpathStart;
             }
         }
 
@@ -160,46 +260,130 @@ final class PathUtils
 
     /**
      * Converts a path to relative coordinates.
+     *
+     * Handles all segment types: M, L, H, V, C, S, Q, T, A, Z.
      */
     public static function toRelative(Data $path): Data
     {
         $relativeSegments = [];
         $currentPoint = new Point(0, 0);
+        $subpathStart = new Point(0, 0);
 
         foreach ($path->getSegments() as $segment) {
-            $command = $segment->getCommand();
+            $isRelative = $segment->isRelative();
 
             if ($segment instanceof MoveTo) {
                 $point = $segment->getTargetPoint();
-                if (ctype_upper($command)) {
-                    // Absolute command - convert to relative
-                    $relativePoint = new Point(
-                        $point->x - $currentPoint->x,
-                        $point->y - $currentPoint->y
-                    );
+                if (!$isRelative) {
+                    $relativePoint = $point->subtract($currentPoint);
                     $relativeSegments[] = new MoveTo('m', $relativePoint);
                     $currentPoint = $point;
                 } else {
                     $relativeSegments[] = $segment;
                     $currentPoint = $currentPoint->add($point);
                 }
+                $subpathStart = $currentPoint;
             } elseif ($segment instanceof LineTo) {
                 $point = $segment->getTargetPoint();
-                if (ctype_upper($command)) {
-                    // Absolute command - convert to relative
-                    $relativePoint = new Point(
-                        $point->x - $currentPoint->x,
-                        $point->y - $currentPoint->y
-                    );
+                if (!$isRelative) {
+                    $relativePoint = $point->subtract($currentPoint);
                     $relativeSegments[] = new LineTo('l', $relativePoint);
                     $currentPoint = $point;
                 } else {
                     $relativeSegments[] = $segment;
                     $currentPoint = $currentPoint->add($point);
                 }
-            } else {
-                // For other segment types, keep as-is for now
+            } elseif ($segment instanceof HorizontalLineTo) {
+                $x = $segment->getX();
+                if (!$isRelative) {
+                    $relativeSegments[] = new HorizontalLineTo('h', $x - $currentPoint->x);
+                    $currentPoint = new Point($x, $currentPoint->y);
+                } else {
+                    $relativeSegments[] = $segment;
+                    $currentPoint = new Point($currentPoint->x + $x, $currentPoint->y);
+                }
+            } elseif ($segment instanceof VerticalLineTo) {
+                $y = $segment->getY();
+                if (!$isRelative) {
+                    $relativeSegments[] = new VerticalLineTo('v', $y - $currentPoint->y);
+                    $currentPoint = new Point($currentPoint->x, $y);
+                } else {
+                    $relativeSegments[] = $segment;
+                    $currentPoint = new Point($currentPoint->x, $currentPoint->y + $y);
+                }
+            } elseif ($segment instanceof CurveTo) {
+                $cp1 = $segment->getControlPoint1();
+                $cp2 = $segment->getControlPoint2();
+                $point = $segment->getTargetPoint();
+                if (!$isRelative) {
+                    $relativeSegments[] = new CurveTo(
+                        'c',
+                        $cp1->subtract($currentPoint),
+                        $cp2->subtract($currentPoint),
+                        $point->subtract($currentPoint),
+                    );
+                    $currentPoint = $point;
+                } else {
+                    $relativeSegments[] = $segment;
+                    $currentPoint = $currentPoint->add($point);
+                }
+            } elseif ($segment instanceof SmoothCurveTo) {
+                $cp2 = $segment->getControlPoint2();
+                $point = $segment->getTargetPoint();
+                if (!$isRelative) {
+                    $relativeSegments[] = new SmoothCurveTo(
+                        's',
+                        $cp2->subtract($currentPoint),
+                        $point->subtract($currentPoint),
+                    );
+                    $currentPoint = $point;
+                } else {
+                    $relativeSegments[] = $segment;
+                    $currentPoint = $currentPoint->add($point);
+                }
+            } elseif ($segment instanceof QuadraticCurveTo) {
+                $cp = $segment->getControlPoint();
+                $point = $segment->getTargetPoint();
+                if (!$isRelative) {
+                    $relativeSegments[] = new QuadraticCurveTo(
+                        'q',
+                        $cp->subtract($currentPoint),
+                        $point->subtract($currentPoint),
+                    );
+                    $currentPoint = $point;
+                } else {
+                    $relativeSegments[] = $segment;
+                    $currentPoint = $currentPoint->add($point);
+                }
+            } elseif ($segment instanceof SmoothQuadraticCurveTo) {
+                $point = $segment->getTargetPoint();
+                if (!$isRelative) {
+                    $relativeSegments[] = new SmoothQuadraticCurveTo('t', $point->subtract($currentPoint));
+                    $currentPoint = $point;
+                } else {
+                    $relativeSegments[] = $segment;
+                    $currentPoint = $currentPoint->add($point);
+                }
+            } elseif ($segment instanceof ArcTo) {
+                $point = $segment->getTargetPoint();
+                if (!$isRelative) {
+                    $relativeSegments[] = new ArcTo(
+                        'a',
+                        $segment->getRx(),
+                        $segment->getRy(),
+                        $segment->getXAxisRotation(),
+                        $segment->getLargeArcFlag(),
+                        $segment->getSweepFlag(),
+                        $point->subtract($currentPoint),
+                    );
+                    $currentPoint = $point;
+                } else {
+                    $relativeSegments[] = $segment;
+                    $currentPoint = $currentPoint->add($point);
+                }
+            } elseif ($segment instanceof ClosePath) {
                 $relativeSegments[] = $segment;
+                $currentPoint = $subpathStart;
             }
         }
 

@@ -1,0 +1,820 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Cityscape illustration for SVG optimizer benchmarking -->
+<!-- Generated as a test fixture with intentional bloat -->
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"
+     viewBox="0 0 1200 600"
+     width="1200" height="600"
+     id="cityscape-root" style="display:inline">
+  <!-- Sketch export metadata -->
+  <metadata id="metadata-block">
+    <sketch:export-info name="cityscape-illustration" format="svg" version="3.8.1"
+         build="29188" source="Sketch 99.6 (170002)" created="2024-01-15T10:30:00Z">
+      <sketch:page name="Page 1" id="page-1"/>
+      <sketch:artboard name="Cityscape" id="artboard-1" x="0" y="0" width="1200" height="600"/>
+      <sketch:layer-info total="48" visible="48" locked="0"/>
+      <sketch:export-settings trimmed="NO" include-background="YES" resolution="1x"/>
+    </sketch:export-info>
+  </metadata>
+  <!-- Style block 1: Base styles -->
+  <style id="style-base" type="text/css">
+    .building-fill { fill: #37474f; }
+    .building-dark { fill: #263238; }
+    .building-medium { fill: #455a64; }
+    .building-light { fill: #546e7a; }
+    .window-lit { fill: #fff9c4; opacity: 0.9; }
+    .window-dark { fill: #1a237e; opacity: 0.7; }
+    .roof-detail { fill: #212121; }
+    .street-fill { fill: #424242; }
+    .sidewalk-fill { fill: #9e9e9e; }
+  </style>
+  <!-- Style block 2: Environmental styles -->
+  <style id="style-environment" type="text/css">
+    .cloud-fill { fill: #ffffff; opacity: 0.85; }
+    .cloud-far { fill: #eceff1; opacity: 0.5; }
+    .water-fill { fill: #1565c0; }
+    .tree-trunk { fill: #5d4037; }
+    .tree-canopy { fill: #388e3c; }
+    .bird-stroke { stroke: #212121; stroke-width: 1.5; fill: none; }
+  </style>
+  <!-- Style block 3: Vehicle and lamp styles -->
+  <style id="style-vehicles" type="text/css">
+    .car-body-red { fill: #c62828; }
+    .car-body-blue { fill: #1565c0; }
+    .car-body-white { fill: #eceff1; }
+    .car-body-yellow { fill: #f9a825; }
+    .car-body-green { fill: #2e7d32; }
+    .car-body-black { fill: #212121; }
+    .car-wheel { fill: #212121; }
+    .car-windshield { fill: #90caf9; opacity: 0.7; }
+    .lamp-pole { stroke: #616161; stroke-width: 3; }
+    .lamp-head { fill: #fdd835; }
+  </style>
+  <!-- ============================================ -->
+  <!-- DEFINITIONS BLOCK       -->
+  <!-- ============================================ -->
+  <defs id="defs-main">
+    <!-- Sky gradient (used) -->
+    <linearGradient id="sky-gradient" x1="0" y1="0" x2="0" y2="1">
+      <stop id="sky-s1" offset="0%" stop-color="#0d47a1"/>
+      <stop id="sky-s2" offset="40%" stop-color="#1976d2"/>
+      <stop id="sky-s3" offset="70%" stop-color="#42a5f5"/>
+      <stop id="sky-s4" offset="100%" stop-color="#90caf9"/>
+    </linearGradient>
+    <!-- Duplicate gradient 1 (bloat) -->
+    <linearGradient id="sky-gradient-copy-1" x1="0" y1="0" x2="0" y2="1">
+      <stop id="skc1-s1" offset="0%" stop-color="#0d47a1"/>
+      <stop id="skc1-s2" offset="40%" stop-color="#1976d2"/>
+      <stop id="skc1-s3" offset="70%" stop-color="#42a5f5"/>
+      <stop id="skc1-s4" offset="100%" stop-color="#90caf9"/>
+    </linearGradient>
+    <!-- Duplicate gradient 2 (bloat) -->
+    <linearGradient id="sky-gradient-copy-2" x1="0" y1="0" x2="0" y2="1">
+      <stop id="skc2-s1" offset="0%" stop-color="#0d47a1"/>
+      <stop id="skc2-s2" offset="40%" stop-color="#1976d2"/>
+      <stop id="skc2-s3" offset="70%" stop-color="#42a5f5"/>
+      <stop id="skc2-s4" offset="100%" stop-color="#90caf9"/>
+    </linearGradient>
+    <!-- Sunset gradient (unused bloat) -->
+    <linearGradient id="sunset-gradient-unused" x1="0" y1="0" x2="0" y2="1">
+      <stop id="sun-s1" offset="0%" stop-color="#e65100"/>
+      <stop id="sun-s2" offset="50%" stop-color="#ff6f00"/>
+      <stop id="sun-s3" offset="100%" stop-color="#ffca28"/>
+    </linearGradient>
+    <!-- Night gradient (unused bloat) -->
+    <linearGradient id="night-gradient-unused" x1="0" y1="0" x2="0" y2="1">
+      <stop id="ngt-s1" offset="0%" stop-color="#000051"/>
+      <stop id="ngt-s2" offset="100%" stop-color="#1a237e"/>
+    </linearGradient>
+    <!-- Building gradient (used) -->
+    <linearGradient id="building-gradient" x1="0" y1="0" x2="0" y2="1">
+      <stop id="bg-s1" offset="0%" stop-color="#546e7a"/>
+      <stop id="bg-s2" offset="100%" stop-color="#263238"/>
+    </linearGradient>
+    <!-- Duplicate building gradient (bloat) -->
+    <linearGradient id="building-gradient-dup" x1="0" y1="0" x2="0" y2="1">
+      <stop id="bgd-s1" offset="0%" stop-color="#546e7a"/>
+      <stop id="bgd-s2" offset="100%" stop-color="#263238"/>
+    </linearGradient>
+    <!-- Radial gradients for lamp glow -->
+    <radialGradient id="lamp-glow-1" cx="50%" cy="50%" r="50%">
+      <stop id="gl1-s1" offset="0%" stop-color="#fff9c4" stop-opacity="0.8"/>
+      <stop id="gl1-s2" offset="60%" stop-color="#fff176" stop-opacity="0.3"/>
+      <stop id="gl1-s3" offset="100%" stop-color="#fff176" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="lamp-glow-2" cx="50%" cy="50%" r="50%">
+      <stop id="gl2-s1" offset="0%" stop-color="#fff9c4" stop-opacity="0.8"/>
+      <stop id="gl2-s2" offset="60%" stop-color="#fff176" stop-opacity="0.3"/>
+      <stop id="gl2-s3" offset="100%" stop-color="#fff176" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="lamp-glow-3" cx="50%" cy="50%" r="50%">
+      <stop id="gl3-s1" offset="0%" stop-color="#fff9c4" stop-opacity="0.8"/>
+      <stop id="gl3-s2" offset="60%" stop-color="#fff176" stop-opacity="0.3"/>
+      <stop id="gl3-s3" offset="100%" stop-color="#fff176" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Gaussian blur for far clouds -->
+    <filter id="cloud-blur-far" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur id="blur-far" in="SourceGraphic" stdDeviation="3"/>
+    </filter>
+    <!-- Unused blur (bloat) -->
+    <filter id="blur-unused" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur id="blur-un" in="SourceGraphic" stdDeviation="5"/>
+    </filter>
+    <!-- Wave pattern for water -->
+    <pattern id="wave-pattern" x="0" y="0" width="60" height="12" patternUnits="userSpaceOnUse">
+      <path id="wp1" d="M0,6 Q15,0 30,6 Q45,12 60,6" fill="none" stroke="#1976d2" stroke-width="1.5" opacity="0.4"/>
+      <path id="wp2" d="M0,10 Q15,4 30,10 Q45,16 60,10" fill="none" stroke="#0d47a1" stroke-width="1" opacity="0.3"/>
+    </pattern>
+    <!-- Unused patterns (bloat) -->
+    <pattern id="dots-unused" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+      <circle id="dot-un" cx="5" cy="5" r="2" fill="#ccc"/>
+    </pattern>
+    <pattern id="stripes-unused" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
+      <line id="str-un" x1="0" y1="0" x2="8" y2="8" stroke="#999" stroke-width="1"/>
+    </pattern>
+    <!-- Mask for water reflection -->
+    <mask id="water-reflection-mask">
+      <rect id="mr" x="0" y="480" width="1200" height="120" fill="white"/>
+      <linearGradient id="mask-grad" x1="0" y1="0" x2="0" y2="1">
+        <stop id="mg-s1" offset="0%" stop-color="white"/>
+        <stop id="mg-s2" offset="100%" stop-color="black"/>
+      </linearGradient>
+      <rect id="mf" x="0" y="480" width="1200" height="120" fill="url(#mask-grad)"/>
+    </mask>
+    <!-- Unused clipPaths (bloat) -->
+    <clipPath id="clip-unused-1"><rect id="cu1" x="0" y="0" width="600" height="300"/></clipPath>
+    <clipPath id="clip-unused-2"><circle id="cu2" cx="600" cy="300" r="250"/></clipPath>
+  </defs>
+  <!-- SCENE ROOT -->
+  <g id="scene" style="display:inline" transform="matrix(1,0,0,1,0,0)">
+    <!-- SKY -->
+    <g id="l-sky">
+      <rect id="sky-bg" x="0" y="0" width="1200" height="600" fill="url(#sky-gradient)"/>
+      <g id="sky-e1" style="display:inline"></g>
+      <g id="sky-e2" style="display:inline"></g>
+    </g>
+    <!-- FAR CLOUDS (blurred) -->
+    <g id="l-cf" filter="url(#cloud-blur-far)">
+      <g id="cf1" class="cloud-far" transform="matrix(1,0,0,1,80,40)">
+        <ellipse id="cf1-e1" cx="0" cy="0" rx="50" ry="20"/><ellipse id="cf1-e2" cx="35" cy="-8" rx="35" ry="18"/><ellipse id="cf1-e3" cx="-25" cy="-5" rx="30" ry="15"/>
+        <animate attributeName="transform" type="translate" from="80,40" to="1280,40" dur="120s" repeatCount="indefinite"/>
+      </g>
+      <g id="cf2" class="cloud-far" transform="matrix(1,0,0,1,400,60)">
+        <ellipse id="cf2-e1" cx="0" cy="0" rx="45" ry="18"/><ellipse id="cf2-e2" cx="30" cy="-6" rx="30" ry="14"/><ellipse id="cf2-e3" cx="-20" cy="-4" rx="28" ry="12"/>
+        <animate attributeName="transform" type="translate" from="400,60" to="1600,60" dur="150s" repeatCount="indefinite"/>
+      </g>
+      <g id="cf3" class="cloud-far" transform="matrix(1,0,0,1,750,35)">
+        <ellipse id="cf3-e1" cx="0" cy="0" rx="55" ry="22"/><ellipse id="cf3-e2" cx="40" cy="-10" rx="40" ry="20"/><ellipse id="cf3-e3" cx="-30" cy="-6" rx="35" ry="16"/>
+        <animate attributeName="transform" type="translate" from="750,35" to="1950,35" dur="130s" repeatCount="indefinite"/>
+      </g>
+      <g id="cf-e" style="display:inline"></g>
+    </g>
+    <!-- MIDDLE CLOUDS -->
+    <g id="l-cm">
+      <g id="cm1" class="cloud-fill" transform="matrix(1,0,0,1,150,90)">
+        <ellipse id="cm1-e1" cx="0" cy="0" rx="60" ry="25"/><ellipse id="cm1-e2" cx="45" cy="-10" rx="40" ry="22"/><ellipse id="cm1-e3" cx="-35" cy="-7" rx="38" ry="18"/><ellipse id="cm1-e4" cx="10" cy="-18" rx="30" ry="15"/>
+        <animate attributeName="transform" type="translate" from="150,90" to="1350,90" dur="90s" repeatCount="indefinite"/>
+      </g>
+      <g id="cm2" class="cloud-fill" transform="matrix(1,0,0,1,550,110)">
+        <ellipse id="cm2-e1" cx="0" cy="0" rx="55" ry="22"/><ellipse id="cm2-e2" cx="40" cy="-8" rx="38" ry="20"/><ellipse id="cm2-e3" cx="-30" cy="-5" rx="32" ry="16"/>
+        <animate attributeName="transform" type="translate" from="550,110" to="1750,110" dur="100s" repeatCount="indefinite"/>
+      </g>
+      <g id="cm3" class="cloud-fill" transform="matrix(1,0,0,1,950,80)">
+        <ellipse id="cm3-e1" cx="0" cy="0" rx="50" ry="20"/><ellipse id="cm3-e2" cx="35" cy="-9" rx="35" ry="18"/><ellipse id="cm3-e3" cx="-28" cy="-6" rx="30" ry="14"/>
+        <animate attributeName="transform" type="translate" from="950,80" to="2150,80" dur="110s" repeatCount="indefinite"/>
+      </g>
+    </g>
+    <!-- NEAR CLOUDS -->
+    <g id="l-cn">
+      <g id="cn1" class="cloud-fill" transform="matrix(1,0,0,1,300,140)">
+        <ellipse id="cn1-e1" cx="0" cy="0" rx="70" ry="28"/><ellipse id="cn1-e2" cx="50" cy="-12" rx="45" ry="24"/><ellipse id="cn1-e3" cx="-40" cy="-8" rx="42" ry="20"/>
+        <animate attributeName="transform" type="translate" from="300,140" to="1500,140" dur="70s" repeatCount="indefinite"/>
+      </g>
+      <g id="cn2" class="cloud-fill" transform="matrix(1,0,0,1,800,130)">
+        <ellipse id="cn2-e1" cx="0" cy="0" rx="65" ry="26"/><ellipse id="cn2-e2" cx="48" cy="-11" rx="42" ry="22"/><ellipse id="cn2-e3" cx="-38" cy="-7" rx="40" ry="19"/>
+        <animate attributeName="transform" type="translate" from="800,130" to="2000,130" dur="80s" repeatCount="indefinite"/>
+      </g>
+      <g id="cn-e1" style="display:inline"></g><g id="cn-e2" style="display:inline"></g>
+    </g>
+    <!-- BIRDS -->
+    <g id="l-birds">
+      <path id="bird-1" class="bird-stroke" d="M200,100 Q205,92 210,100 Q215,92 220,100"/>
+      <path id="bird-2" class="bird-stroke" d="M350,80 Q355,72 360,80 Q365,72 370,80"/>
+      <path id="bird-3" class="bird-stroke" d="M500,120 Q505,112 510,120 Q515,112 520,120"/>
+      <path id="bird-4" class="bird-stroke" d="M680,70 Q685,62 690,70 Q695,62 700,70"/>
+      <path id="bird-5" class="bird-stroke" d="M850,95 Q855,87 860,95 Q865,87 870,95"/>
+      <path id="bird-6" class="bird-stroke" d="M1020,105 Q1025,97 1030,105 Q1035,97 1040,105"/>
+      <path id="bird-7" class="bird-stroke" d="M440,65 Q445,57 450,65 Q455,57 460,65"/>
+      <g id="birds-e" style="display:inline"></g>
+    </g>
+    <!-- BUILDINGS -->
+    <g id="l-bldg" transform="matrix(1,0,0,1,0,0)">
+      <g id="b1" transform="matrix(1,0,0,1,20,0)">
+        <g id="b1-s">
+          <g id="b1-bd">
+      <rect id="b1-o" x="0" y="180" width="70" height="300" class="building-dark"/>
+      <line id="b1-ant" x1="35" y1="180" x2="35" y2="150" stroke="#424242" stroke-width="2"/>
+      <circle id="b1-bcn" cx="35" cy="148" r="3" fill="#c62828">
+       <animate id="b1-blk" attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/>
+      </circle>
+      <g id="b1-f1">
+       <g id="b1-f1-w">
+        <rect id="b1-w1" x="7" y="195" width="10" height="14" class="window-dark"/>
+        <rect id="b1-w2" x="21" y="195" width="10" height="14" class="window-lit"/>
+        <rect id="b1-w3" x="35" y="195" width="10" height="14" class="window-dark"/>
+        <rect id="b1-w4" x="49" y="195" width="10" height="14" class="window-lit"/>
+       </g>
+      </g>
+      <g id="b1-f2">
+       <g id="b1-f2-w">
+        <rect id="b1-w5" x="7" y="223" width="10" height="14" class="window-lit"/>
+        <rect id="b1-w6" x="21" y="223" width="10" height="14" class="window-dark"/>
+        <rect id="b1-w7" x="35" y="223" width="10" height="14" class="window-lit"/>
+        <rect id="b1-w8" x="49" y="223" width="10" height="14" class="window-dark"/>
+       </g>
+      </g>
+      <g id="b1-f3">
+       <g id="b1-f3-w">
+        <rect id="b1-w9" x="7" y="251" width="10" height="14" class="window-dark"/>
+        <rect id="b1-w10" x="21" y="251" width="10" height="14" class="window-lit"/>
+        <rect id="b1-w11" x="35" y="251" width="10" height="14" class="window-dark"/>
+        <rect id="b1-w12" x="49" y="251" width="10" height="14" class="window-lit"/>
+       </g>
+      </g>
+      <g id="b1-e" style="display:inline"></g>
+          </g>
+        </g>
+      </g>
+      <g id="b2" transform="matrix(1,0,0,1,100,0)">
+        <g id="b2-s">
+          <g id="b2-bd">
+      <rect id="b2-o" x="0" y="310" width="90" height="170" class="building-medium"/>
+      <path id="b2-rf" d="M0,310 L45,285 L90,310 Z" class="roof-detail"/>
+      <g id="b2-f1">
+       <g id="b2-f1-w">
+        <rect id="b2-w1" x="7" y="325" width="12" height="14" class="window-lit"/>
+        <rect id="b2-w2" x="26" y="325" width="12" height="14" class="window-dark"/>
+        <rect id="b2-w3" x="45" y="325" width="12" height="14" class="window-lit"/>
+        <rect id="b2-w4" x="64" y="325" width="12" height="14" class="window-dark"/>
+       </g>
+      </g>
+      <g id="b2-f2">
+       <g id="b2-f2-w">
+        <rect id="b2-w5" x="7" y="353" width="12" height="14" class="window-dark"/>
+        <rect id="b2-w6" x="26" y="353" width="12" height="14" class="window-lit"/>
+        <rect id="b2-w7" x="45" y="353" width="12" height="14" class="window-dark"/>
+        <rect id="b2-w8" x="64" y="353" width="12" height="14" class="window-lit"/>
+       </g>
+      </g>
+      <g id="b2-e" style="display:inline"></g>
+          </g>
+        </g>
+      </g>
+      <g id="b3" transform="matrix(1,0,0,1,200,0)">
+        <g id="b3-s">
+          <g id="b3-bd">
+      <rect id="b3-o" x="0" y="160" width="55" height="320" class="building-light"/>
+      <line id="b3-ant" x1="27" y1="160" x2="27" y2="130" stroke="#424242" stroke-width="2"/>
+      <g id="b3-f1">
+       <g id="b3-f1-w">
+        <rect id="b3-w1" x="7" y="175" width="9" height="14" class="window-dark"/>
+        <rect id="b3-w2" x="20" y="175" width="9" height="14" class="window-lit"/>
+        <rect id="b3-w3" x="33" y="175" width="9" height="14" class="window-dark"/>
+       </g>
+      </g>
+      <g id="b3-f2">
+       <g id="b3-f2-w">
+        <rect id="b3-w4" x="7" y="203" width="9" height="14" class="window-lit"/>
+        <rect id="b3-w5" x="20" y="203" width="9" height="14" class="window-dark"/>
+        <rect id="b3-w6" x="33" y="203" width="9" height="14" class="window-lit"/>
+       </g>
+      </g>
+      <g id="b3-f3">
+       <g id="b3-f3-w">
+        <rect id="b3-w7" x="7" y="231" width="9" height="14" class="window-dark"/>
+        <rect id="b3-w8" x="20" y="231" width="9" height="14" class="window-lit"/>
+        <rect id="b3-w9" x="33" y="231" width="9" height="14" class="window-dark"/>
+       </g>
+      </g>
+      <g id="b3-e" style="display:inline"></g>
+          </g>
+        </g>
+      </g>
+      <g id="b4" transform="matrix(1,0,0,1,265,0)">
+        <g id="b4-s">
+          <g id="b4-bd">
+      <rect id="b4-o" x="0" y="250" width="80" height="230" fill="url(#building-gradient)"/>
+      <path id="b4-rf" d="M0,250 L40,225 L80,250 Z" class="roof-detail"/>
+      <g id="b4-f1">
+       <g id="b4-f1-w">
+        <rect id="b4-w1" x="7" y="265" width="12" height="14" class="window-lit"/>
+        <rect id="b4-w2" x="23" y="265" width="12" height="14" class="window-dark"/>
+        <rect id="b4-w3" x="39" y="265" width="12" height="14" class="window-lit"/>
+        <rect id="b4-w4" x="55" y="265" width="12" height="14" class="window-dark"/>
+       </g>
+      </g>
+      <g id="b4-f2">
+       <g id="b4-f2-w">
+        <rect id="b4-w5" x="7" y="293" width="12" height="14" class="window-dark"/>
+        <rect id="b4-w6" x="23" y="293" width="12" height="14" class="window-lit"/>
+        <rect id="b4-w7" x="39" y="293" width="12" height="14" class="window-dark"/>
+        <rect id="b4-w8" x="55" y="293" width="12" height="14" class="window-lit"/>
+       </g>
+      </g>
+      <g id="b4-e" style="display:inline"></g>
+          </g>
+        </g>
+      </g>
+      <g id="b5" transform="matrix(1,0,0,1,355,0)">
+        <g id="b5-s">
+          <g id="b5-bd">
+      <rect id="b5-o" x="0" y="280" width="100" height="200" class="building-fill"/>
+      <line id="b5-ant" x1="50" y1="280" x2="50" y2="250" stroke="#424242" stroke-width="2"/>
+      <g id="b5-f1">
+       <g id="b5-f1-w">
+        <rect id="b5-w1" x="7" y="295" width="12" height="14" class="window-dark"/>
+        <rect id="b5-w2" x="24" y="295" width="12" height="14" class="window-lit"/>
+        <rect id="b5-w3" x="41" y="295" width="12" height="14" class="window-dark"/>
+        <rect id="b5-w4" x="58" y="295" width="12" height="14" class="window-lit"/>
+        <rect id="b5-w5" x="75" y="295" width="12" height="14" class="window-dark"/>
+       </g>
+      </g>
+      <g id="b5-f2">
+       <g id="b5-f2-w">
+        <rect id="b5-w6" x="7" y="323" width="12" height="14" class="window-lit"/>
+        <rect id="b5-w7" x="24" y="323" width="12" height="14" class="window-dark"/>
+        <rect id="b5-w8" x="41" y="323" width="12" height="14" class="window-lit"/>
+        <rect id="b5-w9" x="58" y="323" width="12" height="14" class="window-dark"/>
+        <rect id="b5-w10" x="75" y="323" width="12" height="14" class="window-lit"/>
+       </g>
+      </g>
+      <g id="b5-e" style="display:inline"></g>
+          </g>
+        </g>
+      </g>
+      <g id="b6" transform="matrix(1,0,0,1,465,0)">
+        <g id="b6-s">
+          <g id="b6-bd">
+      <rect id="b6-o" x="0" y="200" width="65" height="280" class="building-dark"/>
+      <path id="b6-rf" d="M0,200 L32,175 L65,200 Z" class="roof-detail"/>
+      <g id="b6-f1">
+       <g id="b6-f1-w">
+        <rect id="b6-w1" x="7" y="215" width="12" height="14" class="window-lit"/>
+        <rect id="b6-w2" x="24" y="215" width="12" height="14" class="window-dark"/>
+        <rect id="b6-w3" x="41" y="215" width="12" height="14" class="window-lit"/>
+       </g>
+      </g>
+      <g id="b6-f2">
+       <g id="b6-f2-w">
+        <rect id="b6-w4" x="7" y="243" width="12" height="14" class="window-dark"/>
+        <rect id="b6-w5" x="24" y="243" width="12" height="14" class="window-lit"/>
+        <rect id="b6-w6" x="41" y="243" width="12" height="14" class="window-dark"/>
+       </g>
+      </g>
+      <g id="b6-f3">
+       <g id="b6-f3-w">
+        <rect id="b6-w7" x="7" y="271" width="12" height="14" class="window-lit"/>
+        <rect id="b6-w8" x="24" y="271" width="12" height="14" class="window-dark"/>
+        <rect id="b6-w9" x="41" y="271" width="12" height="14" class="window-lit"/>
+       </g>
+      </g>
+      <g id="b6-e" style="display:inline"></g>
+          </g>
+        </g>
+      </g>
+      <g id="b7" transform="matrix(1,0,0,1,540,0)">
+        <g id="b7-s">
+          <g id="b7-bd">
+      <rect id="b7-o" x="0" y="320" width="75" height="160" class="building-medium"/>
+      <rect id="b7-rb" x="25" y="308" width="25" height="12" class="roof-detail"/>
+      <g id="b7-f1">
+       <g id="b7-f1-w">
+        <rect id="b7-w1" x="7" y="335" width="11" height="14" class="window-dark"/>
+        <rect id="b7-w2" x="22" y="335" width="11" height="14" class="window-lit"/>
+        <rect id="b7-w3" x="37" y="335" width="11" height="14" class="window-dark"/>
+        <rect id="b7-w4" x="52" y="335" width="11" height="14" class="window-lit"/>
+       </g>
+      </g>
+      <g id="b7-f2">
+       <g id="b7-f2-w">
+        <rect id="b7-w5" x="7" y="363" width="11" height="14" class="window-lit"/>
+        <rect id="b7-w6" x="22" y="363" width="11" height="14" class="window-dark"/>
+        <rect id="b7-w7" x="37" y="363" width="11" height="14" class="window-lit"/>
+        <rect id="b7-w8" x="52" y="363" width="11" height="14" class="window-dark"/>
+       </g>
+      </g>
+      <g id="b7-e" style="display:inline"></g>
+          </g>
+        </g>
+      </g>
+      <g id="b8" transform="matrix(1,0,0,1,625,0)">
+        <g id="b8-s">
+          <g id="b8-bd">
+      <rect id="b8-o" x="0" y="120" width="60" height="360" class="building-light"/>
+      <line id="b8-ant" x1="30" y1="120" x2="30" y2="90" stroke="#424242" stroke-width="2"/>
+      <circle id="b8-bcn" cx="30" cy="88" r="3" fill="#c62828">
+       <animate id="b8-blk" attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/>
+      </circle>
+      <g id="b8-f1">
+       <g id="b8-f1-w">
+        <rect id="b8-w1" x="7" y="135" width="11" height="14" class="window-lit"/>
+        <rect id="b8-w2" x="22" y="135" width="11" height="14" class="window-dark"/>
+        <rect id="b8-w3" x="37" y="135" width="11" height="14" class="window-lit"/>
+       </g>
+      </g>
+      <g id="b8-f2">
+       <g id="b8-f2-w">
+        <rect id="b8-w4" x="7" y="163" width="11" height="14" class="window-dark"/>
+        <rect id="b8-w5" x="22" y="163" width="11" height="14" class="window-lit"/>
+        <rect id="b8-w6" x="37" y="163" width="11" height="14" class="window-dark"/>
+       </g>
+      </g>
+      <g id="b8-f3">
+       <g id="b8-f3-w">
+        <rect id="b8-w7" x="7" y="191" width="11" height="14" class="window-lit"/>
+        <rect id="b8-w8" x="22" y="191" width="11" height="14" class="window-dark"/>
+        <rect id="b8-w9" x="37" y="191" width="11" height="14" class="window-lit"/>
+       </g>
+      </g>
+      <g id="b8-e" style="display:inline"></g>
+          </g>
+        </g>
+      </g>
+      <g id="b9" transform="matrix(1,0,0,1,695,0)">
+        <g id="b9-s">
+          <g id="b9-bd">
+      <rect id="b9-o" x="0" y="290" width="70" height="190" fill="url(#building-gradient)"/>
+      <path id="b9-rf" d="M0,290 L35,265 L70,290 Z" class="roof-detail"/>
+      <g id="b9-f1">
+       <g id="b9-f1-w">
+        <rect id="b9-w1" x="7" y="305" width="10" height="14" class="window-dark"/>
+        <rect id="b9-w2" x="21" y="305" width="10" height="14" class="window-lit"/>
+        <rect id="b9-w3" x="35" y="305" width="10" height="14" class="window-dark"/>
+        <rect id="b9-w4" x="49" y="305" width="10" height="14" class="window-lit"/>
+       </g>
+      </g>
+      <g id="b9-f2">
+       <g id="b9-f2-w">
+        <rect id="b9-w5" x="7" y="333" width="10" height="14" class="window-lit"/>
+        <rect id="b9-w6" x="21" y="333" width="10" height="14" class="window-dark"/>
+        <rect id="b9-w7" x="35" y="333" width="10" height="14" class="window-lit"/>
+        <rect id="b9-w8" x="49" y="333" width="10" height="14" class="window-dark"/>
+       </g>
+      </g>
+      <g id="b9-e" style="display:inline"></g>
+          </g>
+        </g>
+      </g>
+      <g id="b10" transform="matrix(1,0,0,1,775,0)">
+        <g id="b10-s">
+          <g id="b10-bd">
+      <rect id="b10-o" x="0" y="230" width="60" height="250" class="building-fill"/>
+      <line id="b10-ant" x1="30" y1="230" x2="30" y2="200" stroke="#424242" stroke-width="2"/>
+      <g id="b10-f1">
+       <g id="b10-f1-w">
+        <rect id="b10-w1" x="7" y="245" width="11" height="14" class="window-lit"/>
+        <rect id="b10-w2" x="22" y="245" width="11" height="14" class="window-dark"/>
+        <rect id="b10-w3" x="37" y="245" width="11" height="14" class="window-lit"/>
+       </g>
+      </g>
+      <g id="b10-f2">
+       <g id="b10-f2-w">
+        <rect id="b10-w4" x="7" y="273" width="11" height="14" class="window-dark"/>
+        <rect id="b10-w5" x="22" y="273" width="11" height="14" class="window-lit"/>
+        <rect id="b10-w6" x="37" y="273" width="11" height="14" class="window-dark"/>
+       </g>
+      </g>
+      <g id="b10-f3">
+       <g id="b10-f3-w">
+        <rect id="b10-w7" x="7" y="301" width="11" height="14" class="window-lit"/>
+        <rect id="b10-w8" x="22" y="301" width="11" height="14" class="window-dark"/>
+        <rect id="b10-w9" x="37" y="301" width="11" height="14" class="window-lit"/>
+       </g>
+      </g>
+      <g id="b10-e" style="display:inline"></g>
+          </g>
+        </g>
+      </g>
+      <g id="b11" transform="matrix(1,0,0,1,845,0)">
+        <g id="b11-s">
+          <g id="b11-bd" style="display:inline;opacity:1">
+      <rect id="b11-o" x="0" y="340" width="85" height="140" class="building-dark"/>
+      <path id="b11-rf" d="M0,340 L42,315 L85,340 Z" class="roof-detail"/>
+      <g id="b11-f1">
+       <g id="b11-f1-w">
+        <rect id="b11-w1" x="7" y="355" width="12" height="14" class="window-dark"/>
+        <rect id="b11-w2" x="24" y="355" width="12" height="14" class="window-lit"/>
+        <rect id="b11-w3" x="41" y="355" width="12" height="14" class="window-dark"/>
+        <rect id="b11-w4" x="58" y="355" width="12" height="14" class="window-lit"/>
+       </g>
+      </g>
+      <g id="b11-f2" style="display:inline;opacity:1">
+       <g id="b11-f2-w">
+        <rect id="b11-w5" x="7" y="383" width="12" height="14" class="window-lit"/>
+        <rect id="b11-w6" x="24" y="383" width="12" height="14" class="window-dark"/>
+        <rect id="b11-w7" x="41" y="383" width="12" height="14" class="window-lit"/>
+        <rect id="b11-w8" x="58" y="383" width="12" height="14" class="window-dark"/>
+       </g>
+      </g>
+      <g id="b11-e" style="display:inline"></g>
+          </g>
+        </g>
+      </g>
+      <g id="b12" transform="matrix(1,0,0,1,940,0)">
+        <g id="b12-s" style="display:inline;opacity:1">
+          <g id="b12-bd">
+      <rect id="b12-o" x="0" y="190" width="55" height="290" class="building-medium"/>
+      <line id="b12-ant" x1="27" y1="190" x2="27" y2="160" stroke="#424242" stroke-width="2"/>
+      <g id="b12-f1">
+       <g id="b12-f1-w" style="display:inline;opacity:1">
+        <rect id="b12-w1" x="7" y="205" width="9" height="14" class="window-lit"/>
+        <rect id="b12-w2" x="20" y="205" width="9" height="14" class="window-dark"/>
+        <rect id="b12-w3" x="33" y="205" width="9" height="14" class="window-lit"/>
+       </g>
+      </g>
+      <g id="b12-f2">
+       <g id="b12-f2-w">
+        <rect id="b12-w4" x="7" y="233" width="9" height="14" class="window-dark"/>
+        <rect id="b12-w5" x="20" y="233" width="9" height="14" class="window-lit"/>
+        <rect id="b12-w6" x="33" y="233" width="9" height="14" class="window-dark"/>
+       </g>
+      </g>
+      <g id="b12-f3" style="display:inline;opacity:1">
+       <g id="b12-f3-w">
+        <rect id="b12-w7" x="7" y="261" width="9" height="14" class="window-lit"/>
+        <rect id="b12-w8" x="20" y="261" width="9" height="14" class="window-dark"/>
+        <rect id="b12-w9" x="33" y="261" width="9" height="14" class="window-lit"/>
+       </g>
+      </g>
+      <g id="b12-e" style="display:inline"></g>
+          </g>
+        </g>
+      </g>
+      <g id="b13" transform="matrix(1,0,0,1,1005,0)">
+        <g id="b13-s" style="display:inline;opacity:1">
+          <g id="b13-bd">
+      <rect id="b13-o" x="0" y="300" width="75" height="180" class="building-light"/>
+      <rect id="b13-rb" x="25" y="288" width="25" height="12" class="roof-detail"/>
+      <g id="b13-f1">
+       <g id="b13-f1-w" style="display:inline;opacity:1">
+        <rect id="b13-w1" x="7" y="315" width="11" height="14" class="window-dark"/>
+        <rect id="b13-w2" x="22" y="315" width="11" height="14" class="window-lit"/>
+        <rect id="b13-w3" x="37" y="315" width="11" height="14" class="window-dark"/>
+        <rect id="b13-w4" x="52" y="315" width="11" height="14" class="window-lit"/>
+       </g>
+      </g>
+      <g id="b13-f2">
+       <g id="b13-f2-w">
+        <rect id="b13-w5" x="7" y="343" width="11" height="14" class="window-lit"/>
+        <rect id="b13-w6" x="22" y="343" width="11" height="14" class="window-dark"/>
+        <rect id="b13-w7" x="37" y="343" width="11" height="14" class="window-lit"/>
+        <rect id="b13-w8" x="52" y="343" width="11" height="14" class="window-dark"/>
+       </g>
+      </g>
+      <g id="b13-e" style="display:inline"></g>
+          </g>
+        </g>
+      </g>
+      <g id="b14" style="display:inline;opacity:1" transform="matrix(1,0,0,1,1090,0)">
+        <g id="b14-s">
+          <g id="b14-bd">
+      <rect id="b14-o" x="0" y="260" width="50" height="220" fill="url(#building-gradient)"/>
+      <path id="b14-rf" d="M0,260 L25,235 L50,260 Z" class="roof-detail"/>
+      <g id="b14-f1" style="display:inline;opacity:1">
+       <g id="b14-f1-w">
+        <rect id="b14-w1" x="7" y="275" width="9" height="14" class="window-lit"/>
+        <rect id="b14-w2" x="19" y="275" width="9" height="14" class="window-dark"/>
+        <rect id="b14-w3" x="31" y="275" width="9" height="14" class="window-lit"/>
+       </g>
+      </g>
+      <g id="b14-f2">
+       <g id="b14-f2-w" style="display:inline;opacity:1">
+        <rect id="b14-w4" x="7" y="303" width="9" height="14" class="window-dark"/>
+        <rect id="b14-w5" x="19" y="303" width="9" height="14" class="window-lit"/>
+        <rect id="b14-w6" x="31" y="303" width="9" height="14" class="window-dark"/>
+       </g>
+      </g>
+      <g id="b14-e" style="display:inline"></g>
+          </g>
+        </g>
+      </g>
+      <g id="b15" transform="matrix(1,0,0,1,1150,0)">
+        <g id="b15-s">
+          <g id="b15-bd" style="display:inline;opacity:1">
+      <rect id="b15-o" x="0" y="330" width="50" height="150" class="building-fill"/>
+      <line id="b15-ant" x1="25" y1="330" x2="25" y2="300" stroke="#424242" stroke-width="2"/>
+      <g id="b15-f1">
+       <g id="b15-f1-w">
+        <rect id="b15-w1" x="7" y="345" width="9" height="14" class="window-dark"/>
+        <rect id="b15-w2" x="19" y="345" width="9" height="14" class="window-lit"/>
+        <rect id="b15-w3" x="31" y="345" width="9" height="14" class="window-dark"/>
+       </g>
+      </g>
+      <g id="b15-f2" style="display:inline;opacity:1">
+       <g id="b15-f2-w">
+        <rect id="b15-w4" x="7" y="373" width="9" height="14" class="window-lit"/>
+        <rect id="b15-w5" x="19" y="373" width="9" height="14" class="window-dark"/>
+        <rect id="b15-w6" x="31" y="373" width="9" height="14" class="window-lit"/>
+       </g>
+      </g>
+      <g id="b15-e" style="display:inline"></g>
+          </g>
+        </g>
+      </g>
+      <g id="bldg-e1" style="display:inline"></g><g id="bldg-e2" style="display:inline"></g><g id="bldg-e3" style="display:inline"></g>
+    </g>
+    <!-- BILLBOARD -->
+    <g id="l-bill" transform="matrix(1,0,0,1,0,0)">
+      <g id="bill-s" style="display:inline;opacity:1" transform="matrix(1,0,0,1,500,350)">
+        <line id="bill-p1" x1="5" y1="0" x2="5" y2="130" stroke="#616161" stroke-width="3"/>
+        <line id="bill-p2" x1="55" y1="0" x2="55" y2="130" stroke="#616161" stroke-width="3"/>
+        <rect id="bill-fr" x="-5" y="-5" width="70" height="35" fill="#424242"/>
+        <rect id="bill-bg" x="0" y="0" width="60" height="25" fill="#fff"/>
+        <image id="bill-img" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" x="10" y="2" width="40" height="20"/>
+        <g id="bill-e" style="display:inline"></g>
+      </g>
+    </g>
+    <!-- STREET -->
+    <g id="l-street" transform="matrix(1,0,0,1,0,0)">
+      <rect id="sidewalk" x="0" y="470" width="1200" height="10" class="sidewalk-fill"/>
+      <rect id="street" x="0" y="480" width="1200" height="30" class="street-fill"/>
+      <line id="rm-1" x1="50" y1="495" x2="100" y2="495" stroke="#fdd835" stroke-width="2" stroke-dasharray="5,10"/>
+      <line id="rm-2" x1="150" y1="495" x2="200" y2="495" stroke="#fdd835" stroke-width="2" stroke-dasharray="5,10"/>
+      <line id="rm-3" x1="250" y1="495" x2="300" y2="495" stroke="#fdd835" stroke-width="2" stroke-dasharray="5,10"/>
+      <line id="rm-4" x1="350" y1="495" x2="400" y2="495" stroke="#fdd835" stroke-width="2" stroke-dasharray="5,10"/>
+      <line id="rm-5" x1="450" y1="495" x2="500" y2="495" stroke="#fdd835" stroke-width="2" stroke-dasharray="5,10"/>
+      <line id="rm-6" x1="550" y1="495" x2="600" y2="495" stroke="#fdd835" stroke-width="2" stroke-dasharray="5,10"/>
+      <line id="rm-7" x1="650" y1="495" x2="700" y2="495" stroke="#fdd835" stroke-width="2" stroke-dasharray="5,10"/>
+      <line id="rm-8" x1="750" y1="495" x2="800" y2="495" stroke="#fdd835" stroke-width="2" stroke-dasharray="5,10"/>
+      <line id="rm-9" x1="850" y1="495" x2="900" y2="495" stroke="#fdd835" stroke-width="2" stroke-dasharray="5,10"/>
+      <line id="rm-10" x1="950" y1="495" x2="1000" y2="495" stroke="#fdd835" stroke-width="2" stroke-dasharray="5,10"/>
+      <line id="rm-11" x1="1050" y1="495" x2="1100" y2="495" stroke="#fdd835" stroke-width="2" stroke-dasharray="5,10"/>
+      <line id="rm-12" x1="1150" y1="495" x2="1200" y2="495" stroke="#fdd835" stroke-width="2" stroke-dasharray="5,10"/>
+      <g id="st-e1" style="display:inline"></g><g id="st-e2" style="display:inline"></g>
+    </g>
+    <!-- CARS -->
+    <g id="l-cars" transform="matrix(1,0,0,1,0,0)">
+      <g id="car-1" style="display:inline;opacity:1" transform="matrix(1,0,0,1,80,485)">
+        <rect id="car-1-b" x="0" y="0" width="40" height="14" rx="3" class="car-body-red"/>
+        <path id="car-1-ws" d="M8,0 L10,-6 L30,-6 L32,0" class="car-windshield"/>
+        <circle id="car-1-wh1" cx="10" cy="14" r="4" class="car-wheel"/>
+        <circle id="car-1-wh2" cx="30" cy="14" r="4" class="car-wheel"/>
+      </g>
+      <g id="car-2" transform="matrix(1,0,0,1,200,488)">
+        <rect id="car-2-b" x="0" y="0" width="38" height="13" rx="3" class="car-body-blue"/>
+        <path id="car-2-ws" d="M7,0 L9,-6 L28,-6 L30,0" class="car-windshield"/>
+        <circle id="car-2-wh1" cx="9" cy="13" r="4" class="car-wheel"/>
+        <circle id="car-2-wh2" cx="28" cy="13" r="4" class="car-wheel"/>
+      </g>
+      <g id="car-3" transform="matrix(1,0,0,1,380,486)">
+        <rect id="car-3-b" x="0" y="0" width="42" height="14" rx="3" class="car-body-white"/>
+        <path id="car-3-ws" d="M8,0 L10,-6 L31,-6 L33,0" class="car-windshield"/>
+        <circle id="car-3-wh1" cx="10" cy="14" r="4" class="car-wheel"/>
+        <circle id="car-3-wh2" cx="31" cy="14" r="4" class="car-wheel"/>
+      </g>
+      <g id="car-4" style="display:inline;opacity:1" transform="matrix(1,0,0,1,560,487)">
+        <rect id="car-4-b" x="0" y="0" width="36" height="13" rx="3" class="car-body-yellow"/>
+        <path id="car-4-ws" d="M7,0 L9,-6 L27,-6 L28,0" class="car-windshield"/>
+        <circle id="car-4-wh1" cx="9" cy="13" r="4" class="car-wheel"/>
+        <circle id="car-4-wh2" cx="27" cy="13" r="4" class="car-wheel"/>
+      </g>
+      <g id="car-5" transform="matrix(1,0,0,1,740,485)">
+        <rect id="car-5-b" x="0" y="0" width="40" height="14" rx="3" class="car-body-green"/>
+        <path id="car-5-ws" d="M8,0 L10,-6 L30,-6 L32,0" class="car-windshield"/>
+        <circle id="car-5-wh1" cx="10" cy="14" r="4" class="car-wheel"/>
+        <circle id="car-5-wh2" cx="30" cy="14" r="4" class="car-wheel"/>
+      </g>
+      <g id="car-6" transform="matrix(1,0,0,1,950,488)">
+        <rect id="car-6-b" x="0" y="0" width="44" height="14" rx="3" class="car-body-black"/>
+        <path id="car-6-ws" d="M8,0 L11,-6 L33,-6 L35,0" class="car-windshield"/>
+        <circle id="car-6-wh1" cx="11" cy="14" r="4" class="car-wheel"/>
+        <circle id="car-6-wh2" cx="33" cy="14" r="4" class="car-wheel"/>
+      </g>
+      <g id="car-7" style="display:inline;opacity:1" transform="matrix(1,0,0,1,1100,486)">
+        <rect id="car-7-b" x="0" y="0" width="40" height="14" rx="3" class="car-body-red"/>
+        <path id="car-7-ws" d="M8,0 L10,-6 L30,-6 L32,0" class="car-windshield"/>
+        <circle id="car-7-wh1" cx="10" cy="14" r="4" class="car-wheel"/>
+        <circle id="car-7-wh2" cx="30" cy="14" r="4" class="car-wheel"/>
+      </g>
+      <g id="cars-e" style="display:inline"></g>
+    </g>
+    <!-- STREET LAMPS (manually duplicated) -->
+    <g id="l-lamps" transform="matrix(1,0,0,1,0,0)">
+      <g id="lp-1" transform="matrix(1,0,0,1,60,0)">
+        <line id="lp-1-p" x1="0" y1="470" x2="0" y2="430" class="lamp-pole"/>
+        <circle id="lp-1-gl" cx="0" cy="425" r="15" fill="url(#lamp-glow-2)"/>
+        <circle id="lp-1-hd" cx="0" cy="428" r="4" class="lamp-head"/>
+      </g>
+      <g id="lp-2" style="display:inline;opacity:1" transform="matrix(1,0,0,1,160,0)">
+        <line id="lp-2-p" x1="0" y1="470" x2="0" y2="430" class="lamp-pole"/>
+        <circle id="lp-2-gl" cx="0" cy="425" r="15" fill="url(#lamp-glow-3)"/>
+        <circle id="lp-2-hd" cx="0" cy="428" r="4" class="lamp-head"/>
+      </g>
+      <g id="lp-3" transform="matrix(1,0,0,1,260,0)">
+        <line id="lp-3-p" x1="0" y1="470" x2="0" y2="430" class="lamp-pole"/>
+        <circle id="lp-3-gl" cx="0" cy="425" r="15" fill="url(#lamp-glow-1)"/>
+        <circle id="lp-3-hd" cx="0" cy="428" r="4" class="lamp-head"/>
+      </g>
+      <g id="lp-4" transform="matrix(1,0,0,1,360,0)">
+        <line id="lp-4-p" x1="0" y1="470" x2="0" y2="430" class="lamp-pole"/>
+        <circle id="lp-4-gl" cx="0" cy="425" r="15" fill="url(#lamp-glow-2)"/>
+        <circle id="lp-4-hd" cx="0" cy="428" r="4" class="lamp-head"/>
+      </g>
+      <g id="lp-5" style="display:inline;opacity:1" transform="matrix(1,0,0,1,460,0)">
+        <line id="lp-5-p" x1="0" y1="470" x2="0" y2="430" class="lamp-pole"/>
+        <circle id="lp-5-gl" cx="0" cy="425" r="15" fill="url(#lamp-glow-3)"/>
+        <circle id="lp-5-hd" cx="0" cy="428" r="4" class="lamp-head"/>
+      </g>
+      <g id="lp-6" transform="matrix(1,0,0,1,560,0)">
+        <line id="lp-6-p" x1="0" y1="470" x2="0" y2="430" class="lamp-pole"/>
+        <circle id="lp-6-gl" cx="0" cy="425" r="15" fill="url(#lamp-glow-1)"/>
+        <circle id="lp-6-hd" cx="0" cy="428" r="4" class="lamp-head"/>
+      </g>
+      <g id="lp-7" transform="matrix(1,0,0,1,660,0)">
+        <line id="lp-7-p" x1="0" y1="470" x2="0" y2="430" class="lamp-pole"/>
+        <circle id="lp-7-gl" cx="0" cy="425" r="15" fill="url(#lamp-glow-2)"/>
+        <circle id="lp-7-hd" cx="0" cy="428" r="4" class="lamp-head"/>
+      </g>
+      <g id="lp-8" style="display:inline;opacity:1" transform="matrix(1,0,0,1,760,0)">
+        <line id="lp-8-p" x1="0" y1="470" x2="0" y2="430" class="lamp-pole"/>
+        <circle id="lp-8-gl" cx="0" cy="425" r="15" fill="url(#lamp-glow-3)"/>
+        <circle id="lp-8-hd" cx="0" cy="428" r="4" class="lamp-head"/>
+      </g>
+      <g id="lp-9" transform="matrix(1,0,0,1,860,0)">
+        <line id="lp-9-p" x1="0" y1="470" x2="0" y2="430" class="lamp-pole"/>
+        <circle id="lp-9-gl" cx="0" cy="425" r="15" fill="url(#lamp-glow-1)"/>
+        <circle id="lp-9-hd" cx="0" cy="428" r="4" class="lamp-head"/>
+      </g>
+      <g id="lp-10" transform="matrix(1,0,0,1,960,0)">
+        <line id="lp-10-p" x1="0" y1="470" x2="0" y2="430" class="lamp-pole"/>
+        <circle id="lp-10-gl" cx="0" cy="425" r="15" fill="url(#lamp-glow-2)"/>
+        <circle id="lp-10-hd" cx="0" cy="428" r="4" class="lamp-head"/>
+      </g>
+      <g id="lp-11" style="display:inline;opacity:1" transform="matrix(1,0,0,1,1060,0)">
+        <line id="lp-11-p" x1="0" y1="470" x2="0" y2="430" class="lamp-pole"/>
+        <circle id="lp-11-gl" cx="0" cy="425" r="15" fill="url(#lamp-glow-3)"/>
+        <circle id="lp-11-hd" cx="0" cy="428" r="4" class="lamp-head"/>
+      </g>
+      <g id="lp-12" transform="matrix(1,0,0,1,1160,0)">
+        <line id="lp-12-p" x1="0" y1="470" x2="0" y2="430" class="lamp-pole"/>
+        <circle id="lp-12-gl" cx="0" cy="425" r="15" fill="url(#lamp-glow-1)"/>
+        <circle id="lp-12-hd" cx="0" cy="428" r="4" class="lamp-head"/>
+      </g>
+      <g id="lp-e1" style="display:inline"></g><g id="lp-e2" style="display:inline"></g>
+    </g>
+    <!-- WATER / RIVER -->
+    <g id="l-water" transform="matrix(1,0,0,1,0,0)">
+      <rect id="water-body" x="0" y="510" width="1200" height="90" class="water-fill"/>
+      <path id="water-edge" d="M0,510 C100,505 200,515 300,508 C400,502 500,516 600,510 C700,504 800,518 900,510 C1000,503 1100,514 1200,510 L1200,515 C1100,519 1000,508 900,515 C800,522 700,509 600,515 C500,521 400,507 300,513 C200,520 100,510 0,515 Z" fill="#1976d2"/>
+      <rect id="water-waves" x="0" y="510" width="1200" height="90" fill="url(#wave-pattern)"/>
+      <!-- Reflection with mask -->
+      <g id="water-refl" style="display:inline;opacity:1" mask="url(#water-reflection-mask)">
+        <rect id="refl-ov" x="0" y="510" width="1200" height="90" fill="#0d47a1" opacity="0.3"/>
+        <rect id="refl-1" x="20" y="512" width="70" height="40" fill="#1a237e" opacity="0.15"/>
+        <rect id="refl-2" x="200" y="512" width="55" height="35" fill="#1a237e" opacity="0.12"/>
+        <rect id="refl-3" x="355" y="512" width="100" height="30" fill="#1a237e" opacity="0.15"/>
+        <rect id="refl-4" x="625" y="512" width="60" height="45" fill="#1a237e" opacity="0.18"/>
+        <rect id="refl-5" x="940" y="512" width="55" height="38" fill="#1a237e" opacity="0.14"/>
+      </g>
+      <g id="w-e1" style="display:inline"></g><g id="w-e2" style="display:inline"></g>
+    </g>
+    <!-- ROTATING ELEMENT -->
+    <g id="l-anim">
+      <g id="sat-dish" transform="matrix(1,0,0,1,655,115)">
+        <path id="dish" d="M-8,0 Q0,-12 8,0" fill="#78909c" stroke="#546e7a" stroke-width="1"/>
+        <line id="dish-arm" x1="0" y1="0" x2="0" y2="8" stroke="#546e7a" stroke-width="1.5"/>
+        <animateTransform id="dish-rot" attributeName="transform" type="rotate" from="0" to="360" dur="20s" repeatCount="indefinite"/>
+      </g>
+    </g>
+    <!-- FOREGROUND -->
+    <g id="l-fg" style="display:inline;opacity:1" transform="matrix(1,0,0,1,0,0)">
+      <g id="tree-1" transform="matrix(1,0,0,1,120,435)">
+        <rect id="t1-tr" x="-3" y="0" width="6" height="35" class="tree-trunk"/><ellipse id="t1-cn" cx="0" cy="-5" rx="15" ry="18" class="tree-canopy"/>
+      </g>
+      <g id="tree-2" transform="matrix(1,0,0,1,320,438)">
+        <rect id="t2-tr" x="-3" y="0" width="6" height="32" class="tree-trunk"/><ellipse id="t2-cn" cx="0" cy="-5" rx="14" ry="16" class="tree-canopy"/>
+      </g>
+      <g id="tree-3" style="display:inline;opacity:1" transform="matrix(1,0,0,1,620,436)">
+        <rect id="t3-tr" x="-3" y="0" width="6" height="34" class="tree-trunk"/><ellipse id="t3-cn" cx="0" cy="-5" rx="16" ry="19" class="tree-canopy"/>
+      </g>
+      <g id="tree-4" transform="matrix(1,0,0,1,880,437)">
+        <rect id="t4-tr" x="-3" y="0" width="6" height="33" class="tree-trunk"/><ellipse id="t4-cn" cx="0" cy="-5" rx="13" ry="17" class="tree-canopy"/>
+      </g>
+      <g id="hyd-1" transform="matrix(1,0,0,1,230,460)">
+        <rect id="h1-b" x="-3" y="0" width="6" height="10" fill="#c62828"/><rect id="h1-c" x="-4" y="-2" width="8" height="3" fill="#b71c1c"/>
+      </g>
+      <g id="hyd-2" style="display:inline;opacity:1" transform="matrix(1,0,0,1,530,460)">
+        <rect id="h2-b" x="-3" y="0" width="6" height="10" fill="#c62828"/><rect id="h2-c" x="-4" y="-2" width="8" height="3" fill="#b71c1c"/>
+      </g>
+      <g id="fg-e1" style="display:inline"></g><g id="fg-e2" style="display:inline"></g><g id="fg-e3" style="display:inline"></g>
+    </g>
+    <!-- EXTRA EMPTY GROUPS (bloat) -->
+    <g id="bloat-1" transform="matrix(1,0,0,1,0,0)">
+      <g id="bl-s1" style="display:inline"><g id="bl-s1i" style="display:inline"></g></g>
+      <g id="bl-s2" style="display:inline"><g id="bl-s2i" style="display:inline"></g></g>
+      <g id="bl-s3" style="display:inline"><g id="bl-s3i" style="display:inline"><g id="bl-s3d" style="display:inline"></g></g></g>
+    </g>
+    <g id="sc-e1" style="display:inline"></g><g id="sc-e2" style="display:inline"></g><g id="sc-e3" style="display:inline"></g>
+  </g>
+</svg>

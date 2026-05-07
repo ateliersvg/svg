@@ -50,7 +50,7 @@ final class OptimizerStaticTest extends TestCase
         $rect = new RectElement();
         $doc->getRoot()->appendChild($rect);
 
-        $result = Optimizer::forDocument($doc, 'accessible');
+        $result = Optimizer::forDocument($doc, 'web');
 
         $this->assertInstanceOf(Document::class, $result);
     }
