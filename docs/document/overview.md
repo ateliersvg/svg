@@ -1,4 +1,4 @@
-# Document
+# SVG Document API
 
 Atelier SVG is a PHP 8.3+ library for parsing, creating, manipulating, and exporting SVG documents. This section covers the core document model and the main entry points.
 

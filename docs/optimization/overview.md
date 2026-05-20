@@ -1,4 +1,4 @@
-# Optimization
+# SVG Optimization Pipeline
 
 The optimization pipeline reduces SVG file size by applying a sequence of passes that clean, convert, merge, and simplify SVG elements. Each pass implements a single optimization strategy, and the order of passes matters.
 

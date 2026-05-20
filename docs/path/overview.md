@@ -1,4 +1,4 @@
-# Paths
+# SVG Path API for PHP
 
 The path system in Atelier SVG provides a structured representation of SVG path data (`d` attribute). Instead of working with raw strings, paths are modeled as a collection of typed segment objects.
 

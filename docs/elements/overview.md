@@ -1,4 +1,4 @@
-# Elements
+# SVG Element Reference
 
 Atelier SVG represents every SVG node as a PHP object. The element tree is
 built from two base classes, two interfaces, an attribute constants class,

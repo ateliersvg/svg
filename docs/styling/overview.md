@@ -1,4 +1,4 @@
-# Styling
+# SVG Styling and Transforms
 
 Atelier SVG provides a layered style system for reading, writing, and managing inline styles, computed styles, and themes across SVG documents.
 

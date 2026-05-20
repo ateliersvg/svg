@@ -1,4 +1,4 @@
-# Morphing
+# SVG Path Morphing
 
 Morph between two SVG paths to create smooth shape transitions. The morphing system handles path normalization, segment matching, and interpolation automatically.
 

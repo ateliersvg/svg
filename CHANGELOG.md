@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+### Changed
+
+### Fixed
+
+## [1.0.0] - 2026-05-20
+
+### Added
+
 - SVG creation, loading, and exporting with fluent facade API
 - Full SVG 1.1 element support: shapes, text, groups, symbols, markers, defs, use
 - CSS-like selectors and element collections with batch operations

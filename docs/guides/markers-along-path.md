@@ -1,6 +1,6 @@
 ---
 order: 90
-description: "Distribute markers, dots, or labels evenly along an SVG path using the path's length and getPointAtLength() - useful for trails, route maps, and animation guides."
+description: "Distribute markers, dots, or labels evenly along an SVG path using getPointAtLength() - for trails, routes, and animation guides."
 ---
 
 # Place Markers Along a Path
