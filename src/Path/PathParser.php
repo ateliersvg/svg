@@ -209,7 +209,60 @@ final class PathParser
         assert(false !== $tokens);
         $tokens = array_filter($tokens, fn ($token) => '' !== $token);
 
-        return array_values($tokens);
+        return $this->expandArcFlags(array_values($tokens));
+    }
+
+    /**
+     * Split glued arc flags into single-character tokens.
+     *
+     * In an arc command the large-arc and sweep flags are each a single "0" or
+     * "1" and may abut the following parameter with no separator (e.g. minified
+     * "a6 4 10 0114 10" packs flags 0 and 1 in front of the coordinate 14). The
+     * tokenizer cannot see this because a flag slot is only special given the
+     * command context, so the split is done here using the per-arc parameter
+     * index (7 parameters per arc, flags at positions 3 and 4).
+     *
+     * @param array<string> $tokens
+     *
+     * @return array<string>
+     */
+    private function expandArcFlags(array $tokens): array
+    {
+        $result = [];
+        $command = null;
+        $argIndex = 0;
+
+        foreach ($tokens as $token) {
+            if ($this->isCommand($token)) {
+                $command = $token;
+                $argIndex = 0;
+                $result[] = $token;
+                continue;
+            }
+
+            if (null === $command || 'A' !== strtoupper($command)) {
+                $result[] = $token;
+                ++$argIndex;
+                continue;
+            }
+
+            // Drain the token: a flag slot consumes one character, every other
+            // slot consumes the whole remaining token.
+            $buffer = $token;
+            while ('' !== $buffer) {
+                $position = $argIndex % 7;
+                if (3 === $position || 4 === $position) {
+                    $result[] = $buffer[0];
+                    $buffer = substr($buffer, 1);
+                } else {
+                    $result[] = $buffer;
+                    $buffer = '';
+                }
+                ++$argIndex;
+            }
+        }
+
+        return $result;
     }
 
     /**
