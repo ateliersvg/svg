@@ -8,6 +8,8 @@ use Atelier\Svg\Document;
 use Atelier\Svg\Element\PathElement;
 use Atelier\Svg\Element\SvgElement;
 use Atelier\Svg\Optimizer\Pass\ConvertPathDataPass;
+use Atelier\Svg\Path\PathParser;
+use Atelier\Svg\Path\Segment\CurveTo;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -52,6 +54,35 @@ final class ConvertPathDataPassTest extends TestCase
         $d = $path->getAttribute('d');
         $this->assertNotNull($d);
         $this->assertStringNotContainsString(',', $d);
+    }
+
+    public function testPreservesCompactNegativeCurveGeometry(): void
+    {
+        // Regression: compact notation glues a negative coordinate to the
+        // previous number ("10.609-3.844" is two numbers). Re-parsing and
+        // re-emitting the path through this pass must keep every coordinate.
+        $svg = new SvgElement();
+        $path = new PathElement();
+        $path->setAttribute('d', 'M0 0c0 10.609-3.844 18.834-11.534 24.674');
+
+        $svg->appendChild($path);
+        $document = new Document($svg);
+
+        $pass = new ConvertPathDataPass();
+        $pass->optimize($document);
+
+        $d = $path->getAttribute('d');
+        $this->assertNotNull($d);
+
+        $segments = (new PathParser())->parse($d)->getSegments();
+        $this->assertCount(2, $segments);
+        $this->assertInstanceOf(CurveTo::class, $segments[1]);
+        $this->assertEqualsWithDelta(0.0, $segments[1]->getControlPoint1()->x, 0.001);
+        $this->assertEqualsWithDelta(10.609, $segments[1]->getControlPoint1()->y, 0.001);
+        $this->assertEqualsWithDelta(-3.844, $segments[1]->getControlPoint2()->x, 0.001);
+        $this->assertEqualsWithDelta(18.834, $segments[1]->getControlPoint2()->y, 0.001);
+        $this->assertEqualsWithDelta(-11.534, $segments[1]->getTargetPoint()->x, 0.001);
+        $this->assertEqualsWithDelta(24.674, $segments[1]->getTargetPoint()->y, 0.001);
     }
 
     public function testRemovesRedundantLineToCommands(): void
