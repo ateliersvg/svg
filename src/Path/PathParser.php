@@ -198,18 +198,18 @@ final class PathParser
      */
     private function tokenize(string $pathData): array
     {
-        // Replace command letters with spaces around them for easier splitting
-        $pathData = (string) preg_replace('/([MmLlHhVvCcSsQqTtAaZz])/', ' $1 ', $pathData);
+        // Match command letters and SVG numbers directly. Numbers may abut without a
+        // separator when the boundary is unambiguous (e.g. ".97-.105" or "0.5.5"), so a
+        // whitespace/comma split is not enough: the grammar itself marks the boundary,
+        // a sign or a second decimal point starts a new number. The exponent sign of
+        // scientific notation must stay inside the number, hence the trailing group.
+        $pattern = '/[MmLlHhVvCcSsQqTtAaZz]|[+-]?(?:\d*\.\d+|\d+\.?)(?:[eE][+-]?\d+)?/';
+        $matched = preg_match_all($pattern, $pathData, $matches);
+        assert(false !== $matched);
 
-        // Replace commas with spaces
-        $pathData = str_replace(',', ' ', $pathData);
-
-        // Split by whitespace and filter out empty strings
-        $tokens = preg_split('/\s+/', $pathData);
-        assert(false !== $tokens);
-        $tokens = array_filter($tokens, fn ($token) => '' !== $token);
-
-        return $this->expandArcFlags(array_values($tokens));
+        // Arc flags are the one boundary the grammar cannot express on its own,
+        // so they are split afterwards, with the command context at hand.
+        return $this->expandArcFlags($matches[0]);
     }
 
     /**
