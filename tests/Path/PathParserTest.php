@@ -197,6 +197,56 @@ final class PathParserTest extends TestCase
         $this->assertSame(25.0, $segments[1]->getTargetPoint()->y);
     }
 
+    public function testParseArcWithFlagsGluedToCoordinate(): void
+    {
+        // Minified form: flags are single chars that glue to the next number.
+        // "0114 10" means large-arc=0, sweep=1, then x=14, y=10.
+        $data = $this->parser->parse('M0 0a6 4 10 0114 10');
+        $segments = $data->getSegments();
+
+        $this->assertCount(2, $segments);
+        $this->assertInstanceOf(ArcTo::class, $segments[1]);
+        $this->assertSame(6.0, $segments[1]->getRx());
+        $this->assertSame(4.0, $segments[1]->getRy());
+        $this->assertSame(10.0, $segments[1]->getXAxisRotation());
+        $this->assertFalse($segments[1]->getLargeArcFlag());
+        $this->assertTrue($segments[1]->getSweepFlag());
+        $this->assertSame(14.0, $segments[1]->getTargetPoint()->x);
+        $this->assertSame(10.0, $segments[1]->getTargetPoint()->y);
+    }
+
+    public function testParseArcWithFlagsGluedTogether(): void
+    {
+        // Two flags glued to each other but coordinates separated: "01 14 10".
+        $data = $this->parser->parse('M0 0A6 4 10 01 14 10');
+        $segments = $data->getSegments();
+
+        $this->assertCount(2, $segments);
+        $this->assertInstanceOf(ArcTo::class, $segments[1]);
+        $this->assertFalse($segments[1]->getLargeArcFlag());
+        $this->assertTrue($segments[1]->getSweepFlag());
+        $this->assertSame(14.0, $segments[1]->getTargetPoint()->x);
+        $this->assertSame(10.0, $segments[1]->getTargetPoint()->y);
+    }
+
+    public function testParseRepeatedArcsWithGluedFlags(): void
+    {
+        // Implicit repeated arc: flag splitting must track the per-arc parameter
+        // index across repeats (7 parameters per arc).
+        $data = $this->parser->parse('M0 0a6 4 10 0114 10 6 4 10 1014 10');
+        $segments = $data->getSegments();
+
+        $this->assertCount(3, $segments);
+        $this->assertInstanceOf(ArcTo::class, $segments[1]);
+        $this->assertFalse($segments[1]->getLargeArcFlag());
+        $this->assertTrue($segments[1]->getSweepFlag());
+        $this->assertInstanceOf(ArcTo::class, $segments[2]);
+        $this->assertTrue($segments[2]->getLargeArcFlag());
+        $this->assertFalse($segments[2]->getSweepFlag());
+        $this->assertSame(14.0, $segments[2]->getTargetPoint()->x);
+        $this->assertSame(10.0, $segments[2]->getTargetPoint()->y);
+    }
+
     public function testParseClosePath(): void
     {
         $data = $this->parser->parse('M 0,0 L 50,50 Z');
