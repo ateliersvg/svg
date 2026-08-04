@@ -298,6 +298,35 @@ final class PathParserTest extends TestCase
         $this->assertSame(10.0, $segments[2]->getTargetPoint()->y);
     }
 
+    public function testParseArcWithGluedFlagsAndSignGluedCoordinates(): void
+    {
+        // Both glue rules at once: the flags "01" abut the x coordinate, which is
+        // itself closed by the minus sign opening y. "0114-10" is 0, 1, 14, -10.
+        $data = $this->parser->parse('M0 0a6 4 10 0114-10');
+        $segments = $data->getSegments();
+
+        $this->assertCount(2, $segments);
+        $this->assertInstanceOf(ArcTo::class, $segments[1]);
+        $this->assertFalse($segments[1]->getLargeArcFlag());
+        $this->assertTrue($segments[1]->getSweepFlag());
+        $this->assertSame(14.0, $segments[1]->getTargetPoint()->x);
+        $this->assertSame(-10.0, $segments[1]->getTargetPoint()->y);
+    }
+
+    public function testParseArcWithGluedFlagsAndDecimalCoordinates(): void
+    {
+        // A flag slot takes one character off a decimal token: "01.5" is 0, 1, .5.
+        $data = $this->parser->parse('M0 0a6 4 10 01.5-.5');
+        $segments = $data->getSegments();
+
+        $this->assertCount(2, $segments);
+        $this->assertInstanceOf(ArcTo::class, $segments[1]);
+        $this->assertFalse($segments[1]->getLargeArcFlag());
+        $this->assertTrue($segments[1]->getSweepFlag());
+        $this->assertSame(0.5, $segments[1]->getTargetPoint()->x);
+        $this->assertSame(-0.5, $segments[1]->getTargetPoint()->y);
+    }
+
     public function testParseClosePath(): void
     {
         $data = $this->parser->parse('M 0,0 L 50,50 Z');
