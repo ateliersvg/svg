@@ -144,6 +144,57 @@ final class PathParserTest extends TestCase
         $this->assertSame(60.0, $segments[1]->getTargetPoint()->y);
     }
 
+    public function testParseCurveToWithSignGluedNumbers(): void
+    {
+        // SVG allows a leading minus to act as a coordinate separator (no whitespace/comma).
+        $data = $this->parser->parse('M0,0c.556 0 .97-.105 1.242-.314');
+        $segments = $data->getSegments();
+
+        $this->assertCount(2, $segments);
+        $this->assertInstanceOf(CurveTo::class, $segments[1]);
+        $this->assertSame(0.556, $segments[1]->getControlPoint1()->x);
+        $this->assertSame(0.0, $segments[1]->getControlPoint1()->y);
+        $this->assertSame(0.97, $segments[1]->getControlPoint2()->x);
+        $this->assertSame(-0.105, $segments[1]->getControlPoint2()->y);
+        $this->assertSame(1.242, $segments[1]->getTargetPoint()->x);
+        $this->assertSame(-0.314, $segments[1]->getTargetPoint()->y);
+    }
+
+    public function testParseSignGluedIntegers(): void
+    {
+        $data = $this->parser->parse('M1-2');
+        $segments = $data->getSegments();
+
+        $this->assertCount(1, $segments);
+        $this->assertInstanceOf(MoveTo::class, $segments[0]);
+        $this->assertSame(1.0, $segments[0]->getTargetPoint()->x);
+        $this->assertSame(-2.0, $segments[0]->getTargetPoint()->y);
+    }
+
+    public function testParseImplicitDecimalGluedNumbers(): void
+    {
+        // A second decimal point starts a new number: "0.5.5" is "0.5" then ".5".
+        $data = $this->parser->parse('M0.5.5');
+        $segments = $data->getSegments();
+
+        $this->assertCount(1, $segments);
+        $this->assertInstanceOf(MoveTo::class, $segments[0]);
+        $this->assertSame(0.5, $segments[0]->getTargetPoint()->x);
+        $this->assertSame(0.5, $segments[0]->getTargetPoint()->y);
+    }
+
+    public function testParseExponentNotationCoordinates(): void
+    {
+        // Exponent sign must NOT be treated as a coordinate separator.
+        $data = $this->parser->parse('M1e2-3e1');
+        $segments = $data->getSegments();
+
+        $this->assertCount(1, $segments);
+        $this->assertInstanceOf(MoveTo::class, $segments[0]);
+        $this->assertSame(100.0, $segments[0]->getTargetPoint()->x);
+        $this->assertSame(-30.0, $segments[0]->getTargetPoint()->y);
+    }
+
     public function testParseSmoothCurveTo(): void
     {
         $data = $this->parser->parse('M 0,0 S 30,40 50,60');
@@ -245,6 +296,35 @@ final class PathParserTest extends TestCase
         $this->assertFalse($segments[2]->getSweepFlag());
         $this->assertSame(14.0, $segments[2]->getTargetPoint()->x);
         $this->assertSame(10.0, $segments[2]->getTargetPoint()->y);
+    }
+
+    public function testParseArcWithGluedFlagsAndSignGluedCoordinates(): void
+    {
+        // Both glue rules at once: the flags "01" abut the x coordinate, which is
+        // itself closed by the minus sign opening y. "0114-10" is 0, 1, 14, -10.
+        $data = $this->parser->parse('M0 0a6 4 10 0114-10');
+        $segments = $data->getSegments();
+
+        $this->assertCount(2, $segments);
+        $this->assertInstanceOf(ArcTo::class, $segments[1]);
+        $this->assertFalse($segments[1]->getLargeArcFlag());
+        $this->assertTrue($segments[1]->getSweepFlag());
+        $this->assertSame(14.0, $segments[1]->getTargetPoint()->x);
+        $this->assertSame(-10.0, $segments[1]->getTargetPoint()->y);
+    }
+
+    public function testParseArcWithGluedFlagsAndDecimalCoordinates(): void
+    {
+        // A flag slot takes one character off a decimal token: "01.5" is 0, 1, .5.
+        $data = $this->parser->parse('M0 0a6 4 10 01.5-.5');
+        $segments = $data->getSegments();
+
+        $this->assertCount(2, $segments);
+        $this->assertInstanceOf(ArcTo::class, $segments[1]);
+        $this->assertFalse($segments[1]->getLargeArcFlag());
+        $this->assertTrue($segments[1]->getSweepFlag());
+        $this->assertSame(0.5, $segments[1]->getTargetPoint()->x);
+        $this->assertSame(-0.5, $segments[1]->getTargetPoint()->y);
     }
 
     public function testParseClosePath(): void
