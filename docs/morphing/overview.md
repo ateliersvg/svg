@@ -6,10 +6,10 @@ Morph between two SVG paths to create smooth shape transitions. The morphing sys
 
 ```php
 use Atelier\Svg\Morphing\Morph;
-use Atelier\Svg\Path\Data;
+use Atelier\Svg\Path\PathParser;
 
-$start = Data::parse('M 0 0 L 100 0 L 100 100 L 0 100 Z');
-$end   = Data::parse('M 50 0 L 100 50 L 50 100 L 0 50 Z');
+$start = (new PathParser())->parse('M 0 0 L 100 0 L 100 100 L 0 100 Z');
+$end   = (new PathParser())->parse('M 50 0 L 100 50 L 50 100 L 0 50 Z');
 
 // Get a single interpolated path at 50%
 $mid = Morph::between($start, $end, 0.5);

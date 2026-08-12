@@ -43,7 +43,7 @@ All setters return `static` for chaining.
 
 ## AnimateTransformElement
 
-Maps to `<animateTransform>`. Animates the `transform` attribute.
+Maps to `<animateTransform>`. Animates the [`transform` attribute](../styling/transforms.md).
 
 ```php
 use Atelier\Svg\Element\Animation\AnimateTransformElement;
@@ -146,9 +146,3 @@ AnimationBuilder::addCssAnimation($element, 'pulse', [
 
 This injects a `<style>` element with `@keyframes` and applies the
 `animation` property to the target element.
-
-## See also
-
-- [Morphing](../morphing/overview.md): interpolating between path shapes
-- [Animation export](../morphing/exporting.md): exporting morph frames to SMIL, CSS, JS
-- [Transforms](../styling/transforms.md): transform value types

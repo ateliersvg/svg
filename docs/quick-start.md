@@ -66,7 +66,7 @@ Svg::load('input.svg')->optimizeWeb()->save('output.svg');
 Svg::load('input.svg')->optimizeAggressive()->save('output.svg');
 ```
 
-See [Optimization](/optimization/) for custom pipelines and all presets.
+See [Optimization](optimization/overview.md) for custom pipelines and all presets.
 
 ## Sanitize user uploads
 
@@ -78,7 +78,7 @@ $clean = Svg::fromString($userUpload)
     ->toString();
 ```
 
-See [Document: Sanitization](/document/) for strict and permissive profiles.
+See [Document: Sanitization](document/overview.md) for strict and permissive profiles.
 
 ## Output
 
@@ -96,7 +96,7 @@ echo $svg;               // same as toString()
 
 ### Embed an image
 
-Embed a raster image inside an SVG canvas. See [Elements: Shapes](/elements/shapes/).
+Embed a raster image inside an SVG canvas. See [Elements: Shapes](elements/shapes.md).
 
 ```php
 <?php
@@ -107,7 +107,7 @@ Svg::create(400, 300)
 
 ### Organize with defs and groups
 
-`defs()` opens a `<defs>` block for reusable assets. `group()` returns the underlying `Builder` for nesting. See [Elements: Structure](/elements/structure/).
+`defs()` opens a `<defs>` block for reusable assets. `group()` returns the underlying `Builder` for nesting. See [Elements: Structure](elements/structure.md).
 
 ```php
 <?php
@@ -117,7 +117,7 @@ $builder->circle(100, 100, 50)->attr('id', 'dot')->end();
 
 ### Linear and radial gradients
 
-Define gradients inside `<defs>`, then reference them by ID. See [Elements: Gradients](/elements/gradients/).
+Define gradients inside `<defs>`, then reference them by ID. See [Elements: Gradients](elements/gradients.md).
 
 ```php
 <?php
@@ -154,4 +154,4 @@ try {
 }
 ```
 
-For stricter parse control: such as failing on malformed but technically loadable files: use `DomParser` directly with `ParseProfile::STRICT`. See [Document: Parsing](/document/parsing/).
+For stricter parse control: such as failing on malformed but technically loadable files: use `DomParser` directly with `ParseProfile::STRICT`. See [Document: Parsing](document/parsing.md).

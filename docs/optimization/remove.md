@@ -142,10 +142,3 @@ new RemoveDimensionsPass();
 ```
 
 No constructor options. Used in the `web` and `aggressive` presets.
-
-## See also
-
-- [Optimization overview](../overview.md)
-- [Cleanup passes](cleanup.md)
-- [Conversion passes](convert.md)
-- [Merge and restructure passes](merge.md)

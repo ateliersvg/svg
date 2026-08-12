@@ -91,10 +91,3 @@ $defs->appendChild($clipPath);
 $defs->appendChild($mask);
 $svgRoot->prependChild($defs);
 ```
-
-## See also
-
-- [Overview](overview.md): element base classes
-- [Shapes](shapes.md): shapes used inside clip paths
-- [Gradients](gradients.md): gradients for mask luminance
-- [Filters](filters.md): applying filter effects

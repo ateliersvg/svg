@@ -133,10 +133,3 @@ $element->transform()
     ->scale(1.5)
     ->apply();
 ```
-
-## See also
-
-- [Path analysis](analysis.md): BoundingBox and PathAnalyzer details
-- [Path transforms](transforms.md): Matrix, Transformation, TransformBuilder
-- [CSS/SVG transforms](../styling/transforms.md): TransformList value objects
-- [Layout](../styling/layout.md): BoundingBox for layout calculations

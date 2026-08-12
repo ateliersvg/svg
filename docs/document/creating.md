@@ -110,9 +110,3 @@ $document = $svg->getDocument();
 $document->setTitle('My Chart');
 $document->setDescription('A bar chart showing quarterly results');
 ```
-
-## See also
-
-- [Document Overview](overview.md): Core concepts
-- [Exporting SVGs](exporting.md): Saving your created SVGs
-- [Parsing SVGs](parsing.md): Loading existing SVGs instead of creating new ones

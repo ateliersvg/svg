@@ -121,9 +121,3 @@ The `TransformBuilder::toMatrix()` method converts the full chain of transform f
 $matrix = $element->transform()->toMatrix();
 $point = $matrix->transform(new Point(10, 20));
 ```
-
-## See also
-
-- [Path transforms](../path/transforms.md): baking transforms into path coordinates
-- [Style system](overview.md): Style, StyleBuilder, themes
-- [Value types](values.md): Length, Angle, Color

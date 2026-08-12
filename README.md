@@ -105,7 +105,7 @@ GradientBuilder::createLinear($document, 'custom')
     ->addToDefs();
 ```
 
-[Filters documentation](./docs/elements/filters/overview.md): [Gradients](./docs/elements/gradients/linear.md): [Clipping & Masking](./docs/elements/clipping.md)
+[Filters](./docs/elements/filters.md): [Gradients](./docs/elements/gradients.md): [Clipping & Masking](./docs/elements/clipping.md)
 
 ### Paths
 

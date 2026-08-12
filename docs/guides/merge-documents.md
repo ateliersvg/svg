@@ -180,8 +180,3 @@ $imported = $target->importElement($element, deep: true, options: [
 ## viewBox differences
 
 `Document::merge()` does not reconcile different viewBoxes. Under `APPEND`, all content lands in the same coordinate space - elements sized for a `0 0 24 24` viewBox will overlap elements sized for `0 0 100 100`. Use `SIDE_BY_SIDE` or `STACKED` to let the merge code wrap each document in a translated `<g>` that preserves its original positioning, or apply a `transform` manually after importing.
-
-## See also
-
-- [Sprite sheets](sprites-and-symbols.md): full workflow for SVG icon sprites
-- [Batch optimize](batch-optimize.md): optimize merged output in a pipeline

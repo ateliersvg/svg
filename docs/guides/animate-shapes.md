@@ -33,11 +33,11 @@ $animated = AnimationExporter::toAnimatedSVG($frames, [
 ## From path strings
 
 ```php
-use Atelier\Svg\Path\Data;
+use Atelier\Svg\Path\PathParser;
 use Atelier\Svg\Morphing\Morph;
 
-$start = Data::parse('M 0 0 L 100 0 L 100 100 L 0 100 Z');
-$end = Data::parse('M 50 0 L 100 50 L 50 100 L 0 50 Z');
+$start = (new PathParser())->parse('M 0 0 L 100 0 L 100 100 L 0 100 Z');
+$end = (new PathParser())->parse('M 50 0 L 100 50 L 50 100 L 0 50 Z');
 
 // Single interpolated frame
 $mid = Morph::between($start, $end, 0.5);
@@ -80,9 +80,3 @@ $frames = Morph::create()
     ->withEasing('ease-in-out')
     ->generate();
 ```
-
-## See also
-
-- [Morphing overview](../morphing/overview.md): easing functions, interpolation details
-- [Animation elements](../elements/animation.md): SMIL animation builder
-- [Animation export](../morphing/exporting.md): export format reference

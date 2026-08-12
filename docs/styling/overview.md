@@ -124,9 +124,3 @@ $theme = ThemeManager::extractTheme($document);
 ```
 
 Themes use CSS-like selectors: `.class`, `#id`, `tagName`, and `*` (universal).
-
-## See also
-
-- [Value types](values.md): Color, Length, Angle, and other value objects
-- [CSS/SVG transforms](transforms.md): TransformList and transform functions
-- [Layout](layout.md): positioning and alignment

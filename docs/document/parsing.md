@@ -150,9 +150,3 @@ try {
 ### File not found vs. parse failure
 
 `RuntimeException` is thrown before parsing begins - the file could not be read. `ParseException` is thrown after the file is read but the content is not valid SVG XML. Catching both lets you distinguish input problems from infrastructure problems.
-
-## See also
-
-- [Document Overview](overview.md): What is a Document
-- [Creating SVGs](creating.md): Building SVGs from scratch
-- [Validation](validation.md): Validating parsed documents

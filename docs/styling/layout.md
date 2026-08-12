@@ -118,7 +118,7 @@ LayoutManager::setAspectRatio($document, 16 / 9);
 
 ## BoundingBox for Layout
 
-The `BoundingBox` class supports anchor points and set operations useful for layout calculations.
+The [`BoundingBox`](../path/analysis.md) class supports anchor points and set operations useful for layout calculations.
 
 ```php
 $bbox = $element->bbox()->get();
@@ -134,9 +134,3 @@ $overlap = $bbox1->intersect($bbox2); // null if none
 // Add margin
 $padded = $bbox->expand(10);
 ```
-
-## See also
-
-- [Style system](overview.md): styling elements after layout
-- [Path analysis](../path/analysis.md): BoundingBox and BoundingBoxCalculator details
-

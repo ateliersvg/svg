@@ -51,7 +51,7 @@ foreach ($labels as $i => $label) {
 
 ## Accessibility
 
-Always add a title and description to generated charts. Screen readers
+Always add a [title and description](../elements/accessibility.md) to generated charts. Screen readers
 use these to describe the visual content.
 
 ```php
@@ -59,11 +59,3 @@ Accessibility::setTitle($document, 'Quarterly Sales');
 Accessibility::setDescription($document, 'Bar chart comparing Q1-Q4 sales figures');
 Accessibility::improveAccessibility($document);
 ```
-
-## See also
-
-- [Accessibility](../elements/accessibility.md): full accessibility API
-- [Layout](../styling/layout.md): positioning and alignment utilities
-- [Text elements](../elements/text.md): text styling and tspan
-- [Styling overview](../styling/overview.md): fill, stroke, and presentation attributes
-- [Document exporting](../document/exporting.md): save and serialize documents

@@ -12,10 +12,10 @@ Generate a self-contained SVG with a `<animate>` element:
 ```php
 use Atelier\Svg\Morphing\AnimationExporter;
 use Atelier\Svg\Morphing\Morph;
-use Atelier\Svg\Path\Data;
+use Atelier\Svg\Path\PathParser;
 
-$start  = Data::parse('M 0 0 L 100 0 L 100 100 L 0 100 Z');
-$end    = Data::parse('M 50 0 L 100 50 L 50 100 L 0 50 Z');
+$start  = (new PathParser())->parse('M 0 0 L 100 0 L 100 100 L 0 100 Z');
+$end    = (new PathParser())->parse('M 50 0 L 100 50 L 50 100 L 0 50 Z');
 $frames = Morph::frames($start, $end, 30, 'ease-in-out');
 
 $doc = AnimationExporter::toAnimatedSVG($frames, [

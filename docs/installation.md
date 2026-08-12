@@ -32,4 +32,4 @@ $svg = Svg::create(200, 100)
 echo $svg; // prints compact SVG markup
 ```
 
-If SVG markup appears in the output, you're good. Next: [Quick Start](/quick-start/).
+If SVG markup appears in the output, you're good. Next: [Quick Start](quick-start.md).

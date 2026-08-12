@@ -108,9 +108,3 @@ $element->transform()->setScale(2)->apply();
 // Reset
 $element->transform()->clear()->apply();
 ```
-
-## See also
-
-- [Path data model](overview.md): Data, segments, parser
-- [Path analysis](analysis.md): bounding boxes and length
-- [CSS/SVG transforms](../styling/transforms.md): TransformList value objects

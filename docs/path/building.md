@@ -106,10 +106,3 @@ Each factory method returns a `PathBuilder`, so you can chain further commands o
 ```php
 $d = ShapeFactory::circle(50, 50, 40)->getPathData();
 ```
-
-
-## See also
-
-- [Path data model](overview.md): Data, segments, parser
-- [Path analysis](analysis.md): measure lengths and bounding boxes
-- [Path transforms](transforms.md): apply geometric transformations

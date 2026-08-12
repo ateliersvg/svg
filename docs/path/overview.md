@@ -2,7 +2,7 @@
 
 The path system in Atelier SVG provides a structured representation of SVG path data (`d` attribute). Instead of working with raw strings, paths are modeled as a collection of typed segment objects.
 
-## Core Classes
+## The Types
 
 ### Data
 
@@ -108,11 +108,3 @@ $relative = PathUtils::toRelative($data);
 ```
 
 All 10 segment types are handled (M, L, H, V, C, S, Q, T, A, Z) with proper cursor tracking across subpaths. ClosePath (`Z`) resets the cursor to the subpath start point.
-
-## See also
-
-- [Building paths](building.md): PathBuilder, ShapeFactory
-- [Path analysis](analysis.md): length, bounding box, point-at-length
-- [Path transforms](transforms.md): applying matrix transforms to path data
-- [Path simplification](simplification.md): reducing path complexity
-- [Geometry](geometry.md): Point, BoundingBox, Matrix primitives

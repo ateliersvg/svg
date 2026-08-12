@@ -122,9 +122,3 @@ class MyCustomDumper implements DumperInterface
     }
 }
 ```
-
-## See also
-
-- [Document Overview](overview.md): Core concepts
-- [Creating SVGs](creating.md): Building SVGs to export
-- [Parsing SVGs](parsing.md): Loading SVGs before re-exporting

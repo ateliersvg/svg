@@ -181,10 +181,3 @@ new RemoveUnusedNSPass(
     keepEssential: true, // always keep svg, xlink namespaces (default: true)
 );
 ```
-
-## See also
-
-- [Optimization overview](../overview.md)
-- [Conversion passes](convert.md)
-- [Removal passes](remove.md)
-- [Merge and restructure passes](merge.md)
