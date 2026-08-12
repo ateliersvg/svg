@@ -1,16 +1,31 @@
-# Atelier SVG
+<h1 align="center">Atelier SVG</h1>
 
-[![CI](https://github.com/ateliersvg/svg/actions/workflows/ci.yml/badge.svg)](https://github.com/ateliersvg/svg/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![PHP 8.3+](https://img.shields.io/badge/PHP-8.3%2B-777BB4.svg)](https://php.net)
+<p align="center">Parse, build, query, optimize, sanitize and morph SVG, in pure PHP.</p>
 
-The SVG toolkit for PHP.
+<p align="center">
+  <img alt="PHP Version" src="https://img.shields.io/badge/PHP-8.3%2B-5a8dee?labelColor=14141c">
+  <img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/ateliersvg/svg/ci.yml?branch=main&label=Tests&labelColor=14141c&color=5a8dee">
+  <img alt="PHPUnit" src="https://img.shields.io/badge/PHPUnit-13-5a8dee?labelColor=14141c">
+  <img alt="PHPStan" src="https://img.shields.io/badge/PHPStan-max-5a8dee?labelColor=14141c">
+  <img alt="Stable" src="https://img.shields.io/github/v/release/ateliersvg/svg?label=Stable&labelColor=14141c&color=5a8dee">
+  <img alt="License" src="https://img.shields.io/github/license/ateliersvg/svg?label=License&labelColor=14141c&color=5a8dee">
+</p>
 
-A PHP library for SVG manipulation, optimization, and morphing. Parse, build, style, transform, validate, sanitize, and animate SVG graphics with a type-safe, fluent API.
+An SVG document as typed PHP objects rather than a string you edit with regular expressions.
+Load a file, query it with CSS selectors, change it, and write it back. Or build one from
+nothing.
 
-**[Quick Start](#quick-start) | [Features](#features) | [Use Cases](#use-cases) | [Documentation](#documentation)**
+```php
+echo Svg::create(120, 120)->circle(60, 60, 50)->fill('#5a8dee')->toString();
+```
 
----
+Every element is a class, every attribute is validated, and nothing depends on an extension or
+an external binary. Backed by an extensive test suite and PHPStan at its highest level.
+
+**[Parse and build](#parse-build-and-export) · [Query](#query-and-edit) ·
+[Elements](#every-element-typed) · [Paths](#paths) · [Sanitize](#sanitize-untrusted-input) ·
+[Optimize](#optimize) · [Accessibility](#accessibility) · [Morph](#morph-and-animate) ·
+[Documentation](#documentation)**
 
 ## Installation
 
@@ -18,299 +33,181 @@ A PHP library for SVG manipulation, optimization, and morphing. Parse, build, st
 composer require atelier/svg
 ```
 
-Requires PHP 8.3+.
+Requires PHP 8.3 or later. No extensions, no image library, no external binary.
 
----
-
-## Quick Start
+## Quick start
 
 ```php
 use Atelier\Svg\Svg;
 
-Svg::create(300, 200)
-    ->rect(0, 0, 300, 200, ['fill' => '#1e293b'])
-    ->circle(150, 100, 60, ['fill' => '#3b82f6'])
-    ->text(150, 180, 'Atelier SVG', ['text-anchor' => 'middle', 'fill' => '#fff'])
-    ->optimize()
-    ->save('output.svg');
+$svg = Svg::load('logo.svg')
+    ->sanitize()
+    ->optimizeWeb();
+
+$svg->save('logo.min.svg');
 ```
 
-Load, query, modify, save:
+Loading from markup instead of a path is `Svg::fromString($markup)`, and `toString()` returns
+the document without writing a file. See [Quick start](docs/quick-start.md).
+
+## Parse, build and export
+
+`Svg` is the fluent facade. It loads an existing document, creates an empty one, and hands back
+markup, a pretty-printed string, a file, or a data URI.
 
 ```php
-$svg = Svg::load('input.svg');
+$svg = Svg::create(200, 100)
+    ->rect(10, 10, 80, 80)
+    ->circle(150, 50, 40)
+    ->fill('#5a8dee');
 
-$svg->getDocument()
-    ->querySelectorAll('circle')
-    ->fill('#3b82f6')
-    ->stroke('#000')
-    ->strokeWidth(2);
-
-$svg->optimize()->save('output.svg');
+$svg->toDataUri();   // data:image/svg+xml;... ready for a CSS background
 ```
 
----
+Parsing has profiles: the default accepts what a browser accepts, the strict one refuses what is
+merely loadable. See [Document](docs/document/overview.md).
 
-## Features
+## Query and edit
 
-### Elements
-
-Full SVG 1.1 element support: shapes, text, groups, symbols, markers, gradients, filters, clipping, masking, and animation: all as typed PHP classes.
+The whole tree is objects, and CSS selectors find your way through it.
 
 ```php
-$text = TextElement::create(10, 30, 'Hello');
+$document = Svg::load('chart.svg')->getDocument();
 
-$builder = new TspanBuilder($text);
-$builder->add('Bold', 0, ['font-weight' => 'bold'])
-    ->add('and italic', 10, ['font-style' => 'italic']);
-```
-
-```php
-$symbol = SymbolBuilder::createSymbol($document, 'icon-star', '0 0 24 24');
-SymbolBuilder::useSymbol($document, 'icon-star', 10, 10);
-
-$marker = MarkerBuilder::arrow($document, 'arrow-end', '#000', 10);
-```
-
-```php
-AnimationBuilder::fadeIn($element, '1s');
-AnimationBuilder::rotate($element, 0, 360, '2s');
-```
-
-[Elements documentation](./docs/elements/overview.md): Shapes, text, structural elements, selectors, accessibility
-
-### Filters & Effects
-
-26+ filter primitives, linear and radial gradients, patterns, clipping, and masking: with fluent builders.
-
-```php
-FilterBuilder::createDropShadow($document, 'shadow', 2, 2, 4, '#000', 0.3);
-
-FilterBuilder::create($document, 'glow')
-    ->gaussianBlur(3, 'SourceAlpha', 'blur')
-    ->flood('#3b82f6', 0.8, 'color')
-    ->composite('in', 'color', 'blur', 'glow')
-    ->blend('normal', 'SourceGraphic', 'glow')
-    ->addToDefs();
-```
-
-```php
-GradientBuilder::horizontal($document, 'sunset', '#ff6b6b', '#feca57');
-
-GradientBuilder::createLinear($document, 'custom')
-    ->from(0, 0)->to(100, 100)
-    ->addStop(0, '#3b82f6')
-    ->addStop(50, '#8b5cf6', 0.8)
-    ->addStop(100, '#ec4899')
-    ->addToDefs();
-```
-
-[Filters](./docs/elements/filters.md): [Gradients](./docs/elements/gradients.md): [Clipping & Masking](./docs/elements/clipping.md)
-
-### Paths
-
-Type-safe path building, geometric analysis, distance metrics, and simplification.
-
-```php
-$data = PathBuilder::startAt(10, 10)
-    ->lineTo(50, 50)
-    ->curveTo(250, 50, 300, 50, 350, 100)
-    ->arcTo(50, 50, 0, false, true, 500, 100)
-    ->closePath()
-    ->toData();
-
-$analyzer = new PathAnalyzer($data);
-$length = $analyzer->getLength();
-$bbox = $analyzer->getBoundingBox();
-$inside = $analyzer->containsPoint(new Point(25, 25));
-```
-
-[Path documentation](./docs/path/overview.md): Building, analysis, transforms, simplification
-
-### Optimization
-
-A configurable pipeline with 40+ passes, inspired by SVGO. Four presets, or build your own.
-
-```php
-Svg::load('input.svg')->optimize()->save('output.svg');
-```
-
-**Before:**
-
-```xml
-<svg width="100.00000" height="100.00000" viewBox="0.00 0.00 100.00 100.00">
-  <rect x="10.00000" y="20.00000" width="80.00000" height="60.00000"
-        fill="black" stroke="none" opacity="1.0" />
-</svg>
-```
-
-**After:**
-
-```xml
-<svg width="100" height="100" viewBox="0 0 100 100">
-  <rect x="10" y="20" width="80" height="60" fill="#000"/>
-</svg>
-```
-
-```php
-$optimizer = new Optimizer(OptimizerPresets::default());      // Balanced
-$optimizer = new Optimizer(OptimizerPresets::aggressive());   // Maximum reduction
-$optimizer = new Optimizer(OptimizerPresets::safe());         // Conservative
-$optimizer = new Optimizer(OptimizerPresets::web());          // Production delivery
-```
-
-[Optimization documentation](./docs/optimization/overview.md): Passes, presets, custom pipelines
-
-### Security & Validation
-
-Sanitize untrusted SVGs, validate against the spec, check accessibility.
-
-```php
-Sanitizer::strict()->sanitize($document);   // Remove scripts, event handlers, JS URLs
-Sanitizer::default()->sanitize($document);  // Balanced security
-```
-
-```php
-$validator = new Validator(ValidationProfile::strict());
-$result = $validator->validate($document);
-
-$broken = DocumentValidator::findBrokenReferences($document);
-DocumentValidator::autoFix($document);
-```
-
-```php
-$issues = Accessibility::checkAccessibility($document);
-Accessibility::setTitle($document, 'Sales Chart Q1 2025');
-Accessibility::improveAccessibility($document);
-```
-
-[Validation documentation](./docs/document/validation.md): [Sanitization](./docs/document/sanitization.md): [Accessibility](./docs/elements/accessibility.md)
-
-### Morphing
-
-Interpolate between SVG shapes with easing. Export to SMIL, CSS keyframes, or JavaScript.
-
-```php
-$midPath = Morph::between($startPath, $endPath, 0.5);
-
-$frames = Morph::create()
-    ->from($startPath)
-    ->to($endPath)
-    ->withDuration(2000, 60)
-    ->withEasing('ease-in-out')
-    ->generate();
-
-$doc = AnimationExporter::toAnimatedSVG($frames, ['duration' => 3]);
-$css = AnimationExporter::toCSSKeyframes($frames, 'my-morph');
-```
-
-[Morphing documentation](./docs/morphing/overview.md): Interpolation, easing, exporting
-
----
-
-## Use Cases
-
-### Sanitize user-uploaded SVGs
-
-Accept SVGs from users without risking XSS. Strip scripts and dangerous content, validate structure, optimize, and serve.
-
-```php
-$svg = Svg::load($uploadedFile);
-$document = $svg->getDocument();
-
-Sanitizer::strict()->sanitize($document);
-DocumentValidator::autoFix($document);
-
-$svg->optimize()->save($outputPath);
-```
-
-### Generate icon sprite sheets
-
-Consolidate individual icon files into a single SVG sprite for fewer HTTP requests.
-
-```php
-$icons = array_map(fn ($file) => Svg::load($file)->getDocument(), glob('icons/*.svg'));
-
-$sprite = Document::merge($icons, ['strategy' => MergeStrategy::SYMBOLS]);
-```
-
-```html
-<svg><use href="sprite.svg#icon-home"/></svg>
-```
-
-### Batch-process SVG assets
-
-Optimize an entire directory of SVGs in a CI pipeline or build step.
-
-```php
-$optimizer = new Optimizer(OptimizerPresets::aggressive());
-
-foreach (glob('assets/svg/*.svg') as $file) {
-    $document = (new DomLoader())->loadFromFile($file);
-    $optimizer->optimize($document);
-    (new CompactXmlDumper())->dumpToFile($document, $file);
+foreach ($document->querySelectorAll('g[id^="series-"] path') as $path) {
+    $path->setAttribute('stroke-width', '2');
 }
 ```
 
-### Build charts and dashboards
+Collections are typed and chainable rather than plain arrays. See
+[Selectors](docs/elements/selectors.md) and [Collections](docs/elements/collections.md).
 
-Compose SVG documents programmatically: generate charts, combine them into layouts, add accessible metadata.
+## Every element, typed
+
+Shapes, text, gradients, filters, clipping and masking, structure, animation: each SVG element
+is a class with its own attributes rather than a generic node. See
+[Elements](docs/elements/overview.md).
+
+## Paths
+
+The `d` attribute becomes a list of typed segments, which is what makes measuring and rewriting
+a curve possible at all.
 
 ```php
-$chart = Svg::create(400, 300);
+use Atelier\Svg\Path\Path;
 
-foreach ($data as $i => $value) {
-    $height = $value * 2;
-    $chart->rect($i * 50 + 10, 300 - $height, 40, $height, ['fill' => '#3b82f6']);
-}
+$path = Path::parse('M20,80 C 80,20 220,20 280,80');
 
-Accessibility::setTitle($chart->getDocument(), 'Monthly Revenue');
-Accessibility::setDescription($chart->getDocument(), 'Bar chart showing revenue by month');
-
-$chart->save('chart.svg');
+$path->getLength();
+$path->getPointAtLength(120);   // a Point, for placing a marker along the curve
+$path->getBoundingBox();
 ```
 
-### Animate shape transitions
+Building, analysis, geometry, simplification, and baking transforms into coordinates all live in
+[Paths](docs/path/overview.md).
 
-Morph between two SVG shapes and export as a self-contained animated SVG.
+## Styling and transforms
+
+Inline styles, presentation attributes, transform matrices, and the bounding boxes that layout
+depends on. See [Styling](docs/styling/overview.md).
+
+## Sanitize untrusted input
+
+Accepting an SVG upload means accepting arbitrary markup. One call strips what makes it
+dangerous: `<script>`, `on*` handlers, `javascript:` URLs, `<foreignObject>`, and external
+references.
 
 ```php
-$star = Svg::load('star.svg')->getDocument()->querySelector('path');
-$circle = Svg::load('circle.svg')->getDocument()->querySelector('path');
+$safe = Svg::fromString($upload)->sanitize()->toString();
+```
 
+Profiles range from permissive to strict, and validation is separate for when you need to know
+what is wrong rather than remove it. See [Sanitization](docs/document/sanitization.md).
+
+## Optimize
+
+Fifty passes, grouped into cleanup, conversion, removal, and restructuring. Four presets choose
+for you, and `optimizeWith()` takes a pipeline you assembled yourself.
+
+```php
+Svg::load('icon.svg')->optimizeWeb()->save('icon.min.svg');
+```
+
+`optimizeSafe()` preserves ids and metadata, `optimizeAggressive()` goes for the smallest file.
+Writing your own pass is a documented interface, not a fork. See
+[Optimization](docs/optimization/overview.md).
+
+## Accessibility
+
+A generated SVG is invisible to a screen reader until it is told what it shows.
+
+```php
+use Atelier\Svg\Element\Accessibility\Accessibility;
+
+Accessibility::setTitle($document, 'Quarterly revenue');
+Accessibility::setDescription($document, 'Bar chart comparing Q1 to Q4');
+```
+
+Titles, descriptions, ARIA roles and labels, focus order, and an audit that reports what is
+missing. See [Accessibility](docs/elements/accessibility.md).
+
+## Morph and animate
+
+Interpolate between two shapes, whatever their segment counts, and export the result as SMIL,
+CSS keyframes, JavaScript, or a sprite sheet.
+
+```php
+use Atelier\Svg\Morphing\Morph;
+use Atelier\Svg\Path\PathParser;
+
+$parser = new PathParser();
 $frames = Morph::frames(
-    Path::parse($star->getAttribute('d'))->getData(),
-    Path::parse($circle->getAttribute('d'))->getData(),
+    $parser->parse('M 0 0 L 100 0 L 100 100 L 0 100 Z'),
+    $parser->parse('M 50 0 L 100 50 L 50 100 L 0 50 Z'),
     60,
     'ease-in-out',
 );
-
-$animated = AnimationExporter::toAnimatedSVG($frames, [
-    'duration' => 2,
-    'repeatCount' => 'indefinite',
-]);
 ```
 
----
+See [Morphing](docs/morphing/overview.md).
 
 ## Documentation
 
-- [Installation](./docs/installation.md): Requirements and setup
-- [Quick Start](./docs/quick-start.md): Create, load, manipulate SVGs
-- [Document Handling](./docs/document/overview.md): Creating, loading, exporting, sanitization, validation
-- [Elements](./docs/elements/overview.md): Shapes, text, animation, selectors, gradients, filters, clipping
-- [Path Operations](./docs/path/overview.md): Building, analysis, transforms, geometry, simplification
-- [Styling](./docs/styling/overview.md): Layout, transforms, and values
-- [Optimization](./docs/optimization/overview.md): Passes and presets
-- [Morphing](./docs/morphing/overview.md): Interpolation, easing, exporting
-- [Guides](./docs/guides/sanitize-uploads.md): Sanitization, batch processing, charts, animation
+- [Installation](docs/installation.md): requirements and setup.
+- [Quick start](docs/quick-start.md): load, create, and manipulate a document.
+- [Document](docs/document/overview.md): parse, create, validate, sanitize, export.
+- [Elements](docs/elements/overview.md): every element as a typed object.
+- [Paths](docs/path/overview.md): build, measure, simplify, transform.
+- [Styling](docs/styling/overview.md): styles, transforms, layout boxes.
+- [Optimization](docs/optimization/overview.md): the passes, the presets, writing your own.
+- [Morphing](docs/morphing/overview.md): interpolation and animation export.
+- [Guides](docs/guides/overview.md): sanitizing uploads, icon sprites, charts, batch processing.
 
----
+The full documentation is published at [ateliersvg.com/svg](https://ateliersvg.com/svg/).
 
 ## Contributing
 
-Contributions are welcome! See [CONTRIBUTING.md](.github/CONTRIBUTING.md) for guidelines.
+Contributions are welcome. Visit the [project on GitHub](https://github.com/ateliersvg/svg) to
+[report a bug](https://github.com/ateliersvg/svg/issues/new),
+[suggest a feature](https://github.com/ateliersvg/svg/issues/new), or
+[open a pull request](https://github.com/ateliersvg/svg/pulls).
+
+Before submitting code, run:
+
+```bash
+composer qa   # PHP-CS-Fixer, PHPStan at level max, and PHPUnit
+```
+
+Changes to public behaviour need a test and a documentation update.
+
+## Support
+
+Bug reports, security disclosures, and contribution guidelines are collected at
+[ateliersvg.com/support](https://ateliersvg.com/support/).
+
+Atelier is maintained by Simon André. Sharing the package or
+[starring it on GitHub](https://github.com/ateliersvg/svg) helps more than you would think.
 
 ## License
 
-Atelier SVG is open-source software licensed under the [MIT License](LICENSE).
+Atelier SVG is released under the [MIT License](LICENSE).
