@@ -5,7 +5,7 @@ description: "Accept SVGs from users without risking XSS. Strip scripts, event h
 # Sanitize Uploads
 
 Accept SVGs from users without risking XSS. Strip scripts, event handlers,
-and dangerous content, then validate and optimize before serving.
+and dangerous content, then [validate](../document/validation.md) and optimize before serving.
 
 ```php
 use Atelier\Svg\Svg;
@@ -34,16 +34,10 @@ $svg->optimize()->save($outputPath);
 
 ## What gets removed
 
-The strict sanitizer strips:
+The [strict sanitizer](../document/sanitization.md) strips:
 
 - `<script>` elements
 - `on*` event handler attributes (`onclick`, `onload`, etc.)
 - `javascript:` and `data:` URLs in `href` and `xlink:href`
 - `<foreignObject>` elements
 - External resource references
-
-## See also
-
-- [Sanitization reference](../document/sanitization.md)
-- [Validation](../document/validation.md)
-- [Accessibility](../elements/accessibility.md): add metadata after sanitizing

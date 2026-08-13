@@ -78,9 +78,3 @@ Accessibility::improveAccessibility($doc, [
 ```
 
 All options default to `true`.
-
-## See also
-
-- [Overview](overview.md): base element API
-- [Structure](structure.md): document structure
-- [Text](text.md): text elements for readable content

@@ -1,10 +1,10 @@
 # SVG Document API
 
-Atelier SVG is a PHP 8.3+ library for parsing, creating, manipulating, and exporting SVG documents. This section covers the core document model and the main entry points.
+Atelier SVG is a PHP 8.3+ library for parsing, creating, manipulating, and exporting SVG documents. This section covers the document model and the two entry points.
 
-## Core Concepts
+## Two Entry Points
 
-The library has two main entry points:
+The library has two:
 
 - **`Document`**: The internal representation of an SVG document. It holds the root `SvgElement`, provides CSS-like query selectors, element import/merge capabilities, validation, and optimization methods.
 - **`Svg`**: A facade that wraps a `Document` and provides a simplified, fluent API for common workflows. Most users should start here.
@@ -78,11 +78,3 @@ $circles = $document->querySelectorAll('circle');
 | Validate structure | `$document->validate()` |
 | Merge multiple SVGs | `Document::merge()` |
 | Morph between shapes | `Svg::morph()`, `Svg::morphFrames()` |
-
-## See also
-
-- [Parsing SVGs](parsing.md): Loading SVG documents from files and strings
-- [Creating SVGs](creating.md): Building SVGs programmatically
-- [Exporting SVGs](exporting.md): Saving and serializing SVG output
-- [Validation](validation.md): Validating SVG documents
-- [Sanitization](sanitization.md): Securing SVGs against XSS

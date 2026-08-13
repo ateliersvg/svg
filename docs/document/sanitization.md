@@ -137,9 +137,3 @@ foreach ($passes as $pass) {
     echo $pass->getName() . "\n";
 }
 ```
-
-## See also
-
-- [Document Overview](overview.md): Core concepts
-- [Validation](validation.md): Structural validation (complementary to sanitization)
-- [Parsing SVGs](parsing.md): Parser security features (XXE prevention)

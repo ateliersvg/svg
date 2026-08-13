@@ -138,11 +138,3 @@ echo Analyzer::printReport($document);
 ```
 
 Individual analysis methods are also available: `analyzeSize()`, `analyzeStructure()`, `analyzeStyles()`, `analyzeOptimization()`.
-
-## See also
-
-- [Cleanup passes](passes/cleanup.md)
-- [Conversion passes](passes/convert.md)
-- [Removal passes](passes/remove.md)
-- [Merge and restructure passes](passes/merge.md)
-- [Writing a custom pass](custom-pass.md)

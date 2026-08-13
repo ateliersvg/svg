@@ -287,8 +287,3 @@ Per-channel transfer functions using child elements:
 - `FeFuncGElement`: green channel
 - `FeFuncBElement`: blue channel
 - `FeFuncAElement`: alpha channel
-
-## See also
-
-- [Shapes](shapes.md): elements to apply filters to
-- [Overview](overview.md): element base classes

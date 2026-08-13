@@ -5,7 +5,7 @@ description: Use groups to scope transforms, share attributes, and structure com
 
 # Working with Groups
 
-The most common reason to reach for a group is a transform that should apply to several elements at once - move, rotate, or scale them together without touching each one individually. Groups also let you set shared opacity, attach an id or class for later querying, and layer content into named sections.
+The most common reason to reach for a group is a [transform](../styling/transforms.md) that should apply to several elements at once - move, rotate, or scale them together without touching each one individually. Groups also let you set shared opacity, attach an id or class for later querying, and layer content into named sections.
 
 ## Build a group from scratch
 
@@ -146,9 +146,3 @@ $svg = Svg::create(400, 300)
 ```
 
 Set `opacity` per element if you want them to blend independently.
-
-## See also
-
-- [Structural elements](../elements/structure.md) - symbols, defs, use
-- [Transforms](../styling/transforms.md) - coordinate systems in depth
-- [Merge pass](../optimization/merge.md) - automatic group collapsing during optimization

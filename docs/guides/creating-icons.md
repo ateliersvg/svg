@@ -124,9 +124,3 @@ $b64 = Svg::fromDocument($doc)->toDataUri(base64: true);
 | `RemoveDimensionsPass` | Strips the dimensions the `Svg::create()` added |
 | No `RemoveTitlePass` | Keeps accessibility annotations intact |
 | Prefix IDs before bundling | Prevents collisions when used in a sprite sheet |
-
-## See also
-
-- [Sprite sheets](sprites-and-symbols.md) - bundle multiple icons into one file
-- [Accessibility guide](accessibility.md) - aria patterns in depth
-- [Optimization overview](../optimization/overview.md) - full pass reference

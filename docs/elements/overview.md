@@ -124,11 +124,3 @@ $collection->get(2);
 $collection->count();
 $collection->isEmpty();
 ```
-
-## See also
-
-- [Shapes](shapes.md): shape elements (rect, circle, path, ...)
-- [Structure](structure.md): grouping and reuse elements
-- [Animation](animation.md): SMIL animation elements and builder
-- [Collections](collections.md): batch operations on multiple elements
-- [Selectors](selectors.md): querying the element tree

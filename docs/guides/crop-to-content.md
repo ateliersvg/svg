@@ -120,9 +120,3 @@ For elements buried deeper that need their full ancestry baked in, use `bbox()->
 | Walk root children, don't ask root | Root reports its declared `viewBox`, not its content extent |
 | `%g` in `sprintf` | Drops trailing zeros so `230 230 130 130` stays clean |
 | Pad with `stroke-width / 2` | Ensures stroked content isn't clipped at the new edge |
-
-## See also
-
-- [Path overview](../path/overview.md) - measuring and computing path geometry
-- [Document overview](../document/overview.md) - root element, attributes, children
-- [Optimization overview](../optimization/overview.md) - combine cropping with size-reduction passes

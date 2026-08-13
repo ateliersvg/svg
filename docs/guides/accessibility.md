@@ -6,7 +6,7 @@ description: "Audit and fix SVG accessibility: add titles, descriptions, and ARI
 
 SVGs embedded in web pages need text alternatives, correct roles, and
 keyboard support to work with screen readers and assistive technology.
-Atelier SVG provides tools to audit, fix, and maintain accessibility.
+Atelier SVG provides [tools](../elements/accessibility.md) to audit, fix, and maintain accessibility.
 
 ## Add a title and description
 
@@ -186,10 +186,3 @@ foreach (glob('assets/svg/*.svg') as $file) {
 
 This catches missing titles and descriptions at build time rather than
 in production.
-
-## See also
-
-- [Accessibility API](../elements/accessibility.md): full class reference
-- [Build charts](build-charts.md): accessible chart generation
-- [Sprites and symbols](sprites-and-symbols.md): accessible icon sprites
-- [Batch optimize](batch-optimize.md): optimization presets

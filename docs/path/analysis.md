@@ -135,9 +135,3 @@ $d = PathDistance::maxPointDistance($path1, $path2);
 ```
 
 All methods accept an optional `$samples` parameter (default 50) controlling how many points are sampled along each path.
-
-## See also
-
-- [Path data model](overview.md): Data, segments, parser
-- [Building paths](building.md): PathBuilder, ShapeFactory
-- [Path simplification](simplification.md): reducing point count

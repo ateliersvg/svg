@@ -107,7 +107,7 @@ All presentation attributes (`fill`, `stroke`, `opacity`, `class`, etc.) are cop
 
 ## Morphing after conversion
 
-Once shapes are paths, they can be morphed with `ShapeMorpher`:
+Once shapes are paths, they can be [morphed](../morphing/how-it-works.md) with `ShapeMorpher`:
 
 ```php
 <?php
@@ -116,7 +116,7 @@ use Atelier\Svg\Loader\DomLoader;
 use Atelier\Svg\Optimizer\Optimizer;
 use Atelier\Svg\Optimizer\Pass\ConvertShapeToPathPass;
 use Atelier\Svg\Morphing\ShapeMorpher;
-use Atelier\Svg\Path\Data;
+use Atelier\Svg\Path\PathParser;
 
 $loader    = new DomLoader();
 $optimizer = new Optimizer([new ConvertShapeToPathPass()]);
@@ -133,16 +133,10 @@ $starPath   = $starDoc->querySelector('path')?->getAttribute('d');
 if ($circlePath !== null && $starPath !== null) {
     $morpher = new ShapeMorpher();
     $frames  = $morpher->generateFrames(
-        Data::parse($circlePath),
-        Data::parse($starPath),
+        (new PathParser())->parse($circlePath),
+        (new PathParser())->parse($starPath),
         60,
         'ease-in-out',
     );
 }
 ```
-
-## See also
-
-- [Animate shapes](animate-shapes.md): export morphing animations to SVG
-- [Batch optimize](batch-optimize.md): run conversion over a directory of files
-- [Morphing: how it works](../morphing/how-it-works.md): normalization and interpolation internals

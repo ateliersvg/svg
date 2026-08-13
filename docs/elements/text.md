@@ -128,9 +128,3 @@ TextMeasurement::fitToBox($text, 200, 100);
 // Check if text fits without wrapping
 TextMeasurement::fitsInWidth('Short', 200, 'Arial', 16); // bool
 ```
-
-## See also
-
-- [Overview](overview.md): base element classes
-- [Accessibility](accessibility.md): making text accessible
-- [Shapes](shapes.md): paths for textPath

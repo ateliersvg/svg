@@ -166,8 +166,3 @@ $visitor->setTransformMatrix([
 $matrix = $visitor->parseTransformToMatrix('matrix(1 0 0 1 10 10)');
 $merged = $visitor->mergeMatrices($matrix, $otherMatrix);
 ```
-
-## See also
-
-- [Overview](overview.md): element tree basics
-- [Structure](structure.md): container elements to traverse

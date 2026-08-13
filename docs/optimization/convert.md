@@ -115,10 +115,3 @@ new ConvertEllipseToCirclePass(
 ```
 
 Run before `ConvertShapeToPathPass` if both are used.
-
-## See also
-
-- [Optimization overview](../overview.md)
-- [Cleanup passes](cleanup.md)
-- [Removal passes](remove.md)
-- [Merge and restructure passes](merge.md)

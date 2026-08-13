@@ -174,11 +174,3 @@ new AddClassesToSVGPass(
 ```
 
 Styleable attributes include: `fill`, `stroke`, `stroke-width`, `opacity`, `font-family`, `font-size`, `font-weight`, and more.
-
-## See also
-
-- [Optimization overview](../overview.md)
-- [Cleanup passes](cleanup.md)
-- [Conversion passes](convert.md)
-- [Removal passes](remove.md)
-- [Writing a custom pass](../custom-pass.md)

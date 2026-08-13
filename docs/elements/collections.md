@@ -129,9 +129,3 @@ $collection->remove();
 $shallow = $collection->clone();
 $deep = $collection->cloneDeep();
 ```
-
-## See also
-
-- [Elements overview](overview.md): element class hierarchy
-- [Selectors](selectors.md): CSS selector queries that return collections
-- [Shapes](shapes.md): shape elements

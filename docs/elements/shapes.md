@@ -112,11 +112,3 @@ $rect->setFill('#3b82f6')
      ->addClass('shape')
      ->setTranslation(50, 50);
 ```
-
-## See also
-
-- [Overview](overview.md): base element classes and attributes
-- [Structure](structure.md): grouping shapes
-- [Styling overview](../../styling/overview.md): fill, stroke, and presentation attributes
-- [Gradients](gradients.md): filling shapes with gradients
-- [Filters](filters.md): applying filter effects

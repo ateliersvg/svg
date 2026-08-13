@@ -135,9 +135,3 @@ So you can place petals around a circle, anchor labels on the corners of a star,
 | `$path->getPointAtLength($l)` | Point on the curve at a given distance - returns `null` past the end |
 | Loop `$i = 0; $i <= $count; $i++` | Evenly-spaced markers including both endpoints |
 | Loop `$l = 0; $l <= $length; $l += $step` | Fixed-distance markers (last one may fall short of the end) |
-
-## See also
-
-- [Path overview](../path/overview.md) - full Path API
-- [Animate shapes](animate-shapes.md) - use measured points as animation frames
-- [Build charts](build-charts.md) - distribute data points along axes

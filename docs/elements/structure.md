@@ -124,9 +124,3 @@ $library->remove('icon-star');
 $library->merge($otherLibrary);
 $library->clear();
 ```
-
-## See also
-
-- [Overview](overview.md): base element classes
-- [Shapes](shapes.md): shape elements to place in groups
-- [Selectors](selectors.md): querying structural trees

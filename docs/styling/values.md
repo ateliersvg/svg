@@ -103,9 +103,3 @@ Width and height must be non-negative; the constructor throws `InvalidArgumentEx
 ## IriReference
 
 `Atelier\Svg\Value\IriReference` represents IRI/URI references used in attributes like `xlink:href`, `fill="url(#id)"`, and `clip-path="url(#id)"`.
-
-## See also
-
-- [Style system](overview.md): Style, StyleBuilder, themes
-- [CSS/SVG transforms](transforms.md): TransformList and transform functions
-- [Path data model](../path/overview.md): path-specific value types

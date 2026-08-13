@@ -32,6 +32,8 @@ foreach (glob('assets/svg/*.svg') as $file) {
 | `OptimizerPresets::web()` | Production delivery: `<img>`, inline SVG, icon systems. |
 | `OptimizerPresets::aggressive()` | Maximum file size reduction: CI pipelines, CDNs. |
 
+When no preset fits, [write a pass](../optimization/custom-pass.md) and add it to the pipeline.
+
 ## Measuring results
 
 ```php
@@ -41,8 +43,3 @@ $after = strlen($dumper->dump($document));
 
 printf("%.1f%% reduction\n", (1 - $after / $before) * 100);
 ```
-
-## See also
-
-- [Optimization overview](../optimization/overview.md): all passes and presets
-- [Custom passes](../optimization/custom-pass.md): write your own optimization pass

@@ -169,8 +169,3 @@ $rect->setFill('url(#my-gradient)');
 // or
 $rect->setFillPaintServer('my-gradient');
 ```
-
-## See also
-
-- [Shapes](shapes.md): elements to apply gradients to
-- [Overview](overview.md): element base classes

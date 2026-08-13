@@ -30,10 +30,10 @@ After normalization, every drawing segment is a cubic bezier curve. This makes i
 
 ```php
 use Atelier\Svg\Morphing\PathNormalizer;
-use Atelier\Svg\Path\Data;
+use Atelier\Svg\Path\PathParser;
 
 $normalizer = new PathNormalizer();
-$path = Data::parse('M 0 0 L 100 0 Q 100 100 0 100 Z');
+$path = (new PathParser())->parse('M 0 0 L 100 0 Q 100 100 0 100 Z');
 $normalized = $normalizer->normalize($path);
 // Result contains only M, C, and Z segments
 ```
@@ -139,14 +139,14 @@ A path ending in `Z` and one that does not will both normalize to `M`/`C` segmen
 ```php
 <?php
 
-use Atelier\Svg\Path\Data;
+use Atelier\Svg\Path\PathParser;
 use Atelier\Svg\Morphing\ShapeMorpher;
 
 $morpher = new ShapeMorpher();
 
 // Both are single-subpath shapes, compatible
-$triangle = Data::parse('M 50 10 L 90 90 L 10 90 Z');
-$square   = Data::parse('M 10 10 L 90 10 L 90 90 L 10 90 Z');
+$triangle = (new PathParser())->parse('M 50 10 L 90 90 L 10 90 Z');
+$square   = (new PathParser())->parse('M 10 10 L 90 10 L 90 90 L 10 90 Z');
 
 $mid = $morpher->morph($triangle, $square, 0.5);
 // The matcher subdivides the triangle's three curves to match
@@ -158,14 +158,14 @@ $mid = $morpher->morph($triangle, $square, 0.5);
 ```php
 <?php
 
-use Atelier\Svg\Path\Data;
+use Atelier\Svg\Path\PathParser;
 use Atelier\Svg\Morphing\ShapeMorpher;
 
 $morpher = new ShapeMorpher();
 
 // Two separate subpaths vs. one subpath
-$twoSubpaths = Data::parse('M 0 0 L 40 0 M 60 0 L 100 0');
-$onePath     = Data::parse('M 0 50 L 100 50');
+$twoSubpaths = (new PathParser())->parse('M 0 0 L 40 0 M 60 0 L 100 0');
+$onePath     = (new PathParser())->parse('M 0 50 L 100 50');
 
 // The matcher equalizes segment counts, but the two M commands in
 // $twoSubpaths mean the visual result jumps rather than morphs

@@ -167,10 +167,4 @@ if (!$result->isValid()) {
 | `format()` | Human-readable multi-line report |
 | `toArray()` | Serializable array of all issues |
 
-Validation never throws `ParseException` or `RuntimeException`; those come from loading. If you need to catch loading failures before validating, wrap `Svg::load()` in a try/catch (see [Parsing](/document/parsing/)).
-
-## See also
-
-- [Document Overview](overview.md): Core concepts
-- [Sanitization](sanitization.md): Security-focused cleaning
-- [Parsing SVGs](parsing.md): Parse profiles for input validation
+Validation never throws `ParseException` or `RuntimeException`; those come from loading. If you need to catch loading failures before validating, wrap `Svg::load()` in a try/catch (see [Parsing](parsing.md)).

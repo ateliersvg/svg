@@ -77,9 +77,3 @@ This is the fastest of the three algorithms. Use it as a first pass to strip obv
 | 5.0+ | Aggressive reduction, visible simplification |
 
 The right value depends on the scale of your coordinates and the level of detail required.
-
-## See also
-
-- [Path data model](overview.md): Data, segments, parser
-- [Path analysis](analysis.md): measure paths before and after simplification
-- [Optimization](../optimization/overview.md): broader optimization strategies

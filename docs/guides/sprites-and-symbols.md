@@ -5,7 +5,7 @@ description: "Combine multiple SVG icons into a single sprite using <symbol> and
 # Sprite Sheets
 
 Combine multiple SVG icons into a single sprite document using
-`<symbol>` and `<use>`. This reduces HTTP requests and keeps icons
+[`<symbol>` and `<use>`](../elements/structure.md). This reduces HTTP requests and keeps icons
 consistent across your application.
 
 ## Create a sprite from individual SVG files
@@ -162,9 +162,3 @@ foreach (glob('icons/*.svg') as $file) {
 $sprite = Document::create();
 SymbolBuilder::importLibrary($sprite, $library);
 ```
-
-## See also
-
-- [Structural elements](../elements/structure.md): SymbolElement, UseElement, DefsElement API
-- [Batch optimize](batch-optimize.md): optimize multiple SVGs in a pipeline
-- [Accessibility](accessibility.md): add titles and descriptions to icons
