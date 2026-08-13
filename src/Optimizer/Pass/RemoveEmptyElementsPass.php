@@ -12,7 +12,8 @@ use Atelier\Svg\Element\ElementInterface;
  * Optimization pass that removes empty elements with no meaningful content.
  *
  * This pass removes elements that:
- * - Have no children (for container elements)
+ * - Have no children and no character data (for container elements)
+ * - Have no character data and no external resource (for other elements)
  * - Have no meaningful attributes (except id, class, and event handlers)
  *
  * The pass is configurable to specify which element types should be checked.
@@ -21,6 +22,31 @@ use Atelier\Svg\Element\ElementInterface;
 final class RemoveEmptyElementsPass implements OptimizerPassInterface
 {
     use PreservingAttributesTrait;
+
+    /**
+     * Pseudo-attribute holding an element's character data.
+     *
+     * Text nodes are not stored as element children: the parser puts them on
+     * the owning element under this name, and the dumper writes them back out
+     * as a text node.
+     *
+     * @see \Atelier\Svg\Parser\DomParser
+     * @see \Atelier\Svg\Dumper\XmlDumper
+     */
+    private const string TEXT_CONTENT_ATTRIBUTE = 'textContent';
+
+    /**
+     * Attributes pointing at an external resource.
+     *
+     * A <script href="app.js"/> carries no character data yet still loads
+     * something, so it must survive even when it looks empty.
+     *
+     * @var list<string>
+     */
+    private const array EXTERNAL_RESOURCE_ATTRIBUTES = [
+        'href',
+        'xlink:href',
+    ];
 
     /** @var list<string> Default element types to check for emptiness */
     private const array DEFAULT_CHECKABLE_ELEMENTS = [
@@ -122,15 +148,41 @@ final class RemoveEmptyElementsPass implements OptimizerPassInterface
             return false;
         }
 
+        // Character data is not an element child, so an element carrying text
+        // looks childless. Check it first, or <text>Hello</text> is dropped.
+        if ($this->hasTextContent($element)) {
+            return false;
+        }
+
         // For container elements, check if they're empty
         if ($element instanceof ContainerElementInterface) {
             // Remove if no children and no other meaningful attributes
             return !$element->hasChildren();
         }
 
-        // For non-container elements in the checkable list (like style, script)
-        // we'd need text content support to determine if they're truly empty
-        // For now, keep them if they're not containers
-        return false;
+        // Non-container elements in the checkable list (style, script) never
+        // have children. Without character data they only still matter when
+        // they point at an external resource.
+        foreach (self::EXTERNAL_RESOURCE_ATTRIBUTES as $attribute) {
+            if ($element->hasAttribute($attribute)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Checks whether an element carries non-whitespace character data.
+     *
+     * @param ElementInterface $element The element to check
+     *
+     * @return bool True if the element holds text
+     */
+    private function hasTextContent(ElementInterface $element): bool
+    {
+        $content = $element->getAttribute(self::TEXT_CONTENT_ATTRIBUTE);
+
+        return null !== $content && '' !== trim($content);
     }
 }
