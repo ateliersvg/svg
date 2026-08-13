@@ -37,6 +37,19 @@ use Atelier\Svg\Visitor\Traverser;
 final class DocumentValidator
 {
     /**
+     * Attributes where a bare "#id" value is an ID reference.
+     *
+     * Everywhere else a leading "#" starts a hex color: fill="#fff" points at
+     * no element at all.
+     *
+     * @var list<string>
+     */
+    private const array FRAGMENT_ATTRIBUTES = [
+        'href',
+        'xlink:href',
+    ];
+
+    /**
      * Validate an SVG document.
      *
      * Performs basic validation checks and returns an array of errors.
@@ -154,11 +167,12 @@ final class DocumentValidator
                     continue;
                 }
 
-                // Extract ID from url(#id) or #id format
+                // Extract ID from url(#id), or from #id on the href attributes
+                // only: elsewhere a leading "#" starts a hex color
                 $id = null;
                 if (preg_match('/url\(#(.+?)\)/', $value, $matches)) {
                     $id = $matches[1];
-                } elseif (str_starts_with($value, '#')) {
+                } elseif (in_array($attr, self::FRAGMENT_ATTRIBUTES, true) && str_starts_with($value, '#')) {
                     $id = substr($value, 1);
                 }
 

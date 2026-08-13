@@ -278,6 +278,114 @@ final class ReferenceTrackerTest extends TestCase
         $this->assertTrue($tracker->isReferenced('mySymbol'));
     }
 
+    public function testHexColorIsNotAReference(): void
+    {
+        $doc = Document::create();
+        $root = $doc->getRootElement();
+
+        $rect = new RectElement();
+        $rect->setAttribute('fill', '#fff');
+        $rect->setAttribute('stroke', '#123456');
+        $root->appendChild($rect);
+
+        $tracker = new ReferenceTracker($doc);
+
+        $this->assertSame([], $tracker->findBrokenReferences());
+        $this->assertFalse($tracker->isReferenced('fff'));
+        $this->assertFalse($tracker->isReferenced('123456'));
+    }
+
+    public function testAllNumericHexColorIsNotAReference(): void
+    {
+        $doc = Document::create();
+        $root = $doc->getRootElement();
+
+        $rect = new RectElement();
+        $rect->setAttribute('fill', '#333');
+        $root->appendChild($rect);
+
+        $tracker = new ReferenceTracker($doc);
+
+        // A numeric string used to come back out of the map as an int and
+        // blow up BrokenReference's string parameter
+        $this->assertSame([], $tracker->findBrokenReferences());
+    }
+
+    public function testResolvesUrlReferenceToNumericId(): void
+    {
+        $doc = Document::create();
+        $root = $doc->getRootElement();
+
+        $defs = new DefsElement();
+        $gradient = new LinearGradientElement();
+        $gradient->setAttribute('id', '333');
+        $defs->appendChild($gradient);
+        $root->appendChild($defs);
+
+        $rect = new RectElement();
+        $rect->setAttribute('fill', 'url(#333)');
+        $root->appendChild($rect);
+
+        $tracker = new ReferenceTracker($doc);
+
+        $this->assertSame([], $tracker->findBrokenReferences());
+        $this->assertTrue($tracker->isReferenced('333'));
+        $this->assertSame($gradient, $tracker->getElementById('333'));
+        $this->assertSame(['333'], $tracker->getAllIds());
+        $this->assertSame([], $tracker->getUnreferencedIds());
+        $this->assertSame([], $tracker->findCircularReferences());
+    }
+
+    public function testReportsBrokenUrlReferenceToNumericId(): void
+    {
+        $doc = Document::create();
+        $root = $doc->getRootElement();
+
+        $rect = new RectElement();
+        $rect->setAttribute('fill', 'url(#333)');
+        $root->appendChild($rect);
+
+        $tracker = new ReferenceTracker($doc);
+        $broken = $tracker->findBrokenReferences();
+
+        $this->assertCount(1, $broken);
+        $this->assertSame('333', $broken[0]->referencedId);
+        $this->assertSame($rect, $broken[0]->referencingElement);
+    }
+
+    public function testBrokenHrefReferenceKeepsBareFragmentForm(): void
+    {
+        $doc = Document::create();
+        $root = $doc->getRootElement();
+
+        $use = new UseElement();
+        $use->setAttribute('href', '#missingSymbol');
+        $root->appendChild($use);
+
+        $tracker = new ReferenceTracker($doc);
+        $broken = $tracker->findBrokenReferences();
+
+        $this->assertCount(1, $broken);
+        $this->assertSame('missingSymbol', $broken[0]->referencedId);
+        $this->assertSame('href', $broken[0]->attribute);
+    }
+
+    public function testGetDependsOnIgnoresHexColors(): void
+    {
+        $doc = Document::create();
+        $root = $doc->getRootElement();
+
+        $rect = new RectElement();
+        $rect->setAttribute('id', 'box');
+        $rect->setAttribute('fill', '#fff');
+        $rect->setAttribute('stroke', 'url(#grad1)');
+        $root->appendChild($rect);
+
+        $tracker = new ReferenceTracker($doc);
+
+        $this->assertSame(['grad1'], array_values($tracker->getDependsOn('box')));
+    }
+
     public function testEmptyDocumentHandling(): void
     {
         $doc = new Document();

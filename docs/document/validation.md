@@ -128,6 +128,10 @@ $broken = $document->findBrokenReferences();
 $cycles = $document->findCircularReferences();
 ```
 
+Paint attributes such as `fill` and `stroke` reference an element only through `url(#id)`. A bare `#value` there is a hex color, not a reference, so `fill="#fff"` is left alone. Only `href` and `xlink:href` treat a bare `#id` as a reference.
+
+An id may be an all-numeric string. `url(#333)` resolves against `<linearGradient id="333">`, and `getDuplicateIds()` returns such an id as an int key, since PHP arrays cannot hold a numeric string key.
+
 ## Error handling
 
 Validation does not throw. `validate()` always returns a `ValidationResult`; check `isValid()` to determine whether to proceed.

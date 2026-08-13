@@ -200,6 +200,9 @@ final class Validator
         $severity = $this->profile->get('severity_duplicate_id', ValidationSeverity::ERROR);
 
         foreach ($duplicates as $id => $count) {
+            // PHP hands back an all-numeric id such as "333" as an int key
+            $id = (string) $id;
+
             $result->addIssue(new ValidationIssue(
                 $severity,
                 'duplicate_id',
