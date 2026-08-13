@@ -21,7 +21,7 @@ Cleanup passes normalize, trim, and sanitize SVG attributes and elements without
 | `RemoveXMLProcInstPass` | Removes `<?xml ...?>` processing instructions |
 | `RemoveEditorsNSDataPass` | Removes editor-specific namespaces and metadata (Illustrator, Inkscape, Sketch, etc.) |
 | `RemoveEmptyAttrsPass` | Removes attributes with empty or whitespace-only values |
-| `RemoveEmptyElementsPass` | Removes container elements with no children and no preserving attributes |
+| `RemoveEmptyElementsPass` | Removes elements with no text, no children and no preserving attributes |
 | `RemoveEmptyGroupsPass` | Removes empty `<g>` elements, optionally unwraps attribute-less groups |
 | `RemoveRedundantSvgAttributesPass` | Removes `version` and `xml:space="preserve"` from the root SVG |
 | `RemoveUnusedNSPass` | Removes `xmlns:*` declarations that are not referenced |
@@ -141,7 +141,9 @@ new RemoveEmptyAttrsPass(
 
 ## RemoveEmptyElementsPass
 
-Removes container elements (`g`, `text`, `tspan`, `defs`, `style`, `script`) that have no children and no preserving attributes (id, class, event handlers).
+Removes elements (`g`, `text`, `tspan`, `defs`, `style`, `script`) that have nothing left to render and no preserving attributes (id, class, event handlers).
+
+An element is empty when it carries no text. `<text>Hello</text>` and `<style>.a{fill:red}</style>` are kept, `<text>   </text>` is not. Container elements also need no children, so a `<text>` is kept when it wraps a `<tspan>` that has text of its own. `<style>` and `<script>` are kept when they point at an external resource through `href` or `xlink:href`.
 
 ```php
 new RemoveEmptyElementsPass(

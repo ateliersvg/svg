@@ -8,9 +8,14 @@ use Atelier\Svg\Document;
 use Atelier\Svg\Element\AbstractContainerElement;
 use Atelier\Svg\Element\AbstractElement;
 use Atelier\Svg\Element\PathElement;
+use Atelier\Svg\Element\ScriptElement;
 use Atelier\Svg\Element\Structural\GroupElement;
+use Atelier\Svg\Element\StyleElement;
 use Atelier\Svg\Element\SvgElement;
+use Atelier\Svg\Element\Text\TextElement;
+use Atelier\Svg\Element\Text\TspanElement;
 use Atelier\Svg\Optimizer\Pass\RemoveEmptyElementsPass;
+use Atelier\Svg\Svg;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -184,6 +189,87 @@ final class RemoveEmptyElementsPassTest extends TestCase
         $this->assertCount(0, $svg->getChildren());
     }
 
+    public function testKeepTextWithContent(): void
+    {
+        $pass = new RemoveEmptyElementsPass();
+        $svg = new SvgElement();
+
+        $text = TextElement::create(10, 40, 'Hello');
+
+        $svg->appendChild($text);
+        $document = new Document($svg);
+
+        $pass->optimize($document);
+
+        $this->assertCount(1, $svg->getChildren());
+        $this->assertSame($text, $svg->getChildren()[0]);
+    }
+
+    public function testRemoveTextWithWhitespaceOnlyContent(): void
+    {
+        $pass = new RemoveEmptyElementsPass();
+        $svg = new SvgElement();
+
+        $text = TextElement::create(10, 40, "  \n\t ");
+
+        $svg->appendChild($text);
+        $document = new Document($svg);
+
+        $pass->optimize($document);
+
+        $this->assertCount(0, $svg->getChildren());
+    }
+
+    public function testKeepTspanWithContent(): void
+    {
+        $pass = new RemoveEmptyElementsPass();
+        $svg = new SvgElement();
+
+        $text = new TextElement();
+        $tspan = new TspanElement();
+        $tspan->setTextContent('Hello');
+
+        $text->appendChild($tspan);
+        $svg->appendChild($text);
+        $document = new Document($svg);
+
+        $pass->optimize($document);
+
+        // The tspan holds the text, so neither it nor its parent is empty
+        $this->assertCount(1, $svg->getChildren());
+        $this->assertCount(1, $text->getChildren());
+        $this->assertSame($tspan, $text->getChildren()[0]);
+    }
+
+    public function testRemoveTextWhoseOnlyTspanIsEmpty(): void
+    {
+        $pass = new RemoveEmptyElementsPass();
+        $svg = new SvgElement();
+
+        $text = new TextElement();
+        $text->appendChild(new TspanElement());
+        $svg->appendChild($text);
+        $document = new Document($svg);
+
+        $pass->optimize($document);
+
+        // Bottom-up: the empty tspan goes first, leaving the text empty too
+        $this->assertCount(0, $svg->getChildren());
+    }
+
+    public function testTextIsPreservedThroughEveryPreset(): void
+    {
+        $markup = '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="60">'
+            .'<text x="10" y="40" font-size="20" fill="#000">Hello</text></svg>';
+
+        foreach (['optimizeSafe', 'optimize', 'optimizeWeb', 'optimizeAggressive'] as $method) {
+            $output = (string) Svg::fromString($markup)->{$method}();
+
+            $this->assertStringContainsString('Hello', $output, $method.' dropped the text content');
+            $this->assertStringContainsString('<text', $output, $method.' dropped the text element');
+        }
+    }
+
     public function testRemoveEmptyDefs(): void
     {
         $pass = new RemoveEmptyElementsPass();
@@ -328,26 +414,72 @@ final class RemoveEmptyElementsPassTest extends TestCase
         $this->assertSame($path, $group->getChildren()[0]);
     }
 
-    public function testNonContainerElementReturnsFalseForRemoval(): void
+    public function testEmptyNonContainerElementIsRemoved(): void
     {
         $pass = new RemoveEmptyElementsPass();
         $svg = new SvgElement();
 
         // A non-container element in the checkable list (like script)
-        $script = new class extends AbstractElement {
-            public function __construct()
-            {
-                parent::__construct('script');
-            }
-        };
+        $script = new ScriptElement();
 
         $svg->appendChild($script);
         $document = new Document($svg);
 
         $pass->optimize($document);
 
-        // Non-container elements should not be removed even if checkable
+        // Nothing to run and nothing to reference: the element has no effect
+        $this->assertCount(0, $svg->getChildren());
+    }
+
+    public function testNonContainerElementWithTextContentIsKept(): void
+    {
+        $pass = new RemoveEmptyElementsPass();
+        $svg = new SvgElement();
+
+        $style = new StyleElement();
+        $style->setContent('.a{fill:red}');
+
+        $svg->appendChild($style);
+        $document = new Document($svg);
+
+        $pass->optimize($document);
+
         $this->assertCount(1, $svg->getChildren());
+        $this->assertSame($style, $svg->getChildren()[0]);
+    }
+
+    public function testNonContainerElementWithWhitespaceContentIsRemoved(): void
+    {
+        $pass = new RemoveEmptyElementsPass();
+        $svg = new SvgElement();
+
+        $style = new StyleElement();
+        $style->setContent("  \n\t ");
+
+        $svg->appendChild($style);
+        $document = new Document($svg);
+
+        $pass->optimize($document);
+
+        $this->assertCount(0, $svg->getChildren());
+    }
+
+    public function testNonContainerElementWithExternalResourceIsKept(): void
+    {
+        $pass = new RemoveEmptyElementsPass();
+        $svg = new SvgElement();
+
+        // An external script has no character data but still loads something
+        $script = new ScriptElement();
+        $script->setAttribute('href', 'app.js');
+
+        $svg->appendChild($script);
+        $document = new Document($svg);
+
+        $pass->optimize($document);
+
+        $this->assertCount(1, $svg->getChildren());
+        $this->assertSame($script, $svg->getChildren()[0]);
     }
 
     public function testMultipleEventHandlers(): void
