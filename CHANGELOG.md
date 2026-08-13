@@ -9,12 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `SimplifyPathPass` relative tolerance, a ceiling expressed as a fraction of the drawing span
+- `SimplifyPathPass::resolveTolerance()`, the tolerance a given document resolves to
+
 ### Changed
+
+- Optimizer presets bound their simplification tolerance by the drawing span; documents 500 user units across or larger are unaffected
 
 ### Fixed
 
 - Minified arc flags in SVG path data
 - Adjacent SVG path numbers without separators
+- Presets flattening shapes drawn on a small grid: a one-unit rectangle in a 33-unit viewBox no longer collapses to a triangle or a line
 
 ## [1.0.0] - 2026-05-20
 

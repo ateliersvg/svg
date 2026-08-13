@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Atelier\Svg\Tests\Optimizer;
 
+use Atelier\Svg\Document;
+use Atelier\Svg\Element\PathElement;
+use Atelier\Svg\Geometry\Point;
+use Atelier\Svg\Loader\DomLoader;
+use Atelier\Svg\Optimizer\Optimizer;
 use Atelier\Svg\Optimizer\OptimizerPresets;
 use Atelier\Svg\Optimizer\Pass\CleanupIdsPass;
 use Atelier\Svg\Optimizer\Pass\ConvertEllipseToCirclePass;
@@ -22,6 +27,7 @@ use Atelier\Svg\Optimizer\Pass\RemoveTitlePass;
 use Atelier\Svg\Optimizer\Pass\RemoveXMLProcInstPass;
 use Atelier\Svg\Optimizer\Pass\SortAttributesPass;
 use Atelier\Svg\Optimizer\Pass\SortDefsChildrenPass;
+use Atelier\Svg\Path\PathAnalyzer;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -281,6 +287,53 @@ final class OptimizerPresetsTest extends TestCase
                 $this->addToAssertionCount(1);
             }
         }
+    }
+
+    public function testEveryPresetKeepsAOneUnitShapeInASmallViewbox(): void
+    {
+        // One module of a barcode: a rectangle one user unit tall on a 33-unit grid.
+        $inputs = [
+            'rect' => '<rect x="2" y="2" width="7" height="1" fill="#000"/>',
+            'path' => '<path d="M2,2 L9,2 L9,3 L2,3 Z" fill="#000"/>',
+        ];
+
+        foreach ($inputs as $shape => $markup) {
+            foreach (['default', 'aggressive', 'safe', 'web'] as $preset) {
+                $document = (new DomLoader())->loadFromString(
+                    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 33">'.$markup.'</svg>'
+                );
+
+                (new Optimizer(OptimizerPresets::get($preset)))->optimize($document);
+
+                self::assertShapeStillCoversItsCorners($document, sprintf("preset '%s' on a <%s>", $preset, $shape));
+            }
+        }
+    }
+
+    /**
+     * Asserts the optimized document still draws the whole 7x1 rectangle.
+     *
+     * A point near the right end of the rectangle is inside it and outside every
+     * truncated version of it, so it separates the intact shape from the triangle
+     * an oversized simplification tolerance leaves behind.
+     */
+    private static function assertShapeStillCoversItsCorners(Document $document, string $message): void
+    {
+        $rect = $document->querySelector('rect');
+
+        if (null !== $rect) {
+            self::assertSame('7', $rect->getAttribute('width'), $message);
+            self::assertSame('1', $rect->getAttribute('height'), $message);
+
+            return;
+        }
+
+        $path = $document->querySelector('path');
+        self::assertInstanceOf(PathElement::class, $path, $message);
+
+        $data = $path->getData();
+        self::assertNotNull($data, $message);
+        self::assertTrue((new PathAnalyzer($data))->containsPoint(new Point(8.5, 2.5)), $message);
     }
 
     /**
