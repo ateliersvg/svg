@@ -95,8 +95,9 @@ Reduces the number of points in path data using a simplification algorithm (e.g.
 use Atelier\Svg\Path\Simplifier\Simplifier;
 
 new SimplifyPathPass(
-    simplifier: new Simplifier(), // simplification algorithm
-    tolerance: 1.0,               // higher = more aggressive (default: 1.0)
+    simplifier: new Simplifier(),  // simplification algorithm
+    tolerance: 1.0,                // user units, higher = more aggressive (default: 1.0)
+    relativeTolerance: 0.002,      // ceiling as a fraction of the drawing span (default: none)
 );
 ```
 
@@ -105,6 +106,31 @@ Typical tolerance values:
 - `0.5`: default preset
 - `1.0`: web preset
 - `2.0`: aggressive preset
+
+### Tolerance and document scale
+
+The tolerance is a distance in user units, so what it removes depends on the scale the document is drawn at. A tolerance of `1.0` is a hairline in a 1000-unit banner and a whole module in a 33-unit barcode, where it takes corners off: a seven-by-one rectangle comes back a triangle, a one-by-one rectangle comes back a zero-width line.
+
+`relativeTolerance` bounds the tolerance by the drawing's own span. The pass applies the smaller of `tolerance` and `relativeTolerance * span`, where the span is the diagonal of the root `viewBox`, or of `width` and `height` when there is no `viewBox`. A document that exposes neither keeps `tolerance`. Leaving `relativeTolerance` unset keeps `tolerance` for every document.
+
+The presets set it. Each value reproduces that preset's absolute tolerance at a span of 500 user units, so documents at that scale or larger are simplified exactly as before:
+
+| Preset | `tolerance` | `relativeTolerance` |
+|---|---|---|
+| `safe` | 0.1 | `SimplifyPathPass::RELATIVE_TOLERANCE_SAFE` (0.0002) |
+| `default` | 0.5 | `SimplifyPathPass::RELATIVE_TOLERANCE_DEFAULT` (0.001) |
+| `web` | 1.0 | `SimplifyPathPass::RELATIVE_TOLERANCE_WEB` (0.002) |
+| `aggressive` | 2.0 | `SimplifyPathPass::RELATIVE_TOLERANCE_AGGRESSIVE` (0.004) |
+
+`resolveTolerance()` reports what a document resolves to, without optimizing it:
+
+```php
+$pass = new SimplifyPathPass(new Simplifier(), 1.0, 0.002);
+
+$pass->resolveTolerance($document); // 0.093 for viewBox="0 0 33 33"
+```
+
+`Optimizer::simplifyPaths($document, $tolerance)` takes an absolute tolerance and applies it as given, since the caller states the distance.
 
 ## SimplifyTransformsPass
 

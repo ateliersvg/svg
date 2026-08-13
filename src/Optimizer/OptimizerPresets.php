@@ -161,7 +161,7 @@ final class OptimizerPresets
             ),
             new SimplifyTransformsPass(precision: PrecisionConfig::TRANSFORM_DEFAULT),
             new ConvertEllipseToCirclePass(),
-            new SimplifyPathPass(new Simplifier(), 0.5),
+            new SimplifyPathPass(new Simplifier(), 0.5, SimplifyPathPass::RELATIVE_TOLERANCE_DEFAULT),
             new ConvertPathDataPass(precision: PrecisionConfig::PATH_DEFAULT),
 
             // -- Phase 6: Finalize --
@@ -261,7 +261,7 @@ final class OptimizerPresets
                 convertPolygons: true,
                 convertPolylines: true,
             ),
-            new SimplifyPathPass(new Simplifier(), 2.0),
+            new SimplifyPathPass(new Simplifier(), 2.0, SimplifyPathPass::RELATIVE_TOLERANCE_AGGRESSIVE),
             new ConvertPathDataPass(precision: 0, removeRedundantCommands: true),
             new MergePathsPass(),
 
@@ -339,7 +339,7 @@ final class OptimizerPresets
 
             // -- Phase 5: Convert (very conservative) --
             new ConvertEllipseToCirclePass(),
-            new SimplifyPathPass(new Simplifier(), 0.1),
+            new SimplifyPathPass(new Simplifier(), 0.1, SimplifyPathPass::RELATIVE_TOLERANCE_SAFE),
             new ConvertPathDataPass(precision: PrecisionConfig::PATH_SAFE),
 
             // -- Phase 6: Finalize --
@@ -431,7 +431,7 @@ final class OptimizerPresets
                 convertPolygons: true,
                 convertPolylines: true,
             ),
-            new SimplifyPathPass(new Simplifier(), 1.0),
+            new SimplifyPathPass(new Simplifier(), 1.0, SimplifyPathPass::RELATIVE_TOLERANCE_WEB),
             new ConvertPathDataPass(precision: PrecisionConfig::PATH_AGGRESSIVE, removeRedundantCommands: true),
             new MergePathsPass(),
 

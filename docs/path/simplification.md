@@ -17,6 +17,8 @@ The method returns a new `Data` object: the original is not modified. The `$tole
 
 Non-line segments (curves, arcs, close commands) are preserved as-is. Only sequences of `MoveTo` + `LineTo` segments (polylines) are simplified.
 
+The tolerance is an absolute distance, so the same value removes much more from a drawing on a small grid than from a large one. The optimizer pass that wraps these algorithms can [bound the tolerance by the document's span](../optimization/merge.md) instead.
+
 ## Simplifier (Ramer-Douglas-Peucker)
 
 `Atelier\Svg\Path\Simplifier\Simplifier` uses the Ramer-Douglas-Peucker algorithm. It recursively finds the point farthest from the line between the start and end, keeping it only if its perpendicular distance exceeds the tolerance.
