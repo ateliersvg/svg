@@ -56,6 +56,17 @@ final class ReferenceTracker
         'style',
     ];
 
+    /**
+     * Attributes where a bare "#id" value is an ID reference.
+     *
+     * Everywhere else a leading "#" starts a hex color: fill="#fff" points at
+     * no element at all.
+     */
+    private const array FRAGMENT_ATTRIBUTES = [
+        'href',
+        'xlink:href',
+    ];
+
     public function __construct(private readonly Document $document)
     {
         $this->build();
@@ -116,7 +127,7 @@ final class ReferenceTracker
                 continue;
             }
 
-            $refs = $this->extractReferences($value);
+            $refs = $this->extractReferences($value, $attr);
             foreach ($refs as $refId) {
                 if (!isset($this->referenceMap[$refId])) {
                     $this->referenceMap[$refId] = [];
@@ -142,9 +153,12 @@ final class ReferenceTracker
     /**
      * Extracts all ID references from an attribute value.
      *
+     * @param string $value     The attribute value
+     * @param string $attribute The attribute the value comes from
+     *
      * @return array<string> List of referenced IDs
      */
-    private function extractReferences(string $value): array
+    private function extractReferences(string $value, string $attribute): array
     {
         $refs = [];
 
@@ -153,8 +167,8 @@ final class ReferenceTracker
             $refs = array_merge($refs, $matches[1]);
         }
 
-        // Match #id pattern (for href attributes)
-        if (str_starts_with($value, '#')) {
+        // Match #id pattern, which only means an ID on the href attributes
+        if (in_array($attribute, self::FRAGMENT_ATTRIBUTES, true) && str_starts_with($value, '#')) {
             $refs[] = substr($value, 1);
         }
 
@@ -162,11 +176,29 @@ final class ReferenceTracker
     }
 
     /**
+     * Reads the keys of an ID-keyed map back as strings.
+     *
+     * PHP casts a numeric-string array key to int, so an id such as "333"
+     * comes back out of these maps as int 333. Restore the declared type
+     * before the value reaches an API that expects a string.
+     *
+     * @param array<array-key, mixed> $map
+     *
+     * @return list<string>
+     */
+    private static function idKeys(array $map): array
+    {
+        return array_map(strval(...), array_keys($map));
+    }
+
+    /**
      * Builds the dependency graph from the reference map.
      */
     private function buildDependencyGraph(): void
     {
-        foreach ($this->referenceMap as $referencedId => $references) {
+        foreach (self::idKeys($this->referenceMap) as $referencedId) {
+            $references = $this->referenceMap[$referencedId];
+
             if (!isset($this->dependencyGraph[$referencedId])) {
                 $this->dependencyGraph[$referencedId] = [];
             }
@@ -189,9 +221,9 @@ final class ReferenceTracker
     {
         $broken = [];
 
-        foreach ($this->referenceMap as $refId => $references) {
+        foreach (self::idKeys($this->referenceMap) as $refId) {
             if (!isset($this->elementsById[$refId])) {
-                foreach ($references as $ref) {
+                foreach ($this->referenceMap[$refId] as $ref) {
                     $broken[] = new BrokenReference(
                         referencedId: $refId,
                         referencingElement: $ref->element,
@@ -216,7 +248,7 @@ final class ReferenceTracker
         $visited = [];
         $recursionStack = [];
 
-        foreach (array_keys($this->dependencyGraph) as $id) {
+        foreach (self::idKeys($this->dependencyGraph) as $id) {
             if (!isset($visited[$id])) {
                 $this->detectCycle($id, $visited, $recursionStack, [], $cycles);
             }
@@ -293,7 +325,7 @@ final class ReferenceTracker
                 continue;
             }
 
-            $refs = $this->extractReferences($value);
+            $refs = $this->extractReferences($value, $attr);
             $dependsOn = array_merge($dependsOn, $refs);
         }
 
@@ -321,7 +353,10 @@ final class ReferenceTracker
     /**
      * Gets all duplicate IDs in the document.
      *
-     * @return array<string, int> Map of duplicate ID to occurrence count
+     * PHP arrays cannot hold a numeric-string key, so an id such as "333"
+     * comes back as int 333. Cast the key before using it as a string.
+     *
+     * @return array<array-key, int> Map of duplicate ID to occurrence count
      */
     public function getDuplicateIds(): array
     {
@@ -335,7 +370,7 @@ final class ReferenceTracker
      */
     public function getAllIds(): array
     {
-        return array_keys($this->elementsById);
+        return self::idKeys($this->elementsById);
     }
 
     /**
@@ -353,8 +388,8 @@ final class ReferenceTracker
      */
     public function getUnreferencedIds(): array
     {
-        $allIds = array_keys($this->elementsById);
-        $referencedIds = array_keys($this->referenceMap);
+        $allIds = self::idKeys($this->elementsById);
+        $referencedIds = self::idKeys($this->referenceMap);
 
         return array_diff($allIds, $referencedIds);
     }

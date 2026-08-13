@@ -72,6 +72,91 @@ final class ValidatorTest extends TestCase
         $this->assertStringContainsString('nonexistent', $errors[0]->message);
     }
 
+    public function testHexColorFillIsNotReportedAsBrokenReference(): void
+    {
+        $doc = Document::create();
+        $root = $doc->getRootElement();
+
+        $rect = new RectElement();
+        $rect->setAttribute('width', '4');
+        $rect->setAttribute('height', '4');
+        $rect->setAttribute('fill', '#fff');
+        $root->appendChild($rect);
+
+        $validator = new Validator();
+        $result = $validator->validate($doc);
+
+        $this->assertTrue($result->isValid());
+        $this->assertSame([], $result->getErrors());
+    }
+
+    public function testAllNumericHexColorFillDoesNotFailValidation(): void
+    {
+        $doc = Document::create();
+        $root = $doc->getRootElement();
+
+        $rect = new RectElement();
+        $rect->setAttribute('width', '4');
+        $rect->setAttribute('height', '4');
+        $rect->setAttribute('fill', '#333');
+        $root->appendChild($rect);
+
+        $validator = new Validator();
+        $result = $validator->validate($doc);
+
+        $this->assertTrue($result->isValid());
+    }
+
+    public function testValidatesReferenceToNumericId(): void
+    {
+        $doc = Document::create();
+        $root = $doc->getRootElement();
+
+        $defs = new DefsElement();
+        $gradient = new LinearGradientElement();
+        $gradient->setAttribute('id', '333');
+        $defs->appendChild($gradient);
+        $root->appendChild($defs);
+
+        $rect = new RectElement();
+        $rect->setAttribute('width', '4');
+        $rect->setAttribute('height', '4');
+        $rect->setAttribute('fill', 'url(#333)');
+        $root->appendChild($rect);
+
+        $validator = new Validator();
+        $result = $validator->validate($doc);
+
+        $this->assertTrue($result->isValid());
+        $this->assertSame([], $result->getErrors());
+    }
+
+    public function testDetectsDuplicateNumericIds(): void
+    {
+        $doc = Document::create();
+        $root = $doc->getRootElement();
+
+        foreach (['10', '10'] as $id) {
+            $rect = new RectElement();
+            $rect->setAttribute('id', $id);
+            $rect->setAttribute('width', '10');
+            $rect->setAttribute('height', '10');
+            $root->appendChild($rect);
+        }
+
+        $validator = new Validator();
+        $result = $validator->validate($doc);
+
+        $found = false;
+        foreach ($result->getIssues() as $issue) {
+            if ('duplicate_id' === $issue->code) {
+                $found = true;
+                $this->assertSame('10', $issue->value);
+            }
+        }
+        $this->assertTrue($found, 'Expected to find duplicate ID issue');
+    }
+
     public function testDetectsDuplicateIds(): void
     {
         $doc = Document::create();

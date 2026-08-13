@@ -458,6 +458,38 @@ final class DocumentValidatorTest extends TestCase
         $this->assertSame('href', $broken[0]['attribute']);
     }
 
+    public function testFindBrokenReferencesIgnoresHexColors(): void
+    {
+        $doc = Document::create();
+        $root = $doc->getRootElement();
+        $this->assertNotNull($root);
+
+        $rect = new RectElement();
+        $rect->setAttribute('fill', '#fff');
+        $rect->setAttribute('stroke', '#333');
+        $root->appendChild($rect);
+
+        $broken = DocumentValidator::findBrokenReferences($doc);
+
+        $this->assertSame([], $broken);
+    }
+
+    public function testFixBrokenReferencesKeepsHexColors(): void
+    {
+        $doc = Document::create();
+        $root = $doc->getRootElement();
+        $this->assertNotNull($root);
+
+        $rect = new RectElement();
+        $rect->setAttribute('fill', '#fff');
+        $root->appendChild($rect);
+
+        $fixed = DocumentValidator::fixBrokenReferences($doc);
+
+        $this->assertSame(0, $fixed);
+        $this->assertSame('#fff', $rect->getAttribute('fill'));
+    }
+
     public function testFindBrokenReferencesReturnsEmptyForValidRefs(): void
     {
         $doc = Document::create();
