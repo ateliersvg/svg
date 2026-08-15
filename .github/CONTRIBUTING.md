@@ -10,16 +10,14 @@ cd svg
 composer install
 ```
 
-## Composer Scripts
+## Composer scripts
 
 | Command | Description |
 |---------|-------------|
-| `composer test` | Run tests (PHPUnit) |
-| `composer sa` | Run static analysis (PHPStan, max level) |
-| `composer cs` | Check code style (dry-run) |
+| `composer test` | Run tests |
+| `composer sa` | Run static analysis |
+| `composer cs` | Check code style |
 | `composer cs:fix` | Fix code style |
-| `composer rector` | Check Rector suggestions (dry-run) |
-| `composer coverage` | Run tests with coverage report |
 | `composer qa` | Run cs + sa + test |
 
 ## Development Workflow
@@ -54,7 +52,7 @@ All checks must pass before merging.
   - [ ] Tests pass (`composer test`)
   - [ ] Static analysis passes (`composer sa`)
   - [ ] Code style is clean (`composer cs`)
-  - [ ] Coverage remains at 100% (`composer coverage`)
+  - [ ] Coverage remains at 100%
 
 ## License
 

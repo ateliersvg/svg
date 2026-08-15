@@ -205,8 +205,8 @@ Changes to public behaviour need a test and a documentation update.
 Bug reports, security disclosures, and contribution guidelines are collected at
 [ateliersvg.com/support](https://ateliersvg.com/support/).
 
-Atelier is maintained by Simon André. Sharing the package or
-[starring it on GitHub](https://github.com/ateliersvg/svg) helps more than you would think.
+Sharing the package or [starring it on GitHub](https://github.com/ateliersvg/svg) helps more
+than you would think.
 
 ## License
 
