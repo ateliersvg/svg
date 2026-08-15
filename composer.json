@@ -3,7 +3,7 @@
     "description": "PHP library for SVG manipulation, optimization, and morphing: parsing, building, styling, transforms, validation, and sanitization",
     "license": "MIT",
     "type": "library",
-    "homepage": "https://github.com/ateliersvg/svg",
+    "homepage": "https://ateliersvg.com/svg/",
     "keywords": [
         "svg",
         "optimization",
@@ -27,7 +27,8 @@
     "authors": [
         {
             "name": "Simon André",
-            "email": "smn.andre@gmail.com"
+            "email": "smn.andre@gmail.com",
+            "homepage": "https://smnandre.dev"
         }
     ],
     "minimum-stability": "stable",
@@ -56,7 +57,6 @@
         "sort-packages": true
     },
     "scripts": {
-        "coverage": "vendor/bin/phpunit --coverage-text",
         "cs": "vendor/bin/php-cs-fixer fix --dry-run --diff",
         "cs:fix": "vendor/bin/php-cs-fixer fix",
         "qa": [
@@ -64,7 +64,6 @@
             "@sa",
             "@test"
         ],
-        "rector": "vendor/bin/rector process --dry-run",
         "sa": "vendor/bin/phpstan analyse --memory-limit=-1",
         "test": "vendor/bin/phpunit"
     }

@@ -13,7 +13,7 @@ Cleanup passes normalize, trim, and sanitize SVG attributes and elements without
 | `CleanupIdsPass` | Removes unused IDs, optionally minifies them, supports prefix and preserve patterns |
 | `CleanupNumericValuesPass` | Rounds numbers, removes trailing/leading zeros, formats compact values |
 | `CleanupEnableBackgroundPass` | Removes the legacy `enable-background` attribute |
-| `RemoveCommentsPass` | Removes XML comments (stripped at loader level) |
+| `RemoveCommentsPass` | Leaves loaded documents unchanged because the loader already strips XML comments |
 | `RemoveMetadataPass` | Removes `<metadata>`, optionally `<desc>` and `<title>` |
 | `RemoveDescPass` | Removes `<desc>` elements |
 | `RemoveTitlePass` | Removes `<title>` elements |
@@ -72,7 +72,7 @@ new CleanupEnableBackgroundPass();
 
 ## RemoveCommentsPass
 
-Removes XML comments. Currently a no-op because comments are stripped at the loader level.
+The loader discards XML comments while parsing, so this pass leaves a loaded `Document` unchanged.
 
 ```php
 new RemoveCommentsPass();
