@@ -6,9 +6,12 @@ namespace Atelier\Svg\Tests;
 
 use Atelier\Svg\Document;
 use Atelier\Svg\Document\MergeStrategy;
+use Atelier\Svg\Dumper\CompactXmlDumper;
 use Atelier\Svg\Element\ElementCollection;
+use Atelier\Svg\Element\Gradient\LinearGradientElement;
 use Atelier\Svg\Element\Shape\CircleElement;
 use Atelier\Svg\Element\Shape\RectElement;
+use Atelier\Svg\Element\Structural\DefsElement;
 use Atelier\Svg\Element\Structural\GroupElement;
 use Atelier\Svg\Element\Structural\SymbolElement;
 use Atelier\Svg\Element\SvgElement;
@@ -125,6 +128,80 @@ final class DocumentTest extends TestCase
         $result = $doc->toString();
 
         $this->assertStringContainsString('svg', $result);
+    }
+
+    public function testToStringKeepsRootAttributes(): void
+    {
+        $doc = Document::create(120, 80);
+
+        $result = $doc->toString();
+
+        $this->assertStringContainsString('<svg', $result);
+        $this->assertStringContainsString('xmlns="http://www.w3.org/2000/svg"', $result);
+        $this->assertStringContainsString('width="120"', $result);
+        $this->assertStringContainsString('height="80"', $result);
+    }
+
+    public function testToStringKeepsChildren(): void
+    {
+        $doc = Document::create(120, 80);
+        $doc->rect(10, 20, 30, 40, ['fill' => '#ff0000']);
+
+        $result = $doc->toString();
+
+        $this->assertStringContainsString('<rect', $result);
+        $this->assertStringContainsString('x="10"', $result);
+        $this->assertStringContainsString('y="20"', $result);
+        $this->assertStringContainsString('width="30"', $result);
+        $this->assertStringContainsString('height="40"', $result);
+        $this->assertStringContainsString('fill="#ff0000"', $result);
+    }
+
+    public function testToStringKeepsDefs(): void
+    {
+        $doc = Document::create(120, 80);
+        $root = $doc->getRootElement();
+        $this->assertNotNull($root);
+
+        $gradient = new LinearGradientElement();
+        $gradient->setAttribute('id', 'brand');
+
+        $defs = new DefsElement();
+        $defs->appendChild($gradient);
+        $root->appendChild($defs);
+
+        $result = $doc->toString();
+
+        $this->assertStringContainsString('<defs', $result);
+        $this->assertStringContainsString('<linearGradient', $result);
+        $this->assertStringContainsString('id="brand"', $result);
+    }
+
+    public function testToStringMatchesCompactDumper(): void
+    {
+        $doc = Document::create(120, 80);
+        $doc->circle(60, 40, 25);
+
+        $this->assertSame((new CompactXmlDumper())->dump($doc), $doc->toString());
+    }
+
+    public function testToStringHonorsOmitXmlDeclaration(): void
+    {
+        $doc = Document::create(120, 80);
+
+        $this->assertStringContainsString('<?xml', $doc->toString());
+
+        $doc->setOmitXmlDeclaration(true);
+
+        $this->assertStringNotContainsString('<?xml', $doc->toString());
+    }
+
+    public function testToStringAndCastProduceTheSameMarkup(): void
+    {
+        $doc = Document::create(120, 80);
+        $doc->rect(0, 0, 10, 10);
+
+        $this->assertSame($doc->toString(), (string) $doc);
     }
 
     // ========================================================================
