@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Atelier\Svg;
 
 use Atelier\Svg\Document\MergeStrategy;
+use Atelier\Svg\Dumper\CompactXmlDumper;
 use Atelier\Svg\Element\Accessibility\Accessibility;
 use Atelier\Svg\Element\ContainerElementInterface;
 use Atelier\Svg\Element\ElementCollection;
@@ -149,7 +150,12 @@ final class Document implements \Stringable
     }
 
     /**
-     * Converts the document to an SVG string.
+     * Converts the document to a compact SVG string.
+     *
+     * Mirrors Svg::toString(): compact markup, with the XML declaration
+     * dropped when setOmitXmlDeclaration(true) has been called.
+     *
+     * @return string The serialized markup, or an empty string when the document has no root element
      */
     public function toString(): string
     {
@@ -157,9 +163,13 @@ final class Document implements \Stringable
             return '';
         }
 
-        // This is a basic implementation
-        // A full implementation would use the Dumper classes
-        return sprintf('<%s/>', $this->rootElement->getTagName());
+        $dumper = new CompactXmlDumper();
+
+        if ($this->omitXmlDeclaration) {
+            $dumper->includeXmlDeclaration(false);
+        }
+
+        return $dumper->dump($this);
     }
 
     public function __toString(): string
