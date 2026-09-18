@@ -1,11 +1,8 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+Public API and behaviour changes only. Versions follow Semantic Versioning.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
-## [Unreleased]
+## Unreleased
 
 ### Added
 
@@ -14,35 +11,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Optimizer presets bound their simplification tolerance by the drawing span; documents 500 user units across or larger are unaffected
+- Optimizer presets bound their simplification tolerance by the drawing span
 
 ### Fixed
 
 - Minified arc flags in SVG path data
 - Adjacent SVG path numbers without separators
-- Presets flattening shapes drawn on a small grid: a one-unit rectangle in a 33-unit viewBox no longer collapses to a triangle or a line
+- Presets flattening shapes drawn on a small grid
 
-## [1.0.0] - 2026-05-20
+## 1.0.0 - 2026-05-20
 
 ### Added
 
-- SVG creation, loading, and exporting with fluent facade API
-- Full SVG 1.1 element support: shapes, text, groups, symbols, markers, defs, use
+- Fluent facade for creating, loading and exporting SVG
+- SVG 1.1 elements: shapes, text, groups, symbols, markers, defs, use
 - CSS-like selectors and element collections with batch operations
-- Path builder with all SVG path commands (lines, curves, arcs)
+- Path builder covering every SVG path command
 - Path analysis: length, bounding box, point containment, distance metrics
-- 26+ filter primitives with fluent FilterBuilder
-- Linear and radial gradients with GradientBuilder
-- Patterns, clipping paths, and masks
-- SMIL animation support with AnimationBuilder
-- 40+ optimization passes with 4 presets (default, aggressive, safe, accessible)
-- `ConvertPathDataPass` uses parsed path infrastructure with per-segment abs/rel comparison and L-to-H/V shorthand
-- `ConvertPathDataPass` curve optimizations: C-to-Q (cubic-to-quadratic), C-to-S (smooth cubic), Q-to-T (smooth quadratic), compact arc flags
-- `MergeStylesPass` now minifies CSS even with a single `<style>` element and removes obsolete `type="text/css"` attributes
-- `PathUtils::toAbsolute()` and `toRelative()` handle all 10 SVG path segment types
-- SVG sanitization with 3 security profiles (strict, default, permissive)
+- Filter primitives through `FilterBuilder`
+- Linear and radial gradients through `GradientBuilder`
+- Patterns, clipping paths and masks
+- SMIL animation through `AnimationBuilder`
+- Optimization passes with four presets: default, aggressive, safe, accessible
+- `ConvertPathDataPass`, per-segment absolute and relative comparison with L-to-H/V shorthand
+- `ConvertPathDataPass` curve optimizations: C-to-Q, C-to-S, Q-to-T, compact arc flags
+- `MergeStylesPass` minifies CSS with a single `<style>` element and drops `type="text/css"`
+- `PathUtils::toAbsolute()` and `toRelative()` across all ten path segment types
+- Sanitization with three profiles: strict, default, permissive
 - Document validation with configurable profiles
 - Accessibility checking and auto-improvement
-- Shape morphing with easing functions and animation export (SMIL, CSS, JS)
-- Document merging with multiple strategies (append, side-by-side, stacked, grid, symbols)
+- Shape morphing with easing, exported to SMIL, CSS or JS
+- Document merging: append, side-by-side, stacked, grid, symbols
 - Transform parsing and manipulation
