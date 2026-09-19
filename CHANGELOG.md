@@ -20,6 +20,7 @@ Public API and behaviour changes only. Versions follow Semantic Versioning.
 - Presets flattening shapes drawn on a small grid
 - Paths written with relative commands mangled by the simplifier
 - Elliptical arcs wrong under rotation, skew, non-uniform scale or reflection
+- Path data drifting along a subpath when the optimizer rounded relative coordinates
 
 ## 1.0.0 - 2026-05-20
 

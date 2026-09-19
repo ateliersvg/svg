@@ -9,12 +9,56 @@ use Atelier\Svg\Element\PathElement;
 use Atelier\Svg\Element\Structural\GroupElement;
 use Atelier\Svg\Element\SvgElement;
 use Atelier\Svg\Optimizer\Pass\RoundValuesPass;
+use Atelier\Svg\Path\PathParser;
+use Atelier\Svg\Path\PathUtils;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(RoundValuesPass::class)]
 final class RoundValuesPassTest extends TestCase
 {
+    public function testRoundingRelativePathDataDoesNotDriftAlongTheSubpath(): void
+    {
+        // Twenty relative steps of 1.4 land at x = 10 + 28 = 38. Rounding each
+        // delta on its own gives twenty steps of 1 and lands at 30.
+        $path = new PathElement();
+        $path->setAttribute('d', 'M10 10'.str_repeat(' l1.4 0', 20));
+        $svg = new SvgElement();
+        $svg->appendChild($path);
+        $document = new Document();
+        $document->setRootElement($svg);
+
+        (new RoundValuesPass(precision: 0))->optimize($document);
+
+        $d = $path->getAttribute('d');
+        self::assertIsString($d);
+        $segments = PathUtils::toAbsolute((new PathParser())->parse($d))->getSegments();
+        $end = $segments[count($segments) - 1]->getTargetPoint();
+        self::assertNotNull($end);
+        $this->assertEqualsWithDelta(38.0, $end->x, 0.5, 'the endpoint stays where it was');
+    }
+
+    public function testRoundingRelativePathDataKeepsEveryPointNearItsOrigin(): void
+    {
+        // A staircase: each step is off by 0.4, so drift shows at every corner.
+        $path = new PathElement();
+        $path->setAttribute('d', 'M0 0 l2.4 0 l0 2.4 l2.4 0 l0 2.4 l2.4 0 l0 2.4');
+        $svg = new SvgElement();
+        $svg->appendChild($path);
+        $document = new Document();
+        $document->setRootElement($svg);
+
+        (new RoundValuesPass(precision: 0))->optimize($document);
+
+        $d = $path->getAttribute('d');
+        self::assertIsString($d);
+        $segments = PathUtils::toAbsolute((new PathParser())->parse($d))->getSegments();
+        $end = $segments[count($segments) - 1]->getTargetPoint();
+        self::assertNotNull($end);
+        $this->assertEqualsWithDelta(7.2, $end->x, 0.5);
+        $this->assertEqualsWithDelta(7.2, $end->y, 0.5);
+    }
+
     public function testGetName(): void
     {
         $pass = new RoundValuesPass();
@@ -154,7 +198,9 @@ final class RoundValuesPassTest extends TestCase
 
         $pass->optimize($document);
 
-        $this->assertSame('M 10.6 20.4 L 31 40.1', $path->getPathData());
+        // Rounding now goes through the path model, which reserializes compactly.
+        // Same geometry, three characters shorter.
+        $this->assertSame('M10.6,20.4L31,40.1', $path->getPathData());
     }
 
     public function testRoundViewBoxAttribute(): void
