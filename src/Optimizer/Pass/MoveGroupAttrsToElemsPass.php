@@ -10,45 +10,29 @@ use Atelier\Svg\Element\ElementInterface;
 use Atelier\Svg\Element\Structural\GroupElement;
 
 /**
- * Moves inheritable presentation attributes from groups to their children.
+ * Moves a group's transform down onto its children, so the group can be collapsed.
  *
- * When a group has inheritable attributes (fill, stroke, etc.) and exists only
- * for grouping purposes (no id, class, or transforms that depend on group context),
- * those attributes can be moved to the children directly. This can enable
- * CollapseGroupsPass to then remove the group entirely.
+ * Only `transform` moves. An inherited presentation attribute such as `fill` already
+ * reaches every child for free, so copying it onto each of them costs bytes and buys
+ * nothing: the group is one attribute, the children are N. A transform is different
+ * because it composes rather than inherits, and pushing it down is what lets
+ * CollapseGroupsPass remove the group and the transform passes merge what is left.
  *
- * Complement of MoveAttributesToGroupPass (which moves common child attrs up).
+ * Complement of MoveAttributesToGroupPass, which moves common child attributes up.
  *
- * Equivalent to SVGO's `moveGroupAttrsToElems` plugin.
+ * Matches SVGO's `moveGroupAttrsToElems` plugin, including its guards.
  */
 final readonly class MoveGroupAttrsToElemsPass implements OptimizerPassInterface
 {
-    private const array INHERITABLE_ATTRIBUTES = [
-        'fill',
-        'fill-opacity',
-        'fill-rule',
-        'stroke',
-        'stroke-dasharray',
-        'stroke-dashoffset',
-        'stroke-linecap',
-        'stroke-linejoin',
-        'stroke-miterlimit',
-        'stroke-opacity',
-        'stroke-width',
-        'opacity',
-        'color',
-        'font-family',
-        'font-size',
-        'font-style',
-        'font-variant',
-        'font-weight',
-        'text-anchor',
-        'text-decoration',
-        'letter-spacing',
-        'word-spacing',
-        'clip-rule',
-        'visibility',
-        'cursor',
+    /**
+     * Elements that honour a transform of their own.
+     *
+     * A child outside this list cannot carry what the group is giving away, so the
+     * whole group is left alone rather than half moved.
+     */
+    private const array TRANSFORMABLE = [
+        'a', 'circle', 'ellipse', 'foreignObject', 'g', 'image', 'line', 'path',
+        'polygon', 'polyline', 'rect', 'svg', 'switch', 'text', 'use',
     ];
 
     public function getName(): string
@@ -67,56 +51,72 @@ final readonly class MoveGroupAttrsToElemsPass implements OptimizerPassInterface
         $this->processElement($rootElement);
     }
 
+    /**
+     * Walks top down, so a transform pushed onto a nested group is pushed on again
+     * from there and reaches the leaves in the right order.
+     */
     private function processElement(ElementInterface $element): void
     {
+        if ($element instanceof GroupElement) {
+            $this->moveTransform($element);
+        }
+
         if ($element instanceof ContainerElementInterface) {
             foreach ($element->getChildren() as $child) {
                 $this->processElement($child);
             }
         }
-
-        if (!$element instanceof GroupElement) {
-            return;
-        }
-
-        if (!$element->hasChildren()) {
-            return;
-        }
-
-        $inheritableOnGroup = $this->getInheritableAttributes($element);
-
-        if ([] === $inheritableOnGroup) {
-            return;
-        }
-
-        // Move each inheritable attribute to children that don't already override it
-        foreach ($inheritableOnGroup as $name => $value) {
-            foreach ($element->getChildren() as $child) {
-                if (!$child->hasAttribute($name)) {
-                    $child->setAttribute($name, $value);
-                }
-            }
-
-            $element->removeAttribute($name);
-        }
     }
 
-    /**
-     * @return array<string, string>
-     */
-    private function getInheritableAttributes(GroupElement $group): array
+    private function moveTransform(GroupElement $group): void
     {
-        $attrs = [];
+        if (!$group->hasChildren()) {
+            return;
+        }
 
-        foreach (self::INHERITABLE_ATTRIBUTES as $name) {
-            if ($group->hasAttribute($name)) {
-                $value = $group->getAttribute($name);
-                if (null !== $value) {
-                    $attrs[$name] = $value;
-                }
+        $transform = $group->getAttribute('transform');
+
+        if (null === $transform || '' === trim($transform)) {
+            return;
+        }
+
+        if (!$this->isMovable($group)) {
+            return;
+        }
+
+        foreach ($group->getChildren() as $child) {
+            $own = $child->getAttribute('transform');
+
+            // The group applies before the child, so it goes in front of it.
+            $child->setAttribute('transform', null === $own || '' === trim($own)
+                ? $transform
+                : $transform.' '.$own);
+        }
+
+        $group->removeAttribute('transform');
+    }
+
+    private function isMovable(GroupElement $group): bool
+    {
+        // A reference resolves in the group's own coordinate system. Moving the
+        // transform out from under it would move what it points at.
+        foreach ($group->getAttributes() as $value) {
+            if (\is_string($value) && str_contains($value, 'url(')) {
+                return false;
             }
         }
 
-        return $attrs;
+        foreach ($group->getChildren() as $child) {
+            // A child with an id may be reached by a <use> that never sees the group.
+            if (null !== $child->getId()) {
+                return false;
+            }
+
+            if (!\in_array($child->getTagName(), self::TRANSFORMABLE, true)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

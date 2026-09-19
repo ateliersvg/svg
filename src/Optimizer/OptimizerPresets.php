@@ -21,7 +21,6 @@ use Atelier\Svg\Optimizer\Pass\InlineStylesPass;
 use Atelier\Svg\Optimizer\Pass\MergePathsPass;
 use Atelier\Svg\Optimizer\Pass\MergeStylesPass;
 use Atelier\Svg\Optimizer\Pass\MoveAttributesToGroupPass;
-use Atelier\Svg\Optimizer\Pass\MoveGroupAttrsToElemsPass;
 use Atelier\Svg\Optimizer\Pass\OptimizerPassInterface;
 use Atelier\Svg\Optimizer\Pass\RemoveCommentsPass;
 use Atelier\Svg\Optimizer\Pass\RemoveDefaultAttributesPass;
@@ -150,7 +149,6 @@ final class OptimizerPresets
             new MergeStylesPass(minify: true),
             new ConvertStyleToAttrsPass(onlyMatchShorthand: true),
             new MoveAttributesToGroupPass(minChildrenCount: 2),
-            new MoveGroupAttrsToElemsPass(),
             new CollapseGroupsPass(),
             new RemoveEmptyGroupsPass(),
 
@@ -242,7 +240,6 @@ final class OptimizerPresets
             new MergeStylesPass(minify: true),
             new ConvertStyleToAttrsPass(onlyMatchShorthand: false),
             new MoveAttributesToGroupPass(minChildrenCount: 2),
-            new MoveGroupAttrsToElemsPass(),
             new CollapseGroupsPass(),
             new RemoveEmptyGroupsPass(),
 
@@ -412,7 +409,6 @@ final class OptimizerPresets
             new MergeStylesPass(minify: true),
             new ConvertStyleToAttrsPass(onlyMatchShorthand: false),
             new MoveAttributesToGroupPass(minChildrenCount: 2),
-            new MoveGroupAttrsToElemsPass(),
             new CollapseGroupsPass(),
             new RemoveEmptyGroupsPass(),
 

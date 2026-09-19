@@ -228,7 +228,9 @@ final class OptimizerPresetsTest extends TestCase
         $this->assertContains(RemoveDimensionsPass::class, $classNames);
         $this->assertContains(ConvertShapeToPathPass::class, $classNames);
         $this->assertContains(MergePathsPass::class, $classNames);
-        $this->assertContains(MoveGroupAttrsToElemsPass::class, $classNames);
+        // MoveGroupAttrsToElemsPass is deliberately absent: pushing a transform onto
+        // every child costs more than the group it lets CollapseGroupsPass remove.
+        $this->assertNotContains(MoveGroupAttrsToElemsPass::class, $classNames);
     }
 
     public function testWebPresetMinifiesIds(): void
