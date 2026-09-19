@@ -14,6 +14,7 @@ These passes restructure the SVG document tree: merging elements, collapsing gro
 | `CollapseGroupsPass` | Collapses single-child groups and removes empty groups |
 | `InlineStylesPass` | Inlines CSS class styles as element attributes |
 | `MoveAttributesToGroupPass` | Moves common attributes from children to parent group |
+| `MoveGroupAttrsToElemsPass` | Moves a group's transform down onto its children |
 | `SortAttributesPass` | Sorts attributes alphabetically for better compression |
 | `SimplifyPathPass` | Reduces path points using a simplification algorithm |
 | `SimplifyTransformsPass` | Removes identity transforms, simplifies transform values |
@@ -55,6 +56,27 @@ new CollapseGroupsPass();
 ```
 
 No constructor options.
+
+## MoveGroupAttrsToElemsPass
+
+Moves a group's `transform` onto each of its children, so `CollapseGroupsPass` can then remove
+the group. Only `transform` moves: an inherited attribute such as `fill` already reaches every
+child at no cost, and copying it onto each of them would trade one attribute for as many as
+there are children.
+
+```php
+new MoveGroupAttrsToElemsPass();
+```
+
+No constructor options. The group is left alone unless every condition holds: it carries a
+`transform`, none of its attributes references a URL, and no child has an `id` or is an element
+that ignores `transform`. A group transform is prepended to a child's own, since the group
+applies first.
+
+**Not in any preset.** Pushing a transform down duplicates it once per child to save the eight
+characters of a `<g>`, which measured as a net loss across the package figures and the benchmark
+fixtures. Add it explicitly when flattening the tree matters more than size, for instance to let
+a later pass merge paths that only a group was keeping apart.
 
 ## InlineStylesPass
 

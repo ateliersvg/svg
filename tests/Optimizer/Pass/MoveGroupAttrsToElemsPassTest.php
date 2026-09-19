@@ -6,6 +6,9 @@ namespace Atelier\Svg\Tests\Optimizer\Pass;
 
 use Atelier\Svg\Document;
 use Atelier\Svg\Element\PathElement;
+use Atelier\Svg\Element\Shape\CircleElement;
+use Atelier\Svg\Element\Shape\RectElement;
+use Atelier\Svg\Element\Structural\DefsElement;
 use Atelier\Svg\Element\Structural\GroupElement;
 use Atelier\Svg\Element\SvgElement;
 use Atelier\Svg\Optimizer\Pass\MoveGroupAttrsToElemsPass;
@@ -17,180 +20,149 @@ final class MoveGroupAttrsToElemsPassTest extends TestCase
 {
     public function testGetName(): void
     {
-        $pass = new MoveGroupAttrsToElemsPass();
-        $this->assertSame('move-group-attrs-to-elems', $pass->getName());
+        $this->assertSame('move-group-attrs-to-elems', (new MoveGroupAttrsToElemsPass())->getName());
     }
 
     public function testOptimizeEmptyDocument(): void
     {
-        $pass = new MoveGroupAttrsToElemsPass();
         $document = new Document();
-        $pass->optimize($document);
+
+        (new MoveGroupAttrsToElemsPass())->optimize($document);
+
         $this->assertNull($document->getRootElement());
     }
 
-    public function testMovesFillFromGroupToChildren(): void
+    public function testMovesTransformFromGroupToChildren(): void
     {
-        $pass = new MoveGroupAttrsToElemsPass();
-        $svg = new SvgElement();
         $group = new GroupElement();
-        $group->setAttribute('fill', 'red');
+        $group->setAttribute('transform', 'translate(10 20)');
+        $first = new PathElement();
+        $second = new PathElement();
+        $group->appendChild($first);
+        $group->appendChild($second);
 
-        $path1 = new PathElement();
-        $path2 = new PathElement();
-        $group->appendChild($path1);
-        $group->appendChild($path2);
-        $svg->appendChild($group);
-        $document = new Document($svg);
+        $this->applyTo($group);
 
-        $pass->optimize($document);
-
-        $this->assertNull($group->getAttribute('fill'));
-        $this->assertSame('red', $path1->getAttribute('fill'));
-        $this->assertSame('red', $path2->getAttribute('fill'));
+        $this->assertFalse($group->hasAttribute('transform'), 'the group gives its transform away');
+        $this->assertSame('translate(10 20)', $first->getAttribute('transform'));
+        $this->assertSame('translate(10 20)', $second->getAttribute('transform'));
     }
 
-    public function testDoesNotOverrideExistingChildAttribute(): void
+    public function testPrependsTheGroupTransformToAnExistingChildTransform(): void
     {
-        $pass = new MoveGroupAttrsToElemsPass();
-        $svg = new SvgElement();
+        // The group applies first, so it has to come first in the child's list.
         $group = new GroupElement();
-        $group->setAttribute('fill', 'red');
+        $group->setAttribute('transform', 'translate(10 20)');
+        $child = new PathElement();
+        $child->setAttribute('transform', 'scale(2)');
+        $group->appendChild($child);
 
-        $path1 = new PathElement();
-        $path1->setAttribute('fill', 'blue');
-        $path2 = new PathElement();
-        $group->appendChild($path1);
-        $group->appendChild($path2);
-        $svg->appendChild($group);
-        $document = new Document($svg);
+        $this->applyTo($group);
 
-        $pass->optimize($document);
-
-        // path1 keeps its own fill, path2 gets the group's fill
-        $this->assertNull($group->getAttribute('fill'));
-        $this->assertSame('blue', $path1->getAttribute('fill'));
-        $this->assertSame('red', $path2->getAttribute('fill'));
+        $this->assertSame('translate(10 20) scale(2)', $child->getAttribute('transform'));
     }
 
-    public function testMovesMultipleInheritableAttributes(): void
+    public function testLeavesInheritedPresentationAttributesOnTheGroup(): void
     {
-        $pass = new MoveGroupAttrsToElemsPass();
-        $svg = new SvgElement();
+        // `fill` is inherited, so a child already gets it for free. Copying it onto
+        // every child costs bytes and buys nothing.
         $group = new GroupElement();
         $group->setAttribute('fill', 'red');
-        $group->setAttribute('stroke', 'blue');
-        $group->setAttribute('opacity', '0.5');
+        $group->setAttribute('stroke-width', '2');
+        $child = new PathElement();
+        $group->appendChild($child);
 
-        $path = new PathElement();
-        $group->appendChild($path);
-        $svg->appendChild($group);
-        $document = new Document($svg);
+        $this->applyTo($group);
 
-        $pass->optimize($document);
-
-        $this->assertNull($group->getAttribute('fill'));
-        $this->assertNull($group->getAttribute('stroke'));
-        $this->assertNull($group->getAttribute('opacity'));
-        $this->assertSame('red', $path->getAttribute('fill'));
-        $this->assertSame('blue', $path->getAttribute('stroke'));
-        $this->assertSame('0.5', $path->getAttribute('opacity'));
-    }
-
-    public function testIgnoresNonInheritableAttributes(): void
-    {
-        $pass = new MoveGroupAttrsToElemsPass();
-        $svg = new SvgElement();
-        $group = new GroupElement();
-        $group->setAttribute('transform', 'translate(10,20)');
-        $group->setAttribute('fill', 'red');
-
-        $path = new PathElement();
-        $group->appendChild($path);
-        $svg->appendChild($group);
-        $document = new Document($svg);
-
-        $pass->optimize($document);
-
-        // transform is NOT inheritable, stays on group
-        $this->assertSame('translate(10,20)', $group->getAttribute('transform'));
-        // fill IS inheritable, moves to child
-        $this->assertSame('red', $path->getAttribute('fill'));
-    }
-
-    public function testSkipsEmptyGroup(): void
-    {
-        $pass = new MoveGroupAttrsToElemsPass();
-        $svg = new SvgElement();
-        $group = new GroupElement();
-        $group->setAttribute('fill', 'red');
-        $svg->appendChild($group);
-        $document = new Document($svg);
-
-        $pass->optimize($document);
-
-        // No children to move to, attribute stays
         $this->assertSame('red', $group->getAttribute('fill'));
+        $this->assertSame('2', $group->getAttribute('stroke-width'));
+        $this->assertFalse($child->hasAttribute('fill'));
+        $this->assertFalse($child->hasAttribute('stroke-width'));
     }
 
-    public function testSkipsGroupWithNoInheritableAttrs(): void
+    public function testSkipsAGroupWhoseChildCarriesAnId(): void
     {
-        $pass = new MoveGroupAttrsToElemsPass();
-        $svg = new SvgElement();
+        // Something may reference that child through a <use>, where the group
+        // transform does not apply.
         $group = new GroupElement();
-        $group->setAttribute('id', 'my-group');
         $group->setAttribute('transform', 'rotate(45)');
+        $child = new RectElement();
+        $child->setId('target');
+        $group->appendChild($child);
 
-        $path = new PathElement();
-        $group->appendChild($path);
-        $svg->appendChild($group);
-        $document = new Document($svg);
+        $this->applyTo($group);
 
-        $pass->optimize($document);
-
-        $this->assertSame('my-group', $group->getAttribute('id'));
         $this->assertSame('rotate(45)', $group->getAttribute('transform'));
-        $this->assertNull($path->getAttribute('id'));
+        $this->assertFalse($child->hasAttribute('transform'));
+    }
+
+    public function testSkipsAGroupHoldingAUrlReference(): void
+    {
+        // A clip path or a gradient resolves in the group's coordinate system.
+        $group = new GroupElement();
+        $group->setAttribute('transform', 'scale(3)');
+        $group->setAttribute('clip-path', 'url(#frame)');
+        $group->appendChild(new PathElement());
+
+        $this->applyTo($group);
+
+        $this->assertSame('scale(3)', $group->getAttribute('transform'));
+    }
+
+    public function testSkipsAGroupWithAChildThatIgnoresTransform(): void
+    {
+        $group = new GroupElement();
+        $group->setAttribute('transform', 'translate(5 5)');
+        $group->appendChild(new PathElement());
+        $group->appendChild(new DefsElement());
+
+        $this->applyTo($group);
+
+        $this->assertSame('translate(5 5)', $group->getAttribute('transform'));
+    }
+
+    public function testSkipsAGroupWithoutTransform(): void
+    {
+        $group = new GroupElement();
+        $child = new CircleElement();
+        $group->appendChild($child);
+
+        $this->applyTo($group);
+
+        $this->assertFalse($child->hasAttribute('transform'));
+    }
+
+    public function testSkipsAnEmptyGroup(): void
+    {
+        $group = new GroupElement();
+        $group->setAttribute('transform', 'translate(1 1)');
+
+        $this->applyTo($group);
+
+        $this->assertSame('translate(1 1)', $group->getAttribute('transform'));
     }
 
     public function testHandlesNestedGroups(): void
     {
-        $pass = new MoveGroupAttrsToElemsPass();
-        $svg = new SvgElement();
         $outer = new GroupElement();
-        $outer->setAttribute('fill', 'red');
+        $outer->setAttribute('transform', 'translate(10 0)');
         $inner = new GroupElement();
-        $inner->setAttribute('stroke', 'blue');
-        $path = new PathElement();
-
-        $inner->appendChild($path);
+        $inner->setAttribute('transform', 'scale(2)');
+        $leaf = new PathElement();
+        $inner->appendChild($leaf);
         $outer->appendChild($inner);
-        $svg->appendChild($outer);
-        $document = new Document($svg);
 
-        $pass->optimize($document);
+        $this->applyTo($outer);
 
-        // Bottom-up: inner processes first, then outer
-        $this->assertSame('blue', $path->getAttribute('stroke'));
-        $this->assertNull($inner->getAttribute('stroke'));
-        $this->assertSame('red', $inner->getAttribute('fill'));
-        $this->assertNull($outer->getAttribute('fill'));
+        $this->assertFalse($outer->hasAttribute('transform'));
+        $this->assertSame('translate(10 0) scale(2)', $leaf->getAttribute('transform'));
     }
 
-    public function testDoesNotAffectNonGroupContainers(): void
+    private function applyTo(GroupElement $group): void
     {
-        $pass = new MoveGroupAttrsToElemsPass();
         $svg = new SvgElement();
-        $svg->setAttribute('fill', 'red');
+        $svg->appendChild($group);
 
-        $path = new PathElement();
-        $svg->appendChild($path);
-        $document = new Document($svg);
-
-        $pass->optimize($document);
-
-        // SVG is not a GroupElement, should not be processed
-        $this->assertSame('red', $svg->getAttribute('fill'));
-        $this->assertNull($path->getAttribute('fill'));
+        (new MoveGroupAttrsToElemsPass())->optimize(new Document($svg));
     }
 }
