@@ -188,26 +188,68 @@ final class PathTransformer
         );
     }
 
+    /**
+     * Transforms an elliptical arc under an arbitrary affine matrix.
+     *
+     * An SVG arc is an ellipse, and an ellipse is the image of the unit circle
+     * under R(rotation) . diag(rx, ry). Applying the matrix means composing with
+     * its linear part, then reading the radii and the rotation back out of the
+     * product. Rotation, skew, non-uniform scale and reflection are all exact.
+     */
     private function transformArcTo(ArcTo $segment, Matrix $matrix, string $command): ArcTo
     {
-        // Transforming arcs is complex - we need to adjust rx, ry, and rotation
-        // For simplicity, we'll just transform the endpoint
-        // A proper implementation would convert to cubic bezier curves first
-        $point = $segment->getTargetPoint();
-        $transformedPoint = $matrix->transform($point);
+        $point = $matrix->transform($segment->getTargetPoint());
+        $rx = $segment->getRx();
+        $ry = $segment->getRy();
+        $rotation = $segment->getXAxisRotation();
+        $sweepFlag = $segment->getSweepFlag();
 
-        // Scale the radii (simplified - doesn't handle rotation perfectly)
-        $rx = $segment->getRx() * abs($matrix->a);
-        $ry = $segment->getRy() * abs($matrix->d);
+        // A reflection reverses the direction the arc is drawn in.
+        if ($matrix->determinant() < 0.0) {
+            $sweepFlag = !$sweepFlag;
+        }
+
+        // A zero radius degenerates the arc into a straight line, and SVG says
+        // to draw it as one. There is no ellipse left to transform.
+        if ($rx <= 0.0 || $ry <= 0.0) {
+            return new ArcTo($command, $rx, $ry, $rotation, $segment->getLargeArcFlag(), $sweepFlag, $point);
+        }
+
+        $phi = deg2rad($rotation);
+        $cos = cos($phi);
+        $sin = sin($phi);
+
+        // The ellipse as R(phi) . diag(rx, ry), then the matrix linear part
+        // [[a, c], [b, d]] applied on the left.
+        $e11 = $cos * $rx;
+        $e12 = -$sin * $ry;
+        $e21 = $sin * $rx;
+        $e22 = $cos * $ry;
+
+        $s11 = $matrix->a * $e11 + $matrix->c * $e21;
+        $s12 = $matrix->a * $e12 + $matrix->c * $e22;
+        $s21 = $matrix->b * $e11 + $matrix->d * $e21;
+        $s22 = $matrix->b * $e12 + $matrix->d * $e22;
+
+        // Closed-form 2x2 singular value decomposition. The singular values are
+        // the semi-axes of the transformed ellipse, and the left rotation angle
+        // is where its major axis now points.
+        $sum = ($s11 + $s22) / 2.0;
+        $diff = ($s11 - $s22) / 2.0;
+        $crossSum = ($s21 + $s12) / 2.0;
+        $crossDiff = ($s21 - $s12) / 2.0;
+
+        $outer = sqrt($sum * $sum + $crossDiff * $crossDiff);
+        $inner = sqrt($diff * $diff + $crossSum * $crossSum);
 
         return new ArcTo(
             $command,
-            $rx,
-            $ry,
-            $segment->getXAxisRotation(),
+            $outer + $inner,
+            abs($outer - $inner),
+            rad2deg(atan2($crossDiff, $sum) + atan2($crossSum, $diff)) / 2.0,
             $segment->getLargeArcFlag(),
-            $segment->getSweepFlag(),
-            $transformedPoint
+            $sweepFlag,
+            $point
         );
     }
 }

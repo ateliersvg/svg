@@ -19,6 +19,7 @@ Public API and behaviour changes only. Versions follow Semantic Versioning.
 - Adjacent SVG path numbers without separators
 - Presets flattening shapes drawn on a small grid
 - Paths written with relative commands mangled by the simplifier
+- Elliptical arcs wrong under rotation, skew, non-uniform scale or reflection
 
 ## 1.0.0 - 2026-05-20
 

@@ -185,26 +185,101 @@ final class PathTransformerTest extends TestCase
         $this->assertEqualsWithDelta(100.0, $segments[0]->getTargetPoint()->y, 0.001);
     }
 
-    public function testTransformArcTo(): void
+    public function testTransformArcToUnderNonUniformScaleOfATurnedEllipse(): void
     {
+        // scale(2,3) on an ellipse already turned by 30 degrees. Scaling each
+        // radius by its own axis would only be right at a rotation of zero.
         $data = new Data([
             new ArcTo('A', 25.0, 26.0, 30.0, false, true, new Point(50, 25)),
         ]);
-        $matrix = new Matrix(2, 0, 0, 3, 10, 20); // scale(2,3) + translate(10,20)
+        $matrix = new Matrix(2, 0, 0, 3, 10, 20);
 
         $result = $this->transformer->transform($data, $matrix);
-        $segments = $result->getSegments();
+        $arc = $result->getSegments()[0];
 
-        $this->assertInstanceOf(ArcTo::class, $segments[0]);
-        // Radii are scaled by abs(matrix.a) and abs(matrix.d)
-        $this->assertEqualsWithDelta(50.0, $segments[0]->getRx(), 0.001);
-        $this->assertEqualsWithDelta(78.0, $segments[0]->getRy(), 0.001);
-        // Flags preserved
-        $this->assertFalse($segments[0]->getLargeArcFlag());
-        $this->assertTrue($segments[0]->getSweepFlag());
-        // Target point transformed
-        $this->assertEqualsWithDelta(110.0, $segments[0]->getTargetPoint()->x, 0.001);
-        $this->assertEqualsWithDelta(95.0, $segments[0]->getTargetPoint()->y, 0.001);
+        $this->assertInstanceOf(ArcTo::class, $arc);
+        // The area of an ellipse scales by the determinant, here 25 * 26 * 6.
+        $this->assertEqualsWithDelta(3900.0, $arc->getRx() * $arc->getRy(), 0.001);
+        $this->assertGreaterThan($arc->getRy(), $arc->getRx());
+        $this->assertNotEqualsWithDelta(30.0, $arc->getXAxisRotation(), 0.1, 'the major axis turns');
+        // Flags preserved, the determinant stays positive.
+        $this->assertFalse($arc->getLargeArcFlag());
+        $this->assertTrue($arc->getSweepFlag());
+        $this->assertEqualsWithDelta(110.0, $arc->getTargetPoint()->x, 0.001);
+        $this->assertEqualsWithDelta(95.0, $arc->getTargetPoint()->y, 0.001);
+    }
+
+    public function testTransformArcToUnderTranslateKeepsTheEllipse(): void
+    {
+        $data = new Data([new ArcTo('A', 25.0, 10.0, 30.0, false, true, new Point(50, 25))]);
+
+        $result = $this->transformer->transform($data, new Matrix(1, 0, 0, 1, 10, 20));
+        $arc = $result->getSegments()[0];
+
+        $this->assertInstanceOf(ArcTo::class, $arc);
+        $this->assertEqualsWithDelta(25.0, $arc->getRx(), 0.001);
+        $this->assertEqualsWithDelta(10.0, $arc->getRy(), 0.001);
+        $this->assertEqualsWithDelta(30.0, $arc->getXAxisRotation(), 0.001);
+        $this->assertTrue($arc->getSweepFlag());
+        $this->assertEqualsWithDelta(60.0, $arc->getTargetPoint()->x, 0.001);
+        $this->assertEqualsWithDelta(45.0, $arc->getTargetPoint()->y, 0.001);
+    }
+
+    public function testTransformArcToUnderUniformScaleScalesBothRadii(): void
+    {
+        $data = new Data([new ArcTo('A', 25.0, 10.0, 30.0, false, true, new Point(50, 25))]);
+
+        $result = $this->transformer->transform($data, new Matrix(2, 0, 0, 2));
+        $arc = $result->getSegments()[0];
+
+        $this->assertInstanceOf(ArcTo::class, $arc);
+        $this->assertEqualsWithDelta(50.0, $arc->getRx(), 0.001);
+        $this->assertEqualsWithDelta(20.0, $arc->getRy(), 0.001);
+        $this->assertEqualsWithDelta(30.0, $arc->getXAxisRotation(), 0.001);
+    }
+
+    public function testTransformArcToUnderRotationTurnsTheEllipse(): void
+    {
+        // A 90 degree rotation keeps the radii and turns the major axis by 90.
+        $data = new Data([new ArcTo('A', 30.0, 10.0, 0.0, false, true, new Point(50, 25))]);
+
+        $result = $this->transformer->transform($data, new Matrix(0, 1, -1, 0));
+        $arc = $result->getSegments()[0];
+
+        $this->assertInstanceOf(ArcTo::class, $arc);
+        $this->assertEqualsWithDelta(30.0, $arc->getRx(), 0.001);
+        $this->assertEqualsWithDelta(10.0, $arc->getRy(), 0.001);
+        $this->assertEqualsWithDelta(90.0, $arc->getXAxisRotation(), 0.001);
+    }
+
+    public function testTransformArcToUnderReflectionFlipsTheSweepFlag(): void
+    {
+        $data = new Data([new ArcTo('A', 30.0, 10.0, 0.0, true, true, new Point(50, 25))]);
+
+        $result = $this->transformer->transform($data, new Matrix(-1, 0, 0, 1));
+        $arc = $result->getSegments()[0];
+
+        $this->assertInstanceOf(ArcTo::class, $arc);
+        $this->assertFalse($arc->getSweepFlag(), 'A reflection reverses the sweep direction');
+        $this->assertTrue($arc->getLargeArcFlag(), 'The large-arc flag is unaffected');
+        $this->assertEqualsWithDelta(30.0, $arc->getRx(), 0.001);
+        $this->assertEqualsWithDelta(10.0, $arc->getRy(), 0.001);
+    }
+
+    public function testTransformArcToUnderSkewScalesTheEllipseAreaByTheDeterminant(): void
+    {
+        // skewX(45): the determinant is 1, so rx * ry is preserved, but the
+        // ellipse is no longer axis aligned and neither radius survives as is.
+        $data = new Data([new ArcTo('A', 20.0, 10.0, 0.0, false, true, new Point(50, 25))]);
+
+        $result = $this->transformer->transform($data, new Matrix(1, 0, 1, 1));
+        $arc = $result->getSegments()[0];
+
+        $this->assertInstanceOf(ArcTo::class, $arc);
+        $this->assertEqualsWithDelta(200.0, $arc->getRx() * $arc->getRy(), 0.001);
+        $this->assertGreaterThan($arc->getRy(), $arc->getRx(), 'rx stays the major radius');
+        $this->assertNotEqualsWithDelta(20.0, $arc->getRx(), 0.1, 'skew changes the radii');
+        $this->assertNotEqualsWithDelta(0.0, $arc->getXAxisRotation(), 0.1, 'skew turns the ellipse');
     }
 
     public function testTransformClosePathIsUnchanged(): void
