@@ -8,6 +8,8 @@ use Atelier\Svg\Element\ElementInterface;
 use Atelier\Svg\Optimizer\PrecisionConfig;
 use Atelier\Svg\Optimizer\Util\NumberFormatter;
 use Atelier\Svg\Optimizer\Util\NumericAttributes;
+use Atelier\Svg\Path\PathParser;
+use Atelier\Svg\Path\PathUtils;
 
 /**
  * Optimization pass that rounds numeric values to a specified precision.
@@ -72,9 +74,67 @@ final class RoundValuesPass extends AbstractOptimizerPass
     {
         $this->roundNumericAttributes($element);
         $this->roundCompoundAttribute($element, 'transform', $this->transformPrecision);
-        $this->roundCompoundAttribute($element, 'd', $this->pathPrecision);
+        $this->roundPathData($element, $this->pathPrecision);
         $this->roundCompoundAttribute($element, 'points', $this->precision);
         $this->roundCompoundAttribute($element, 'viewBox', $this->precision);
+    }
+
+    /**
+     * Rounds path data in absolute space.
+     *
+     * A relative path is a running sum, so rounding each delta on its own lets the error
+     * accumulate: twenty steps of `l1.4 0` rounded to whole units land eight units short.
+     * Resolving to absolute first bounds the error at half a unit per point, whatever the
+     * subpath length. The original command style is restored afterwards.
+     */
+    private function roundPathData(ElementInterface $element, int $precision): void
+    {
+        if (!$element->hasAttribute('d')) {
+            return;
+        }
+
+        $value = $element->getAttribute('d');
+
+        if (null === $value || '' === trim($value)) {
+            return;
+        }
+
+        $parser = new PathParser();
+
+        try {
+            $data = $parser->parse($value);
+        } catch (\Throwable) {
+            // Unparseable path data is left exactly as found.
+            return;
+        }
+
+        $wasRelative = false;
+
+        foreach ($data->getSegments() as $segment) {
+            if ($segment->isRelative()) {
+                $wasRelative = true;
+                break;
+            }
+        }
+
+        $absolute = PathUtils::toAbsolute($data)->toString();
+        $rounded = NumberFormatter::roundInAttribute($absolute, $precision);
+
+        try {
+            $result = $parser->parse($rounded);
+        } catch (\Throwable) {
+            return;
+        }
+
+        if ($wasRelative) {
+            $result = PathUtils::toRelative($result);
+        }
+
+        $final = $result->toString();
+
+        if ($final !== $value) {
+            $element->setAttribute('d', $final);
+        }
     }
 
     private function roundNumericAttributes(ElementInterface $element): void
