@@ -4,6 +4,7 @@ namespace Atelier\Svg\Tests\Path\Simplifier;
 
 use Atelier\Svg\Geometry\Point;
 use Atelier\Svg\Path\Data;
+use Atelier\Svg\Path\PathParser;
 use Atelier\Svg\Path\Segment\ClosePath;
 use Atelier\Svg\Path\Segment\CurveTo;
 use Atelier\Svg\Path\Segment\LineTo;
@@ -58,6 +59,28 @@ final class SimplifierTest extends TestCase
         $result = $this->simplifier->simplify($pathData, 5.0);
 
         $this->assertSame($pathData, $result);
+    }
+
+    public function testSimplifyResolvesRelativeLineToAgainstTheCurrentPoint(): void
+    {
+        // A square drawn with relative linetos. No corner is redundant, so the
+        // geometry must survive the pass untouched.
+        $pathData = (new PathParser())->parse('M10 10 l80 0 l0 80 l-80 0 z');
+
+        $result = $this->simplifier->simplify($pathData, 0.1);
+
+        $this->assertSame('M10,10L90,10L90,90L10,90z', $result->toString());
+    }
+
+    public function testSimplifyMeasuresRelativeLineToInAbsoluteSpace(): void
+    {
+        // Three points that are nearly collinear once resolved: the middle one
+        // sits 0.1 off the chord and must go at a tolerance of 1.
+        $pathData = (new PathParser())->parse('M0 0 l5 0.1 l5 -0.1');
+
+        $result = $this->simplifier->simplify($pathData, 1.0);
+
+        $this->assertSame('M0,0L10,0', $result->toString());
     }
 
     public function testSimplifySimplePolyline(): void
@@ -171,8 +194,9 @@ final class SimplifierTest extends TestCase
         $this->assertEquals(2, $moveToCount, 'Should have two MoveTo commands');
     }
 
-    public function testSimplifyPreservesRelativeCommands(): void
+    public function testSimplifyRewritesRelativeCommandsAsAbsolute(): void
     {
+        // Deltas: (0,0) then +(5,0.1) then +(5,0), so (0,0), (5,0.1), (10,0.1).
         $pathData = new Data([
             new MoveTo('m', new Point(0, 0)),
             new LineTo('l', new Point(5, 0.1)),
@@ -180,10 +204,10 @@ final class SimplifierTest extends TestCase
         ]);
 
         $result = $this->simplifier->simplify($pathData, 1.0);
-        $segments = $result->getSegments();
 
-        // First segment should preserve relative command
-        $this->assertEquals('m', $segments[0]->getCommand());
+        // The middle point sits within tolerance of the chord and goes. What is
+        // left is written against absolute coordinates, so the commands are too.
+        $this->assertSame('M0,0L10,0.1', $result->toString());
     }
 
     public function testSimplifyRDPAlgorithm(): void

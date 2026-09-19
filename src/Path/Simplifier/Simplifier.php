@@ -7,8 +7,12 @@ namespace Atelier\Svg\Path\Simplifier;
 use Atelier\Svg\Exception\InvalidArgumentException;
 use Atelier\Svg\Geometry\Point;
 use Atelier\Svg\Path\Data;
+use Atelier\Svg\Path\Segment\ClosePath;
+use Atelier\Svg\Path\Segment\HorizontalLineTo;
 use Atelier\Svg\Path\Segment\LineTo;
 use Atelier\Svg\Path\Segment\MoveTo;
+use Atelier\Svg\Path\Segment\SegmentInterface;
+use Atelier\Svg\Path\Segment\VerticalLineTo;
 
 final class Simplifier implements SimplifierInterface
 {
@@ -27,15 +31,24 @@ final class Simplifier implements SimplifierInterface
             return $pathData; // Not enough segments to simplify
         }
 
-        /** @var \Atelier\Svg\Path\Segment\SegmentInterface[] $newSegments */
+        /** @var SegmentInterface[] $newSegments */
         $newSegments = [];
         /** @var Point[] List of points currently being considered for simplification */
         $currentPolylinePoints = [];
         /** @var MoveTo|null The MoveTo segment that started the current polyline */
         $startSegmentOfPolyline = null;
 
+        $currentPoint = new Point(0.0, 0.0);
+        $subpathStart = new Point(0.0, 0.0);
+
         foreach ($originalSegments as $segment) {
-            $targetPoint = $segment->getTargetPoint(); // May be null
+            // Resolve the segment's endpoint into absolute space. A relative
+            // command carries a delta from the current point, and both the RDP
+            // distances and the rebuilt commands need the resolved point.
+            $targetPoint = $segment->getTargetPoint();
+            if (null !== $targetPoint && $segment->isRelative()) {
+                $targetPoint = $currentPoint->add($targetPoint);
+            }
 
             if ($segment instanceof MoveTo && null !== $targetPoint) {
                 // Process previous polyline before starting a new one
@@ -47,8 +60,11 @@ final class Simplifier implements SimplifierInterface
                 );
                 $startSegmentOfPolyline = $segment;
                 $currentPolylinePoints = [$targetPoint];
+                $currentPoint = $targetPoint;
+                $subpathStart = $targetPoint;
             } elseif ($segment instanceof LineTo && null !== $targetPoint && null !== $startSegmentOfPolyline) {
                 $currentPolylinePoints[] = $targetPoint;
+                $currentPoint = $targetPoint;
             } else {
                 // Anything else: process preceding polyline, append segment as-is, reset.
                 $this->processPolyline(
@@ -60,6 +76,7 @@ final class Simplifier implements SimplifierInterface
                 $newSegments[] = $segment;
                 $startSegmentOfPolyline = null;
                 $currentPolylinePoints = [];
+                $currentPoint = $this->advance($segment, $currentPoint, $subpathStart, $targetPoint);
             }
         }
 
@@ -77,8 +94,8 @@ final class Simplifier implements SimplifierInterface
     /**
      * Simplifies the collected polyline points and adds the result to newSegments.
      *
-     * @param array<\Atelier\Svg\Path\Segment\SegmentInterface> $newSegments
-     * @param array<Point>                                      $polylinePoints
+     * @param array<SegmentInterface> $newSegments
+     * @param array<Point>            $polylinePoints
      */
     private function processPolyline(
         array &$newSegments,
@@ -97,17 +114,42 @@ final class Simplifier implements SimplifierInterface
 
         $simplifiedPoints = $this->simplifyPolylineRDP($polylinePoints, $tolerance);
 
-        // Add the MoveTo with the first point (RDP keeps first/last)
-        // Use original command case ('M' or 'm')
-        $newSegments[] = new MoveTo($startSegment->getCommand(), $simplifiedPoints[0]);
+        // The collected points are absolute, so the rebuilt commands are too.
+        $newSegments[] = new MoveTo('M', $simplifiedPoints[0]);
 
-        // Add LineTo segments for the rest
-        // For simplicity, using absolute 'L'. A real implementation needs careful
-        // handling of relative vs absolute based on original segments/options.
-        $lineToCommand = 'L';
         for ($i = 1; $i < count($simplifiedPoints); ++$i) {
-            $newSegments[] = new LineTo($lineToCommand, $simplifiedPoints[$i]);
+            $newSegments[] = new LineTo('L', $simplifiedPoints[$i]);
         }
+    }
+
+    /**
+     * Returns the current point after a segment this pass copies verbatim.
+     *
+     * @param Point|null $targetPoint the segment's endpoint, already resolved to absolute space
+     */
+    private function advance(
+        SegmentInterface $segment,
+        Point $currentPoint,
+        Point $subpathStart,
+        ?Point $targetPoint,
+    ): Point {
+        if ($segment instanceof ClosePath) {
+            return $subpathStart;
+        }
+
+        if ($segment instanceof HorizontalLineTo) {
+            $x = $segment->getX();
+
+            return new Point($segment->isRelative() ? $currentPoint->x + $x : $x, $currentPoint->y);
+        }
+
+        if ($segment instanceof VerticalLineTo) {
+            $y = $segment->getY();
+
+            return new Point($currentPoint->x, $segment->isRelative() ? $currentPoint->y + $y : $y);
+        }
+
+        return $targetPoint ?? $currentPoint;
     }
 
     /**

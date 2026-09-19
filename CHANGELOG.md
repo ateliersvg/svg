@@ -18,6 +18,7 @@ Public API and behaviour changes only. Versions follow Semantic Versioning.
 - Minified arc flags in SVG path data
 - Adjacent SVG path numbers without separators
 - Presets flattening shapes drawn on a small grid
+- Paths written with relative commands mangled by the simplifier
 
 ## 1.0.0 - 2026-05-20
 
