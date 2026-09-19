@@ -2,7 +2,7 @@
 
 Public API and behaviour changes only. Versions follow Semantic Versioning.
 
-## Unreleased
+## 1.1.0 - 2026-09-19
 
 ### Added
 
@@ -17,11 +17,14 @@ Public API and behaviour changes only. Versions follow Semantic Versioning.
 
 - Minified arc flags in SVG path data
 - Adjacent SVG path numbers without separators
+- `fill="#fff"` read as a reference to an element with the id `fff`
+- `RemoveEmptyElementsPass` dropping a `<text>` or a `<style>` that held text
 - Presets flattening shapes drawn on a small grid
 - Paths written with relative commands mangled by the simplifier
 - Elliptical arcs wrong under rotation, skew, non-uniform scale or reflection
 - Path data drifting along a subpath when the optimizer rounded relative coordinates
 - Optimizer presets inflating a document by copying a group's inherited attributes onto every child
+- `Document::toString()` returning an empty `<svg/>`
 
 ## 1.0.0 - 2026-05-20
 
