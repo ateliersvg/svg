@@ -1,5 +1,6 @@
 ---
 order: 30
+description: "Passes that rewrite elements and attributes into another representation, to unlock further optimization or to shorten the output."
 ---
 # Conversion
 

@@ -1,5 +1,6 @@
 ---
 order: 30
+description: "Check a document for structural issues, broken references, duplicate IDs, accessibility problems and spec compliance."
 ---
 # Validation
 
