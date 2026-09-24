@@ -1,5 +1,6 @@
 ---
 order: 50
+description: "Bake transforms into path coordinates, or build transform attribute values for SVG elements."
 ---
 # Transforms
 

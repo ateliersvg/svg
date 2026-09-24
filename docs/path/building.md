@@ -1,5 +1,6 @@
 ---
 order: 10
+description: "Three APIs for constructing paths: PathBuilder standalone, FluentPathBuilder inline with the document Builder, and ShapeFactory for common shapes."
 ---
 # Building
 

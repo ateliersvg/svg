@@ -1,5 +1,6 @@
 ---
 order: 40
+description: "Passes that restructure the tree: merging elements, collapsing groups, extracting styles, simplifying paths and transforms."
 ---
 # Merge
 
