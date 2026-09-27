@@ -67,12 +67,11 @@ new ConvertTransformPass(
 
 Should run before path optimization passes to ensure coordinates are finalized.
 
-In the unreleased version, the pass keeps transforms when stylesheets, local or
-inherited styles/classes, paint servers, effects, or child elements need rendering
-context it cannot resolve. Scaling also keeps transforms on stroked elements and
-rounded rectangles. Coordinates with units or percentages are left unchanged.
-For these cases, preserving the transform preserves behavior that changing the
-coordinates alone cannot reproduce.
+The pass leaves transforms intact when the document contains a stylesheet, or
+the element or an ancestor uses styles, classes, paint servers, filters, masks,
+clipping, or markers. It also skips elements with children or coordinates expressed
+in units or percentages. Scaling is skipped for stroked elements and rounded
+rectangles.
 
 ## ConvertPathDataPass
 

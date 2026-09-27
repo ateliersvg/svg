@@ -50,16 +50,13 @@ new MergeStylesPass(
 
 ## CollapseGroupsPass
 
-Removes empty `<g>` elements and collapses groups that contain only one child. When collapsing, group attributes are merged into the child element.
+Removes empty `<g>` elements and collapses groups that contain only one child. When collapsing, group attributes are merged into the child element. The child keeps the group's position among siblings, preserving painting order.
 
 ```php
 new CollapseGroupsPass();
 ```
 
 No constructor options.
-
-In the unreleased version, an unwrapped child keeps its group's position among
-siblings, preserving painting order.
 
 ## MoveGroupAttrsToElemsPass
 
@@ -97,9 +94,9 @@ new InlineStylesPass(
 
 Detects attributes shared by all children of a group and moves them to the parent `<g>` element. These include fill, stroke, and font properties.
 
-In the unreleased version, `opacity` stays on each child. Applying opacity to a
-group composites its children first, which changes the appearance of overlapping
-shapes. `fill-opacity` and `stroke-opacity` remain eligible for hoisting.
+`opacity` stays on each child. Applying opacity to a group composites its children
+first, which changes the appearance of overlapping shapes. `fill-opacity` and
+`stroke-opacity` remain eligible for hoisting.
 
 ```php
 new MoveAttributesToGroupPass(
