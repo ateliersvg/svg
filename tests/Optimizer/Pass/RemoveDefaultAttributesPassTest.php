@@ -10,11 +10,35 @@ use Atelier\Svg\Element\Structural\GroupElement;
 use Atelier\Svg\Element\SvgElement;
 use Atelier\Svg\Optimizer\Pass\RemoveDefaultAttributesPass;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(RemoveDefaultAttributesPass::class)]
 final class RemoveDefaultAttributesPassTest extends TestCase
 {
+    #[DataProvider('nonDefaultNumbers')]
+    public function testPreservesSignificantTrailingZeroes(string $attribute, string $value): void
+    {
+        $svg = new SvgElement();
+        $path = new PathElement();
+        $path->setAttribute($attribute, $value);
+        $svg->appendChild($path);
+
+        (new RemoveDefaultAttributesPass())->optimize(new Document($svg));
+
+        $this->assertSame($value, $path->getAttribute($attribute));
+    }
+
+    /** @return iterable<string, array{string, string}> */
+    public static function nonDefaultNumbers(): iterable
+    {
+        yield 'ten-unit stroke' => ['stroke-width', '10'];
+        yield 'hundred-unit stroke' => ['stroke-width', '100'];
+        yield 'decimal ten-unit stroke' => ['stroke-width', '10.00'];
+        yield 'miter limit forty' => ['stroke-miterlimit', '40'];
+        yield 'exponent' => ['stroke-width', '1e10'];
+    }
+
     public function testGetName(): void
     {
         $pass = new RemoveDefaultAttributesPass();

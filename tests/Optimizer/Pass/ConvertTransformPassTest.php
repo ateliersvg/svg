@@ -7,13 +7,62 @@ namespace Atelier\Svg\Tests\Optimizer\Pass;
 use Atelier\Svg\Document;
 use Atelier\Svg\Element\AbstractElement;
 use Atelier\Svg\Element\SvgElement;
+use Atelier\Svg\Loader\DomLoader;
 use Atelier\Svg\Optimizer\Pass\ConvertTransformPass;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(ConvertTransformPass::class)]
 final class ConvertTransformPassTest extends TestCase
 {
+    #[DataProvider('transformsRequiringContext')]
+    public function testPreservesTransformsRequiringRenderingContext(string $body): void
+    {
+        $document = (new DomLoader())->loadFromString('<svg xmlns="http://www.w3.org/2000/svg">'.$body.'</svg>');
+        $before = $document->toString();
+
+        (new ConvertTransformPass())->optimize($document);
+
+        $this->assertSame($before, $document->toString());
+    }
+
+    /** @return iterable<string, array{string}> */
+    public static function transformsRequiringContext(): iterable
+    {
+        yield 'local stroke' => ['<rect width="30" height="30" stroke="red" stroke-width="2" transform="scale(2)"/>'];
+        yield 'inherited stroke' => ['<g stroke="red"><rect width="30" height="30" transform="scale(2)"/></g>'];
+        yield 'non-uniform stroke' => ['<circle r="10" stroke="red" transform="scale(2,3)"/>'];
+        yield 'inline style' => ['<rect width="30" height="30" style="stroke:red" transform="scale(2)"/>'];
+        yield 'inherited style' => ['<g style="stroke:red"><rect width="30" height="30" transform="scale(2)"/></g>'];
+        yield 'stylesheet' => ['<style>rect { stroke: red }</style><rect width="30" height="30" transform="scale(2)"/>'];
+        yield 'class' => ['<rect width="30" height="30" class="outlined" transform="scale(2)"/>'];
+        yield 'paint server' => ['<rect width="30" height="30" fill="url(#paint)" transform="translate(10,20)"/>'];
+        yield 'inherited paint server' => ['<g fill="url(#paint)"><rect width="30" height="30" transform="scale(2)"/></g>'];
+        yield 'clip' => ['<rect width="30" height="30" clip-path="url(#clip)" transform="scale(2)"/>'];
+        yield 'filter' => ['<rect width="30" height="30" filter="url(#blur)" transform="translate(10,20)"/>'];
+        yield 'mask' => ['<rect width="30" height="30" mask="url(#mask)" transform="scale(2)"/>'];
+        yield 'marker' => ['<line x2="30" marker-end="url(#arrow)" transform="scale(2)"/>'];
+        yield 'rounded rectangle' => ['<rect width="30" height="30" rx="5" transform="scale(2)"/>'];
+        yield 'relative lengths' => ['<rect width="30%" height="30" transform="scale(2)"/>'];
+        yield 'animation' => ['<rect width="30" height="30" transform="scale(2)"><animate attributeName="width" values="30;40" dur="1s"/></rect>'];
+    }
+
+    public function testPassCanBeReusedAfterSkippingAStylesheet(): void
+    {
+        $loader = new DomLoader();
+        $pass = new ConvertTransformPass();
+        $pass->optimize($loader->loadFromString('<svg xmlns="http://www.w3.org/2000/svg"><style>rect { stroke: red }</style></svg>'));
+        $document = $loader->loadFromString('<svg xmlns="http://www.w3.org/2000/svg"><rect width="30" height="30" transform="scale(2)"/></svg>');
+
+        $pass->optimize($document);
+
+        $rect = $document->querySelector('rect');
+        $this->assertNotNull($rect);
+        $this->assertFalse($rect->hasAttribute('transform'));
+        $this->assertSame('60', $rect->getAttribute('width'));
+    }
+
     public function testGetName(): void
     {
         $pass = new ConvertTransformPass();

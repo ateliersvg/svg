@@ -15,6 +15,35 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(CollapseGroupsPass::class)]
 final class CollapseGroupsPassTest extends TestCase
 {
+    public function testCollapsedChildrenKeepTheirSiblingOrderAndParents(): void
+    {
+        $svg = new SvgElement();
+        $before = new PathElement();
+        $firstGroup = new GroupElement();
+        $nestedGroup = new GroupElement();
+        $first = new PathElement();
+        $between = new PathElement();
+        $secondGroup = new GroupElement();
+        $second = new PathElement();
+        $after = new PathElement();
+        $nestedGroup->appendChild($first);
+        $firstGroup->appendChild($nestedGroup);
+        $secondGroup->appendChild($second);
+        $svg->appendChild($before)->appendChild($firstGroup)->appendChild($between)
+            ->appendChild($secondGroup)->appendChild($after);
+
+        (new CollapseGroupsPass())->optimize(new Document($svg));
+
+        $this->assertSame([$before, $first, $between, $second, $after], $svg->getChildren());
+        foreach ($svg->getChildren() as $child) {
+            $this->assertSame($svg, $child->getParent());
+        }
+        foreach ([$firstGroup, $nestedGroup, $secondGroup] as $group) {
+            $this->assertNull($group->getParent());
+            $this->assertSame([], $group->getChildren());
+        }
+    }
+
     public function testGetName(): void
     {
         $pass = new CollapseGroupsPass();

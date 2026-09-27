@@ -67,6 +67,13 @@ new ConvertTransformPass(
 
 Should run before path optimization passes to ensure coordinates are finalized.
 
+In the unreleased version, the pass keeps transforms when stylesheets, local or
+inherited styles/classes, paint servers, effects, or child elements need rendering
+context it cannot resolve. Scaling also keeps transforms on stroked elements and
+rounded rectangles. Coordinates with units or percentages are left unchanged.
+For these cases, preserving the transform preserves behavior that changing the
+coordinates alone cannot reproduce.
+
 ## ConvertPathDataPass
 
 Optimizes SVG path `d` attribute strings using the parsed path infrastructure. Instead of regex-based string manipulation, the pass parses each path into typed segments, computes both absolute and relative representations for each segment, and picks the shorter one.

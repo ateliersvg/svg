@@ -58,6 +58,9 @@ new CollapseGroupsPass();
 
 No constructor options.
 
+In the unreleased version, an unwrapped child keeps its group's position among
+siblings, preserving painting order.
+
 ## MoveGroupAttrsToElemsPass
 
 Moves a group's `transform` onto each of its children, so `CollapseGroupsPass` can then remove
@@ -92,7 +95,11 @@ new InlineStylesPass(
 
 ## MoveAttributesToGroupPass
 
-Detects attributes shared by all children of a group and moves them to the parent `<g>` element. Only inheritable presentation attributes (fill, stroke, opacity, font properties, etc.) are moved.
+Detects attributes shared by all children of a group and moves them to the parent `<g>` element. These include fill, stroke, and font properties.
+
+In the unreleased version, `opacity` stays on each child. Applying opacity to a
+group composites its children first, which changes the appearance of overlapping
+shapes. `fill-opacity` and `stroke-opacity` remain eligible for hoisting.
 
 ```php
 new MoveAttributesToGroupPass(
