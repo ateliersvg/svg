@@ -230,9 +230,8 @@ final class RemoveDefaultAttributesPass extends AbstractOptimizerPass
         $value = trim($value);
         $value = strtolower($value);
 
-        // Normalize numeric values
-        if (is_numeric($value)) {
-            // Remove trailing zeros and decimal point if not needed
+        // Only fractional zeroes are insignificant; integer and exponent zeroes are not.
+        if (is_numeric($value) && str_contains($value, '.') && !str_contains($value, 'e')) {
             $value = rtrim(rtrim($value, '0'), '.');
         }
 

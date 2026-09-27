@@ -35,7 +35,6 @@ final readonly class MoveAttributesToGroupPass implements OptimizerPassInterface
         'stroke-miterlimit',
         'stroke-opacity',
         'stroke-width',
-        'opacity',
         'color',
         'font-family',
         'font-size',

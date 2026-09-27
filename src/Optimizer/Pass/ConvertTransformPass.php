@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Atelier\Svg\Optimizer\Pass;
 
+use Atelier\Svg\Document;
+use Atelier\Svg\Element\ContainerElementInterface;
 use Atelier\Svg\Element\ElementInterface;
 
 /**
@@ -50,6 +52,16 @@ final class ConvertTransformPass extends AbstractOptimizerPass
         return 'convert-transform';
     }
 
+    public function optimize(Document $document): void
+    {
+        // Stylesheets can supply strokes, effects, or geometry without local attributes.
+        if (null !== $document->querySelector('style')) {
+            return;
+        }
+
+        parent::optimize($document);
+    }
+
     /**
      * Processes an element to convert transform attributes to coordinate changes.
      *
@@ -79,6 +91,10 @@ final class ConvertTransformPass extends AbstractOptimizerPass
             return; // Cannot parse or unsupported
         }
 
+        if (!$this->canBakeTransform($element, 'scale' === $parsedTransform['type'])) {
+            return;
+        }
+
         $tagName = $element->getTagName();
         $converted = false;
 
@@ -93,6 +109,54 @@ final class ConvertTransformPass extends AbstractOptimizerPass
         if ($converted) {
             $element->removeAttribute('transform');
         }
+    }
+
+    /**
+     * Coordinate changes alone cannot preserve strokes, paint servers, or effects.
+     * Keep the transform whenever rendering requires context this pass cannot resolve.
+     */
+    private function canBakeTransform(ElementInterface $element, bool $scaling): bool
+    {
+        if ($element instanceof ContainerElementInterface && $element->hasChildren()) {
+            return false;
+        }
+
+        for ($context = $element; null !== $context; $context = $context->getParent()) {
+            if ($context->hasAttribute('style') || $context->hasAttribute('class')) {
+                return false;
+            }
+
+            foreach (['fill', 'stroke'] as $paint) {
+                if (str_contains(strtolower($context->getAttribute($paint) ?? ''), 'url(')) {
+                    return false;
+                }
+            }
+
+            foreach (['filter', 'mask', 'clip-path', 'marker-start', 'marker-mid', 'marker-end'] as $effect) {
+                if ($context->hasAttribute($effect) && 'none' !== trim($context->getAttribute($effect) ?? '')) {
+                    return false;
+                }
+            }
+
+            if ($scaling && $context->hasAttribute('stroke') && 'none' !== trim($context->getAttribute('stroke') ?? '')) {
+                return false;
+            }
+        }
+
+        foreach (['x', 'y', 'width', 'height', 'cx', 'cy', 'r', 'rx', 'ry', 'x1', 'y1', 'x2', 'y2'] as $coordinate) {
+            $value = $element->getAttribute($coordinate);
+            if (null !== $value && (!is_numeric($value) || !is_finite((float) $value))) {
+                return false;
+            }
+        }
+
+        // The existing rectangle scaler does not scale corner radii.
+        if ($scaling && 'rect' === $element->getTagName()
+            && (0.0 !== (float) $element->getAttribute('rx') || 0.0 !== (float) $element->getAttribute('ry'))) {
+            return false;
+        }
+
+        return true;
     }
 
     /**

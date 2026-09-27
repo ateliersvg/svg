@@ -101,10 +101,11 @@ final class MoveAttributesToGroupPassTest extends TestCase
 
         $this->assertSame('red', $group->getAttribute('fill'));
         $this->assertSame('blue', $group->getAttribute('stroke'));
-        $this->assertSame('0.5', $group->getAttribute('opacity'));
+        $this->assertFalse($group->hasAttribute('opacity'));
         $this->assertFalse($path1->hasAttribute('fill'));
         $this->assertFalse($path1->hasAttribute('stroke'));
-        $this->assertFalse($path1->hasAttribute('opacity'));
+        $this->assertSame('0.5', $path1->getAttribute('opacity'));
+        $this->assertSame('0.5', $path2->getAttribute('opacity'));
     }
 
     public function testDoNotMoveDifferentValues(): void

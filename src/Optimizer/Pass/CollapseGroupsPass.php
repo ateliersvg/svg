@@ -52,8 +52,8 @@ final class CollapseGroupsPass implements OptimizerPassInterface
     private function collapseGroupsInElement(ContainerElementInterface $element): void
     {
         $children = $element->getChildren();
-        $childrenToRemove = [];
-        $childrenToAdd = [];
+        $updatedChildren = [];
+        $changed = false;
 
         foreach ($children as $child) {
             // First, recursively process children if they are containers
@@ -65,7 +65,8 @@ final class CollapseGroupsPass implements OptimizerPassInterface
             if ($child instanceof GroupElement) {
                 if (!$child->hasChildren()) {
                     // Remove empty groups
-                    $childrenToRemove[] = $child;
+                    $changed = true;
+                    continue;
                 } elseif (1 === $child->getChildCount()) {
                     // Collapse groups with only one child
                     $singleChild = $child->getChildren()[0];
@@ -73,21 +74,21 @@ final class CollapseGroupsPass implements OptimizerPassInterface
                     // Merge group attributes into the child if possible
                     $this->mergeAttributes($child, $singleChild);
 
-                    // Mark group for removal and child for addition
-                    $childrenToRemove[] = $child;
-                    $childrenToAdd[] = $singleChild;
+                    // Keep the unwrapped child at the group's original painting position.
+                    $child->clearChildren();
+                    $updatedChildren[] = $singleChild;
+                    $changed = true;
+                    continue;
                 }
             }
+            $updatedChildren[] = $child;
         }
 
-        // Remove collapsed groups
-        foreach ($childrenToRemove as $childToRemove) {
-            $element->removeChild($childToRemove);
-        }
-
-        // Add unwrapped children
-        foreach ($childrenToAdd as $childToAdd) {
-            $element->appendChild($childToAdd);
+        if ($changed) {
+            $element->clearChildren();
+            foreach ($updatedChildren as $child) {
+                $element->appendChild($child);
+            }
         }
     }
 

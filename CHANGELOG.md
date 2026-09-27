@@ -2,6 +2,15 @@
 
 Public API and behaviour changes only. Versions follow Semantic Versioning.
 
+## Unreleased
+
+### Fixed
+
+- Group collapse changing the painting order of siblings
+- Default-attribute cleanup removing significant integer zeroes, including treating `stroke-width="10"` as the default width of `1`
+- Attribute hoisting moving per-element opacity onto a group and changing overlapping transparency
+- Transform conversion losing stroke scaling; retain transforms when rendering context cannot be preserved by coordinate changes alone
+
 ## 1.1.0 - 2026-09-19
 
 ### Added

@@ -67,6 +67,12 @@ new ConvertTransformPass(
 
 Should run before path optimization passes to ensure coordinates are finalized.
 
+The pass leaves transforms intact when the document contains a stylesheet, or
+the element or an ancestor uses styles, classes, paint servers, filters, masks,
+clipping, or markers. It also skips elements with children or coordinates expressed
+in units or percentages. Scaling is skipped for stroked elements and rounded
+rectangles.
+
 ## ConvertPathDataPass
 
 Optimizes SVG path `d` attribute strings using the parsed path infrastructure. Instead of regex-based string manipulation, the pass parses each path into typed segments, computes both absolute and relative representations for each segment, and picks the shorter one.
